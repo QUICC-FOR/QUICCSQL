@@ -1,0 +1,691 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+CAUTION: Do not modify this file unless you know what you are doing.
+         Unexpected results may occur if the code is changed deliberately.
+-->
+<dbmodel pgmodeler-ver="0.7.0">
+<role name="caveenj"
+      superuser="true"
+      password="********">
+</role>
+
+<role name="vissst01"
+      inherit="true"
+      login="true"
+      encrypted="true"
+      password="********">
+</role>
+
+<role name="poisti01"
+      inherit="true"
+      login="true"
+      encrypted="true"
+      password="********">
+</role>
+
+<role name="MANGAL"
+      inherit="true"
+      encrypted="true"
+      password="********">
+	<roles names="caveenj,poisti01" role-type="member" />
+</role>
+
+<role name="mirata01"
+      inherit="true"
+      login="true"
+      encrypted="true"
+      password="********">
+</role>
+
+<role name="geocatalog"
+      inherit="true"
+      login="true"
+      encrypted="true"
+      password="********">
+	<comment><![CDATA[Utilisateur pour la base de données postgis du geocatalogue de l'UQAR]]></comment>
+</role>
+
+<role name="gravdo01"
+      inherit="true"
+      login="true"
+      encrypted="true"
+      password="********">
+	<comment><![CDATA[Dominique Gravel]]></comment>
+</role>
+
+<role name="QUICC_CONSULT"
+      inherit="true"
+      encrypted="true"
+      password="********">
+	<comment><![CDATA[Groupe quicc pour consultation]]></comment>
+	<roles names="gravdo01" role-type="member" />
+</role>
+
+<database name="new_database">
+</database>
+
+<schema name="public" protected="true" rect-visible="true" fill-color="#e1e1e1" sql-disabled="true">
+</schema>
+
+<schema name="rdb_quicc" rect-visible="true" fill-color="#00aaff">
+	<role name="vissst01"/>
+</schema>
+
+<table name="superplot">
+	<schema name="rdb_quicc"/>
+	<role name="vissst01"/>
+	<position x="978.143" y="925.286"/>
+	<column name="plot_id" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="tree_id">
+		<type name="integer"/>
+	</column>
+	<column name="year_measured">
+		<type name="integer"/>
+	</column>
+	<constraint name="superplot_tbl_pk" type="pk-constr" factor="100" table="rdb_quicc.superplot">
+		<columns names="plot_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="ref_tree_age_method">
+	<schema name="rdb_quicc"/>
+	<role name="vissst01"/>
+	<position x="948.531" y="149"/>
+	<column name="age_id_method" not-null="true">
+		<type name="character"/>
+	</column>
+	<column name="age_desc">
+		<type name="character varying"/>
+	</column>
+	<constraint name="tree_age_method_pk" type="pk-constr" factor="10" table="rdb_quicc.ref_tree_age_method">
+		<columns names="age_id_method" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="ref_tree_height_method">
+	<schema name="rdb_quicc"/>
+	<role name="vissst01"/>
+	<position x="936.185" y="57.0476"/>
+	<column name="height_id_method" not-null="true">
+		<type name="character"/>
+	</column>
+	<column name="height_desc">
+		<type name="character varying"/>
+	</column>
+	<constraint name="tree_height_method_pk" type="pk-constr" factor="10" table="rdb_quicc.ref_tree_height_method">
+		<columns names="height_id_method" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="tree_info_tree_id_species_seq"
+	 start="1" increment="1"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="rdb_quicc"/>
+	<role name="vissst01"/>
+</sequence>
+
+<table name="tree_class_info">
+	<schema name="rdb_quicc"/>
+	<role name="vissst01"/>
+	<position x="528.113" y="462.667"/>
+	<column name="plot_id" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="tree_class_id" not-null="true" default-value="nextval('tree_info_tree_id_species_seq'::regclass)">
+		<type name="integer"/>
+	</column>
+	<column name="org_db_location">
+		<type name="integer"/>
+	</column>
+	<column name="org_db_id">
+		<type name="integer"/>
+	</column>
+	<constraint name="tree_class_info_tbl_pk" type="pk-constr" factor="100" table="rdb_quicc.tree_class_info">
+		<columns names="plot_id,tree_class_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="tree">
+	<schema name="rdb_quicc"/>
+	<role name="vissst01"/>
+	<position x="1325.42" y="94"/>
+	<column name="plot_id" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="tree_id" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="year_measured" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="species_TSN">
+		<type name="integer"/>
+	</column>
+	<column name="height">
+		<type name="integer"/>
+	</column>
+	<column name="dbh">
+		<type name="integer"/>
+	</column>
+	<column name="age">
+		<type name="integer"/>
+	</column>
+	<column name="sun_access">
+		<type name="integer"/>
+	</column>
+	<column name="position_canopy">
+		<type name="character"/>
+	</column>
+	<column name="age_id_method">
+		<type name="character"/>
+	</column>
+	<column name="height_id_method">
+		<type name="character"/>
+	</column>
+	<column name="is_sapling">
+		<type name="integer"/>
+	</column>
+	<column name="is_planted">
+		<type name="integer"/>
+	</column>
+	<column name="is_dead">
+		<type name="integer"/>
+	</column>
+	<constraint name="tree_table_pk" type="pk-constr" factor="100" table="rdb_quicc.tree">
+		<columns names="plot_id,tree_id,year_measured" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="class_tree">
+	<schema name="rdb_quicc"/>
+	<role name="vissst01"/>
+	<position x="496.262" y="178.352"/>
+	<column name="plot_id" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="tree_class_id" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="year_measured" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="species_tsn">
+		<type name="integer"/>
+	</column>
+	<column name="dbh_class">
+		<type name="integer"/>
+	</column>
+	<column name="dbh_tree_number">
+		<type name="integer"/>
+	</column>
+	<column name="height_class">
+		<type name="character"/>
+	</column>
+	<column name="height_tree_number">
+		<type name="integer"/>
+	</column>
+	<constraint name="class_tree_tbl_pk" type="pk-constr" factor="100" table="rdb_quicc.class_tree">
+		<columns names="plot_id,tree_class_id,year_measured" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="ref_species">
+	<schema name="rdb_quicc"/>
+	<role name="vissst01"/>
+	<position x="948.497" y="267.257"/>
+	<column name="species_id" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="qc_sp_id">
+		<type name="character" length="3"/>
+	</column>
+	<column name="nb_sp_id">
+		<type name="integer"/>
+	</column>
+	<column name="on_sp_id">
+		<type name="integer"/>
+	</column>
+	<column name="us_sp_id">
+		<type name="integer"/>
+	</column>
+	<column name="genus">
+		<type name="character" length="60"/>
+	</column>
+	<column name="species">
+		<type name="character" length="60"/>
+	</column>
+	<column name="fr_common_name">
+		<type name="character" length="60"/>
+	</column>
+	<column name="en_common_name">
+		<type name="character" length="60"/>
+	</column>
+	<constraint name="species_tbl_pk" type="pk-constr" factor="100" table="rdb_quicc.ref_species">
+		<columns names="species_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="tbl_stand_disturbed">
+	<schema name="rdb_quicc"/>
+	<role name="vissst01"/>
+	<position x="1400.37" y="437.055"/>
+	<column name="plot_id" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="year_disturbed" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="disturb_type">
+		<type name="character"/>
+	</column>
+	<column name="disturb_severity">
+		<type name="character"/>
+	</column>
+	<column name="logging_type">
+		<type name="character" length="2"/>
+	</column>
+	<column name="is_planted">
+		<type name="boolean"/>
+	</column>
+	<column name="plot_id_stand">
+		<type name="integer"/>
+	</column>
+	<constraint name="stand_disturbed_tbl_pk" type="pk-constr" factor="100" table="rdb_quicc.tbl_stand_disturbed">
+		<columns names="plot_id,year_disturbed" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="stand_method_info">
+	<schema name="rdb_quicc"/>
+	<role name="vissst01"/>
+	<position x="1712.73" y="352.638"/>
+	<column name="plot_id" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="age_id_method">
+		<type name="character"/>
+	</column>
+	<column name="age_desc">
+		<type name="character varying" length="255"/>
+	</column>
+	<column name="disturbance_type">
+		<type name="character"/>
+	</column>
+	<column name="disturbance_info">
+		<type name="character varying" length="255"/>
+	</column>
+	<column name="height_method">
+		<type name="character"/>
+	</column>
+	<column name="height_info">
+		<type name="character varying" length="255"/>
+	</column>
+	<constraint name="plot_id_6" type="pk-constr" factor="100" table="rdb_quicc.stand_method_info">
+		<columns names="plot_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="tree_info">
+	<schema name="rdb_quicc"/>
+	<role name="vissst01"/>
+	<position x="1769.93" y="212.067"/>
+	<column name="plot_id" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="tree_id" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="org_db_location">
+		<type name="character" length="20"/>
+	</column>
+	<column name="org_db_id">
+		<type name="integer"/>
+	</column>
+	<constraint name="tree_info_tbl_pk" type="pk-constr" factor="100" table="rdb_quicc.tree_info">
+		<columns names="plot_id,tree_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="plot_meas">
+	<schema name="rdb_quicc"/>
+	<role name="vissst01"/>
+	<position x="960.419" y="695.431"/>
+	<column name="plot_id" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="id_meas" not-null="true">
+		<type name="smallint"/>
+	</column>
+	<column name="year_measured">
+		<type name="integer"/>
+	</column>
+	<column name="plot_size">
+		<type name="double precision"/>
+	</column>
+	<column name="seed_plot_size">
+		<type name="integer"/>
+	</column>
+	<column name="sap_plot_size">
+		<type name="double precision"/>
+	</column>
+	<column name="is_subplot">
+		<type name="boolean"/>
+	</column>
+	<column name="is_temp">
+		<type name="boolean"/>
+	</column>
+	<column name="has_superplot">
+		<type name="boolean"/>
+	</column>
+	<constraint name="plot_tbl_pk" type="pk-constr" factor="100" table="rdb_quicc.plot_meas">
+		<columns names="plot_id,id_meas" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<sequence name="plot_info_plot_id_seq"
+	 start="1" increment="1"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="rdb_quicc"/>
+	<role name="vissst01"/>
+</sequence>
+
+<table name="plot_info">
+	<schema name="rdb_quicc"/>
+	<role name="vissst01"/>
+	<position x="984.161" y="506.514"/>
+	<column name="plot_id" not-null="true" default-value="nextval('plot_info_plot_id_seq'::regclass)">
+		<type name="integer"/>
+	</column>
+	<column name="org_db_loc">
+		<type name="character" length="20"/>
+	</column>
+	<column name="org_db_id">
+		<type name="character" length="20"/>
+	</column>
+	<constraint name="plot_info_tbl_pk" type="pk-constr" factor="100" table="rdb_quicc.plot_info">
+		<columns names="plot_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="stand">
+	<schema name="rdb_quicc"/>
+	<role name="vissst01"/>
+	<position x="1401.83" y="681.264"/>
+	<column name="plot_id" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="year_measured" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="age">
+		<type name="integer"/>
+	</column>
+	<column name="age_id_method">
+		<type name="character"/>
+	</column>
+	<column name="height">
+		<type name="integer"/>
+	</column>
+	<column name="height_id_method">
+		<type name="character"/>
+	</column>
+	<column name="surface_deposit">
+		<type name="character" length="3"/>
+	</column>
+	<column name="drainage">
+		<type name="character"/>
+	</column>
+	<column name="slope">
+		<type name="character"/>
+	</column>
+	<column name="is_disturbed">
+		<type name="boolean"/>
+	</column>
+	<column name="is_planted">
+		<type name="boolean"/>
+	</column>
+	<constraint name="stand_tbl_pk" type="pk-constr" factor="100" table="rdb_quicc.stand">
+		<columns names="plot_id,year_measured" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<table name="localisation">
+	<schema name="rdb_quicc"/>
+	<role name="vissst01"/>
+	<position x="516" y="723.5"/>
+	<column name="plot_id" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="latitude">
+		<type name="double precision"/>
+	</column>
+	<column name="longitude">
+		<type name="double precision"/>
+	</column>
+	<column name="coord_postgis">
+		<type name="point"/>
+	</column>
+	<column name="srid">
+		<type name="integer"/>
+	</column>
+	<column name="elevation">
+		<type name="integer"/>
+	</column>
+	<column name="plot_location">
+		<type name="character" length="10"/>
+	</column>
+	<constraint name="localis_tbl_pk" type="pk-constr" factor="10" table="rdb_quicc.localisation">
+		<columns names="plot_id" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="localisation_has_many_plot" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 col-indexes="9" constr-indexes="1"
+	 src-table="rdb_quicc.localisation"
+	 dst-table="rdb_quicc.plot_meas"
+	 src-required="true" dst-required="false"
+	upd-action="CASCADE"
+	del-action="CASCADE">
+	<label ref-type="dst-label">
+		<position x="0" y="0"/>
+	</label>
+</relationship>
+
+<relationship name="plot_info_has_many_plot" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 col-indexes="10" constr-indexes="2"
+	 src-table="rdb_quicc.plot_info"
+	 dst-table="rdb_quicc.plot_meas"
+	 src-required="true" dst-required="false"
+	upd-action="CASCADE"
+	del-action="CASCADE">
+	<label ref-type="dst-label">
+		<position x="30.9427" y="-6.63098"/>
+	</label>
+</relationship>
+
+<relationship name="plot_has_many_stand" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 col-indexes="11,12" constr-indexes="1"
+	 src-table="rdb_quicc.plot_meas"
+	 dst-table="rdb_quicc.stand"
+	 src-required="true" dst-required="false"
+	upd-action="CASCADE"
+	del-action="CASCADE"/>
+
+<relationship name="stand_has_many_tbl_stand_disturbed" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 col-indexes="7,8" constr-indexes="1"
+	 src-table="rdb_quicc.stand"
+	 dst-table="rdb_quicc.tbl_stand_disturbed"
+	 src-required="true" dst-required="false"
+	upd-action="CASCADE"
+	del-action="CASCADE"/>
+
+<relationship name="tree_class_info_has_many_class_tree" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 col-indexes="8,9" constr-indexes="1"
+	 src-table="rdb_quicc.tree_class_info"
+	 dst-table="rdb_quicc.class_tree"
+	 src-required="true" dst-required="false"
+	upd-action="CASCADE"
+	del-action="CASCADE"/>
+
+<relationship name="plot_meas_has_many_class_tree" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 col-indexes="10,11" constr-indexes="2"
+	 src-table="rdb_quicc.plot_meas"
+	 dst-table="rdb_quicc.class_tree"
+	 src-required="true" dst-required="false"
+	upd-action="CASCADE"
+	del-action="CASCADE"/>
+
+<relationship name="plot_meas_has_many_tree" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 col-indexes="14,15" constr-indexes="1"
+	 src-table="rdb_quicc.plot_meas"
+	 dst-table="rdb_quicc.tree"
+	 src-required="true" dst-required="false"
+	upd-action="CASCADE"
+	del-action="CASCADE"/>
+
+<relationship name="ref_species_has_many_class_tree" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 col-indexes="12" constr-indexes="3"
+	 src-table="rdb_quicc.ref_species"
+	 dst-table="rdb_quicc.class_tree"
+	 src-required="true" dst-required="false"
+	upd-action="CASCADE"
+	del-action="CASCADE"/>
+
+<relationship name="ref_species_has_many_tree" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 col-indexes="16" constr-indexes="2"
+	 src-table="rdb_quicc.ref_species"
+	 dst-table="rdb_quicc.tree"
+	 src-required="true" dst-required="false"
+	upd-action="CASCADE"
+	del-action="CASCADE"/>
+
+<relationship name="tree_info_has_many_tree" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 col-indexes="17,18" constr-indexes="3"
+	 src-table="rdb_quicc.tree_info"
+	 dst-table="rdb_quicc.tree"
+	 src-required="true" dst-required="false"
+	upd-action="CASCADE"
+	del-action="CASCADE"/>
+
+<relationship name="ref_tree_age_method_has_many_tree" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 col-indexes="19" constr-indexes="4"
+	 src-table="rdb_quicc.ref_tree_age_method"
+	 dst-table="rdb_quicc.tree"
+	 src-required="true" dst-required="false"
+	upd-action="CASCADE"
+	del-action="CASCADE"/>
+
+<relationship name="ref_tree_height_method_has_many_tree" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 col-indexes="20" constr-indexes="5"
+	 src-table="rdb_quicc.ref_tree_height_method"
+	 dst-table="rdb_quicc.tree"
+	 src-required="true" dst-required="false"
+	upd-action="CASCADE"
+	del-action="CASCADE"/>
+
+<permission>
+	<object name="rdb_quicc.superplot" type="table"/>
+	<roles names="vissst01"/>
+	<privileges select="true" delete="true" insert="true" update="true" truncate="true" references="true" trigger="true"/>
+</permission>
+<permission>
+	<object name="rdb_quicc.ref_tree_age_method" type="table"/>
+	<roles names="vissst01"/>
+	<privileges select="true" delete="true" insert="true" update="true" truncate="true" references="true" trigger="true"/>
+</permission>
+<permission>
+	<object name="rdb_quicc.ref_tree_height_method" type="table"/>
+	<roles names="vissst01"/>
+	<privileges select="true" delete="true" insert="true" update="true" truncate="true" references="true" trigger="true"/>
+</permission>
+<permission>
+	<object name="rdb_quicc.tree_class_info" type="table"/>
+	<roles names="vissst01"/>
+	<privileges select="true" delete="true" insert="true" update="true" truncate="true" references="true" trigger="true"/>
+</permission>
+<permission>
+	<object name="rdb_quicc.tree" type="table"/>
+	<roles names="vissst01"/>
+	<privileges select="true" delete="true" insert="true" update="true" truncate="true" references="true" trigger="true"/>
+</permission>
+<permission>
+	<object name="rdb_quicc.class_tree" type="table"/>
+	<roles names="vissst01"/>
+	<privileges select="true" delete="true" insert="true" update="true" truncate="true" references="true" trigger="true"/>
+</permission>
+<permission>
+	<object name="rdb_quicc.ref_species" type="table"/>
+	<roles names="vissst01"/>
+	<privileges select="true" delete="true" insert="true" update="true" truncate="true" references="true" trigger="true"/>
+</permission>
+<permission>
+	<object name="rdb_quicc.tbl_stand_disturbed" type="table"/>
+	<roles names="vissst01"/>
+	<privileges select="true" delete="true" insert="true" update="true" truncate="true" references="true" trigger="true"/>
+</permission>
+<permission>
+	<object name="rdb_quicc.stand_method_info" type="table"/>
+	<roles names="vissst01"/>
+	<privileges select="true" delete="true" insert="true" update="true" truncate="true" references="true" trigger="true"/>
+</permission>
+<permission>
+	<object name="rdb_quicc.tree_info" type="table"/>
+	<roles names="vissst01"/>
+	<privileges select="true" delete="true" insert="true" update="true" truncate="true" references="true" trigger="true"/>
+</permission>
+<permission>
+	<object name="rdb_quicc.plot_meas" type="table"/>
+	<roles names="vissst01"/>
+	<privileges select="true" delete="true" insert="true" update="true" truncate="true" references="true" trigger="true"/>
+</permission>
+<permission>
+	<object name="rdb_quicc.plot_info" type="table"/>
+	<roles names="vissst01"/>
+	<privileges select="true" delete="true" insert="true" update="true" truncate="true" references="true" trigger="true"/>
+</permission>
+<permission>
+	<object name="rdb_quicc.stand" type="table"/>
+	<roles names="vissst01"/>
+	<privileges select="true" delete="true" insert="true" update="true" truncate="true" references="true" trigger="true"/>
+</permission>
+</dbmodel>
