@@ -2,7 +2,7 @@
 -- pgModeler  version: 0.7.0
 -- PostgreSQL version: 9.3
 -- Project Site: pgmodeler.com.br
--- Model Author: ---
+-- Model Author: Steve Vissault and Miranda Bryant
 
 SET check_function_bodies = false;
 -- ddl-end --
@@ -19,9 +19,9 @@ COMMENT ON ROLE "QUICC_CONSULT" IS 'Groupe quicc pour consultation';
 
 -- Database creation must be done outside an multicommand file.
 -- These commands were put in this file only for convenience.
--- -- object: new_database | type: DATABASE --
--- -- DROP DATABASE new_database;
--- CREATE DATABASE new_database
+-- -- object: db_quicc_for | type: DATABASE --
+-- -- DROP DATABASE db_quicc_for;
+-- CREATE DATABASE db_quicc_for
 -- ;
 -- -- ddl-end --
 --
@@ -33,19 +33,6 @@ ALTER SCHEMA rdb_quicc OWNER TO vissst01;
 -- ddl-end --
 
 SET search_path TO pg_catalog,public,rdb_quicc;
--- ddl-end --
-
--- object: rdb_quicc.plot_info_plot_id_seq | type: SEQUENCE --
--- DROP SEQUENCE rdb_quicc.plot_info_plot_id_seq;
-CREATE SEQUENCE rdb_quicc.plot_info_plot_id_seq
-	INCREMENT BY 1
-	MINVALUE 1
-	MAXVALUE 9223372036854775807
-	START WITH 1
-	CACHE 1
-	NO CYCLE
-	OWNED BY NONE;
-ALTER SEQUENCE rdb_quicc.plot_info_plot_id_seq OWNER TO vissst01;
 -- ddl-end --
 
 -- object: rdb_quicc.tree_info_tree_id_species_seq | type: SEQUENCE --
@@ -61,6 +48,18 @@ CREATE SEQUENCE rdb_quicc.tree_info_tree_id_species_seq
 ALTER SEQUENCE rdb_quicc.tree_info_tree_id_species_seq OWNER TO vissst01;
 -- ddl-end --
 
+-- object: rdb_quicc.plot_info_plot_id_seq | type: SEQUENCE --
+-- DROP SEQUENCE rdb_quicc.plot_info_plot_id_seq;
+CREATE SEQUENCE rdb_quicc.plot_info_plot_id_seq
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START WITH 1
+	CACHE 1
+	NO CYCLE
+	OWNED BY NONE;
+ALTER SEQUENCE rdb_quicc.plot_info_plot_id_seq OWNER TO vissst01;
+-- ddl-end --
 
 -- object: rdb_quicc.superplot | type: TABLE --
 -- DROP TABLE rdb_quicc.superplot;
@@ -99,6 +98,7 @@ CREATE TABLE rdb_quicc.ref_tree_height_method(
 ALTER TABLE rdb_quicc.ref_tree_height_method OWNER TO vissst01;
 -- ddl-end --
 
+
 -- object: rdb_quicc.tree_class_info | type: TABLE --
 -- DROP TABLE rdb_quicc.tree_class_info;
 CREATE TABLE rdb_quicc.tree_class_info(
@@ -130,8 +130,8 @@ CREATE TABLE rdb_quicc.tree(
 	is_sapling integer,
 	is_planted integer,
 	is_dead integer,
-	plot_id_plot_meas integer NOT NULL,
-	id_meas_plot_meas smallint NOT NULL,
+	plot_id_plot integer NOT NULL,
+	id_meas_plot smallint NOT NULL,
 	species_id_ref_species integer NOT NULL,
 	plot_id_tree_info integer NOT NULL,
 	tree_id_tree_info integer NOT NULL,
@@ -151,15 +151,17 @@ CREATE TABLE rdb_quicc.class_tree(
 	tree_class_id integer NOT NULL,
 	year_measured integer NOT NULL,
 	species_tsn integer,
-	dbh_class integer,
+	dbh_class_id integer,
 	dbh_tree_number integer,
-	height_class character,
+	height_class_id integer,
 	height_tree_number integer,
 	plot_id_tree_class_info integer NOT NULL,
 	tree_class_id_tree_class_info integer NOT NULL DEFAULT nextval('tree_info_tree_id_species_seq'::regclass),
-	plot_id_plot_meas integer NOT NULL,
-	id_meas_plot_meas smallint NOT NULL,
+	plot_id_plot integer NOT NULL,
+	id_meas_plot smallint NOT NULL,
 	species_id_ref_species integer NOT NULL,
+	dbh_class_id_conv_class_dbh integer NOT NULL,
+	height_class_id_conv_class_height integer NOT NULL,
 	CONSTRAINT class_tree_tbl_pk PRIMARY KEY (plot_id,tree_class_id,year_measured)
 
 );
@@ -186,40 +188,35 @@ CREATE TABLE rdb_quicc.ref_species(
 ALTER TABLE rdb_quicc.ref_species OWNER TO vissst01;
 -- ddl-end --
 
--- object: rdb_quicc.tbl_stand_disturbed | type: TABLE --
--- DROP TABLE rdb_quicc.tbl_stand_disturbed;
-CREATE TABLE rdb_quicc.tbl_stand_disturbed(
+-- object: rdb_quicc.stand_disturbed | type: TABLE --
+-- DROP TABLE rdb_quicc.stand_disturbed;
+CREATE TABLE rdb_quicc.stand_disturbed(
 	plot_id integer NOT NULL,
 	year_disturbed integer NOT NULL,
 	disturb_type character,
 	disturb_severity character,
 	logging_type character(2),
 	is_planted boolean,
-	plot_id_stand integer,
-	plot_id_stand1 integer NOT NULL,
+	plot_id_stand integer NOT NULL,
 	year_measured_stand integer NOT NULL,
+	disturb_type_ref_stand_disturb_type character NOT NULL,
 	CONSTRAINT stand_disturbed_tbl_pk PRIMARY KEY (plot_id,year_disturbed)
 
 );
 -- ddl-end --
-ALTER TABLE rdb_quicc.tbl_stand_disturbed OWNER TO vissst01;
+ALTER TABLE rdb_quicc.stand_disturbed OWNER TO vissst01;
 -- ddl-end --
 
--- object: rdb_quicc.ref_stand_method | type: TABLE --
--- DROP TABLE rdb_quicc.ref_stand_method;
-CREATE TABLE rdb_quicc.ref_stand_method(
-	plot_id integer NOT NULL,
-	age_id_method character,
-	age_desc character varying(255),
-	disturbance_type character,
-	disturbance_info character varying(255),
-	height_method character,
-	height_info character varying(255),
-	CONSTRAINT ref_stand_meth_tbl_pk PRIMARY KEY (plot_id)
+-- object: rdb_quicc.ref_stand_disturb_type | type: TABLE --
+-- DROP TABLE rdb_quicc.ref_stand_disturb_type;
+CREATE TABLE rdb_quicc.ref_stand_disturb_type(
+	disturb_type character NOT NULL,
+	disturb_desc character varying(255),
+	CONSTRAINT ref_stand_disturb_type_pk PRIMARY KEY (disturb_type)
 
 );
 -- ddl-end --
-ALTER TABLE rdb_quicc.ref_stand_method OWNER TO vissst01;
+ALTER TABLE rdb_quicc.ref_stand_disturb_type OWNER TO vissst01;
 -- ddl-end --
 
 -- object: rdb_quicc.tree_info | type: TABLE --
@@ -236,9 +233,9 @@ CREATE TABLE rdb_quicc.tree_info(
 ALTER TABLE rdb_quicc.tree_info OWNER TO vissst01;
 -- ddl-end --
 
--- object: rdb_quicc.plot_meas | type: TABLE --
--- DROP TABLE rdb_quicc.plot_meas;
-CREATE TABLE rdb_quicc.plot_meas(
+-- object: rdb_quicc.plot | type: TABLE --
+-- DROP TABLE rdb_quicc.plot;
+CREATE TABLE rdb_quicc.plot(
 	plot_id integer NOT NULL,
 	id_meas smallint NOT NULL,
 	year_measured integer,
@@ -254,9 +251,8 @@ CREATE TABLE rdb_quicc.plot_meas(
 
 );
 -- ddl-end --
-ALTER TABLE rdb_quicc.plot_meas OWNER TO vissst01;
+ALTER TABLE rdb_quicc.plot OWNER TO vissst01;
 -- ddl-end --
-
 
 -- object: rdb_quicc.plot_info | type: TABLE --
 -- DROP TABLE rdb_quicc.plot_info;
@@ -285,8 +281,10 @@ CREATE TABLE rdb_quicc.stand(
 	slope character,
 	is_disturbed boolean,
 	is_planted boolean,
-	plot_id_plot_meas integer NOT NULL,
-	id_meas_plot_meas smallint NOT NULL,
+	plot_id_plot integer NOT NULL,
+	id_meas_plot smallint NOT NULL,
+	age_id_method_ref_stand_age_method character NOT NULL,
+	height_id_method_ref_stand_height_method character NOT NULL,
 	CONSTRAINT stand_tbl_pk PRIMARY KEY (plot_id,year_measured)
 
 );
@@ -312,33 +310,25 @@ ALTER TABLE rdb_quicc.localisation OWNER TO vissst01;
 -- ddl-end --
 
 -- object: localisation_fk | type: CONSTRAINT --
--- ALTER TABLE rdb_quicc.plot_meas DROP CONSTRAINT localisation_fk;
-ALTER TABLE rdb_quicc.plot_meas ADD CONSTRAINT localisation_fk FOREIGN KEY (plot_id_localisation)
+-- ALTER TABLE rdb_quicc.plot DROP CONSTRAINT localisation_fk;
+ALTER TABLE rdb_quicc.plot ADD CONSTRAINT localisation_fk FOREIGN KEY (plot_id_localisation)
 REFERENCES rdb_quicc.localisation (plot_id) MATCH FULL
 ON DELETE CASCADE ON UPDATE CASCADE;
 -- ddl-end --
 
 
 -- object: plot_info_fk | type: CONSTRAINT --
--- ALTER TABLE rdb_quicc.plot_meas DROP CONSTRAINT plot_info_fk;
-ALTER TABLE rdb_quicc.plot_meas ADD CONSTRAINT plot_info_fk FOREIGN KEY (plot_id_plot_info)
+-- ALTER TABLE rdb_quicc.plot DROP CONSTRAINT plot_info_fk;
+ALTER TABLE rdb_quicc.plot ADD CONSTRAINT plot_info_fk FOREIGN KEY (plot_id_plot_info)
 REFERENCES rdb_quicc.plot_info (plot_id) MATCH FULL
 ON DELETE CASCADE ON UPDATE CASCADE;
 -- ddl-end --
 
 
--- object: plot_meas_fk | type: CONSTRAINT --
--- ALTER TABLE rdb_quicc.stand DROP CONSTRAINT plot_meas_fk;
-ALTER TABLE rdb_quicc.stand ADD CONSTRAINT plot_meas_fk FOREIGN KEY (plot_id_plot_meas,id_meas_plot_meas)
-REFERENCES rdb_quicc.plot_meas (plot_id,id_meas) MATCH FULL
-ON DELETE CASCADE ON UPDATE CASCADE;
--- ddl-end --
-
-
--- object: stand_fk | type: CONSTRAINT --
--- ALTER TABLE rdb_quicc.tbl_stand_disturbed DROP CONSTRAINT stand_fk;
-ALTER TABLE rdb_quicc.tbl_stand_disturbed ADD CONSTRAINT stand_fk FOREIGN KEY (plot_id_stand1,year_measured_stand)
-REFERENCES rdb_quicc.stand (plot_id,year_measured) MATCH FULL
+-- object: plot_fk | type: CONSTRAINT --
+-- ALTER TABLE rdb_quicc.stand DROP CONSTRAINT plot_fk;
+ALTER TABLE rdb_quicc.stand ADD CONSTRAINT plot_fk FOREIGN KEY (plot_id_plot,id_meas_plot)
+REFERENCES rdb_quicc.plot (plot_id,id_meas) MATCH FULL
 ON DELETE CASCADE ON UPDATE CASCADE;
 -- ddl-end --
 
@@ -351,18 +341,18 @@ ON DELETE CASCADE ON UPDATE CASCADE;
 -- ddl-end --
 
 
--- object: plot_meas_fk | type: CONSTRAINT --
--- ALTER TABLE rdb_quicc.class_tree DROP CONSTRAINT plot_meas_fk;
-ALTER TABLE rdb_quicc.class_tree ADD CONSTRAINT plot_meas_fk FOREIGN KEY (plot_id_plot_meas,id_meas_plot_meas)
-REFERENCES rdb_quicc.plot_meas (plot_id,id_meas) MATCH FULL
+-- object: plot_fk | type: CONSTRAINT --
+-- ALTER TABLE rdb_quicc.class_tree DROP CONSTRAINT plot_fk;
+ALTER TABLE rdb_quicc.class_tree ADD CONSTRAINT plot_fk FOREIGN KEY (plot_id_plot,id_meas_plot)
+REFERENCES rdb_quicc.plot (plot_id,id_meas) MATCH FULL
 ON DELETE CASCADE ON UPDATE CASCADE;
 -- ddl-end --
 
 
--- object: plot_meas_fk | type: CONSTRAINT --
--- ALTER TABLE rdb_quicc.tree DROP CONSTRAINT plot_meas_fk;
-ALTER TABLE rdb_quicc.tree ADD CONSTRAINT plot_meas_fk FOREIGN KEY (plot_id_plot_meas,id_meas_plot_meas)
-REFERENCES rdb_quicc.plot_meas (plot_id,id_meas) MATCH FULL
+-- object: plot_fk | type: CONSTRAINT --
+-- ALTER TABLE rdb_quicc.tree DROP CONSTRAINT plot_fk;
+ALTER TABLE rdb_quicc.tree ADD CONSTRAINT plot_fk FOREIGN KEY (plot_id_plot,id_meas_plot)
+REFERENCES rdb_quicc.plot (plot_id,id_meas) MATCH FULL
 ON DELETE CASCADE ON UPDATE CASCADE;
 -- ddl-end --
 
@@ -407,91 +397,191 @@ ON DELETE CASCADE ON UPDATE CASCADE;
 -- ddl-end --
 
 
--- object: grant_c762205cd3 | type: PERMISSION --
+-- object: rdb_quicc.ref_stand_age_method | type: TABLE --
+-- DROP TABLE rdb_quicc.ref_stand_age_method;
+CREATE TABLE rdb_quicc.ref_stand_age_method(
+	age_id_method character NOT NULL,
+	age_desc character varying,
+	CONSTRAINT ref_stand_age_method_pk PRIMARY KEY (age_id_method)
+
+);
+-- ddl-end --
+ALTER TABLE rdb_quicc.ref_stand_age_method OWNER TO vissst01;
+-- ddl-end --
+
+-- object: rdb_quicc.ref_stand_height_method | type: TABLE --
+-- DROP TABLE rdb_quicc.ref_stand_height_method;
+CREATE TABLE rdb_quicc.ref_stand_height_method(
+	height_id_method character NOT NULL,
+	height_desc character varying,
+	CONSTRAINT ref_stand_height_method_pk PRIMARY KEY (height_id_method)
+
+);
+-- ddl-end --
+ALTER TABLE rdb_quicc.ref_stand_height_method OWNER TO vissst01;
+-- ddl-end --
+
+-- object: stand_fk | type: CONSTRAINT --
+-- ALTER TABLE rdb_quicc.stand_disturbed DROP CONSTRAINT stand_fk;
+ALTER TABLE rdb_quicc.stand_disturbed ADD CONSTRAINT stand_fk FOREIGN KEY (plot_id_stand,year_measured_stand)
+REFERENCES rdb_quicc.stand (plot_id,year_measured) MATCH FULL
+ON DELETE RESTRICT ON UPDATE CASCADE;
+-- ddl-end --
+
+
+-- object: ref_stand_age_method_fk | type: CONSTRAINT --
+-- ALTER TABLE rdb_quicc.stand DROP CONSTRAINT ref_stand_age_method_fk;
+ALTER TABLE rdb_quicc.stand ADD CONSTRAINT ref_stand_age_method_fk FOREIGN KEY (age_id_method_ref_stand_age_method)
+REFERENCES rdb_quicc.ref_stand_age_method (age_id_method) MATCH FULL
+ON DELETE CASCADE ON UPDATE CASCADE;
+-- ddl-end --
+
+
+-- object: ref_stand_height_method_fk | type: CONSTRAINT --
+-- ALTER TABLE rdb_quicc.stand DROP CONSTRAINT ref_stand_height_method_fk;
+ALTER TABLE rdb_quicc.stand ADD CONSTRAINT ref_stand_height_method_fk FOREIGN KEY (height_id_method_ref_stand_height_method)
+REFERENCES rdb_quicc.ref_stand_height_method (height_id_method) MATCH FULL
+ON DELETE RESTRICT ON UPDATE CASCADE;
+-- ddl-end --
+
+
+-- object: ref_stand_disturb_type_fk | type: CONSTRAINT --
+-- ALTER TABLE rdb_quicc.stand_disturbed DROP CONSTRAINT ref_stand_disturb_type_fk;
+ALTER TABLE rdb_quicc.stand_disturbed ADD CONSTRAINT ref_stand_disturb_type_fk FOREIGN KEY (disturb_type_ref_stand_disturb_type)
+REFERENCES rdb_quicc.ref_stand_disturb_type (disturb_type) MATCH FULL
+ON DELETE CASCADE ON UPDATE CASCADE;
+-- ddl-end --
+
+
+-- object: rdb_quicc.conv_class_dbh | type: TABLE --
+-- DROP TABLE rdb_quicc.conv_class_dbh;
+CREATE TABLE rdb_quicc.conv_class_dbh(
+	dbh_class_id integer NOT NULL,
+	dbh_min integer,
+	dbh_max integer,
+	org_db_location integer,
+	CONSTRAINT conv_class_dbh_pk PRIMARY KEY (dbh_class_id)
+
+);
+-- ddl-end --
+ALTER TABLE rdb_quicc.conv_class_dbh OWNER TO vissst01;
+-- ddl-end --
+
+-- object: rdb_quicc.conv_class_height | type: TABLE --
+-- DROP TABLE rdb_quicc.conv_class_height;
+CREATE TABLE rdb_quicc.conv_class_height(
+	height_class_id integer NOT NULL,
+	height_min integer,
+	height_max integer,
+	org_db_location character,
+	CONSTRAINT conv_class_height_pk PRIMARY KEY (height_class_id)
+
+);
+-- ddl-end --
+ALTER TABLE rdb_quicc.conv_class_height OWNER TO vissst01;
+-- ddl-end --
+
+-- object: conv_class_dbh_fk | type: CONSTRAINT --
+-- ALTER TABLE rdb_quicc.class_tree DROP CONSTRAINT conv_class_dbh_fk;
+ALTER TABLE rdb_quicc.class_tree ADD CONSTRAINT conv_class_dbh_fk FOREIGN KEY (dbh_class_id_conv_class_dbh)
+REFERENCES rdb_quicc.conv_class_dbh (dbh_class_id) MATCH FULL
+ON DELETE CASCADE ON UPDATE CASCADE;
+-- ddl-end --
+
+
+-- object: conv_class_height_fk | type: CONSTRAINT --
+-- ALTER TABLE rdb_quicc.class_tree DROP CONSTRAINT conv_class_height_fk;
+ALTER TABLE rdb_quicc.class_tree ADD CONSTRAINT conv_class_height_fk FOREIGN KEY (height_class_id_conv_class_height)
+REFERENCES rdb_quicc.conv_class_height (height_class_id) MATCH FULL
+ON DELETE CASCADE ON UPDATE CASCADE;
+-- ddl-end --
+
+
+-- object: grant_a0991d2e87 | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.superplot
    TO vissst01;
 ;
 -- ddl-end --
 
--- object: grant_2a2f805d33 | type: PERMISSION --
+-- object: grant_22d118f210 | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.ref_tree_age_method
    TO vissst01;
 ;
 -- ddl-end --
 
--- object: grant_40682b70a7 | type: PERMISSION --
+-- object: grant_8dfed4d55e | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.ref_tree_height_method
    TO vissst01;
 ;
 -- ddl-end --
 
--- object: grant_6a72cdf293 | type: PERMISSION --
+-- object: grant_65ede39b42 | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.tree_class_info
    TO vissst01;
 ;
 -- ddl-end --
 
--- object: grant_efb03bc6f8 | type: PERMISSION --
+-- object: grant_7cec0f3895 | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.tree
    TO vissst01;
 ;
 -- ddl-end --
 
--- object: grant_b95f7bbf34 | type: PERMISSION --
+-- object: grant_5e8e1d4c0a | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.class_tree
    TO vissst01;
 ;
 -- ddl-end --
 
--- object: grant_27b555483a | type: PERMISSION --
+-- object: grant_7599c4621b | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.ref_species
    TO vissst01;
 ;
 -- ddl-end --
 
--- object: grant_d80d5ec090 | type: PERMISSION --
+-- object: grant_7ae0f2a024 | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
-   ON TABLE rdb_quicc.tbl_stand_disturbed
+   ON TABLE rdb_quicc.stand_disturbed
    TO vissst01;
 ;
 -- ddl-end --
 
--- object: grant_f7d9aff9c6 | type: PERMISSION --
+-- object: grant_b0fbaf41da | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
-   ON TABLE rdb_quicc.ref_stand_method
+   ON TABLE rdb_quicc.ref_stand_disturb_type
    TO vissst01;
 ;
 -- ddl-end --
 
--- object: grant_4e25465b36 | type: PERMISSION --
+-- object: grant_da82c6c054 | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.tree_info
    TO vissst01;
 ;
 -- ddl-end --
 
--- object: grant_fd6f10bae5 | type: PERMISSION --
+-- object: grant_7cf0c5e332 | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
-   ON TABLE rdb_quicc.plot_meas
+   ON TABLE rdb_quicc.plot
    TO vissst01;
 ;
 -- ddl-end --
 
--- object: grant_391fe03a2b | type: PERMISSION --
+-- object: grant_628f811f90 | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.plot_info
    TO vissst01;
 ;
 -- ddl-end --
 
--- object: grant_0c78e34767 | type: PERMISSION --
+-- object: grant_ec5565be55 | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.stand
    TO vissst01;
