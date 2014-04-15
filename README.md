@@ -1,8 +1,8 @@
 QUICC-SQL
 =========
+**Update:** April, 15th 
 
 Work-in-progress...
-**Update:** April, 15th 
 
 ### TODO on Relational database
 
@@ -15,13 +15,13 @@ Work-in-progress...
 
 2. Location table
 
-- [] Cleanup permanente and temporary sample plot coordinates
-- [] Describe filters used
+- [ ] Cleanup permanente and temporary sample plot coordinates
+- [ ] Describe filters used
 
 3. Plot_info table
 
-- [] Function #1: Convert class of plot size (Need further investigations)
-- [x] Function #2: Convert radius to area
+- [ ] Function #1 Convert class of plot size (Need further investigations)
+- [x] Function #2 Convert radius to area
 
 4. Tree_info table
 
