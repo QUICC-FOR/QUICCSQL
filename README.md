@@ -6,27 +6,24 @@ Work-in-progress...
 
 ### TODO on Relational database
 
-#### By tables
+#### Plot_info table
 
-1. Plot_info table
+- Generate ID in plot_id reference table (Done)
 
-- [x] Generate ID in plot_id reference table 
-- [x] Done
+#### Location table
 
-2. Location table
+- Cleanup permanente and temporary sample plot coordinates
+- Describe filters used
 
-- [ ] Cleanup permanente and temporary sample plot coordinates
-- [ ] Describe filters used
+#### Plot_info table
 
-3. Plot_info table
+- Function #1 Convert class of plot size (Need further investigations)
+- Function #2 Convert radius to area (Done)
 
-- [ ] Function #1 Convert class of plot size (Need further investigations)
-- [x] Function #2 Convert radius to area
-
-4. Tree_info table
+#### Tree_info table
 
 Next
 
-5. Tree table
+#### Tree table
 
 Next
