@@ -1,9 +1,8 @@
 -------------------------------------------------------------------------------------------------------------
 ---------	Plot size conversion
 --------------------------------------------------------------------
--- Inputs:
--- 1. org_code_db
--- 2. Size corresponding to the plot
+-- By Steve Vissault
+-- Inputs: original code of the  database;  Size corresponding to the plot
 -------------------------------------------------------------------
 
 DROP FUNCTION IF EXISTS temp_quicc.plot_size();
@@ -42,29 +41,3 @@ RETURN res;
 END;
 $$
 LANGUAGE plpgsql;
-
--------------------------------------------------------------------------------------------------------------
----------	Circle radius to surface
---------------------------------------------------------------------
--- Input:
--- radius of the plot
--- !!! WARNING !!! Look the units
--------------------------------------------------------------------
-DROP FUNCTION IF EXISTS temp_quicc.surf();
-
-CREATE OR REPLACE FUNCTION temp_quicc.surf(rad numeric)
-RETURNS double precision AS $$
-BEGIN
-	RETURN (rad)^2*pi();
-END;
-$$
-LANGUAGE plpgsql;
-
---------------------------------------------------------------------------------------------------------------
----------- Beta Test
-
-SELECT temp_quicc.mv_plot_level.plot_size,
-	temp_quicc.mv_plot_level.org_code_db,
-	temp_quicc.plot_size(temp_quicc.mv_plot_level.org_code_db, temp_quicc.mv_plot_level.plot_size)
-FROM temp_quicc.mv_plot_level
-ORDER BY temp_quicc.mv_plot_level.org_code_db;

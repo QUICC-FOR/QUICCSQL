@@ -4,6 +4,11 @@ QUICC-SQL
 
 Work-in-progress...
 
+### List of functions
+
+- Lorem ipsum
+- Lorem ipsum
+
 ### TODO on Relational database
 
 #### Plot_info table
