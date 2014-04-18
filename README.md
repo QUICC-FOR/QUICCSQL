@@ -6,10 +6,11 @@ Work-in-progress...
 
 ### List of functions
 
-- Lorem ipsum
-- Lorem ipsum
-
 ### TODO on Relational database
+
+#### General
+
+- Add climatic table CREATE statement on general rdb_quicc script
 
 #### Plot_info table
 

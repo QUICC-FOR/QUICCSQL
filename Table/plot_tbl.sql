@@ -4,7 +4,6 @@
 ---------------------------------------
 ---------------------------------------
 
-
 -- Extract plot level information from original database
 -- By Steve Vissault
 
