@@ -78,5 +78,5 @@ CREATE TABLE rdb_quicc.climatic_data
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE qc_pp.pp_climatic_data
+ALTER TABLE rdb_quicc.pp_climatic_data
   OWNER TO "QUICC";
