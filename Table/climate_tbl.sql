@@ -1,6 +1,6 @@
 -- Table: qc_pp.pp_climatic_data
 
--- DROP TABLE climat_quicc.climatic_data;
+-- DROP TABLE rdb_quicc.climatic_data;
 
 CREATE TABLE rdb_quicc.climatic_data
 (
@@ -10,7 +10,7 @@ CREATE TABLE rdb_quicc.climatic_data
   z_elevation bigint,
   mean_diurnal_range double precision,
   isothermality double precision,
-  temp_seasonality_(c_v) double precision,
+  temp_seasonality double precision,
   max_temp_warmest_period double precision,
   min_temp_coldest_period double precision,
   temp_annual_range double precision,
@@ -78,5 +78,5 @@ CREATE TABLE rdb_quicc.climatic_data
 WITH (
   OIDS=FALSE
 );
-ALTER TABLE rdb_quicc.pp_climatic_data
+ALTER TABLE rdb_quicc.climatic_data
   OWNER TO "QUICC";
