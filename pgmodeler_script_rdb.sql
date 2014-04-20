@@ -29,7 +29,7 @@ COMMENT ON ROLE "QUICC_CONSULT" IS 'Groupe quicc pour consultation';
 -- object: rdb_quicc | type: SCHEMA --
 -- DROP SCHEMA rdb_quicc;
 CREATE SCHEMA rdb_quicc;
-ALTER SCHEMA rdb_quicc OWNER TO vissst01;
+ALTER SCHEMA rdb_quicc OWNER TO QUICC;
 -- ddl-end --
 
 SET search_path TO pg_catalog,public,rdb_quicc;
@@ -45,7 +45,7 @@ CREATE SEQUENCE rdb_quicc.tree_info_tree_id_species_seq
 	CACHE 1
 	NO CYCLE
 	OWNED BY NONE;
-ALTER SEQUENCE rdb_quicc.tree_info_tree_id_species_seq OWNER TO vissst01;
+ALTER SEQUENCE rdb_quicc.tree_info_tree_id_species_seq OWNER TO QUICC;
 -- ddl-end --
 
 -- object: rdb_quicc.plot_info_plot_id_seq | type: SEQUENCE --
@@ -58,7 +58,7 @@ CREATE SEQUENCE rdb_quicc.plot_info_plot_id_seq
 	CACHE 1
 	NO CYCLE
 	OWNED BY NONE;
-ALTER SEQUENCE rdb_quicc.plot_info_plot_id_seq OWNER TO vissst01;
+ALTER SEQUENCE rdb_quicc.plot_info_plot_id_seq OWNER TO QUICC;
 -- ddl-end --
 
 -- object: rdb_quicc.superplot | type: TABLE --
@@ -71,7 +71,7 @@ CREATE TABLE rdb_quicc.superplot(
 
 );
 -- ddl-end --
-ALTER TABLE rdb_quicc.superplot OWNER TO vissst01;
+ALTER TABLE rdb_quicc.superplot OWNER TO QUICC;
 -- ddl-end --
 
 -- object: rdb_quicc.ref_tree_age_method | type: TABLE --
@@ -83,7 +83,7 @@ CREATE TABLE rdb_quicc.ref_tree_age_method(
 
 );
 -- ddl-end --
-ALTER TABLE rdb_quicc.ref_tree_age_method OWNER TO vissst01;
+ALTER TABLE rdb_quicc.ref_tree_age_method OWNER TO QUICC;
 -- ddl-end --
 
 -- object: rdb_quicc.ref_tree_height_method | type: TABLE --
@@ -95,7 +95,7 @@ CREATE TABLE rdb_quicc.ref_tree_height_method(
 
 );
 -- ddl-end --
-ALTER TABLE rdb_quicc.ref_tree_height_method OWNER TO vissst01;
+ALTER TABLE rdb_quicc.ref_tree_height_method OWNER TO QUICC;
 -- ddl-end --
 
 
@@ -110,7 +110,7 @@ CREATE TABLE rdb_quicc.tree_class_info(
 
 );
 -- ddl-end --
-ALTER TABLE rdb_quicc.tree_class_info OWNER TO vissst01;
+ALTER TABLE rdb_quicc.tree_class_info OWNER TO QUICC;
 -- ddl-end --
 
 -- object: rdb_quicc.tree | type: TABLE --
@@ -141,7 +141,7 @@ CREATE TABLE rdb_quicc.tree(
 
 );
 -- ddl-end --
-ALTER TABLE rdb_quicc.tree OWNER TO vissst01;
+ALTER TABLE rdb_quicc.tree OWNER TO QUICC;
 -- ddl-end --
 
 -- object: rdb_quicc.class_tree | type: TABLE --
@@ -166,7 +166,7 @@ CREATE TABLE rdb_quicc.class_tree(
 
 );
 -- ddl-end --
-ALTER TABLE rdb_quicc.class_tree OWNER TO vissst01;
+ALTER TABLE rdb_quicc.class_tree OWNER TO QUICC;
 -- ddl-end --
 
 -- object: rdb_quicc.ref_species | type: TABLE --
@@ -185,7 +185,7 @@ CREATE TABLE rdb_quicc.ref_species(
 
 );
 -- ddl-end --
-ALTER TABLE rdb_quicc.ref_species OWNER TO vissst01;
+ALTER TABLE rdb_quicc.ref_species OWNER TO QUICC;
 -- ddl-end --
 
 -- object: rdb_quicc.stand_disturbed | type: TABLE --
@@ -204,7 +204,7 @@ CREATE TABLE rdb_quicc.stand_disturbed(
 
 );
 -- ddl-end --
-ALTER TABLE rdb_quicc.stand_disturbed OWNER TO vissst01;
+ALTER TABLE rdb_quicc.stand_disturbed OWNER TO QUICC;
 -- ddl-end --
 
 -- object: rdb_quicc.ref_stand_disturb_type | type: TABLE --
@@ -216,7 +216,7 @@ CREATE TABLE rdb_quicc.ref_stand_disturb_type(
 
 );
 -- ddl-end --
-ALTER TABLE rdb_quicc.ref_stand_disturb_type OWNER TO vissst01;
+ALTER TABLE rdb_quicc.ref_stand_disturb_type OWNER TO QUICC;
 -- ddl-end --
 
 -- object: rdb_quicc.tree_info | type: TABLE --
@@ -230,7 +230,7 @@ CREATE TABLE rdb_quicc.tree_info(
 
 );
 -- ddl-end --
-ALTER TABLE rdb_quicc.tree_info OWNER TO vissst01;
+ALTER TABLE rdb_quicc.tree_info OWNER TO QUICC;
 -- ddl-end --
 
 -- object: rdb_quicc.plot | type: TABLE --
@@ -251,7 +251,7 @@ CREATE TABLE rdb_quicc.plot(
 
 );
 -- ddl-end --
-ALTER TABLE rdb_quicc.plot OWNER TO vissst01;
+ALTER TABLE rdb_quicc.plot OWNER TO QUICC;
 -- ddl-end --
 
 -- object: rdb_quicc.plot_info | type: TABLE --
@@ -264,7 +264,7 @@ CREATE TABLE rdb_quicc.plot_info(
 
 );
 -- ddl-end --
-ALTER TABLE rdb_quicc.plot_info OWNER TO vissst01;
+ALTER TABLE rdb_quicc.plot_info OWNER TO QUICC;
 -- ddl-end --
 
 -- object: rdb_quicc.stand | type: TABLE --
@@ -289,7 +289,7 @@ CREATE TABLE rdb_quicc.stand(
 
 );
 -- ddl-end --
-ALTER TABLE rdb_quicc.stand OWNER TO vissst01;
+ALTER TABLE rdb_quicc.stand OWNER TO QUICC;
 -- ddl-end --
 
 -- object: rdb_quicc.localisation | type: TABLE --
@@ -306,7 +306,7 @@ CREATE TABLE rdb_quicc.localisation(
 
 );
 -- ddl-end --
-ALTER TABLE rdb_quicc.localisation OWNER TO vissst01;
+ALTER TABLE rdb_quicc.localisation OWNER TO QUICC;
 -- ddl-end --
 
 -- object: localisation_fk | type: CONSTRAINT --
@@ -406,7 +406,7 @@ CREATE TABLE rdb_quicc.ref_stand_age_method(
 
 );
 -- ddl-end --
-ALTER TABLE rdb_quicc.ref_stand_age_method OWNER TO vissst01;
+ALTER TABLE rdb_quicc.ref_stand_age_method OWNER TO QUICC;
 -- ddl-end --
 
 -- object: rdb_quicc.ref_stand_height_method | type: TABLE --
@@ -418,7 +418,7 @@ CREATE TABLE rdb_quicc.ref_stand_height_method(
 
 );
 -- ddl-end --
-ALTER TABLE rdb_quicc.ref_stand_height_method OWNER TO vissst01;
+ALTER TABLE rdb_quicc.ref_stand_height_method OWNER TO QUICC;
 -- ddl-end --
 
 -- object: stand_fk | type: CONSTRAINT --
@@ -464,7 +464,7 @@ CREATE TABLE rdb_quicc.conv_class_dbh(
 
 );
 -- ddl-end --
-ALTER TABLE rdb_quicc.conv_class_dbh OWNER TO vissst01;
+ALTER TABLE rdb_quicc.conv_class_dbh OWNER TO QUICC;
 -- ddl-end --
 
 -- object: rdb_quicc.conv_class_height | type: TABLE --
@@ -478,7 +478,7 @@ CREATE TABLE rdb_quicc.conv_class_height(
 
 );
 -- ddl-end --
-ALTER TABLE rdb_quicc.conv_class_height OWNER TO vissst01;
+ALTER TABLE rdb_quicc.conv_class_height OWNER TO QUICC;
 -- ddl-end --
 
 -- object: conv_class_dbh_fk | type: CONSTRAINT --
@@ -500,91 +500,91 @@ ON DELETE CASCADE ON UPDATE CASCADE;
 -- object: grant_a0991d2e87 | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.superplot
-   TO vissst01;
+   TO QUICC;
 ;
 -- ddl-end --
 
 -- object: grant_22d118f210 | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.ref_tree_age_method
-   TO vissst01;
+   TO QUICC;
 ;
 -- ddl-end --
 
 -- object: grant_8dfed4d55e | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.ref_tree_height_method
-   TO vissst01;
+   TO QUICC;
 ;
 -- ddl-end --
 
 -- object: grant_65ede39b42 | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.tree_class_info
-   TO vissst01;
+   TO QUICC;
 ;
 -- ddl-end --
 
 -- object: grant_7cec0f3895 | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.tree
-   TO vissst01;
+   TO QUICC;
 ;
 -- ddl-end --
 
 -- object: grant_5e8e1d4c0a | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.class_tree
-   TO vissst01;
+   TO QUICC;
 ;
 -- ddl-end --
 
 -- object: grant_7599c4621b | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.ref_species
-   TO vissst01;
+   TO QUICC;
 ;
 -- ddl-end --
 
 -- object: grant_7ae0f2a024 | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.stand_disturbed
-   TO vissst01;
+   TO QUICC;
 ;
 -- ddl-end --
 
 -- object: grant_b0fbaf41da | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.ref_stand_disturb_type
-   TO vissst01;
+   TO QUICC;
 ;
 -- ddl-end --
 
 -- object: grant_da82c6c054 | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.tree_info
-   TO vissst01;
+   TO QUICC;
 ;
 -- ddl-end --
 
 -- object: grant_7cf0c5e332 | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.plot
-   TO vissst01;
+   TO QUICC;
 ;
 -- ddl-end --
 
 -- object: grant_628f811f90 | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.plot_info
-   TO vissst01;
+   TO QUICC;
 ;
 -- ddl-end --
 
 -- object: grant_ec5565be55 | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.stand
-   TO vissst01;
+   TO QUICC;
 ;
 -- ddl-end --
 

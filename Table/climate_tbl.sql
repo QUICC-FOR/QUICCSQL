@@ -74,6 +74,7 @@ CREATE TABLE rdb_quicc.climatic_data
   november_mean_monthly_pp double precision,
   december_mean_monthly_pp double precision,
   year_data integer
+  CONSTRAINT climatic_data_pk PRIMARY KEY (id,year_data)
 )
 WITH (
   OIDS=FALSE
