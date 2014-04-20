@@ -74,10 +74,11 @@ CREATE TABLE rdb_quicc.climatic_data
   november_mean_monthly_pp double precision,
   december_mean_monthly_pp double precision,
   year_data integer NOT NULL,
-  CONSTRAINT climatic_data_pk PRIMARY KEY (id,year_data)
+  CONSTRAINT climatic_data_pk PRIMARY KEY (id_plot,year_data)
 )
 WITH (
   OIDS=FALSE
 );
+
 ALTER TABLE rdb_quicc.climatic_data
   OWNER TO "QUICC";
