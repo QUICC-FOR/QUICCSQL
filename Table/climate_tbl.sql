@@ -4,7 +4,7 @@ DROP TABLE rdb_quicc.climatic_data;
 
 CREATE TABLE rdb_quicc.climatic_data
 (
-  id character varying,
+  id_plot character varying NOT NULL,
   x_longitude double precision,
   y_latitiude double precision,
   z_elevation double precision,
@@ -73,7 +73,7 @@ CREATE TABLE rdb_quicc.climatic_data
   october_mean_monthly_pp double precision,
   november_mean_monthly_pp double precision,
   december_mean_monthly_pp double precision,
-  year_data integer
+  year_data integer NOT NULL,
   CONSTRAINT climatic_data_pk PRIMARY KEY (id,year_data)
 )
 WITH (
