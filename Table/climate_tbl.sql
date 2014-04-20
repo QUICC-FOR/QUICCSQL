@@ -1,13 +1,13 @@
 -- Table: qc_pp.pp_climatic_data
 
--- DROP TABLE rdb_quicc.climatic_data;
+DROP TABLE rdb_quicc.climatic_data;
 
 CREATE TABLE rdb_quicc.climatic_data
 (
   id character varying,
   x_longitude double precision,
   y_latitiude double precision,
-  z_elevation bigint,
+  z_elevation double precision,
   mean_diurnal_range double precision,
   isothermality double precision,
   temp_seasonality double precision,
@@ -18,20 +18,20 @@ CREATE TABLE rdb_quicc.climatic_data
   mean_temp_driest_quarter double precision,
   mean_temp_warmest_quarter double precision,
   mean_temp_coldest_quarter double precision,
-  annual_pp bigint,
-  pp_wettest_period bigint,
-  pp_driest_period bigint,
-  pp_seasonality bigint,
-  pp_wettest_quarter bigint,
-  pp_driest_quarter bigint,
-  pp_warmest_quarter bigint,
-  pp_coldest_quarter bigint,
-  julian_day_number_start_growing_season bigint,
-  julian_day_number_at_end_growing_season bigint,
-  number_days_growing_season bigint,
+  annual_pp double precision,
+  pp_wettest_period double precision,
+  pp_driest_period double precision,
+  pp_seasonality double precision,
+  pp_wettest_quarter double precision,
+  pp_driest_quarter double precision,
+  pp_warmest_quarter double precision,
+  pp_coldest_quarter double precision,
+  julian_day_number_start_growing_season double precision,
+  julian_day_number_at_end_growing_season double precision,
+  number_days_growing_season double precision,
   total_pp_for_period_1 double precision,
   total_pp_for_period_3 double precision,
-  gdd_above_base_temp_for_period_3 bigint,
+  gdd_above_base_temp_for_period_3 double precision,
   annual_mean_temp double precision,
   annual_min_temp double precision,
   annual_max_temp double precision,
