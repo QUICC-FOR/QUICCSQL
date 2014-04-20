@@ -4,6 +4,10 @@ QUICC-SQL
 
 Work-in-progress...
 
+### Need to be done 
+- Fix role vissst01 to QUICC in dbm file
+- Move Sequences statement upper in pgmodeler script  
+
 ### List of functions
 
 ### TODO on Relational database
