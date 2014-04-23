@@ -6,7 +6,8 @@ Work-in-progress...
 
 ### Need to be done 
 - Fix role vissst01 to QUICC in dbm file
-- Move Sequences statement upper in pgmodeler script  
+- Move Sequences statement upper in pgmodeler script 
+- Change climatic_data.id_plot to general id from rdb_quicc.plot_info
 
 ### List of functions
 
