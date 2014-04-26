@@ -81,3 +81,5 @@ WITH (
 
 ALTER TABLE rdb_quicc.climatic_data
   OWNER TO "QUICC";
+
+  CREATE INDEX  idx_climatic_data ON rdb_quicc.climatic_data (id_plot,year_data);
