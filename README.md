@@ -8,9 +8,9 @@ Work-in-progress...
 
 #### General
 
-- Add climatic table CREATE statement on general rdb_quicc script
-- Fix role vissst01 to QUICC in dbm file
-- Move Sequences statement upper in pgmodeler script 
+- Add climatic table CREATE statement on general rdb_quicc script (**Done**)
+- Fix role vissst01 to QUICC in dbm file (**Done**)
+- Move Sequences statement upper in pgmodeler script (**MANUAL**) 
 - Change climatic_data.id_plot to general id from rdb_quicc.plot_info
 
 #### Plot_info table
