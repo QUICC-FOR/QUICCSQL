@@ -300,7 +300,7 @@ CREATE TABLE rdb_quicc.localisation(
 	coord_postgis geometry(POINT, 4326),
 	srid integer,
 	elevation integer,
-	plot_location character(10),
+	plot_location character(20),
 	CONSTRAINT localis_tbl_pk PRIMARY KEY (plot_id)
 
 );

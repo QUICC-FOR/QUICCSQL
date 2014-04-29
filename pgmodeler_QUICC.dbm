@@ -466,7 +466,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<type name="integer"/>
 	</column>
 	<column name="plot_location">
-		<type name="character" length="10"/>
+		<type name="character" length="20"/>
 	</column>
 	<constraint name="localis_tbl_pk" type="pk-constr" factor="10" table="rdb_quicc.localisation">
 		<columns names="plot_id" ref-type="src-columns"/>
