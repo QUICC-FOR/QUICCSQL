@@ -194,19 +194,4 @@ AND
 -- LIMIT 200
 ;
 
-INSERT INTO rdb_quicc.plot SELECT
-    rdb_quicc.plot_info.plot_id,
-    rdb_quicc.plot_info.org_db_loc,
-    temp_quicc.mv_plot.latitude,
-    temp_quicc.mv_plot.longitude,
-    temp_quicc.mv_plot.projection_srid,
-    0 :: integer AS elevation,
-    temp_quicc.plot_size(temp_quicc.mv_plot.org_code_db,temp_quicc.mv_plot.plot_size),
-    temp_quicc.plot_size(temp_quicc.mv_plot.org_code_db,temp_quicc.mv_plot.sapling_plot_size),
-    temp_quicc.plot_size(temp_quicc.mv_plot.org_code_db,temp_quicc.mv_plot.seedling_plot_size),
-    0 :: boolean AS is_subplot,
-    temp_quicc.mv_plot.has_superplot,
-    temp_quicc.mv_plot.is_templot
-FROM temp_quicc.mv_plot
-JOIN rdb_quicc.plot_info ON temp_quicc.mv_plot.plot_id = rdb_quicc.plot_info.org_db_id;
 
