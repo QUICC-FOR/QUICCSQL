@@ -16,11 +16,12 @@ Work-in-progress...
 #### Plot_info table
 
 - Generate ID in plot_id reference table (**Done**)
+- Table closed and working for: `FIA`, `QC`, `ON`, `NB`
 
 #### Location table
 
 - Cleanup permanente and temporary sample plot coordinates (**Done**)
-- Filters used: 
+- Filters (**Done**): 
  * Coordinates taken on the last measurement
  * Field is not empty
  * Only consider maximum longitude 
