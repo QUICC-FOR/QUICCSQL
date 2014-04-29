@@ -19,9 +19,9 @@ Work-in-progress...
 
 #### Location table
 
-- Cleanup permanente and temporary sample plot coordinates (** Done**)
+- Cleanup permanente and temporary sample plot coordinates (**Done**)
 - Filters used: Coordinates taken on the last measurement and not empty 
-- **Check** validity of 'RIGHT JOIN'
+- **Check** validity of `RIGHT JOIN`
 
 #### Plot_info table
 
