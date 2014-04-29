@@ -199,7 +199,7 @@ HAVING count(temp_quicc.mv_localisation.org_plot_id)>1;
 	-- Climatic_data table  need to be already created and inserted
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 
-DELETE
+DELETE FROM rdb_quicc.plot_localisation;
 
 INSERT INTO rdb_quicc.plot_localisation
 SELECT rdb_quicc.plot_info.plot_id,
