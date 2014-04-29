@@ -1,6 +1,6 @@
 QUICC-SQL
 =========
-**Update:** April, 24th 
+**Update:** April, 29th 
 
 Work-in-progress...
 
@@ -20,7 +20,7 @@ Work-in-progress...
 
 #### Location table
 
-- Cleanup permanente and temporary sample plot coordinates (**Done**)
+- Cleanup coordinates on permanent and temporary sample plots  (**Done**)
 - Filters (**Done**): 
  * Coordinates taken on the last measurement
  * Field is not empty
@@ -39,3 +39,9 @@ Next
 #### Tree table
 
 Next
+
+### Order to run the scripts in Table folder:
+
+1. plot_info_tbl.sql
+2. climate_tbl.sql and localisation_tbl.sql
+3. plot_tbl.sql
