@@ -153,7 +153,4 @@ FROM
 WHERE
     latitude IS NOT NULL AND  longitude IS NOT NULL AND latitude <> 0 AND longitude <> 0
 GROUP BY
-    org_plot_id, longitude,latitude,srid,org_code_db
-    ) AS subquery
-GROUP BY
-org_plot_id,yr_measured, longitude,latitude,srid,org_code_db;
+    org_plot_id, longitude,latitude,srid,org_code_db;
