@@ -7,13 +7,13 @@
 SET check_function_bodies = false;
 -- ddl-end --
 
--- object: "QUICC_CONSULT" | type: ROLE --
--- DROP ROLE "QUICC_CONSULT";
-CREATE ROLE "QUICC_CONSULT" WITH 
+-- object: "QUICC" | type: ROLE --
+-- DROP ROLE "QUICC";
+CREATE ROLE "QUICC" WITH 
 	INHERIT
 	ENCRYPTED PASSWORD '********'
-	ROLE gravdo01;
-COMMENT ON ROLE "QUICC_CONSULT" IS 'Groupe quicc pour consultation';
+	VALID UNTIL '2014-03-22 00:00:00'
+	ROLE vissst01;
 -- ddl-end --
 
 
@@ -45,7 +45,7 @@ CREATE TABLE rdb_quicc.superplot(
 
 );
 -- ddl-end --
-ALTER TABLE rdb_quicc.superplot OWNER TO vissst01;
+ALTER TABLE rdb_quicc.superplot OWNER TO "QUICC";
 -- ddl-end --
 
 -- object: rdb_quicc.ref_tree_age_method | type: TABLE --
@@ -57,7 +57,7 @@ CREATE TABLE rdb_quicc.ref_tree_age_method(
 
 );
 -- ddl-end --
-ALTER TABLE rdb_quicc.ref_tree_age_method OWNER TO vissst01;
+ALTER TABLE rdb_quicc.ref_tree_age_method OWNER TO "QUICC";
 -- ddl-end --
 
 -- object: rdb_quicc.ref_tree_height_method | type: TABLE --
@@ -69,7 +69,7 @@ CREATE TABLE rdb_quicc.ref_tree_height_method(
 
 );
 -- ddl-end --
-ALTER TABLE rdb_quicc.ref_tree_height_method OWNER TO vissst01;
+ALTER TABLE rdb_quicc.ref_tree_height_method OWNER TO "QUICC";
 -- ddl-end --
 
 -- object: rdb_quicc.tree_info_tree_id_species_seq | type: SEQUENCE --
@@ -96,7 +96,7 @@ CREATE TABLE rdb_quicc.tree_class_info(
 
 );
 -- ddl-end --
-ALTER TABLE rdb_quicc.tree_class_info OWNER TO vissst01;
+ALTER TABLE rdb_quicc.tree_class_info OWNER TO "QUICC";
 -- ddl-end --
 
 -- object: rdb_quicc.tree | type: TABLE --
@@ -127,7 +127,7 @@ CREATE TABLE rdb_quicc.tree(
 
 );
 -- ddl-end --
-ALTER TABLE rdb_quicc.tree OWNER TO vissst01;
+ALTER TABLE rdb_quicc.tree OWNER TO "QUICC";
 -- ddl-end --
 
 -- object: rdb_quicc.class_tree | type: TABLE --
@@ -152,7 +152,7 @@ CREATE TABLE rdb_quicc.class_tree(
 
 );
 -- ddl-end --
-ALTER TABLE rdb_quicc.class_tree OWNER TO vissst01;
+ALTER TABLE rdb_quicc.class_tree OWNER TO "QUICC";
 -- ddl-end --
 
 -- object: rdb_quicc.ref_species | type: TABLE --
@@ -171,7 +171,7 @@ CREATE TABLE rdb_quicc.ref_species(
 
 );
 -- ddl-end --
-ALTER TABLE rdb_quicc.ref_species OWNER TO vissst01;
+ALTER TABLE rdb_quicc.ref_species OWNER TO "QUICC";
 -- ddl-end --
 
 -- object: rdb_quicc.stand_disturbed | type: TABLE --
@@ -190,7 +190,7 @@ CREATE TABLE rdb_quicc.stand_disturbed(
 
 );
 -- ddl-end --
-ALTER TABLE rdb_quicc.stand_disturbed OWNER TO vissst01;
+ALTER TABLE rdb_quicc.stand_disturbed OWNER TO "QUICC";
 -- ddl-end --
 
 -- object: rdb_quicc.ref_stand_disturb_type | type: TABLE --
@@ -202,7 +202,7 @@ CREATE TABLE rdb_quicc.ref_stand_disturb_type(
 
 );
 -- ddl-end --
-ALTER TABLE rdb_quicc.ref_stand_disturb_type OWNER TO vissst01;
+ALTER TABLE rdb_quicc.ref_stand_disturb_type OWNER TO "QUICC";
 -- ddl-end --
 
 -- object: rdb_quicc.tree_info | type: TABLE --
@@ -216,7 +216,7 @@ CREATE TABLE rdb_quicc.tree_info(
 
 );
 -- ddl-end --
-ALTER TABLE rdb_quicc.tree_info OWNER TO vissst01;
+ALTER TABLE rdb_quicc.tree_info OWNER TO "QUICC";
 -- ddl-end --
 
 -- object: rdb_quicc.plot | type: TABLE --
@@ -237,7 +237,7 @@ CREATE TABLE rdb_quicc.plot(
 
 );
 -- ddl-end --
-ALTER TABLE rdb_quicc.plot OWNER TO vissst01;
+ALTER TABLE rdb_quicc.plot OWNER TO "QUICC";
 -- ddl-end --
 
 -- object: rdb_quicc.plot_info_plot_id_seq | type: SEQUENCE --
@@ -263,7 +263,7 @@ CREATE TABLE rdb_quicc.plot_info(
 
 );
 -- ddl-end --
-ALTER TABLE rdb_quicc.plot_info OWNER TO vissst01;
+ALTER TABLE rdb_quicc.plot_info OWNER TO "QUICC";
 -- ddl-end --
 
 -- object: rdb_quicc.stand | type: TABLE --
@@ -288,7 +288,7 @@ CREATE TABLE rdb_quicc.stand(
 
 );
 -- ddl-end --
-ALTER TABLE rdb_quicc.stand OWNER TO vissst01;
+ALTER TABLE rdb_quicc.stand OWNER TO "QUICC";
 -- ddl-end --
 
 -- object: rdb_quicc.localisation | type: TABLE --
@@ -305,7 +305,7 @@ CREATE TABLE rdb_quicc.localisation(
 
 );
 -- ddl-end --
-ALTER TABLE rdb_quicc.localisation OWNER TO vissst01;
+ALTER TABLE rdb_quicc.localisation OWNER TO "QUICC";
 -- ddl-end --
 
 -- object: localisation_fk | type: CONSTRAINT --
@@ -405,7 +405,7 @@ CREATE TABLE rdb_quicc.ref_stand_age_method(
 
 );
 -- ddl-end --
-ALTER TABLE rdb_quicc.ref_stand_age_method OWNER TO vissst01;
+ALTER TABLE rdb_quicc.ref_stand_age_method OWNER TO "QUICC";
 -- ddl-end --
 
 -- object: rdb_quicc.ref_stand_height_method | type: TABLE --
@@ -417,7 +417,7 @@ CREATE TABLE rdb_quicc.ref_stand_height_method(
 
 );
 -- ddl-end --
-ALTER TABLE rdb_quicc.ref_stand_height_method OWNER TO vissst01;
+ALTER TABLE rdb_quicc.ref_stand_height_method OWNER TO "QUICC";
 -- ddl-end --
 
 -- object: stand_fk | type: CONSTRAINT --
@@ -463,7 +463,7 @@ CREATE TABLE rdb_quicc.conv_class_dbh(
 
 );
 -- ddl-end --
-ALTER TABLE rdb_quicc.conv_class_dbh OWNER TO vissst01;
+ALTER TABLE rdb_quicc.conv_class_dbh OWNER TO "QUICC";
 -- ddl-end --
 
 -- object: rdb_quicc.conv_class_height | type: TABLE --
@@ -477,7 +477,7 @@ CREATE TABLE rdb_quicc.conv_class_height(
 
 );
 -- ddl-end --
-ALTER TABLE rdb_quicc.conv_class_height OWNER TO vissst01;
+ALTER TABLE rdb_quicc.conv_class_height OWNER TO "QUICC";
 -- ddl-end --
 
 -- object: conv_class_dbh_fk | type: CONSTRAINT --
@@ -495,6 +495,95 @@ REFERENCES rdb_quicc.conv_class_height (height_class_id) MATCH FULL
 ON DELETE CASCADE ON UPDATE CASCADE;
 -- ddl-end --
 
+
+-- object: rdb_quicc.climatic_data | type: TABLE --
+-- DROP TABLE rdb_quicc.climatic_data;
+CREATE TABLE rdb_quicc.climatic_data(
+	id_plot character varying NOT NULL,
+	x_longitude double precision,
+	y_latitiude double precision,
+	z_elevation double precision,
+	mean_diurnal_range double precision,
+	isothermality double precision,
+	temp_seasonality double precision,
+	max_temp_warmest_period double precision,
+	min_temp_coldest_period double precision,
+	temp_annual_range double precision,
+	mean_temperatre_wettest_quarter double precision,
+	mean_temp_driest_quarter double precision,
+	mean_temp_warmest_quarter double precision,
+	mean_temp_coldest_quarter double precision,
+	annual_pp double precision,
+	pp_wettest_period double precision,
+	pp_driest_period double precision,
+	pp_seasonality double precision,
+	pp_wettest_quarter double precision,
+	pp_driest_quarter double precision,
+	pp_warmest_quarter double precision,
+	pp_coldest_quarter double precision,
+	julian_day_number_start_growing_season double precision,
+	julian_day_number_at_end_growing_season double precision,
+	number_days_growing_season double precision,
+	total_pp_for_period_1 double precision,
+	total_pp_for_period_3 double precision,
+	gdd_above_base_temp_for_period_3 double precision,
+	annual_mean_temp double precision,
+	annual_min_temp double precision,
+	annual_max_temp double precision,
+	mean_temp_for_period_3 double precision,
+	temp_range_for_period_3 double precision,
+	january_mean_monthly_min_temp double precision,
+	february_mean_monthly_min_temp double precision,
+	march_mean_monthly_min_temp double precision,
+	april_mean_monthly_min_temp double precision,
+	may_mean_monthly_min_temp double precision,
+	june_mean_monthly_min_temp double precision,
+	july_mean_monthly_min_temp double precision,
+	august_mean_monthly_min_temp double precision,
+	september_mean_monthly_min_temp double precision,
+	october_mean_monthly_min_temp double precision,
+	november_mean_monthly_min_temp double precision,
+	december_mean_monthly_min_temp double precision,
+	january_mean_monthly_max_temp double precision,
+	february_mean_monthly_max_temp double precision,
+	march_mean_monthly_max_temp double precision,
+	april_mean_monthly_max_temp double precision,
+	may_mean_monthly_max_temp double precision,
+	june_mean_monthly_max_temp double precision,
+	july_mean_monthly_max_temp double precision,
+	august_mean_monthly_max_temp double precision,
+	september_mean_monthly_max_temp double precision,
+	october_mean_monthly_max_temp double precision,
+	november_mean_monthly_max_temp double precision,
+	december_mean_monthly_max_temp double precision,
+	january_mean_monthly_pp double precision,
+	february_mean_monthly_pp double precision,
+	march_mean_monthly_pp double precision,
+	april_mean_monthly_pp double precision,
+	may_mean_monthly_pp double precision,
+	june_mean_monthly_pp double precision,
+	july_mean_monthly_pp double precision,
+	august_mean_monthly_pp double precision,
+	september_mean_monthly_pp double precision,
+	october_mean_monthly_pp double precision,
+	november_mean_monthly_pp double precision,
+	december_mean_monthly_pp double precision,
+	year_data integer NOT NULL
+);
+-- ddl-end --
+-- object: idx_climatic_data | type: INDEX --
+-- DROP INDEX rdb_quicc.idx_climatic_data;
+CREATE INDEX idx_climatic_data ON rdb_quicc.climatic_data
+	USING btree
+	(
+	  id_plot,
+	  year_data
+	)	WITH (FILLFACTOR = 90);
+-- ddl-end --
+
+
+ALTER TABLE rdb_quicc.climatic_data OWNER TO "QUICC";
+-- ddl-end --
 
 -- object: grant_30ba4892f4 | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
