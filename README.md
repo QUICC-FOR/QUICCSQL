@@ -15,17 +15,17 @@ Work-in-progress...
 
 #### Plot_info table
 
-- Generate ID in plot_id reference table (Done)
+- Generate ID in plot_id reference table (**Done**)
 
 #### Location table
 
-- Cleanup permanente and temporary sample plot coordinates
-- Describe filters used
+- Cleanup permanente and temporary sample plot coordinates (** Done**)
+- Filters used: Coordinates taken on the last measurement and not empty 
 
 #### Plot_info table
 
 - Function #1 Convert class of plot size (Need further investigations)
-- Function #2 Convert radius to area (Done)
+- Function #2 Convert radius to area (**Done**)
 
 #### Tree_info table
 
