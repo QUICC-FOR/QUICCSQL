@@ -23,13 +23,13 @@ Work-in-progress...
 - Cleanup coordinates on permanent and temporary sample plots  (**Done**)
 - Filters (**Done**): 
  * Coordinates taken on the last measurement
- * Field is not empty
- * Only consider maximum longitude 
+ * Field `coord_geom` is not empty
+ * Only consider maximum geometry_point (*Need further investigations*)
 - **Check** validity of `RIGHT JOIN` (**Done**)
 
 #### Plot_info table
 
-- Function #1 Convert class of plot size (Need further investigations)
+- Function #1 Convert class of plot size (*Need further investigations*)
 - Function #2 Convert radius to area (**Done**)
 
 #### Tree_info table

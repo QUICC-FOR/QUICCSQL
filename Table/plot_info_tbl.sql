@@ -51,7 +51,7 @@ UNION ALL
 
 SELECT DISTINCT
     CAST(qc_tp.infogen_pet3.id_pet AS char(20)) AS plot_id,
-    'qc_tp2' :: char(20) AS org_code_db
+    'qc_tp3' :: char(20) AS org_code_db
 FROM
     qc_tp.infogen_pet3
 
@@ -59,7 +59,7 @@ UNION ALL
 
 SELECT DISTINCT
     CAST(qc_tp.infogen_pet4.id_pet AS char(20)) AS plot_id,
-    'qc_tp2' :: char(20) AS org_code_db
+    'qc_tp4' :: char(20) AS org_code_db
 FROM
     qc_tp.infogen_pet4
 
@@ -95,7 +95,15 @@ SELECT DISTINCT
     CAST(on_pp.glsl_psp_plotinfo.plotname AS char(20)) AS plot_id,
     'on_pp_glsl' :: char(20) AS org_code_db
 FROM
-    on_pp.glsl_psp_plotinfo;
+    on_pp.glsl_psp_plotinfo
+
+UNION ALL
+
+SELECT DISTINCT
+    CAST(on_pp.pgp_plot_info.plot_num AS char(20)) AS plot_id,
+    'on_pp_pgp' :: char(20) AS org_code_db
+FROM
+    on_pp.pgp_plot_info;
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 
