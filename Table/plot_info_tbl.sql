@@ -30,8 +30,8 @@ CREATE MATERIALIZED VIEW temp_quicc.mv_plot_info AS
 UNION ALL
 
 SELECT
-    CAST(qc_pp.pp_infogen.id_pep AS char(10)) AS plot_id,
-    'qc_pp' :: char(5) AS org_code_db
+    CAST(qc_pp.pp_infogen.id_pep AS char(20)) AS plot_id,
+    'qc_pp' :: char(20) AS org_code_db
 FROM
     qc_pp.pp_infogen
 
@@ -42,24 +42,24 @@ FROM
 UNION ALL
 
 SELECT DISTINCT
-    CAST(qc_tp.infogen_pet2.id_pet AS char(10)) AS plot_id,
-    'qc_tp2' :: char(5) AS org_code_db
+    CAST(qc_tp.infogen_pet2.id_pet AS char(20)) AS plot_id,
+    'qc_tp2' :: char(20) AS org_code_db
 FROM
     qc_tp.infogen_pet2
 
 UNION ALL
 
 SELECT DISTINCT
-    CAST(qc_tp.infogen_pet3.id_pet AS char(10)) AS plot_id,
-    'qc_tp2' :: char(5) AS org_code_db
+    CAST(qc_tp.infogen_pet3.id_pet AS char(20)) AS plot_id,
+    'qc_tp2' :: char(20) AS org_code_db
 FROM
     qc_tp.infogen_pet3
 
 UNION ALL
 
 SELECT DISTINCT
-    CAST(qc_tp.infogen_pet4.id_pet AS char(10)) AS plot_id,
-    'qc_tp2' :: char(5) AS org_code_db
+    CAST(qc_tp.infogen_pet4.id_pet AS char(20)) AS plot_id,
+    'qc_tp2' :: char(20) AS org_code_db
 FROM
     qc_tp.infogen_pet4
 
@@ -70,8 +70,8 @@ FROM
 UNION ALL
 
 SELECT DISTINCT
-    CAST(nb_pp.psp_plots.plot AS char(10)) AS plot_id,
-    'nb_pp' :: char(5) AS org_code_db
+    CAST(nb_pp.psp_plots.plot AS char(20)) AS plot_id,
+    'nb_pp' :: char(20) AS org_code_db
 FROM
     nb_pp.psp_plots
 
@@ -82,8 +82,8 @@ FROM
 UNION ALL
 
 SELECT DISTINCT
-    CAST(on_pp.boreal_psp_plot_info.plot_num AS char(10)) AS plot_id,
-    'on_pp_boreal' :: char(5) AS org_code_db
+    CAST(on_pp.boreal_psp_plot_info.plot_num AS char(20)) AS plot_id,
+    'on_pp_boreal' :: char(20) AS org_code_db
 FROM
     on_pp.boreal_psp_plot_info
 
@@ -92,8 +92,8 @@ FROM
 UNION ALL
 
 SELECT DISTINCT
-    CAST(on_pp.glsl_psp_plotinfo.plotname AS char(10)) AS plot_id,
-    'on_pp_glsl' :: char(5) AS org_code_db
+    CAST(on_pp.glsl_psp_plotinfo.plotname AS char(20)) AS plot_id,
+    'on_pp_glsl' :: char(20) AS org_code_db
 FROM
     on_pp.glsl_psp_plotinfo;
 
