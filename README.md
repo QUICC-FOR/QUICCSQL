@@ -16,7 +16,7 @@ Work-in-progress...
 #### Plot_info table
 
 - Generate ID in plot_id reference table (**Done**)
-- Table closed and working for: `FIA`, `QC`, `ON`, `NB`
+- Table clean, closed and working for: `FIA`, `QC`, `ON`, `NB`
 
 #### Location table
 
@@ -26,6 +26,7 @@ Work-in-progress...
  * Field `coord_geom` is not empty
  * Only consider maximum geometry_point (*Need further investigations*)
 - **Check** validity of `RIGHT JOIN` (**Done**)
+- Table clean, closed and working for: `FIA`, `QC`, `ON`, `NB`
 
 #### Plot_info table
 
