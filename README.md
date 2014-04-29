@@ -20,8 +20,11 @@ Work-in-progress...
 #### Location table
 
 - Cleanup permanente and temporary sample plot coordinates (**Done**)
-- Filters used: Coordinates taken on the last measurement and not empty 
-- **Check** validity of `RIGHT JOIN`
+- Filters used: 
+ * Coordinates taken on the last measurement
+ * Field is not empty
+ * Only consider maximum longitude 
+- **Check** validity of `RIGHT JOIN` (**Done**)
 
 #### Plot_info table
 
