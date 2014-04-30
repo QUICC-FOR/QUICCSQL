@@ -36,7 +36,7 @@ Work-in-progress...
 - Function #2 Convert radius to area (**Done**)
 
 
-### Order to run the scripts content in `Tables` folder:
+### Order to run the scripts content in `Table` folder:
 
 1. plot_info_tbl.sql
 2. climate_tbl.sql and localisation_tbl.sql
