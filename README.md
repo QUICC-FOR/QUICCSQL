@@ -27,6 +27,10 @@ Work-in-progress...
 - **Check** validity of `RIGHT JOIN` (**Done**)
 - Table clean, closed and working for: `FIA`, `QC`, `ON`, `NB`
 
+#### Plot table 
+
+- Year of measurements are missing
+
 #### Climatic data table 
 
 - Filter original climatic data table using the localisation table
@@ -37,11 +41,10 @@ Work-in-progress...
 
 ### TODO on conversion functions
 
-#### Plot_info table
+#### Plot table
 
 - Function #1 Convert class of plot size (*Need further investigations*)
 - Function #2 Convert radius to area (**Done**)
-
 
 ### Order to run the scripts content in `Table` folder:
 
