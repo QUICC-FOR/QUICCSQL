@@ -6,7 +6,7 @@ CREATE TABLE rdb_quicc.climatic_data
 (
   id_plot character varying NOT NULL,
   x_longitude double precision,
-  y_latitiude double precision,
+  y_latitude double precision,
   z_elevation double precision,
   mean_diurnal_range double precision,
   isothermality double precision,
@@ -82,4 +82,4 @@ WITH (
 ALTER TABLE rdb_quicc.climatic_data
   OWNER TO "QUICC";
 
-  CREATE INDEX  idx_climatic_data ON rdb_quicc.climatic_data (id_plot,year_data);
+  CREATE INDEX  idx_climatic_data ON rdb_quicc.climatic_data (id_plot,x_longitude,y_latitude,year_data);
