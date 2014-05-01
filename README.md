@@ -11,7 +11,6 @@ Work-in-progress...
 - Add climatic table `CREATE` statement on general rdb_quicc script (**Done**)
 - Fix role vissst01 to QUICC in dbm file (**Done**)
 - Move `SEQUENCES` statement upper in pgmodeler script (**MANUAL**) 
-- Change climatic_data.id_plot to general id from rdb_quicc.plot_info
 
 #### Plot_info table
 
@@ -34,7 +33,7 @@ Work-in-progress...
 - Remove all year not necessary
 - Remove lat, long, elevation
 - Create Pkey on plot_id and year
-
+- Change climatic_data.id_plot to general id from rdb_quicc.plot_info
 
 ### TODO on conversion functions
 
