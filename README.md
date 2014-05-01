@@ -4,7 +4,7 @@ QUICC-SQL
 
 Work-in-progress...
 
-### TODO on Relational database
+### TODO on RDB tables
 
 #### General
 
@@ -28,20 +28,15 @@ Work-in-progress...
 - **Check** validity of `RIGHT JOIN` (**Done**)
 - Table clean, closed and working for: `FIA`, `QC`, `ON`, `NB`
 
+### TODO on conversion functions
+
 #### Plot_info table
 
 - Function #1 Convert class of plot size (*Need further investigations*)
 - Function #2 Convert radius to area (**Done**)
 
-#### Tree_info table
 
-Next
-
-#### Tree table
-
-Next
-
-### Order to run the scripts in Table folder:
+### Order to run the scripts content in `Table` folder:
 
 1. plot_info_tbl.sql
 2. climate_tbl.sql and localisation_tbl.sql
