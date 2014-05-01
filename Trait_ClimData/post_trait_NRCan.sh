@@ -7,7 +7,7 @@ read  POST
 echo -n "Import on remote (UQAR) or local postgres server? "
 read  CON
 
-# Database setting
+# Database settings
 if [ "$CON" = "local" ]; then
   HOST="localhost"
   DB="QUICC-FOR-Dev"
@@ -45,7 +45,7 @@ fi
 echo "DROP and CREATE climatic table..."
 psql -U $USER -h $HOST -p $PORT -d $DB -c "\i ~/Documents/GitHub/QUICC-SQL/Table/climate_tbl.sql"
 
-echo "Import text file in Postgres..."
+echo "Import csv file into the climatic table..."
 
 for file in $EXPORT/*; do
     echo $file
