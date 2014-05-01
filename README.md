@@ -1,6 +1,6 @@
 QUICC-SQL
 =========
-**Update:** April, 29th 
+**Update:** March, first
 
 Work-in-progress...
 
@@ -33,11 +33,11 @@ Work-in-progress...
 
 #### Climatic data table 
 
-- Filter original climatic data table using the localisation table
-- Remove all year not necessary
-- Remove lat, long, elevation
+- Filter original climatic data table using the localisation table (**Done**)
+- Change climatic_data.id_plot to general id from rdb_quicc.plot_info (**Almost done; Too long via SQL**)
+- Remove all year not necessary (**Waiting after plot table on rdb**)
 - Create Pkey on plot_id and year
-- Change climatic_data.id_plot to general id from rdb_quicc.plot_info
+- Remove lat, long, elevation
 
 ### TODO on conversion functions
 
