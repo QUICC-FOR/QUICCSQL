@@ -28,6 +28,14 @@ Work-in-progress...
 - **Check** validity of `RIGHT JOIN` (**Done**)
 - Table clean, closed and working for: `FIA`, `QC`, `ON`, `NB`
 
+#### Climatic data table 
+
+- Filter original climatic data table using the localisation table
+- Remove all year not necessary
+- Remove lat, long, elevation
+- Create Pkey on plot_id and year
+
+
 ### TODO on conversion functions
 
 #### Plot_info table
