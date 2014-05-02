@@ -29,7 +29,9 @@ Work-in-progress...
 
 #### Plot table 
 
-- Year of measurements are missing
+- Add Year of measurements (**Done**)
+- Add id_meas field on MV
+- Check MV fields type correspond to final rdb table 
 
 #### Climatic data table 
 
