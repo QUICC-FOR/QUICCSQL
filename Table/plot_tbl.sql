@@ -17,6 +17,7 @@ CREATE MATERIALIZED VIEW temp_quicc.mv_plot AS
 SELECT
     CAST(qc_pp.pp_infogen.id_pep AS char(10)) AS plot_id,
     'qc_pp' :: char(5) AS org_code_db,
+    CAST(date_part('year'::text, qc_pp.pp_infogen.date_sond::date) AS integer) AS year_measured,
     CAST(qc_pp.pp_infogen.dimension AS numeric) AS plot_size,
     CAST(qc_pp.pp_infogen.dimension AS numeric) AS sapling_plot_size,
     CAST(qc_pp.pp_infogen.dimension AS numeric) AS seedling_plot_size,
@@ -29,8 +30,6 @@ SELECT
 FROM
     qc_pp.pp_infogen
 INNER JOIN qc_pp.pp_localis on qc_pp.pp_infogen.id_pep_mes = qc_pp.pp_localis.id_pep_mes
-WHERE
-    qc_pp.pp_localis.coord_geom IS NOT NULL
 -- Uncomment the line below for smallest query (1000 records)
 -- LIMIT 200
 
@@ -44,6 +43,7 @@ UNION ALL
 SELECT
     CAST(qc_tp.infogen_pet2.id_pet AS char(10)) AS plot_id,
     'qc_tp2' :: char(5) AS org_code_db,
+    CAST(date_part('year'::text, qc_tp.infogen_pet2.date_sond::date) AS integer) AS year_measured,
     CAST(qc_tp.infogen_pet2.dimension AS numeric) AS plot_size,
     CAST(qc_tp.infogen_pet2.dimension AS numeric) AS sapling_plot_size,
     CAST(qc_tp.infogen_pet2.dimension AS numeric) AS seedling_plot_size,
@@ -56,8 +56,6 @@ SELECT
 FROM
     qc_tp.infogen_pet2
 INNER JOIN qc_tp.localis_pet2 ON qc_tp.infogen_pet2.id_pet_mes = qc_tp.localis_pet2.id_pet_mes
-WHERE
-    qc_tp.localis_pet2.coord_geom IS NOT NULL
 -- Uncomment the line below for smallest query (1000 records)
 -- LIMIT 200
 
@@ -66,6 +64,7 @@ UNION ALL
 SELECT
     CAST(qc_tp.infogen_pet3.id_pet AS char(10)) AS plot_id,
     'qc_tp3' :: char(5) AS org_code_db,
+    CAST(date_part('year'::text, qc_tp.infogen_pet3.date_sond::date) AS integer) AS year_measured,
     CAST(qc_tp.infogen_pet3.dimension AS numeric) AS plot_size,
     CAST(qc_tp.infogen_pet3.dimension AS numeric) AS sapling_plot_size,
     CAST(qc_tp.infogen_pet3.dimension AS numeric) AS seedling_plot_size,
@@ -78,8 +77,6 @@ SELECT
 FROM
     qc_tp.infogen_pet3
 INNER JOIN qc_tp.localis_pet3 ON qc_tp.infogen_pet3.id_pet_mes = qc_tp.localis_pet3.id_pet_mes
-WHERE
-    qc_tp.localis_pet3.coord_geom IS NOT NULL
 -- Uncomment the line below for smallest query (1000 records)
 -- LIMIT 200
 
@@ -87,6 +84,7 @@ UNION ALL
 
 SELECT
     CAST(qc_tp.infogen_pet4.id_pet AS char(10)) AS plot_id,
+    CAST(date_part('year'::text, qc_tp.infogen_pet4.date_sond::date) AS integer) AS year_measured,
     'qc_tp4' :: char(5) AS org_code_db,
     CAST(qc_tp.infogen_pet4.dimension AS numeric) AS plot_size,
     CAST(qc_tp.infogen_pet4.dimension AS numeric) AS sapling_plot_size,
@@ -100,8 +98,7 @@ SELECT
 FROM
     qc_tp.infogen_pet4
 INNER JOIN qc_tp.localis_pet4 ON qc_tp.infogen_pet4.id_pet_mes = qc_tp.localis_pet4.id_pet_mes
-WHERE
-    qc_tp.localis_pet4.coord_geom IS NOT NULL
+
 -- Uncomment the line below for smallest query (1000 records)
 -- LIMIT 200
 
@@ -113,6 +110,7 @@ UNION ALL
 SELECT
     CAST(nb_pp.psp_plots.plot AS char(10)) AS plot_id,
     'nb_pp' :: char(5) AS org_code_db,
+    CAST(nb_pp.psp_plots_yr.year AS integer) AS year_measured,
     CAST(nb_pp.psp_plots.plotsize AS numeric) AS plot_size,
     CAST(nb_pp.psp_plots.plotsize AS numeric) AS sapling_plot_size,
     CAST(nb_pp.psp_plots.plotsize AS numeric) AS seedling_plot_size,
@@ -124,8 +122,8 @@ SELECT
     0 :: boolean AS is_templot
 FROM
     nb_pp.psp_plots
-WHERE
-    nb_pp.psp_plots.coord_geom IS NOT NULL
+LEFT JOIN  nb_pp.psp_plots_yr ON nb_pp.psp_plots.plot = nb_pp.psp_plots_yr.plot
+
 -- Uncomment the line below for smallest query (1000 records)
 -- LIMIT 200
 
@@ -150,17 +148,7 @@ SELECT
     0 :: boolean AS has_superplot,
     0 :: boolean AS is_templot
 FROM
-    on_pp.boreal_psp_plot_info,
-    (SELECT on_pp.boreal_psp_plot_sizes.plot_num,
-        max(on_pp.boreal_psp_plot_sizes.area) as area
-    FROM on_pp.boreal_psp_plot_sizes
-    WHERE on_pp.boreal_psp_plot_sizes.area IS NOT NULL
-    GROUP BY  on_pp.boreal_psp_plot_sizes.plot_num
-    ORDER BY on_pp.boreal_psp_plot_sizes.plot_num) AS tbl_plot
-WHERE
-    tbl_plot.plot_num = on_pp.boreal_psp_plot_info.plot_num
-AND
-    on_pp.boreal_psp_plot_info.coord_geom IS NOT NULL
+    on_pp.boreal_psp_plot_info
 
 ---- glsl_on
 
@@ -179,17 +167,7 @@ SELECT
     0 :: boolean AS has_superplot,
     0 :: boolean AS is_templot
 FROM
-    on_pp.glsl_psp_plotinfo,
-    (SELECT on_pp.glsl_psp_plotsize.plotname,
-        max(on_pp.glsl_psp_plotsize.area) AS area
-    FROM on_pp.glsl_psp_plotsize
-    WHERE on_pp.glsl_psp_plotsize.area IS NOT NULL
-    GROUP BY on_pp.glsl_psp_plotsize.plotname
-    ORDER BY on_pp.glsl_psp_plotsize.plotname) AS tbl_plot
-WHERE
-    tbl_plot.plotname = on_pp.glsl_psp_plotinfo.plotname
-AND
-    on_pp.glsl_psp_plotinfo.coord_geom IS NOT NULL
+    on_pp.glsl_psp_plotinfo
 -- Uncomment the line below for smallest query (1000 records)
 -- LIMIT 200
 ;
