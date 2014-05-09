@@ -230,7 +230,7 @@ CREATE TABLE rdb_quicc.plot(
 	is_temp boolean,
 	has_superplot boolean,
 	plot_id_localisation integer NOT NULL,
-	plot_id_plot_info integer NOT NULL DEFAULT nextval('plot_info_plot_id_seq'::regclass),
+	plot_id_plot_info integer NOT NULL ,
 	CONSTRAINT plot_tbl_pk PRIMARY KEY (plot_id,year_measured)
 
 );
