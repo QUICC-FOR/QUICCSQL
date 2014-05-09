@@ -20,18 +20,23 @@ Work-in-progress...
 #### Location table
 
 - Cleanup coordinates on permanent and temporary sample plots  (**Done**)
-- Filters (**Done**): 
+- **Check** validity of `RIGHT JOIN` (**Done**)
+- Table clean, closed and working for: `FIA`, `QC`, `ON`, `NB`
+
+##### **Filters** (**Done**)
  * Coordinates taken on the last measurement
  * Field `coord_geom` is not empty
  * Only consider maximum geometry_point (*Need further investigations*)
-- **Check** validity of `RIGHT JOIN` (**Done**)
-- Table clean, closed and working for: `FIA`, `QC`, `ON`, `NB`
 
 #### Plot table 
 
 - Add Year of measurements (**Done**)
-- Add id_meas field on MV
+- Geographic informations extract from location table in RDB
+- Add id_meas field on MV (**Done**)
 - Check MV fields type correspond to final rdb table 
+
+##### **Filters** (**Done**)
+ * Remove all plots with no year of measurement (`NB`)
 
 #### Climatic data table 
 
