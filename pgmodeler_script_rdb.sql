@@ -9,7 +9,7 @@ SET check_function_bodies = false;
 
 -- object: "QUICC" | type: ROLE --
 -- DROP ROLE "QUICC";
-CREATE ROLE "QUICC" WITH 
+CREATE ROLE "QUICC" WITH
 	INHERIT
 	ENCRYPTED PASSWORD '********'
 	VALID UNTIL '2014-03-22 00:00:00'
@@ -24,7 +24,7 @@ CREATE ROLE "QUICC" WITH
 -- CREATE DATABASE db_quicc_for
 -- ;
 -- -- ddl-end --
--- 
+--
 
 -- object: rdb_quicc | type: SCHEMA --
 -- DROP SCHEMA rdb_quicc;
@@ -230,6 +230,7 @@ CREATE TABLE rdb_quicc.plot(
 	is_temp boolean,
 	has_superplot boolean,
 	plot_id_localisation integer NOT NULL,
+	plot_id_plot_info integer NOT NULL DEFAULT nextval('plot_info_plot_id_seq'::regclass),
 	CONSTRAINT plot_tbl_pk PRIMARY KEY (plot_id,year_measured)
 
 );
@@ -247,7 +248,7 @@ CREATE SEQUENCE rdb_quicc.plot_info_plot_id_seq
 	CACHE 1
 	NO CYCLE
 	OWNED BY NONE;
-ALTER SEQUENCE rdb_quicc.plot_info_plot_id_seq OWNER TO vissst01;
+ALTER SEQUENCE rdb_quicc.plot_info_plot_id_seq OWNER TO QUICC;
 -- ddl-end --
 
 -- object: rdb_quicc.plot_info | type: TABLE --
@@ -481,6 +482,14 @@ ON DELETE CASCADE ON UPDATE CASCADE;
 -- ALTER TABLE rdb_quicc.plot DROP CONSTRAINT localisation_fk;
 ALTER TABLE rdb_quicc.plot ADD CONSTRAINT localisation_fk FOREIGN KEY (plot_id_localisation)
 REFERENCES rdb_quicc.localisation (plot_id) MATCH FULL
+ON DELETE CASCADE ON UPDATE CASCADE;
+-- ddl-end --
+
+
+-- object: plot_info_fk | type: CONSTRAINT --
+-- ALTER TABLE rdb_quicc.plot DROP CONSTRAINT plot_info_fk;
+ALTER TABLE rdb_quicc.plot ADD CONSTRAINT plot_info_fk FOREIGN KEY (plot_id_plot_info)
+REFERENCES rdb_quicc.plot_info (plot_id) MATCH FULL
 ON DELETE CASCADE ON UPDATE CASCADE;
 -- ddl-end --
 

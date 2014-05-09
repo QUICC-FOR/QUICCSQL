@@ -11,6 +11,7 @@ Work-in-progress...
 - Add climatic table `CREATE` statement on general rdb_quicc script (**Done**)
 - Fix role vissst01 to QUICC in dbm file (**Done**)
 - Move `SEQUENCES` statement upper in pgmodeler script (**MANUAL**) 
+- Check MV fields type correspond to final rdb table 
 
 #### Plot_info table
 
@@ -32,8 +33,8 @@ Work-in-progress...
 
 - Add Year of measurements (**Done**)
 - Geographic informations extract from location table in RDB
-- Add id_meas field on MV (**Done**)
-- Check MV fields type correspond to final rdb table 
+- Compute plot_size by plot for `QC`
+- Remove `DEFAULT nextval('plot_info_plot_id_seq'::regclass)` on plot_id_plot_info **(MANUAL)**
 
 ##### **Filters** (**Done**)
  * Remove all plots with no year of measurement (`NB`)
@@ -51,10 +52,11 @@ Work-in-progress...
 #### Plot table
 
 - Function #1 Convert class of plot size (*Need further investigations*)
-- Function #2 Convert radius to area (**Done**)
+- Function #2 Convert radius to area 
 
 ### Order to run the scripts content in `Table` folder:
 
-1. plot_info_tbl.sql
-2. climate_tbl.sql and localisation_tbl.sql
-3. plot_tbl.sql
+1. pgmodeler_script_rdb.sql
+2. plot_info_tbl.sql
+3. climate_tbl.sql and localisation_tbl.sql
+4. plot_tbl.sql
