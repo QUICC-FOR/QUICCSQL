@@ -35,6 +35,7 @@ Work-in-progress...
 - Geographic informations extract from location table in RDB
 - Compute plot_size by plot for `QC`
 - Remove `DEFAULT nextval('plot_info_plot_id_seq'::regclass)` on plot_id_plot_info **(MANUAL)**
+- Need create functions on `has_superplot`, `plot_size`, `sapling_plot_size`, `seedling_plot_size`
 
 ##### **Filters** (**Done**)
  * Remove all plots with no year of measurement (`NB`)
