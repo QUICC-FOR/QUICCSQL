@@ -113,11 +113,11 @@ CREATE TABLE rdb_quicc.tree(
 	position_canopy character,
 	age_id_method character,
 	height_id_method character,
-	is_sapling integer,
-	is_planted integer,
-	is_dead integer,
+	is_sapling boolean,
+	is_planted boolean,
+	is_dead boolean,
 	plot_id_plot integer NOT NULL,
-	id_meas_plot smallint NOT NULL,
+	year_measured_plot integer NOT NULL,
 	species_tsn_ref_species integer NOT NULL,
 	plot_id_tree_info integer NOT NULL,
 	tree_id_tree_info integer NOT NULL,
@@ -144,7 +144,7 @@ CREATE TABLE rdb_quicc.class_tree(
 	plot_id_tree_class_info integer NOT NULL,
 	tree_class_id_tree_class_info integer NOT NULL DEFAULT nextval('tree_info_tree_id_species_seq'::regclass),
 	plot_id_plot integer NOT NULL,
-	id_meas_plot smallint NOT NULL,
+	year_measured_plot integer NOT NULL,
 	species_tsn_ref_species integer NOT NULL,
 	dbh_class_id_conv_class_dbh integer NOT NULL,
 	height_class_id_conv_class_height integer NOT NULL,
@@ -223,7 +223,6 @@ ALTER TABLE rdb_quicc.tree_info OWNER TO "QUICC";
 -- DROP TABLE rdb_quicc.plot;
 CREATE TABLE rdb_quicc.plot(
 	plot_id integer NOT NULL,
-	id_meas smallint NOT NULL,
 	year_measured integer,
 	plot_size double precision,
 	seed_plot_size double precision,
@@ -231,8 +230,7 @@ CREATE TABLE rdb_quicc.plot(
 	is_temp boolean,
 	has_superplot boolean,
 	plot_id_localisation integer NOT NULL,
-	plot_id_plot_info integer NOT NULL DEFAULT nextval('plot_info_plot_id_seq'::regclass),
-	CONSTRAINT plot_tbl_pk PRIMARY KEY (plot_id,id_meas)
+	CONSTRAINT plot_tbl_pk PRIMARY KEY (plot_id,year_measured)
 
 );
 -- ddl-end --
@@ -280,7 +278,7 @@ CREATE TABLE rdb_quicc.stand(
 	is_disturbed boolean,
 	is_planted boolean,
 	plot_id_plot integer NOT NULL,
-	id_meas_plot smallint NOT NULL,
+	year_measured_plot integer NOT NULL,
 	age_id_method_ref_stand_age_method character NOT NULL,
 	height_id_method_ref_stand_height_method character NOT NULL,
 	CONSTRAINT stand_tbl_pk PRIMARY KEY (plot_id,year_measured)
@@ -307,26 +305,10 @@ CREATE TABLE rdb_quicc.localisation(
 ALTER TABLE rdb_quicc.localisation OWNER TO "QUICC";
 -- ddl-end --
 
--- object: localisation_fk | type: CONSTRAINT --
--- ALTER TABLE rdb_quicc.plot DROP CONSTRAINT localisation_fk;
-ALTER TABLE rdb_quicc.plot ADD CONSTRAINT localisation_fk FOREIGN KEY (plot_id_localisation)
-REFERENCES rdb_quicc.localisation (plot_id) MATCH FULL
-ON DELETE CASCADE ON UPDATE CASCADE;
--- ddl-end --
-
-
--- object: plot_info_fk | type: CONSTRAINT --
--- ALTER TABLE rdb_quicc.plot DROP CONSTRAINT plot_info_fk;
-ALTER TABLE rdb_quicc.plot ADD CONSTRAINT plot_info_fk FOREIGN KEY (plot_id_plot_info)
-REFERENCES rdb_quicc.plot_info (plot_id) MATCH FULL
-ON DELETE CASCADE ON UPDATE CASCADE;
--- ddl-end --
-
-
 -- object: plot_fk | type: CONSTRAINT --
 -- ALTER TABLE rdb_quicc.stand DROP CONSTRAINT plot_fk;
-ALTER TABLE rdb_quicc.stand ADD CONSTRAINT plot_fk FOREIGN KEY (plot_id_plot,id_meas_plot)
-REFERENCES rdb_quicc.plot (plot_id,id_meas) MATCH FULL
+ALTER TABLE rdb_quicc.stand ADD CONSTRAINT plot_fk FOREIGN KEY (plot_id_plot,year_measured_plot)
+REFERENCES rdb_quicc.plot (plot_id,year_measured) MATCH FULL
 ON DELETE CASCADE ON UPDATE CASCADE;
 -- ddl-end --
 
@@ -341,16 +323,16 @@ ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- object: plot_fk | type: CONSTRAINT --
 -- ALTER TABLE rdb_quicc.class_tree DROP CONSTRAINT plot_fk;
-ALTER TABLE rdb_quicc.class_tree ADD CONSTRAINT plot_fk FOREIGN KEY (plot_id_plot,id_meas_plot)
-REFERENCES rdb_quicc.plot (plot_id,id_meas) MATCH FULL
+ALTER TABLE rdb_quicc.class_tree ADD CONSTRAINT plot_fk FOREIGN KEY (plot_id_plot,year_measured_plot)
+REFERENCES rdb_quicc.plot (plot_id,year_measured) MATCH FULL
 ON DELETE CASCADE ON UPDATE CASCADE;
 -- ddl-end --
 
 
 -- object: plot_fk | type: CONSTRAINT --
 -- ALTER TABLE rdb_quicc.tree DROP CONSTRAINT plot_fk;
-ALTER TABLE rdb_quicc.tree ADD CONSTRAINT plot_fk FOREIGN KEY (plot_id_plot,id_meas_plot)
-REFERENCES rdb_quicc.plot (plot_id,id_meas) MATCH FULL
+ALTER TABLE rdb_quicc.tree ADD CONSTRAINT plot_fk FOREIGN KEY (plot_id_plot,year_measured_plot)
+REFERENCES rdb_quicc.plot (plot_id,year_measured) MATCH FULL
 ON DELETE CASCADE ON UPDATE CASCADE;
 -- ddl-end --
 
@@ -491,6 +473,14 @@ ON DELETE CASCADE ON UPDATE CASCADE;
 -- ALTER TABLE rdb_quicc.class_tree DROP CONSTRAINT conv_class_height_fk;
 ALTER TABLE rdb_quicc.class_tree ADD CONSTRAINT conv_class_height_fk FOREIGN KEY (height_class_id_conv_class_height)
 REFERENCES rdb_quicc.conv_class_height (height_class_id) MATCH FULL
+ON DELETE CASCADE ON UPDATE CASCADE;
+-- ddl-end --
+
+
+-- object: localisation_fk | type: CONSTRAINT --
+-- ALTER TABLE rdb_quicc.plot DROP CONSTRAINT localisation_fk;
+ALTER TABLE rdb_quicc.plot ADD CONSTRAINT localisation_fk FOREIGN KEY (plot_id_localisation)
+REFERENCES rdb_quicc.localisation (plot_id) MATCH FULL
 ON DELETE CASCADE ON UPDATE CASCADE;
 -- ddl-end --
 

@@ -194,13 +194,13 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<type name="character"/>
 	</column>
 	<column name="is_sapling">
-		<type name="integer"/>
+		<type name="boolean"/>
 	</column>
 	<column name="is_planted">
-		<type name="integer"/>
+		<type name="boolean"/>
 	</column>
 	<column name="is_dead">
-		<type name="integer"/>
+		<type name="boolean"/>
 	</column>
 	<constraint name="tree_table_pk" type="pk-constr" factor="100" table="rdb_quicc.tree">
 		<columns names="plot_id,tree_id,year_measured" ref-type="src-columns"/>
@@ -342,12 +342,9 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="plot">
 	<schema name="rdb_quicc"/>
 	<role name="&quot;QUICC&quot;"/>
-	<position x="440" y="300"/>
+	<position x="400.714" y="337.429"/>
 	<column name="plot_id" not-null="true">
 		<type name="integer"/>
-	</column>
-	<column name="id_meas" not-null="true">
-		<type name="smallint"/>
 	</column>
 	<column name="year_measured">
 		<type name="integer"/>
@@ -368,7 +365,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<type name="boolean"/>
 	</column>
 	<constraint name="plot_tbl_pk" type="pk-constr" factor="100" table="rdb_quicc.plot">
-		<columns names="plot_id,id_meas" ref-type="src-columns"/>
+		<columns names="plot_id,year_measured" ref-type="src-columns"/>
 	</constraint>
 </table>
 
@@ -469,36 +466,6 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<columns names="plot_id" ref-type="src-columns"/>
 	</constraint>
 </table>
-
-<relationship name="localisation_has_many_plot" type="rel1n"
-	 src-col-pattern="{sc}_{st}"
-	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_fk"
-	 col-indexes="9" constr-indexes="1"
-	 src-table="rdb_quicc.localisation"
-	 dst-table="rdb_quicc.plot"
-	 src-required="true" dst-required="false"
-	upd-action="CASCADE"
-	del-action="CASCADE">
-	<label ref-type="dst-label">
-		<position x="0" y="0"/>
-	</label>
-</relationship>
-
-<relationship name="plot_info_has_many_plot" type="rel1n"
-	 src-col-pattern="{sc}_{st}"
-	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_fk"
-	 col-indexes="10" constr-indexes="2"
-	 src-table="rdb_quicc.plot_info"
-	 dst-table="rdb_quicc.plot"
-	 src-required="true" dst-required="false"
-	upd-action="CASCADE"
-	del-action="CASCADE">
-	<label ref-type="dst-label">
-		<position x="30.9427" y="-6.63098"/>
-	</label>
-</relationship>
 
 <relationship name="plot_has_many_stand" type="rel1n"
 	 src-col-pattern="{sc}_{st}"
@@ -737,6 +704,17 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 col-indexes="14" constr-indexes="5"
 	 src-table="rdb_quicc.conv_class_height"
 	 dst-table="rdb_quicc.class_tree"
+	 src-required="true" dst-required="false"
+	upd-action="CASCADE"
+	del-action="CASCADE"/>
+
+<relationship name="localisation_has_many_plot" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 col-indexes="7" constr-indexes="1"
+	 src-table="rdb_quicc.localisation"
+	 dst-table="rdb_quicc.plot"
 	 src-required="true" dst-required="false"
 	upd-action="CASCADE"
 	del-action="CASCADE"/>
