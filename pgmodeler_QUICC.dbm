@@ -361,9 +361,6 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="sap_plot_size">
 		<type name="double precision"/>
 	</column>
-	<column name="is_subplot">
-		<type name="boolean"/>
-	</column>
 	<column name="is_temp">
 		<type name="boolean"/>
 	</column>

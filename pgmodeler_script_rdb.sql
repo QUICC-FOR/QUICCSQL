@@ -228,7 +228,6 @@ CREATE TABLE rdb_quicc.plot(
 	plot_size double precision,
 	seed_plot_size double precision,
 	sap_plot_size double precision,
-	is_subplot boolean,
 	is_temp boolean,
 	has_superplot boolean,
 	plot_id_localisation integer NOT NULL,
@@ -496,91 +495,91 @@ ON DELETE CASCADE ON UPDATE CASCADE;
 -- ddl-end --
 
 
--- object: grant_ce7d890020 | type: PERMISSION --
+-- object: grant_7b316b5f3d | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.superplot
    TO vissst01;
 ;
 -- ddl-end --
 
--- object: grant_5d9fc28c52 | type: PERMISSION --
+-- object: grant_09a6f7dee1 | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.ref_tree_age_method
    TO vissst01;
 ;
 -- ddl-end --
 
--- object: grant_9a96549eba | type: PERMISSION --
+-- object: grant_b0c3177967 | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.ref_tree_height_method
    TO vissst01;
 ;
 -- ddl-end --
 
--- object: grant_a8717314a4 | type: PERMISSION --
+-- object: grant_de092b2ccd | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.tree_class_info
    TO vissst01;
 ;
 -- ddl-end --
 
--- object: grant_eee9128324 | type: PERMISSION --
+-- object: grant_bf126bec9f | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.tree
    TO vissst01;
 ;
 -- ddl-end --
 
--- object: grant_a984aa8d44 | type: PERMISSION --
+-- object: grant_e6add78360 | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.class_tree
    TO vissst01;
 ;
 -- ddl-end --
 
--- object: grant_cf7ef36a72 | type: PERMISSION --
+-- object: grant_da911c24ab | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.ref_species
    TO vissst01;
 ;
 -- ddl-end --
 
--- object: grant_3ac06a3ffd | type: PERMISSION --
+-- object: grant_2c27e5a1ca | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.stand_disturbed
    TO vissst01;
 ;
 -- ddl-end --
 
--- object: grant_60c5ba6d7a | type: PERMISSION --
+-- object: grant_8749bd6c37 | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.ref_stand_disturb_type
    TO vissst01;
 ;
 -- ddl-end --
 
--- object: grant_c72195f918 | type: PERMISSION --
+-- object: grant_2a37841f51 | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.tree_info
    TO vissst01;
 ;
 -- ddl-end --
 
--- object: grant_98c2b8d245 | type: PERMISSION --
+-- object: grant_2e7d7e5ffa | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.plot
    TO vissst01;
 ;
 -- ddl-end --
 
--- object: grant_7f71633a9b | type: PERMISSION --
+-- object: grant_f72618e368 | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.plot_info
    TO vissst01;
 ;
 -- ddl-end --
 
--- object: grant_408a66456d | type: PERMISSION --
+-- object: grant_831c3cf181 | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.stand
    TO vissst01;
