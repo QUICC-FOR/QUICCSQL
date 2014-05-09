@@ -77,8 +77,7 @@ WHERE
   rdb_quicc.climatic_data.id_plot=del_rec.id_plot
 AND rdb_quicc.climatic_data.x_longitude=del_rec.x_longitude
 AND rdb_quicc.climatic_data.y_latitude=del_rec.y_latitude
-AND rdb_quicc.climatic_data.year_data=del_rec.year_data;
-"
+AND rdb_quicc.climatic_data.year_data=del_rec.year_data;"
 
 echo "Vacuum..."
 psql -U $USER -h $HOST -p $PORT -d $DB -c "VACUUM (VERBOSE, ANALYZE) rdb_quicc.climatic_data"

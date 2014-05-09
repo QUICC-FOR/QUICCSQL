@@ -166,9 +166,25 @@ FROM
 
 -- Uncomment the line below for smallest query (1000 records)
 -- LIMIT 200
-;
 
---- FIA MISSING
+UNION ALL
+
+----------------------------------------------
+-- FIA   --
+----------------------------------------------
+
+SELECT DISTINCT
+    CAST(concat_ws('-',statecd,unitcd,countycd,plot)  AS char(20)) AS plot_id,
+    'us_pp' :: char(10) AS org_code_db,
+    us_pp.plot.measyear :: integer AS year_measured,
+    CAST( 0 AS numeric) AS plot_size,
+    CAST( 0 AS numeric) AS sapling_plot_size,
+    CAST( 0 AS numeric) AS seedling_plot_size,
+    0 :: boolean AS is_templot,
+    0 :: boolean AS has_superplot
+FROM
+    us_pp.plot
+;
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 
