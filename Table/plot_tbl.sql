@@ -177,12 +177,10 @@ FROM
 --------------------------------------------------------
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
-
 DELETE FROM rdb_quicc.plot;
     INSERT INTO rdb_quicc.plot
-    SELECT
+    SELECT DISTINCT
         rdb_quicc.plot_info.plot_id,
-        temp_quicc.mv_plot.id_meas,
         temp_quicc.mv_plot.year_measured,
         temp_quicc.mv_plot.plot_size,
         temp_quicc.mv_plot.sapling_plot_size,
@@ -193,7 +191,8 @@ DELETE FROM rdb_quicc.plot;
         rdb_quicc.plot_info.plot_id
     FROM temp_quicc.mv_plot
     INNER JOIN rdb_quicc.plot_info ON temp_quicc.mv_plot.plot_id = rdb_quicc.plot_info.org_db_id
-        AND temp_quicc.mv_plot.org_code_db = rdb_quicc.plot_info.org_db_loc;
+        AND temp_quicc.mv_plot.org_code_db = rdb_quicc.plot_info.org_db_loc
+    WHERE temp_quicc.mv_plot.year_measured IS NOT NULL;
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 
