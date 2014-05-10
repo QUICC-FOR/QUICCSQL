@@ -54,9 +54,10 @@ Work-in-progress...
 - Function #1 Convert class of plot size (*Need further investigations*)
 - Function #2 Convert radius to area 
 
-### Order to run the scripts content in `Table` folder:
+### Order to run the scripts :
 
 1. pgmodeler_script_rdb.sql
 2. plot_info_tbl.sql
 3. climate_tbl.sql and localisation_tbl.sql
 4. plot_tbl.sql
+5. script bash on `Post_trait_NRCan.sh`
