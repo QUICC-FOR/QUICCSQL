@@ -79,6 +79,36 @@ AND rdb_quicc.climatic_data.x_longitude=del_rec.x_longitude
 AND rdb_quicc.climatic_data.y_latitude=del_rec.y_latitude
 AND rdb_quicc.climatic_data.year_data=del_rec.year_data;"
 
+
+psql -U $USER -h $HOST -p $PORT -d $DB -c "
+DELETE FROM rdb_quicc.climatic_data
+USING (SELECT
+  rdb_quicc.climatic_data.id_plot,
+  rdb_quicc.climatic_data.x_longitude,
+  rdb_quicc.climatic_data.y_latitude,
+  rdb_quicc.climatic_data.year_data
+FROM rdb_quicc.climatic_data
+LEFT JOIN (SELECT DISTINCT
+  rdb_quicc.plot_info.plot_id,
+  rdb_quicc.plot_info.org_db_id,
+  rdb_quicc.localisation.latitude,
+  rdb_quicc.localisation.longitude,
+  rdb_quicc.plot.year_measured AS year_max,
+  rdb_quicc.plot.year_measured - 30 AS year_min
+FROM
+  rdb_quicc.localisation
+INNER JOIN rdb_quicc.plot_info ON rdb_quicc.localisation.plot_id = rdb_quicc.plot_info.plot_id
+INNER JOIN rdb_quicc.plot ON rdb_quicc.localisation.plot_id = rdb_quicc.plot.plot_id) AS Yr_query
+ON  rdb_quicc.climatic_data.y_latitude = Yr_query.latitude AND
+  rdb_quicc.climatic_data.x_longitude = Yr_query.longitude AND
+  rdb_quicc.climatic_data.id_plot = Yr_query.org_db_id
+WHERE rdb_quicc.climatic_data.year_data < Yr_query.year_min AND rdb_quicc.climatic_data.year_data > Yr_query.year_max) AS del_rec
+WHERE
+  rdb_quicc.climatic_data.id_plot=del_rec.id_plot
+AND rdb_quicc.climatic_data.x_longitude=del_rec.x_longitude
+AND rdb_quicc.climatic_data.y_latitude=del_rec.y_latitude
+AND rdb_quicc.climatic_data.year_data=del_rec.year_data;"
+
 echo "Vacuum..."
 psql -U $USER -h $HOST -p $PORT -d $DB -c "VACUUM (VERBOSE, ANALYZE) rdb_quicc.climatic_data"
 
