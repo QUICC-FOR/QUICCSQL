@@ -35,6 +35,7 @@ Work-in-progress...
 - Compute plot_size by plot for `QC`
 - Remove `DEFAULT nextval('plot_info_plot_id_seq'::regclass)` on plot_id_plot_info **(MANUAL)**
 - Need create functions on `has_superplot`, `plot_size`, `sapling_plot_size`, `seedling_plot_size`
+- Table working for: `FIA`, `QC`, `ON`, `NB`
 
 ##### **Filters** (**Done**)
  * Remove all plots with no year of measurement (`NB`)
@@ -47,6 +48,15 @@ Work-in-progress...
 - Create Pkey on plot_id and year (**Done**)
 - Remove lat, long, elevation (**Done**)
 - Problem needing to be assess: Some TP and PP in QC schema have the same ID.
+- Table clean, closed and working for: `FIA`, `QC`, `ON`, `NB`
+
+#### Tree info table 
+
+- Next step
+
+#### Tree table 
+
+- Next step
 
 ### TODO on conversion functions
 
