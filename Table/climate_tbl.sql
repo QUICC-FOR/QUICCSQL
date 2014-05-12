@@ -1,13 +1,9 @@
--- Table: qc_pp.pp_climatic_data
-
 DROP TABLE rdb_quicc.climatic_data CASCADE;
 
 CREATE TABLE rdb_quicc.climatic_data
 (
-  id_plot character varying NOT NULL,
-  x_longitude double precision,
-  y_latitude double precision,
-  z_elevation real,
+  plot_id character varying NOT NULL,
+  year_clim integer NOT NULL,
   mean_diurnal_range real,
   isothermality real,
   temp_seasonality real,
@@ -73,13 +69,8 @@ CREATE TABLE rdb_quicc.climatic_data
   october_mean_monthly_pp real,
   november_mean_monthly_pp real,
   december_mean_monthly_pp real,
-  year_data integer NOT NULL
-)
-WITH (
-  OIDS=FALSE
+  CONSTRAINT clim_tbl_pk PRIMARY KEY (plot_id,year_clim)
 );
 
 ALTER TABLE rdb_quicc.climatic_data
   OWNER TO "QUICC";
-
-  CREATE INDEX  idx_climatic_data ON rdb_quicc.climatic_data (id_plot,x_longitude,y_latitude,year_data);
