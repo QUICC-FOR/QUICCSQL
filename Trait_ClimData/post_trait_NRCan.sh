@@ -52,7 +52,7 @@ for file in $EXPORT/*; do
     echo $file
      cat $file | psql -U $USER -h $HOST -p $PORT -d $DB -c "\copy temp_quicc.climatic_data FROM stdin WITH DELIMITER AS '|' CSV HEADER;"
 
-echo "------- SQL: Clean unusued plots"
+echo "------- SQL: Clean unused plots"
 
 ## Check lines below
 
@@ -78,7 +78,7 @@ AND temp_quicc.climatic_data.x_longitude=del_rec.x_longitude
 AND temp_quicc.climatic_data.y_latitude=del_rec.y_latitude
 AND temp_quicc.climatic_data.year_data=del_rec.year_data;"
 
-echo "------- SQL: Clean unusued years"
+echo "------- SQL: Clean unused years"
 
 psql -U $USER -h $HOST -p $PORT -d $DB -c "
 DELETE FROM temp_quicc.climatic_data

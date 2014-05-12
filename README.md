@@ -1,6 +1,6 @@
 QUICC-SQL
 =========
-**Update:** March, 9th
+**Update:** March, 12th
 
 Work-in-progress...
 
@@ -42,10 +42,11 @@ Work-in-progress...
 #### Climatic data table 
 
 - Filter original climatic data table using the localisation table (**Done**)
-- Change climatic_data.id_plot to general id from rdb_quicc.plot_info (**Almost done; Too long via SQL**)
-- Remove all year not necessary (**Waiting after plot table on rdb**)
-- Create Pkey on plot_id and year
-- Remove lat, long, elevation
+- Change climatic_data.id_plot to general id from rdb_quicc.plot_info (**Done**)
+- Remove all year not necessary (**Done**)
+- Create Pkey on plot_id and year (**Done**)
+- Remove lat, long, elevation (**Done**)
+- Problem needing to be assess: Some TP and PP in QC schema have the same ID.
 
 ### TODO on conversion functions
 
