@@ -42,8 +42,9 @@ for i in $( ls ); do
 done
 fi
 
-echo "------- SQL: DROP and CREATE climatic table..."
+echo "------- SQL: DROP and CREATE climatic tables..."
 psql -U $USER -h $HOST -p $PORT -d $DB -c "\i ~/Documents/GitHub/QUICC-SQL/Table/annual_climate_temp_tbl.sql"
+psql -U $USER -h $HOST -p $PORT -d $DB -c "\i ~/Documents/GitHub/QUICC-SQL/Table/climate_tbl.sql"
 
 echo "------- SQL:  Import csv file into the temp climatic table..."
 
@@ -53,7 +54,6 @@ for file in $EXPORT/*; do
 
 echo "------- SQL: Clean unusued plots"
 
-
 ## Check lines below
 
 psql -U $USER -h $HOST -p $PORT -d $DB -c "
@@ -62,6 +62,7 @@ USING (SELECT DISTINCT
   climatic_data.id_plot,
   climatic_data.x_longitude,
   climatic_data.y_latitude,
+  climatic_data.year_data,
   rdb_quicc.range_yrs_clim.plot_id
 FROM
   temp_quicc.climatic_data
@@ -69,6 +70,7 @@ LEFT JOIN rdb_quicc.range_yrs_clim ON
 climatic_data.id_plot = rdb_quicc.range_yrs_clim.org_db_id AND
 climatic_data.x_longitude = rdb_quicc.range_yrs_clim.longitude AND
 climatic_data.y_latitude = rdb_quicc.range_yrs_clim.latitude
+WHERE range_yrs_clim.plot_id IS NULL
 ) AS del_rec
 WHERE
   temp_quicc.climatic_data.id_plot=del_rec.id_plot
@@ -107,7 +109,7 @@ echo "------- SQL: Import data to final rdb"
 
 psql -U $USER -h $HOST -p $PORT -d $DB -c "
 INSERT INTO rdb_quicc.climatic_data
-SELECT
+SELECT DISTINCT
   id_plot,
   year_data,
   mean_diurnal_range,
