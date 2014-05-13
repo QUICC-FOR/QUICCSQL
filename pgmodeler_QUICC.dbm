@@ -719,6 +719,18 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	upd-action="CASCADE"
 	del-action="CASCADE"/>
 
+<relationship name="plot_info_has_many_plot" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 col-indexes="8" constr-indexes="2"
+	 src-table="rdb_quicc.plot_info"
+	 dst-table="rdb_quicc.plot"
+	 src-required="true" dst-required="false"
+	 deferrable="true" defer-type="INITIALLY IMMEDIATE"
+	upd-action="CASCADE"
+	del-action="CASCADE"/>
+
 <permission>
 	<object name="rdb_quicc.superplot" type="table"/>
 	<roles names="vissst01"/>

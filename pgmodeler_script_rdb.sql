@@ -35,8 +35,6 @@ ALTER SCHEMA rdb_quicc OWNER TO "QUICC";
 SET search_path TO pg_catalog,public,rdb_quicc;
 -- ddl-end --
 
--- object: rdb_quicc.tree_info_tree_id_species_seq | type: SEQUENCE --
--- DROP SEQUENCE rdb_quicc.tree_info_tree_id_species_seq;
 CREATE SEQUENCE rdb_quicc.tree_info_tree_id_species_seq
 	INCREMENT BY 1
 	MINVALUE 1
@@ -46,7 +44,6 @@ CREATE SEQUENCE rdb_quicc.tree_info_tree_id_species_seq
 	NO CYCLE
 	OWNED BY NONE;
 ALTER SEQUENCE rdb_quicc.tree_info_tree_id_species_seq OWNER TO "QUICC";
--- ddl-end --
 
 -- object: rdb_quicc.plot_info_plot_id_seq | type: SEQUENCE --
 -- DROP SEQUENCE rdb_quicc.plot_info_plot_id_seq;
@@ -97,6 +94,7 @@ CREATE TABLE rdb_quicc.ref_tree_height_method(
 -- ddl-end --
 ALTER TABLE rdb_quicc.ref_tree_height_method OWNER TO "QUICC";
 -- ddl-end --
+
 
 -- object: rdb_quicc.tree_class_info | type: TABLE --
 -- DROP TABLE rdb_quicc.tree_class_info;
@@ -243,6 +241,7 @@ CREATE TABLE rdb_quicc.plot(
 	is_temp boolean,
 	has_superplot boolean,
 	plot_id_localisation integer NOT NULL,
+	plot_id_plot_info integer NOT NULL DEFAULT nextval('plot_info_plot_id_seq'::regclass),
 	CONSTRAINT plot_tbl_pk PRIMARY KEY (plot_id,year_measured)
 
 );
@@ -482,6 +481,14 @@ ON DELETE CASCADE ON UPDATE CASCADE;
 ALTER TABLE rdb_quicc.plot ADD CONSTRAINT localisation_fk FOREIGN KEY (plot_id_localisation)
 REFERENCES rdb_quicc.localisation (plot_id) MATCH FULL
 ON DELETE CASCADE ON UPDATE CASCADE;
+-- ddl-end --
+
+
+-- object: plot_info_fk | type: CONSTRAINT --
+-- ALTER TABLE rdb_quicc.plot DROP CONSTRAINT plot_info_fk;
+ALTER TABLE rdb_quicc.plot ADD CONSTRAINT plot_info_fk FOREIGN KEY (plot_id_plot_info)
+REFERENCES rdb_quicc.plot_info (plot_id) MATCH FULL
+ON DELETE CASCADE ON UPDATE CASCADE DEFERRABLE INITIALLY IMMEDIATE;
 -- ddl-end --
 
 
