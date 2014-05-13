@@ -35,16 +35,6 @@ ALTER SCHEMA rdb_quicc OWNER TO "QUICC";
 SET search_path TO pg_catalog,public,rdb_quicc;
 -- ddl-end --
 
-CREATE SEQUENCE rdb_quicc.tree_info_tree_id_species_seq
-	INCREMENT BY 1
-	MINVALUE 1
-	MAXVALUE 9223372036854775807
-	START WITH 1
-	CACHE 1
-	NO CYCLE
-	OWNED BY NONE;
-ALTER SEQUENCE rdb_quicc.tree_info_tree_id_species_seq OWNER TO "QUICC";
-
 -- object: rdb_quicc.plot_info_plot_id_seq | type: SEQUENCE --
 -- DROP SEQUENCE rdb_quicc.plot_info_plot_id_seq;
 CREATE SEQUENCE rdb_quicc.plot_info_plot_id_seq
@@ -56,6 +46,20 @@ CREATE SEQUENCE rdb_quicc.plot_info_plot_id_seq
 	NO CYCLE
 	OWNED BY NONE;
 ALTER SEQUENCE rdb_quicc.plot_info_plot_id_seq OWNER TO "QUICC";
+-- ddl-end --
+
+
+-- object: rdb_quicc.tree_info_tree_id_species_seq | type: SEQUENCE --
+-- DROP SEQUENCE rdb_quicc.tree_info_tree_id_species_seq;
+CREATE SEQUENCE rdb_quicc.tree_info_tree_id_species_seq
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START WITH 1
+	CACHE 1
+	NO CYCLE
+	OWNED BY NONE;
+ALTER SEQUENCE rdb_quicc.tree_info_tree_id_species_seq OWNER TO "QUICC";
 -- ddl-end --
 
 -- object: rdb_quicc.superplot | type: TABLE --
@@ -94,6 +98,7 @@ CREATE TABLE rdb_quicc.ref_tree_height_method(
 -- ddl-end --
 ALTER TABLE rdb_quicc.ref_tree_height_method OWNER TO "QUICC";
 -- ddl-end --
+
 
 
 -- object: rdb_quicc.tree_class_info | type: TABLE --
@@ -240,7 +245,7 @@ CREATE TABLE rdb_quicc.plot(
 	sap_plot_size double precision,
 	is_temp boolean,
 	has_superplot boolean,
-	plot_id_localisation integer NOT NULL,
+	plot_id_localisation integer,
 	plot_id_plot_info integer NOT NULL DEFAULT nextval('plot_info_plot_id_seq'::regclass),
 	CONSTRAINT plot_tbl_pk PRIMARY KEY (plot_id,year_measured)
 

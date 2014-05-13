@@ -715,7 +715,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 col-indexes="7" constr-indexes="1"
 	 src-table="rdb_quicc.localisation"
 	 dst-table="rdb_quicc.plot"
-	 src-required="true" dst-required="false"
+	 src-required="false" dst-required="false"
 	upd-action="CASCADE"
 	del-action="CASCADE"/>
 
