@@ -23,8 +23,8 @@ if [ "$CON" = "remote" ]; then
 fi
 
 # Pre-traitement config
-TRAIT=~/Documents/QUICC_FOR/Climat_data_trait/
-EXPORT=~/Documents/QUICC_FOR/Climat_data_trait/Export_climat
+TRAIT=$(pwd)
+EXPORT=~./Export_climat
 
 if [ "$POST" = "no" ]; then
 rm -R $EXPORT
@@ -185,4 +185,3 @@ psql -U $USER -h $HOST -p $PORT -d $DB -c "
 DELETE FROM temp_quicc.climatic_data;"
 
  done
-
