@@ -29,7 +29,7 @@ CREATE MATERIALIZED VIEW temp_quicc.mv_plot_info AS
 
 UNION ALL
 
-SELECT
+SELECT DISTINCT
     CAST(qc_pp.pp_infogen.id_pep AS char(20)) AS plot_id,
     'qc_pp' :: char(20) AS org_code_db
 FROM
