@@ -145,18 +145,18 @@ GROUP BY
 --------------------------------------------------------------------------------------------------------------------------------------
 --- Query on MV in order to validate if any doublons are present
 --------------------------------------------------------------------------------------------------------------------------------------
-SELECT temp_quicc.mv_localisation.org_plot_id,
-		count(temp_quicc.mv_localisation.org_plot_id),
-		temp_quicc.mv_localisation.org_code_db,
-		temp_quicc.mv_localisation.latitude,
-		temp_quicc.mv_localisation.longitude
-FROM temp_quicc.mv_localisation
-GROUP BY
-		temp_quicc.mv_localisation.org_plot_id,
-		temp_quicc.mv_localisation.org_code_db,
-		temp_quicc.mv_localisation.latitude,
-		temp_quicc.mv_localisation.longitude
-HAVING count(temp_quicc.mv_localisation.org_plot_id)>1;
+--- SELECT temp_quicc.mv_localisation.org_plot_id,
+--- 		count(temp_quicc.mv_localisation.org_plot_id),
+--- 		temp_quicc.mv_localisation.org_code_db,
+--- 		temp_quicc.mv_localisation.latitude,
+--- 		temp_quicc.mv_localisation.longitude
+--- FROM temp_quicc.mv_localisation
+--- GROUP BY
+--- 		temp_quicc.mv_localisation.org_plot_id,
+--- 		temp_quicc.mv_localisation.org_code_db,
+--- 		temp_quicc.mv_localisation.latitude,
+--- 		temp_quicc.mv_localisation.longitude
+--- HAVING count(temp_quicc.mv_localisation.org_plot_id)>1;
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 
