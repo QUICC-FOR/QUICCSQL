@@ -22,15 +22,17 @@ if [ "$CON" = "remote" ]; then
   PORT=5432
 fi
 
-# Pre-traitement config
-TRAIT=$(pwd)
-EXPORT=../Export_climat
+# Pre-traitement config Path
+SRC=$(pwd)
+EXPORT=$SRC/Export_climat
+TABLE=$SRC/Table
+DATACLIM=$SRC/Trait_ClimData/pntgrids
 
 if [ "$POST" = "no" ]; then
 rm -R $EXPORT
-cd $TRAIT
 mkdir -vp $EXPORT
-cd ./pntgrids
+
+cd $DATACLIM
 
 for i in $( ls ); do
            cd $i
@@ -43,14 +45,29 @@ done
 fi
 
 echo "------- SQL: DROP and CREATE climatic tables..."
-psql -U $USER -h $HOST -p $PORT -d $DB -c "\i ~/Documents/GitHub/QUICC-SQL/Table/annual_climate_temp_tbl.sql"
-psql -U $USER -h $HOST -p $PORT -d $DB -c "\i ~/Documents/GitHub/QUICC-SQL/Table/climate_tbl.sql"
+psql -U $USER -h $HOST -p $PORT -d $DB -c "\i $TABLE/annual_climate_temp_tbl.sql"
+psql -U $USER -h $HOST -p $PORT -d $DB -c "\i $TABLE/climate_tbl.sql"
+
+echo "------- SQL: CREATE VIEW range_years...."
+
+psql -U $USER -h $HOST -p $PORT -d $DB -c "
+CREATE OR REPLACE VIEW rdb_quicc.range_yrs_clim AS 
+ SELECT DISTINCT plot_info.plot_id, 
+    plot_info.org_db_id, 
+    localisation.latitude, 
+    localisation.longitude, 
+    plot.year_measured AS year_max, 
+    plot.year_measured - 30 AS year_min
+   FROM rdb_quicc.localisation
+   JOIN rdb_quicc.plot_info ON localisation.plot_id = plot_info.plot_id
+   JOIN rdb_quicc.plot ON localisation.plot_id = plot.plot_id
+  ORDER BY plot_info.plot_id;"
 
 echo "------- SQL:  Import csv file into the temp climatic table..."
 
 for file in $EXPORT/*; do
     echo $file
-     cat $file | psql -U $USER -h $HOST -p $PORT -d $DB -c "\copy temp_quicc.climatic_data FROM stdin WITH DELIMITER AS '|' CSV HEADER;"
+    cat $file | psql -U $USER -h $HOST -p $PORT -d $DB -c "\copy temp_quicc.climatic_data FROM stdin WITH DELIMITER AS '|' CSV HEADER;"
 
 echo "------- SQL: Clean unused plots"
 
