@@ -24,7 +24,7 @@ fi
 
 # Pre-traitement config
 TRAIT=$(pwd)
-EXPORT=~./Export_climat
+EXPORT=../Export_climat
 
 if [ "$POST" = "no" ]; then
 rm -R $EXPORT
@@ -36,7 +36,7 @@ for i in $( ls ); do
            cd $i
            echo "Path:" `pwd`
            echo "Unzip txt file in folder:" $i
-            gzip -dkf *.txt.gz
+            gzip -df *.txt.gz
             awk -v yr=$i '{$(NF+1)= yr}1' OFS='|' out$i.txt > $EXPORT/format$i.csv
            cd ..
 done
