@@ -57,7 +57,7 @@ CREATE OR REPLACE VIEW rdb_quicc.range_yrs_clim AS
     localisation.latitude,
     localisation.longitude,
     plot.year_measured AS year_max,
-    plot.year_measured - 30 AS year_min
+    plot.year_measured - 20 AS year_min
    FROM rdb_quicc.localisation
    JOIN rdb_quicc.plot_info ON localisation.plot_id = plot_info.plot_id
    JOIN rdb_quicc.plot ON localisation.plot_id = plot.plot_id

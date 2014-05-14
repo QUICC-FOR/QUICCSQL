@@ -2,7 +2,7 @@ DROP TABLE rdb_quicc.climatic_data CASCADE;
 
 CREATE TABLE rdb_quicc.climatic_data
 (
-  plot_id character varying NOT NULL,
+  plot_id integer NOT NULL,
   year_clim integer NOT NULL,
   mean_diurnal_range real,
   isothermality real,
