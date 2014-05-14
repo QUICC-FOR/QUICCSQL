@@ -127,7 +127,7 @@ echo "------- SQL: Import data to final rdb"
 psql -U $USER -h $HOST -p $PORT -d $DB -c "
 INSERT INTO rdb_quicc.climatic_data
 SELECT DISTINCT
-  id_plot,
+  CAST(id_plot AS integer),
   year_data,
   mean_diurnal_range,
   isothermality,
