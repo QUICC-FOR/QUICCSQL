@@ -647,7 +647,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="conv_class_dbh">
 	<schema name="rdb_quicc"/>
 	<role name="&quot;QUICC&quot;"/>
-	<position x="40" y="80"/>
+	<position x="40" y="79"/>
 	<column name="dbh_class_id" not-null="true">
 		<type name="integer"/>
 	</column>
@@ -658,7 +658,10 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<type name="integer"/>
 	</column>
 	<column name="org_db_location">
-		<type name="integer"/>
+		<type name="char" length="20"/>
+	</column>
+	<column name="org_db_id">
+		<type name="char" length="10"/>
 	</column>
 	<constraint name="conv_class_dbh_pk" type="pk-constr" factor="10" table="rdb_quicc.conv_class_dbh">
 		<columns names="dbh_class_id" ref-type="src-columns"/>
@@ -668,7 +671,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="conv_class_height">
 	<schema name="rdb_quicc"/>
 	<role name="&quot;QUICC&quot;"/>
-	<position x="40" y="180"/>
+	<position x="40" y="179"/>
 	<column name="height_class_id" not-null="true">
 		<type name="integer"/>
 	</column>
@@ -679,7 +682,10 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<type name="integer"/>
 	</column>
 	<column name="org_db_location">
-		<type name="character"/>
+		<type name="char" length="20"/>
+	</column>
+	<column name="org_db_id">
+		<type name="char" length="10"/>
 	</column>
 	<constraint name="conv_class_height_pk" type="pk-constr" factor="10" table="rdb_quicc.conv_class_height">
 		<columns names="height_class_id" ref-type="src-columns"/>
