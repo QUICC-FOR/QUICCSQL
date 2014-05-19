@@ -8,21 +8,21 @@ Work-in-progress...
 
 ### General
 
-- Add climatic table `CREATE` statement on general rdb_quicc script (**Done**)
-- Fix role vissst01 to QUICC in dbm file (**Done**)
-- Move `SEQUENCES` statement upper in pgmodeler script (**MANUAL**) 
-- Check MV fields type correspond to final rdb table 
+- [x] Add climatic table `CREATE` statement on general rdb_quicc script (**Done**)
+- [x] Fix role vissst01 to QUICC in dbm file (**Done**)
+- [ ] Move `SEQUENCES` statement upper in pgmodeler script (**MANUAL**) 
+- [ ] Check MV fields type correspond to final rdb table 
 
 ### Plot_info table
 
-- Generate ID in plot_id reference table (**Done**)
-- Table clean, closed and working for: `FIA`, `QC`, `ON`, `NB`
+- [x] Generate ID in plot_id reference table (**Done**)
+- [x] Table clean, closed and working for: `FIA`, `QC`, `ON`, `NB`
 
 ### Location table
 
-- Cleanup coordinates on permanent and temporary sample plots  (**Done**)
-- **Check** validity of `RIGHT JOIN` (**Done**)
-- Table clean, closed and working for: `FIA`, `QC`, `ON`, `NB`
+- [x] Cleanup coordinates on permanent and temporary sample plots  (**Done**)
+- [x] **Check** validity of `RIGHT JOIN` (**Done**)
+- [x] Table clean, closed and working for: `FIA`, `QC`, `ON`, `NB`
 
 #### **Filters** (**Done**)
  * Coordinates taken on the last measurement
@@ -31,24 +31,24 @@ Work-in-progress...
 
 ### Plot table 
 
-- Add Year of measurements (**Done**)
-- Compute plot_size by plot for `QC`
-- Remove `DEFAULT nextval('plot_info_plot_id_seq'::regclass)` on plot_id_plot_info **(MANUAL)**
-- Need create functions on `has_superplot`, `plot_size`, `sapling_plot_size`, `seedling_plot_size`
-- Table working for: `FIA`, `QC`, `ON`, `NB`
+- [x] Add Year of measurements (**Done**)
+- [ ] Compute plot_size by plot for `QC`
+- [ ] Remove `DEFAULT nextval('plot_info_plot_id_seq'::regclass)` on plot_id_plot_info **(MANUAL)**
+- [ ] Need create functions on `has_superplot`, `plot_size`, `sapling_plot_size`, `seedling_plot_size`
+- [ ] Table working for: `FIA`, `QC`, `ON`, `NB`
 
 #### **Filters** (**Done**)
  * Remove all plots with no year of measurement (`NB`)
 
 ### Climatic data table 
 
-- Filter original climatic data table using the localisation table (**Done**)
-- Change climatic_data.id_plot to general id from rdb_quicc.plot_info (**Done**)
-- Remove all year not necessary (**Done**)
-- Create Pkey on plot_id and year (**Done**)
-- Remove lat, long, elevation (**Done**)
-- Problem needing to be assess: Some TP and PP in QC schema have the same ID.
-- Table clean, closed and working for: `FIA`, `QC`, `ON`, `NB`
+- [x] Filter original climatic data table using the localisation table (**Done**)
+- [x] Change climatic_data.id_plot to general id from rdb_quicc.plot_info (**Done**)
+- [x] Remove all year not necessary (**Done**)
+- [x] Create Pkey on plot_id and year (**Done**)
+- [x] Remove lat, long, elevation (**Done**)
+- [ ] Problem needing to be assess: Some TP and PP in QC schema have the same ID.
+- [ ] Table clean, closed and working for: `FIA`, `QC`, `ON`, `NB`
 
 ### Tree info table 
 
