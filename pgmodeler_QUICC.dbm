@@ -76,7 +76,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 </schema>
 
 <schema name="rdb_quicc" rect-visible="true" fill-color="#aaff7f">
-	<role name="vissst01"/>
+	<role name="&quot;QUICC&quot;"/>
 </schema>
 
 <table name="superplot">
@@ -127,14 +127,6 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</constraint>
 </table>
 
-<sequence name="tree_info_tree_id_species_seq"
-	 start="1" increment="1"
-	 min-value="1" max-value="9223372036854775807"
-	 cache="1" cycle="false">
-	<schema name="rdb_quicc"/>
-	<role name="vissst01"/>
-</sequence>
-
 <table name="tree_class_info">
 	<schema name="rdb_quicc"/>
 	<role name="&quot;QUICC&quot;"/>
@@ -164,7 +156,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<type name="integer"/>
 	</column>
 	<column name="tree_id" not-null="true">
-		<type name="integer"/>
+		<type name="char" length="3"/>
 	</column>
 	<column name="year_measured" not-null="true">
 		<type name="integer"/>
@@ -326,7 +318,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<type name="integer"/>
 	</column>
 	<column name="tree_id" not-null="true">
-		<type name="integer"/>
+		<type name="char" length="3"/>
 	</column>
 	<column name="org_db_loc">
 		<type name="character" length="20"/>
