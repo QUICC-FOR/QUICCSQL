@@ -22,7 +22,7 @@ Work-in-progress...
 
 - [x] Cleanup coordinates on permanent and temporary sample plots  (**Done**)
 - [x] **Check** validity of `RIGHT JOIN` (**Done**)
-- [x] Add elevation
+- [x] Add elevation from temp_quicc.elev_tbl
 - [ ] Investigate why some plots don't have an elevation
 - [x] Table working for: `FIA`, `QC`, `ON`, `NB`
 
@@ -36,7 +36,8 @@ Work-in-progress...
 - [x] Add Year of measurements (**Done**)
 - [ ] Compute plot_size by plot for `QC`
 - [ ] Remove `DEFAULT nextval('plot_info_plot_id_seq'::regclass)` on plot_id_plot_info **(MANUAL)**
-- [ ] Need create functions on `has_superplot`, `plot_size`, `sapling_plot_size`, `seedling_plot_size`
+- [ ] Add bolean field: is_planted ?
+- [ ] Need create functions on `has_superplot`, `plot_size`, `sapling_plot_size`, `seedling_plot_size`, `is_planted`
 - [ ] Table working for: `FIA`, `QC`, `ON`, `NB`
 
 #### **Filters** (**Done**)
@@ -55,7 +56,7 @@ Work-in-progress...
 ### Tree info table 
 
 - [x] Generate id as char(3) for each tree
-- [x] Table working for: : `QC`, `ON`, `NB`
+- [x] Table working for: `QC`, `ON`, `NB`
 
 ### Tree table 
 
