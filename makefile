@@ -18,10 +18,13 @@ localisation_tbl:
 plot_tbl:
 	psql  -U ${PG_USER} -h ${PG_HOST} -p ${PG_PORT} -d ${PG_DB} -c "\i ${SRC}/plot_tbl.sql;"
 
+tree_info_tbl:
+	psql  -U ${PG_USER} -h ${PG_HOST} -p ${PG_PORT} -d ${PG_DB} -c "\i ${SRC}/tree_info_tbl.sql;"
+
 clim_tbl:
 	sh ${CLIM}/post_trait_NRCan.sh
 
-all: schema plot_info_tbl plot_tbl clim_tbl
+all: schema plot_info_tbl plot_tbl tree_info_tbl clim_tbl
 
 clean:
 	psql -U ${PG_USER} -h ${PG_HOST} -p ${PG_PORT} -d ${PG_DB} -c "DROP SCHEMA rdb_quicc CASCADE;"
