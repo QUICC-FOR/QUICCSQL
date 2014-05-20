@@ -142,7 +142,7 @@ LEFT JOIN on_pp.pgp_treedbh_ht ON on_pp.pgp_plot_info.plot_num =on_pp.pgp_treedb
 
 DELETE FROM rdb_quicc.tree_info;
 INSERT INTO rdb_quicc.tree_info
-    SELECT
+    SELECT DISTINCT
         rdb_quicc.plot_info.plot_id,
         temp_quicc.mv_tree_info.tree_id,
         temp_quicc.mv_tree_info.org_db_loc,
