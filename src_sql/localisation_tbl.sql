@@ -7,17 +7,6 @@
 -- Extract and remove doublons on plot location from original database
 -- By Steve Vissault
 
-CREATE TABLE IF NOT EXISTS temp_quicc.elev_tbl(
-    org_db_id char(20),
-    latitude float,
-    longitude float,
-    elevation real);
-
-DELETE FROM  temp_quicc.elev_tbl;
-
- COPY temp_quicc.elev_tbl
- FROM 'home/steve/Documents/GitHub/QUICC-SQL/clim_data/plot_quicc_dem.csv' ;
-
 
 --DROP MATERIALIZED VIEW IF EXISTS  temp_quicc.mv_localisation;
 REFRESH MATERIALIZED VIEW temp_quicc.mv_localisation;

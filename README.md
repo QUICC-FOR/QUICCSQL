@@ -1,6 +1,6 @@
 QUICC-SQL
 =========
-**Update:** March, 12th
+**Update:** March, 20th
 
 Work-in-progress...
 
@@ -22,7 +22,9 @@ Work-in-progress...
 
 - [x] Cleanup coordinates on permanent and temporary sample plots  (**Done**)
 - [x] **Check** validity of `RIGHT JOIN` (**Done**)
-- [x] Table clean, closed and working for: `FIA`, `QC`, `ON`, `NB`
+- [x] Add elevation
+- [ ] Investigate why some plots don't have an elevation
+- [x] Table working for: `FIA`, `QC`, `ON`, `NB`
 
 #### **Filters** (**Done**)
  * Coordinates taken on the last measurement
@@ -48,11 +50,12 @@ Work-in-progress...
 - [x] Create Pkey on plot_id and year (**Done**)
 - [x] Remove lat, long, elevation (**Done**)
 - [ ] Problem needing to be assess: Some TP and PP in QC schema have the same ID.
-- [ ] Table clean, closed and working for: `FIA`, `QC`, `ON`, `NB`
+- [ ] Table working for: `FIA`, `QC`, `ON`, `NB`
 
 ### Tree info table 
 
-- Next step
+- [x] Generate id as char(3) for each tree
+- [x] Table working for: : `QC`, `ON`, `NB`
 
 ### Tree table 
 
