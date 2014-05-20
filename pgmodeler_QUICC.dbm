@@ -328,7 +328,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="tree_id" not-null="true">
 		<type name="integer"/>
 	</column>
-	<column name="org_db_location">
+	<column name="org_db_loc">
 		<type name="character" length="20"/>
 	</column>
 	<column name="org_db_id">
@@ -657,7 +657,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="dbh_max">
 		<type name="integer"/>
 	</column>
-	<column name="org_db_location">
+	<column name="org_db_loc">
 		<type name="char" length="20"/>
 	</column>
 	<column name="org_db_id">
@@ -681,7 +681,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="height_max">
 		<type name="integer"/>
 	</column>
-	<column name="org_db_location">
+	<column name="org_db_loc">
 		<type name="char" length="20"/>
 	</column>
 	<column name="org_db_id">

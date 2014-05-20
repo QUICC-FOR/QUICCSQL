@@ -7,6 +7,9 @@
 -- Extract plot level information from original database
 -- By Steve Vissault
 
+DROP MATERIALIZED VIEW IF EXISTS  temp_quicc.mv_tree_info;
+CREATE MATERIALIZED VIEW temp_quicc.mv_tree_info AS
+
 ----------------------------------------------------------
 -- Permanent sample plot from Quebec---
 ----------------------------------------------------------
@@ -92,3 +95,65 @@ LEFT JOIN nb_pp.psp_tree_yimo ON nb_pp.psp_plots_yr.remeasid = nb_pp.psp_tree_yi
 ----------------------------------------------------------
 -- Permament sample plot from on_pp ---
 ----------------------------------------------------------
+UNION ALL
+
+SELECT DISTINCT
+    CAST(on_pp.boreal_psp_plot_info.plot_num AS char(20)) AS plot_id,
+    'on_pp_boreal' :: char(20) AS org_code_db,
+    CAST(on_pp.boreal_psp_treedbh_ht.tree_id AS char(10)) AS tree_id
+FROM
+    on_pp.boreal_psp_plot_info
+LEFT JOIN on_pp.boreal_psp_treedbh_ht ON on_pp.boreal_psp_plot_info.plot_num = on_pp.boreal_psp_treedbh_ht.plot_num
+
+
+---- glsl_on
+
+UNION ALL
+
+SELECT DISTINCT
+    CAST(on_pp.glsl_psp_plotinfo.plotname AS char(20)) AS plot_id,
+    'on_pp_glsl' :: char(20) AS org_code_db,
+    CAST(on_pp.glsl_psp_trees_dbh_ht.treeid AS char(10)) AS tree_id
+FROM
+    on_pp.glsl_psp_plotinfo
+LEFT JOIN on_pp.glsl_psp_trees_dbh_ht ON on_pp.glsl_psp_plotinfo.plotname = on_pp.glsl_psp_trees_dbh_ht.plotname
+
+UNION ALL
+
+SELECT DISTINCT
+    CAST(on_pp.pgp_plot_info.plot_num AS char(20)) AS plot_id,
+    'on_pp_pgp' :: char(20) AS org_code_db,
+    CAST(on_pp.pgp_treedbh_ht.tree_id AS char(10)) AS tree_id
+FROM
+    on_pp.pgp_plot_info
+LEFT JOIN on_pp.pgp_treedbh_ht ON on_pp.pgp_plot_info.plot_num =on_pp.pgp_treedbh_ht.plot_num
+;
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+--------------------------------------------------------
+-- INSERT DATA INTO PLOT INFO TABLE ---
+--------------------------------------------------------
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+DELETE FROM rdb_quicc.tree_info;
+INSERT INTO rdb_quicc.tree_info
+    SELECT
+        rdb_quicc.plot_info.plot_id,
+        temp_quicc.mv_tree_info.tree_id,
+        temp_quicc.mv_tree_info.org_db_loc,
+        temp_quicc.mv_tree_info.plot_id
+FROM temp_quicc.mv_tree_info
+INNER JOIN rdb_quicc.plot_info ON temp_quicc.mv_tree_info.plot_id = rdb_quicc.plot_info.org_db_id
+AND temp_quicc.mv_tree_info.org_db_loc = rdb_quicc.plot_info.org_db_loc;
+
+---- plot_id integer NOT NULL,
+---- tree_id integer NOT NULL,
+---- org_db_location character(20),
+---- org_db_id integer,
+---- CONSTRAINT tree_info_tbl_pk PRIMARY KEY (plot_id, tree_id)
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
