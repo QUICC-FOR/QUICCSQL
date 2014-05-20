@@ -150,7 +150,8 @@ INSERT INTO rdb_quicc.tree_info
 FROM temp_quicc.mv_tree_info
 INNER JOIN rdb_quicc.plot_info ON temp_quicc.mv_tree_info.plot_id = rdb_quicc.plot_info.org_db_id
 AND temp_quicc.mv_tree_info.org_db_loc = rdb_quicc.plot_info.org_db_loc
-WHERE  temp_quicc.mv_tree_info.plot_id IS NOT NULL;
+WHERE  temp_quicc.mv_tree_info.plot_id IS NOT NULL AND
+temp_quicc.mv_tree_info.tree_id IS NOT NULL;
 
 ---- plot_id integer NOT NULL,
 ---- tree_id integer NOT NULL,

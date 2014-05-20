@@ -55,10 +55,11 @@ Work-in-progress...
 
 ### Tree info table 
 
-- [x] Generate id as char(3) for each tree
+- [x] tree_id as char(3) for each tree
+- [ ] Switch tree_id as numeric/integer ?
 - [x] Table working for: `QC`, `ON`, `NB`
 
-### Tree table 
+### ref_species table 
 
 - Next step
 

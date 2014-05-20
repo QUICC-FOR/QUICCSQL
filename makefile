@@ -31,7 +31,7 @@ clim_tbl:
 	sh ${CLIM}/post_trait_NRCan.sh
 
 
-all: schema plot_info_tbl elev localisation_tbl plot_tbl tree_info_tbl
+all: schema plot_info_tbl localisation_tbl elev plot_tbl tree_info_tbl
 
 clean:
 	vacuumdb  -U ${PG_USER} -h ${PG_HOST} -p ${PG_PORT} -d ${PG_DB} --analyze --verbose
