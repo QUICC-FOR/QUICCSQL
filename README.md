@@ -50,7 +50,7 @@ Work-in-progress...
 - [x] Remove all year not necessary (**Done**)
 - [x] Create Pkey on plot_id and year (**Done**)
 - [x] Remove lat, long, elevation (**Done**)
-- [x] Problem needing to be assess: Some TP and PP in QC schema have the same ID (**Fix**).
+- [x] Problem needing to be assess: Some TP and PP in QC schema have the same ID (**Fixed**).
 - [ ] Fix other prob: some plots have 15 and else 20 years of climatic data
 - [ ] Table working for: `FIA`, `QC`, `ON`, `NB`
 
