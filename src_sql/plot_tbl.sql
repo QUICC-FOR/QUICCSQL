@@ -11,7 +11,8 @@
 -- Permanent sample plot from Quebec---
 ---------------------------------------
 
-DROP MATERIALIZED VIEW IF EXISTS  temp_quicc.mv_plot;
+--DROP MATERIALIZED VIEW IF EXISTS  temp_quicc.mv_plot;
+REFRESH MATERIALIZED VIEW temp_quicc.mv_plot;
 CREATE MATERIALIZED VIEW temp_quicc.mv_plot AS
 
 -- aller chercher ID d'origine
