@@ -17,7 +17,7 @@ CREATE MATERIALIZED VIEW temp_quicc.mv_plot AS
 -- aller chercher ID d'origine
 
 
-SELECT
+SELECT DISTINCT
     CAST(qc_pp.pp_infogen.id_pep AS char(20)) AS plot_id,
     'qc_pp' :: char(10) AS org_code_db,
     CAST(date_part('year'::text, qc_pp.pp_infogen.date_sond::date) AS integer) AS year_measured,
@@ -39,7 +39,7 @@ UNION ALL
 -- Temporary sample plot from Quebec---
 ---------------------------------------
 
-SELECT
+SELECT DISTINCT
     CAST(qc_tp.infogen_pet2.id_pet AS char(20)) AS plot_id,
     'qc_tp2' :: char(10) AS org_code_db,
     CAST(date_part('year'::text, qc_tp.infogen_pet2.date_sond::date) AS integer) AS year_measured,
@@ -56,7 +56,7 @@ INNER JOIN qc_tp.localis_pet2 ON qc_tp.infogen_pet2.id_pet_mes = qc_tp.localis_p
 
 UNION ALL
 
-SELECT
+SELECT DISTINCT
     CAST(qc_tp.infogen_pet3.id_pet AS char(20)) AS plot_id,
     'qc_tp3' :: char(10) AS org_code_db,
     CAST(date_part('year'::text, qc_tp.infogen_pet3.date_sond::date) AS integer) AS year_measured,
@@ -73,7 +73,7 @@ INNER JOIN qc_tp.localis_pet3 ON qc_tp.infogen_pet3.id_pet_mes = qc_tp.localis_p
 
 UNION ALL
 
-SELECT
+SELECT DISTINCT
     CAST(qc_tp.infogen_pet4.id_pet AS char(20)) AS plot_id,
     'qc_tp4' :: char(10) AS org_code_db,
     CAST(date_part('year'::text, qc_tp.infogen_pet4.date_sond::date) AS integer) AS year_measured,
@@ -94,7 +94,7 @@ INNER JOIN qc_tp.localis_pet4 ON qc_tp.infogen_pet4.id_pet_mes = qc_tp.localis_p
 ----------------------------------------------
 UNION ALL
 
-SELECT
+SELECT DISTINCT
     CAST(nb_pp.psp_plots.plot AS char(20)) AS plot_id,
     'nb_pp' :: char(10) AS org_code_db,
     CAST(nb_pp.psp_plots_yr.year AS integer) AS year_measured,
