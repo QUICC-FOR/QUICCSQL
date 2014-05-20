@@ -8,8 +8,8 @@
 -- By Steve Vissault
 
 -- DROP MATERIALIZED VIEW IF EXISTS  temp_quicc.mv_tree_info;
-REFRESH MATERIALIZED VIEW temp_quicc.mv_tree_info;
-CREATE MATERIALIZED VIEW temp_quicc.mv_tree_info AS
+REFRESH MATERIALIZED VIEW IF EXISTS temp_quicc.mv_tree_info;
+CREATE MATERIALIZED VIEW IF NOT EXISTS temp_quicc.mv_tree_info AS
 
 ----------------------------------------------------------
 -- Permanent sample plot from Quebec---

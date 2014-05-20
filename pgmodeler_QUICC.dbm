@@ -134,7 +134,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="plot_id" not-null="true">
 		<type name="integer"/>
 	</column>
-	<column name="tree_class_id" not-null="true" default-value="nextval('tree_info_tree_id_species_seq'::regclass)">
+	<column name="tree_class_id" not-null="true">
 		<type name="integer"/>
 	</column>
 	<column name="org_db_location">
@@ -324,7 +324,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<type name="character" length="20"/>
 	</column>
 	<column name="org_db_id">
-		<type name="integer"/>
+		<type name="character" length="20"/>
 	</column>
 	<constraint name="tree_info_tbl_pk" type="pk-constr" factor="100" table="rdb_quicc.tree_info">
 		<columns names="plot_id,tree_id" ref-type="src-columns"/>
@@ -725,7 +725,6 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 src-table="rdb_quicc.plot_info"
 	 dst-table="rdb_quicc.plot"
 	 src-required="true" dst-required="false"
-	 deferrable="true" defer-type="INITIALLY IMMEDIATE"
 	upd-action="CASCADE"
 	del-action="CASCADE"/>
 

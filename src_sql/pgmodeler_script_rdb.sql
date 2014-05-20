@@ -50,7 +50,6 @@ ALTER SEQUENCE rdb_quicc.plot_info_plot_id_seq OWNER TO vissst01;
 -- ddl-end --
 
 
-
 -- object: rdb_quicc.superplot | type: TABLE --
 -- DROP TABLE rdb_quicc.superplot;
 CREATE TABLE rdb_quicc.superplot(
@@ -214,7 +213,7 @@ CREATE TABLE rdb_quicc.tree_info(
 	plot_id integer NOT NULL,
 	tree_id char(3) NOT NULL,
 	org_db_loc character(20),
-	org_db_id integer,
+	org_db_id character(20),
 	CONSTRAINT tree_info_tbl_pk PRIMARY KEY (plot_id,tree_id)
 
 );
