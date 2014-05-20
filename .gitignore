@@ -1,3 +1,4 @@
 export_climat/
 clim_data/pntgrids/
 *.zip
+*.csv

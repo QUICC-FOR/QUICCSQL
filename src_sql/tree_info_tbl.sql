@@ -8,8 +8,8 @@
 -- By Steve Vissault
 
 -- DROP MATERIALIZED VIEW IF EXISTS  temp_quicc.mv_tree_info;
-REFRESH MATERIALIZED VIEW IF EXISTS temp_quicc.mv_tree_info;
-CREATE MATERIALIZED VIEW IF NOT EXISTS temp_quicc.mv_tree_info AS
+REFRESH MATERIALIZED VIEW temp_quicc.mv_tree_info;
+CREATE MATERIALIZED VIEW temp_quicc.mv_tree_info AS
 
 ----------------------------------------------------------
 -- Permanent sample plot from Quebec---
@@ -149,7 +149,8 @@ INSERT INTO rdb_quicc.tree_info
         temp_quicc.mv_tree_info.plot_id
 FROM temp_quicc.mv_tree_info
 INNER JOIN rdb_quicc.plot_info ON temp_quicc.mv_tree_info.plot_id = rdb_quicc.plot_info.org_db_id
-AND temp_quicc.mv_tree_info.org_db_loc = rdb_quicc.plot_info.org_db_loc;
+AND temp_quicc.mv_tree_info.org_db_loc = rdb_quicc.plot_info.org_db_loc
+WHERE  temp_quicc.mv_tree_info.plot_id IS NOT NULL;
 
 ---- plot_id integer NOT NULL,
 ---- tree_id integer NOT NULL,

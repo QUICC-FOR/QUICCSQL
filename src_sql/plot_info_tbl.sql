@@ -10,7 +10,7 @@
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 
 -- DROP MATERIALIZED VIEW IF EXISTS  temp_quicc.mv_plot_info;
-REFRESH MATERIALIZED VIEW temp_quicc.mv_plot_info;
+REFRESH MATERIALIZED VIEW temp_quicc.mv_tree_info;
 CREATE MATERIALIZED VIEW temp_quicc.mv_plot_info AS
 
 ---------------------------------------

@@ -1,4 +1,4 @@
--- Table: qc_pp.pp_climatic_data
+------ Create temporary climatic table necessary to sub_import process
 
 DROP TABLE temp_quicc.climatic_data CASCADE;
 
