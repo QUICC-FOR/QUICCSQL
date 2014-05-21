@@ -2,7 +2,8 @@
 # By Steve Vissault
 
 # Load workspace ----------------------------------------------------------
-setwd("~/Documents/GitHub/QUICC-SQL/ref_species_R")
+#setwd("~/Documents/GitHub/QUICC-SQL/ref_species_R")
+setwd("/Users/database/Desktop/QUICC-SQL/ref_species_R")
 rm(list=ls())
 
 # install and load package ------------------------------------------------
@@ -37,8 +38,8 @@ cleanup_dat  <- function(data){
 }
 
 tsn_qc  <- cleanup_dat(qc_sp)
-save(tsn_qc)
+save(tsn_qc,file='tsn_qc.Robj')
 tsn_us  <- cleanup_dat(us_sp)
-save(tsn_us)
+save(tsn_us,file='tsn_us.Robj')
 tsn_on  <- cleanup_dat(on_sp)
-save(tsn_on)
+save(tsn_on,file='tsn_on.Robj')
