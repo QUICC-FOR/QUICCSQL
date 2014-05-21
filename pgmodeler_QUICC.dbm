@@ -239,6 +239,9 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="species_tsn" not-null="true">
 		<type name="integer"/>
 	</column>
+	<column name="alph_code_uq" not-null="true">
+		<type name="char" length="6"/>
+	</column>
 	<column name="qc_sp_id">
 		<type name="character" length="3"/>
 	</column>
