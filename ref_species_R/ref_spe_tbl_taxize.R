@@ -8,6 +8,8 @@ rm(list=ls())
 
 # install and load package ------------------------------------------------
 #install.packages("taxize")
+library(devtools)
+#install_github("ropensci/taxize")
 library("taxize")
 library("stringr")
 library("plyr")
@@ -28,7 +30,9 @@ on_sp$id  <- paste(on_sp$genus, on_sp$species)
 
 # Function to merge and validate TSN
 cleanup_dat  <- function(data){
-  match  <- unique(tnrs(query = data$id, source = "iPlant_TNRS",verbose=FALSE,getpost = "POST")[, -c(3:7)])
+  data = qc_sp[1:20,]
+  match  <- unique(tnrs(query = data$id, source = "iPlant_TNRS",verbose=FALSE,getpost = "POST")[, -c(3,5:7)])
+  match  <- match[match$score>0.8,]
   colnames(match)[1] <- "id"
   data  <- merge(data,match,by="id",all=T)[,-1]
   tsn <- get_tsn(data$acceptedname,ask=FALSE,verbose=FALSE, searchtype = "scientific", accepted = TRUE)

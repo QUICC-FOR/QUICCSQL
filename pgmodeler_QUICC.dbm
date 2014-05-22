@@ -3,7 +3,7 @@
 CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
-<dbmodel pgmodeler-ver="0.7.0" author="Steve Vissault and Miranda Bryant">
+<dbmodel pgmodeler-ver="0.7.1" author="Steve Vissault and Miranda Bryant">
 <role name="caveenj"
       superuser="true"
       password="********">
@@ -82,7 +82,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="superplot">
 	<schema name="rdb_quicc"/>
 	<role name="&quot;QUICC&quot;"/>
-	<position x="1060" y="60"/>
+	<position x="1340" y="200"/>
 	<column name="plot_id" not-null="true">
 		<type name="integer"/>
 	</column>
@@ -100,7 +100,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="ref_tree_age_method">
 	<schema name="rdb_quicc"/>
 	<role name="&quot;QUICC&quot;"/>
-	<position x="1120" y="300"/>
+	<position x="1340" y="460"/>
 	<column name="age_id_method" not-null="true">
 		<type name="character"/>
 	</column>
@@ -115,7 +115,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="ref_tree_height_method">
 	<schema name="rdb_quicc"/>
 	<role name="&quot;QUICC&quot;"/>
-	<position x="1140" y="420"/>
+	<position x="1340" y="580"/>
 	<column name="height_id_method" not-null="true">
 		<type name="character"/>
 	</column>
@@ -130,7 +130,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="tree_class_info">
 	<schema name="rdb_quicc"/>
 	<role name="&quot;QUICC&quot;"/>
-	<position x="40" y="280"/>
+	<position x="20" y="320"/>
 	<column name="plot_id" not-null="true">
 		<type name="integer"/>
 	</column>
@@ -151,7 +151,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="tree">
 	<schema name="rdb_quicc"/>
 	<role name="&quot;QUICC&quot;"/>
-	<position x="740" y="260"/>
+	<position x="860" y="380"/>
 	<column name="plot_id" not-null="true">
 		<type name="integer"/>
 	</column>
@@ -202,7 +202,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="class_tree">
 	<schema name="rdb_quicc"/>
 	<role name="&quot;QUICC&quot;"/>
-	<position x="380" y="20"/>
+	<position x="460" y="80"/>
 	<column name="plot_id" not-null="true">
 		<type name="integer"/>
 	</column>
@@ -235,7 +235,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="ref_species">
 	<schema name="rdb_quicc"/>
 	<role name="&quot;QUICC&quot;"/>
-	<position x="780" y="60"/>
+	<position x="900" y="120"/>
 	<column name="species_tsn" not-null="true">
 		<type name="integer"/>
 	</column>
@@ -274,7 +274,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="stand_disturbed">
 	<schema name="rdb_quicc"/>
 	<role name="&quot;QUICC&quot;"/>
-	<position x="920" y="640"/>
+	<position x="880" y="760"/>
 	<column name="plot_id" not-null="true">
 		<type name="integer"/>
 	</column>
@@ -301,7 +301,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="ref_stand_disturb_type">
 	<schema name="rdb_quicc"/>
 	<role name="&quot;QUICC&quot;"/>
-	<position x="1140" y="520"/>
+	<position x="1340" y="800"/>
 	<column name="disturb_type" not-null="true">
 		<type name="character"/>
 	</column>
@@ -316,7 +316,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="tree_info">
 	<schema name="rdb_quicc"/>
 	<role name="&quot;QUICC&quot;"/>
-	<position x="1100" y="160"/>
+	<position x="1340" y="320"/>
 	<column name="plot_id" not-null="true">
 		<type name="integer"/>
 	</column>
@@ -337,7 +337,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="plot">
 	<schema name="rdb_quicc"/>
 	<role name="&quot;QUICC&quot;"/>
-	<position x="400.714" y="337.429"/>
+	<position x="480" y="460"/>
 	<column name="plot_id" not-null="true">
 		<type name="integer"/>
 	</column>
@@ -375,7 +375,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="plot_info">
 	<schema name="rdb_quicc"/>
 	<role name="&quot;QUICC&quot;"/>
-	<position x="80" y="580"/>
+	<position x="120" y="600"/>
 	<column name="plot_id" not-null="true" default-value="nextval('plot_info_plot_id_seq'::regclass)">
 		<type name="integer"/>
 	</column>
@@ -393,7 +393,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="stand">
 	<schema name="rdb_quicc"/>
 	<role name="&quot;QUICC&quot;"/>
-	<position x="380" y="580"/>
+	<position x="420" y="720"/>
 	<column name="plot_id" not-null="true">
 		<type name="integer"/>
 	</column>
@@ -435,7 +435,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="localisation">
 	<schema name="rdb_quicc"/>
 	<role name="&quot;QUICC&quot;"/>
-	<position x="40" y="400"/>
+	<position x="40" y="440"/>
 	<column name="plot_id" not-null="true">
 		<type name="integer"/>
 	</column>
@@ -572,7 +572,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="ref_stand_age_method">
 	<schema name="rdb_quicc"/>
 	<role name="&quot;QUICC&quot;"/>
-	<position x="20" y="760"/>
+	<position x="20" y="860"/>
 	<column name="age_id_method" not-null="true">
 		<type name="character"/>
 	</column>
@@ -587,7 +587,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="ref_stand_height_method">
 	<schema name="rdb_quicc"/>
 	<role name="&quot;QUICC&quot;"/>
-	<position x="20" y="680"/>
+	<position x="0" y="780"/>
 	<column name="height_id_method" not-null="true">
 		<type name="character"/>
 	</column>
@@ -642,7 +642,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="conv_class_dbh">
 	<schema name="rdb_quicc"/>
 	<role name="&quot;QUICC&quot;"/>
-	<position x="40" y="79"/>
+	<position x="20" y="60"/>
 	<column name="dbh_class_id" not-null="true">
 		<type name="integer"/>
 	</column>
@@ -666,7 +666,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="conv_class_height">
 	<schema name="rdb_quicc"/>
 	<role name="&quot;QUICC&quot;"/>
-	<position x="40" y="179"/>
+	<position x="20" y="200"/>
 	<column name="height_class_id" not-null="true">
 		<type name="integer"/>
 	</column>
