@@ -1,5 +1,5 @@
 -- Extract Tree level information from coarse data
--- By Steve Vissault
+-- By Steve Vissault and Miranda Bryant
 
 ---------------------------------------
 ---------------------------------------

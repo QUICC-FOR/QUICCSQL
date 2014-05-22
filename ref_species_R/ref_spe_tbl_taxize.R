@@ -26,6 +26,7 @@ on_sp$id  <- paste(on_sp$genus, on_sp$species)
 
 # Cleaning data: GET TSN + Scientific names accepted----------------------------------------------------------------
 
+# Function to merge and validate TSN
 cleanup_dat  <- function(data){
   match  <- unique(tnrs(query = data$id, source = "iPlant_TNRS",verbose=FALSE,getpost = "POST")[, -c(3:7)])
   colnames(match)[1] <- "id"
