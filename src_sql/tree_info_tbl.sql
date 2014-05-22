@@ -5,7 +5,7 @@
 ---------------------------------------
 
 -- Extract plot level information from original database
--- By Steve Vissault
+-- By Steve Vissault, Miranda Bryant
 
 -- DROP MATERIALIZED VIEW IF EXISTS  temp_quicc.mv_tree_info;
 REFRESH MATERIALIZED VIEW temp_quicc.mv_tree_info;

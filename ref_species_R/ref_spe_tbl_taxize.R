@@ -2,7 +2,7 @@
 # By Steve Vissault
 
 # Load workspace ----------------------------------------------------------
-#setwd("~/Documents/GitHub/QUICC-SQL/ref_species_R")
+setwd("~/Documents/GitHub/QUICC-SQL/ref_species_R")
 setwd("/Users/database/Desktop/QUICC-SQL/ref_species_R")
 rm(list=ls())
 
