@@ -17,7 +17,7 @@ library("snow")
 
 # init parralelization ----------------------------------------------------
 
-sfInit( parallel=TRUE, cpus=10, type="SOCK" )
+sfInit( parallel=TRUE, cpus=16, type="SOCK" )
 sfLibrary(plyr)
 sfLibrary(taxize)
 
@@ -33,7 +33,7 @@ qc_sp$id  <- paste(qc_sp$Genus,qc_sp$species)
 us_sp$id  <- paste(us_sp$genus,us_sp$species,us_sp$subspecies,us_sp$variety)
 on_sp$id  <- paste(on_sp$genus, on_sp$species)
 
-us_seq  <- c(seq(1,dim(us_sp)[1],200),dim(us_sp)[1])
+us_seq  <- c(seq(1,dim(us_sp)[1],100),dim(us_sp)[1])
 us_ls = list()
 for(i in 2:length(us_seq)){
   us_ls[[i-1]]  <- us_sp[us_seq[i-1]:us_seq[i],]  
@@ -46,7 +46,7 @@ for(i in 2:length(us_seq)){
 
 cleanup_dat  <- function(data){
   match  <- unique(tnrs(query = data$id, source = "iPlant_TNRS",verbose=FALSE,getpost = "POST")[, -c(3,5:7)])
-  match  <- match[match$score>0.8,]
+  match  <- match[match$score>0.8,-3]
   colnames(match)[1] <- "id"
   data  <- merge(data,match,by="id",all=T)[,-1]
   tsn <- get_tsn(data$acceptedname,ask=FALSE,verbose=FALSE, searchtype = "scientific", accepted = TRUE)
@@ -69,3 +69,7 @@ save(tsn_qc,file='tsn_qc.Robj')
 
 tsn_on  <- cleanup_dat(on_sp)
 save(tsn_on,file='tsn_on.Robj')
+
+str(tsn_on)
+tsn_qc$tsn
+tsn_on
