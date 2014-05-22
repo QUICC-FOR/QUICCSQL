@@ -2,19 +2,12 @@
 # By Steve Vissault
 
 # Load workspace ----------------------------------------------------------
-setwd("~/Documents/GitHub/QUICC-SQL/ref_species_R")
+#setwd("~/Documents/GitHub/QUICC-SQL/ref_species_R")
 setwd("/Users/database/Desktop/QUICC-SQL/ref_species_R")
 rm(list=ls())
 
-
-# init parralelization ----------------------------------------------------
-
-sfInit( parallel=TRUE, cpus=10, type="SOCK" )
-sfLibrary(plyr)
-sfLibrary(taxize)
-
 # install and load package ------------------------------------------------
-library(devtools)
+#library(devtools)
 #install_github("ropensci/taxize")
 library("taxize")
 library("stringr")
@@ -22,7 +15,11 @@ library("plyr")
 library("snowfall")
 library("snow")
 
-# Set parralel -----------------------------------------------------------
+# init parralelization ----------------------------------------------------
+
+sfInit( parallel=TRUE, cpus=10, type="SOCK" )
+sfLibrary(plyr)
+sfLibrary(taxize)
 
 # Load data ---------------------------------------------------------------
 
