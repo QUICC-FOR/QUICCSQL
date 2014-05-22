@@ -62,11 +62,15 @@ Work-in-progress...
 
 ### Ref species table 
 
-- Next step
+- [x] Write R script in order to use `Taxize` package
+- [x] Clean scientific name and TSN
+- [ ] Merge all reference table together (**Almost done**)
 
 ### Tree table 
 
-- Next step
+- [ ] Merge queries with UNION ALL
+- [ ] Validate ID_tree
+- [ ] Table working for: `QC`, `ON`, `NB`, `FIA`
 
 ## TODO on conversion functions
 

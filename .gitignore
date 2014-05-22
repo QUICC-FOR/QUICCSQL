@@ -2,3 +2,4 @@ export_climat/
 clim_data/pntgrids/
 *.zip
 clim_data/*.csv
+.Rhistory
