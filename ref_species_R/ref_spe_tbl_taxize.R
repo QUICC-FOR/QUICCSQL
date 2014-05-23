@@ -3,8 +3,8 @@
 # By Steve Vissault
 
 # Load workspace ----------------------------------------------------------
-#setwd("~/Documents/GitHub/QUICC-SQL/ref_species_R")
-setwd("/Users/database/Desktop/QUICC-SQL/ref_species_R")
+setwd("~/Documents/GitHub/QUICC-SQL/ref_species_R")
+#setwd("/Users/database/Desktop/QUICC-SQL/ref_species_R")
 rm(list=ls())
 
 # install and load package ------------------------------------------------
@@ -56,44 +56,64 @@ cleanup_dat  <- function(data){
   return(data)
 }
 
+# Paste function - special NA
+paste3 <- function(...,sep=", ") {
+  L <- list(...)
+  L <- lapply(L,function(x) {x[is.na(x)] <- ""; x})
+  ret <-gsub(paste0("(^",sep,"|",sep,"$)"),"",
+             gsub(paste0(sep,sep),sep,
+                  do.call(paste,c(L,list(sep=sep)))))
+  is.na(ret) <- ret==""
+  ret
+}
+
 #res_us  <- sfClusterApplyLB(us_ls, cleanup_dat)
 
 # stop parralelization ----------------------------------------------------
 #sfExportAll()
 #sfStop()
 
-#tsn_qc  <- cleanup_dat(qc_sp)
+tsn_qc  <- cleanup_dat(data=qc_sp)
 #save(tsn_qc,file='tsn_qc.Robj')
 
-#tsn_on  <- cleanup_dat(on_sp)
+tsn_on  <- cleanup_dat(data=on_sp)
 #save(tsn_on,file='tsn_on.Robj')
 
-#tsn_us  <- lapply(dt,cleanup_dat)
-tsn_us  <- cleanup_dat(us_sp)
-#tsn_us  <- rbind.fill(us_ls)
-save(tsn_us,file='tsn_us.Robj')
+tsn_us  <- cleanup_dat(data=us_sp)
+#save(tsn_us,file='tsn_us.Robj')
 
-#load('tsn_on.Robj')
-#load('tsn_qc.Robj')
-# 
-# merge_ref <- merge(tsn_on[!is.na(tsn_on$tsn),c(1,2,7,8)],tsn_qc[!is.na(tsn_qc$tsn),c(1,2,5,6)],by=c("tsn","acceptedname"),all=T)
-# merge_ref <- merge(tsn_on[!is.na(tsn_on$tsn),c(1,2,7,8)],tsn_qc[!is.na(tsn_qc$tsn),c(1,2,5,6)],by=c("tsn","acceptedname"),all=T)
-# colnames(merge_ref)[2:6]  <- c("scientific_name","on_tree_code","on_alpha_code","qc_tree_code","fr_common_name")
-# 
-# # Common 
-# name traitment ---------------------------------------------------
-# 
-# ###### Fr
-# Fr_missing  <- merge_ref[is.na(merge_ref$fr_common_name),"scientific_name"]
-# Com_Fr  <- sci2comm(scinames=Fr_missing,simplify=FALSE)
-# Com_Fr  <- ldply(Com_Fr,function(dat) as.vector(na.omit(dat[dat$eol_preferred == TRUE 
-#                                                           & dat$language=='fr',"vernacularname"]))[1])
-# ###### En
-# En_sci  <- merge_ref[,"scientific_name"]
-# Com_En  <- sci2comm(scinames=En_sci, db='itis')
-# Com_En  <- ldply(Com_En,function(dat) as.vector(na.omit(dat))[1])
-# 
-# save(Com_Fr,file="Common_name_fr.Robj")
-# save(Com_En,file="Common_name_en.Robj")
+#####################################################################################################
+
+load('tsn_on.Robj')
+load('tsn_qc.Robj')
+load('Common_name_en.Robj')
+load('Common_name_fr.Robj')
+
+merge_ref <- merge(tsn_on[!is.na(tsn_on$tsn),c(1,2,7,8)],tsn_qc[!is.na(tsn_qc$tsn),c(1,2,5,6)],by=c("tsn","acceptedname"),all=T)
+#merge_ref <- merge(merge_ref,tsn_us[!is.na(tsn_qc$tsn),c(1,2,5,6)],by=c("tsn","acceptedname"),all=T)
+colnames(merge_ref)[2:6]  <- c("scientific_name","on_tree_code","on_alpha_code","qc_tree_code","fr_common_name")
+
+# Common name traitment ---------------------------------------------------
+
+###### Fr
+Fr_missing  <- merge_ref[is.na(merge_ref$fr_common_name),"scientific_name"]
+Com_Fr  <- sci2comm(scinames=Fr_missing,simplify=FALSE)
+Com_Fr  <- ldply(Com_Fr,function(dat) as.vector(na.omit(dat[dat$eol_preferred == TRUE 
+                                                          & dat$language=='fr',"vernacularname"]))[1])
+colnames(Com_Fr)  <- c("id","fr_common_name")
+Com_Fr  <- merge(merge_ref, Com_Fr,by.x="scientific_name",by.y="id",all.x=T)[,c(1,6:7)]
+Com_Fr$merge_fr  <- paste3(as.vector(Com_Fr[,2]),as.vector(Com_Fr[,3]),sep="")
+merge_ref  <- merge(merge_ref,Com_Fr[,c(1,4)],by="scientific_name")
+merge_ref  <- merge_ref[,-6]
+colnames(merge_ref)[6]  <- "fr_common_name"
+
+
+###### En
+En_sci  <- merge_ref[,"scientific_name"]
+Com_En  <- sci2comm(scinames=En_sci, db='itis')
+Com_En  <- ldply(Com_En,function(dat) as.vector(na.omit(dat))[1])
+colnames(Com_En)[2]  <- "en_common_name"
+merge_ref  <- cbind(merge_ref,Com_En[2]) 
+
 
 
