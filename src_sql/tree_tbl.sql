@@ -132,10 +132,7 @@ SELECT nb_pp.psp_plots_yr.plot,
 	nb_pp.psp_tree_yimo.agecl,
 	nb_pp.psp_tree_yimo.lat
 FROM nb_pp.psp_plots_yr INNER JOIN nb_pp.psp_tree_yimo ON nb_pp.psp_plots_yr.remeasid = nb_pp.psp_tree_yimo.remeasid
-ORDER BY
-	nb_pp.psp_plots_yr.plot ASC,
-	nb_pp.psp_plots_yr.year ASC,
-	nb_pp.psp_tree_yimo.treenum ASC
+
 -- Uncomment the line below for smallest query (1000 records)
 -- LIMIT 200
 ;
@@ -151,10 +148,7 @@ SELECT nb_pp.psp_plots_yr.plot,
 	nb_pp.psp_tree_regenandthin.dbh,
 	nb_pp.psp_tree_regenandthin.origin
 FROM nb_pp.psp_plots_yr INNER JOIN nb_pp.psp_tree_regenandthin ON nb_pp.psp_plots_yr.remeasid = nb_pp.psp_tree_regenandthin.remeasid
-ORDER BY
-	nb_pp.psp_plots_yr.plot ASC,
-	nb_pp.psp_plots_yr.year ASC,
-	nb_pp.psp_tree_regenandthin.treenum ASC
+
 -- Uncomment the line below for smallest query (1000 records)
 -- LIMIT 200
 ;
