@@ -14,6 +14,7 @@ library("taxize")
 library("plyr")
 library("snowfall")
 library("snow")
+library("stringr")
 
 # init parralelization ----------------------------------------------------
 
@@ -23,7 +24,7 @@ library("snow")
 
 # Load data ---------------------------------------------------------------
 
-nb_sp  <- read.csv2("ref_on_sp.csv",stringsAsFactors=F)
+nb_sp  <- read.csv2("ref_nb_sp.csv",stringsAsFactors=F)
 qc_sp  <- read.csv2("ref_qc_sp.csv",stringsAsFactors=F)
 us_sp  <- read.csv2("ref_us_sp.csv",stringsAsFactors=F)
 on_sp  <- read.csv2("ref_on_sp.csv",stringsAsFactors=F)
@@ -32,13 +33,16 @@ on_sp  <- read.csv2("ref_on_sp.csv",stringsAsFactors=F)
 qc_sp$id  <- paste(qc_sp$Genus,qc_sp$species)
 us_sp$id  <- paste(us_sp$genus,us_sp$species)
 on_sp$id  <- paste(on_sp$genus, on_sp$species)
+nb_sp$id  <- nb_sp$en_verna_name
 
-us_seq  <- c(seq(1,dim(us_sp)[1],100),dim(us_sp)[1])
-us_ls = list()
-for(i in 2:length(us_seq)){
-  us_ls[[i-1]]  <- us_sp[us_seq[i-1]:us_seq[i],]  
-}
 
+# Split dataframe  --------------------------------------------------------
+
+# us_seq  <- c(seq(1,dim(us_sp)[1],100),dim(us_sp)[1])
+# us_ls = list()
+# for(i in 2:length(us_seq)){
+#   us_ls[[i-1]]  <- us_sp[us_seq[i-1]:us_seq[i],]  
+# }
 
 # Cleaning data: GET TSN + Scientific names accepted----------------------------------------------------------------
 
@@ -86,34 +90,35 @@ tsn_us  <- cleanup_dat(data=us_sp)
 
 load('tsn_on.Robj')
 load('tsn_qc.Robj')
-load('Common_name_en.Robj')
-load('Common_name_fr.Robj')
+# load('Common_name_en.Robj')
+# load('Common_name_fr.Robj')
 
-merge_ref <- merge(tsn_on[!is.na(tsn_on$tsn),c(1,2,7,8)],tsn_qc[!is.na(tsn_qc$tsn),c(1,2,5,6)],by=c("tsn","acceptedname"),all=T)
-#merge_ref <- merge(merge_ref,tsn_us[!is.na(tsn_qc$tsn),c(1,2,5,6)],by=c("tsn","acceptedname"),all=T)
+merge_ref <- merge(tsn_on[,c(1,2,7,8)],tsn_qc[,c(1,2,5,6)],by=c("tsn","acceptedname"),all=T)
 colnames(merge_ref)[2:6]  <- c("scientific_name","on_tree_code","on_alpha_code","qc_tree_code","fr_common_name")
 
 # Common name traitment ---------------------------------------------------
 
 ###### Fr
 Fr_missing  <- merge_ref[is.na(merge_ref$fr_common_name),"scientific_name"]
+Fr_missing  <- Fr_missing[which(str_length(Fr_missing)>1)]
+                          
 Com_Fr  <- sci2comm(scinames=Fr_missing,simplify=FALSE)
 Com_Fr  <- ldply(Com_Fr,function(dat) as.vector(na.omit(dat[dat$eol_preferred == TRUE 
-                                                          & dat$language=='fr',"vernacularname"]))[1])
+                                                         & dat$language=='fr',"vernacularname"]))[1])
+
 colnames(Com_Fr)  <- c("id","fr_common_name")
 Com_Fr  <- merge(merge_ref, Com_Fr,by.x="scientific_name",by.y="id",all.x=T)[,c(1,6:7)]
 Com_Fr$merge_fr  <- paste3(as.vector(Com_Fr[,2]),as.vector(Com_Fr[,3]),sep="")
-merge_ref  <- merge(merge_ref,Com_Fr[,c(1,4)],by="scientific_name")
-merge_ref  <- merge_ref[,-6]
-colnames(merge_ref)[6]  <- "fr_common_name"
-
+final_ref  <- merge(merge_ref,Com_Fr[!is.na(merge_ref),c(1,4)],by="scientific_name")
+final_ref  <- final_ref[,-6]
+colnames(final_ref)[6]  <- "fr_common_name"
 
 ###### En
 En_sci  <- merge_ref[,"scientific_name"]
 Com_En  <- sci2comm(scinames=En_sci, db='itis')
 Com_En  <- ldply(Com_En,function(dat) as.vector(na.omit(dat))[1])
-colnames(Com_En)[2]  <- "en_common_name"
-merge_ref  <- cbind(merge_ref,Com_En[2]) 
+colnames(Com_En)  <- c("scientific_name","en_common_name")
+merge_ref  <- merge(merge_ref,Com_En,id="scientific_name") 
 
 
 

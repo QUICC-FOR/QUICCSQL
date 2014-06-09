@@ -1,111 +1,111 @@
-"Code_QC";"Fr_name";"Genus";"species"
-"AME";"Amélanchier";"Amelanchier";"sp"
-"AUC";"Aulne crispé";"Alnus";"viridis"
-"AUR";"Aulne rugueux";"Alnus";"rugosa"
-"BOJ";"Bouleau jaune";"Betula";"alleghaniensis"
-"BOP";"Bouleau blanc (à papier)";"Betula";"papyrifera"
-"COC";"Noisetier à long bec";"Corylus";"cornuta"
-"EPB";"Épinette blanche";"Picea";"glauca"
-"EPN";"Épinette noire";"Picea";"mariana"
-"ERE";"Érable à épis";"Acer";"spicatum"
-"ERP";"Érable de Pennsylvanie";"Acer";"pensylvanicum"
-"ERR";"Érable rouge";"Acer";"rubrum"
-"ERS";"Érable à sucre";"Acer";"saccharum"
-"FEU";"Feuillu inconnu";;
-"FRN";"Frêne noir";"Fraxinus";"nigra"
-"INC";"Genre inconnu";;
-"PET";"Peuplier faux tremble";"Populus";"tremuloides"
-"PIB";"Pin blanc";"Pinus";"strobus"
-"PIG";"Pin gris";"Pinus";"banksiana"
-"PIR";"Pin rouge";"Pinus";"resinosa"
-"PRP";"Cerisier de Pennsylvanie";"Prunus";"pensylvanica"
-"RES";"Résineux inconnu";;
-"SAB";"Sapin baumier";"Abies";"balsamea"
-"SAL";"Saule";"Alnus";"sp."
-"SOA";"Sorbier d'Amérique";"Sorbus";"americana"
-"THO";"Thuya occidental";"Thuja";"occidentalis"
-"VIC";"Viorne cassinoïdes";"Viorne";"nudum"
-"ARM";"Aronia noir";"Aronia";"melanocarpa"
-"BEG";"Bouleau glanduleux";"Betula";"glandulosa"
-"BEM";"Bouleau mineur";"Betula";"minor"
-"BEP";"Bouleau nain";"Betula";"nana"
-"BOG";"Bouleau gris (à feuilles de peuplier)";"Betula";"populifolia"
-"CAC";"Caryer cordiforme";"Carya";"cordiformis"
-"CAF";"Caryer à fruits doux";"Carya";"ovata"
-"CAR";"Charme de Caroline";"Carpinus";"caroliniana"
-"CEO";"Micocoulier occidental";"Celtis";"occidentalis"
-"CET";"Cerisier tardif";"Prunus";"serotina"
-"CHB";"Chêne blanc";"Quercus";"alba"
-"CHE";"Chêne bicolore";"Quercus";"bicolor"
-"CHG";"Chêne à gros fruits";"Quercus";"macrocarpa"
-"CHR";"Chêne rouge";"Quercus";"rubra"
-"COA";"Cornouiller à feuilles alternes";"Cornus";"alternifolia"
-"COP";"Comptonie voyageuse";"Comptonia";"peregrina"
-"COR";"Cornouiller stolonifère";"Cornus";"stonolifera"
-"CRA";"Aubépine";"Crataegus";"sp."
-"DIE";"Dièréville chèvrefeuille";"Diervilla";"lonicera"
-"DIR";"Dirca des marais";"Dirca";"palustris"
-"EPO";"Épinette de Norvège";"Picea";"abies"
-"EPR";"Épinette rouge";"Picea";"rubens"
-"ERA";"Érable argenté";"Acer";"saccharinum"
-"ERG";"Érable à Giguère";"Acer";"negundo"
-"ERN";"Érable noir";"Acer";"nigrum"
-"FRA";"Frêne d'Amérique";"Fraxinus";"americana"
-"FRP";"Frêne de Pennsylvanie";"Fraxinus";"pennsylvanica"
-"HEG";"Hêtre à grandes feuilles";"Fagus";"grandifolia"
-"ILV";"Houx verticillé";"Ilex";"verticillata"
-"JUC";"Genévrier commun";"Juniperus";"communis"
-"JUH";"Genévrier horizontal";"Juniperus";"horizontalis"
-"JUN";"Genévriers";"Juniperus";"sp."
-"JUV";"Genévrier de Virginie";"Juniperus";"virginiana"
-"LOH";"Chèvrefeuille hirsute";"Lonicera";" hirsuta"
-"LON";"Chèvrefeuille du Canada";"Lonicera";"canadensis"
-"LOV";"Chèvrefeuille velu";"Lonicera";"villosa"
-"MAS";"Pommier";"Malus";"sp."
-"MEH";"Mélèze hybride";"Larix";"sp."
-"MEL";"Mélèze laricin";"Larix";"laricina"
-"MEU";"Mélèze européen";"Larix";"decidua"
-"MYG";"Myrique baumier";"Myrica";"gale"
-"NEM";"Némopanthe mucroné";"Ilex";"mucronata"
-"NOC";"Noyer cendré";"Juglans";"cinerea"
-"NON";"Noyer noir";"Juglans";"nigra"
-"ORA";"Orme d'Amérique";"Ulmus";"americana"
-"ORR";"Orme rouge";"Ulmus";"rubra"
-"ORT";"Orme de Thomas";"Ulmus";"thomasii"
-"OSV";"Ostryer de Virginie";"Ostrya";"virginiana"
-"PAQ";"Parthénocisse à cinq folioles";"Parthenocissus";"quinquefolia"
-"PEB";"Peuplier baumier";"Populus";"balsamifera"
-"PED";"Peuplier à feuilles deltoïdes";"Populus";"deltoides"
-"PEG";"Peuplier à grandes dents";"Populus";"grandidentata"
-"PEH";"Peuplier hybride";"Populus";"sp."
-"PID";"Pin rigide";"Pinus";"rigida"
-"PIS";"Pin sylvestre";"Pinus";"sylvestris"
-"PRU";"Pruche de l'Est";"Tsuga";"canadensis"
-"PRV";"Cerisier de Virginie";"Prunus";"virginiana"
-"RHA";"Nerprun à feuilles d'aulne";"Rhamnus";"alnifolia"
-"RHM";"Nerprun cathartique";"Rhamnus";"cathartica"
-"RHR";"Sumac grimpant";"Toxicodendron";"radicans"
-"RHT";"Sumac vinaigrier";"Rhus";"typhina"
-"RIA";"Gadellier américain";"Ribes";"americanum"
-"RIC";"Gadellier des chiens";;
-"RIG";"Gadellier glanduleux";"Ribes";"glandulosum"
-"RIH";"Gadellier hérissé";;
-"RIL";"Gadellier lacustre";"Ribes";"lacustre"
-"RIT";"Gadellier amer";"Ribes";"triste"
-"ROA";"Rosier aciculaire";"Rosa";"acicularis"
-"RUA";"Ronce alléghanienne";"Rubus";"allegheniensis"
-"RUD";"Ronce odorante";"Rubus";"odoratus"
-"RUI";"Ronce du mont Ida";"Rubus";"idaeus"
-"RUO";"Ronce occidentale";"Rubus";"occidentalis"
-"SAC";"Sureau du Canada";"Sambucus";"canadensis"
-"SAP";"Sureau pubescent";"Sambucus";"racemosa"
-"SHP";"Shepherdie du Canada";"Shepherdia";"canadensis"
-"SOD";"Sorbier des montagnes";"Sorbus";"decora"
-"SPL";"Spirée à larges feuilles";"Spiraea";"latifolia"
-"SPT";"Spirée tomenteuse";"Spiraea";"tomentosa"
-"TAC";"If du Canada";"Taxus";"canadensis"
-"TIL";"Tilleul d'Amérique";"Tilia";"americana"
-"VIE";"Viorne comestible";"Viburnum";"edule"
-"VIL";"Viorne à feuilles d'aulne";"Viburnum";"lantanoides"
-"VIR";"Vigne des rivages";"Vitis";"riparia"
-"VIT";"Viorne trilobée";"Viburnum";"opulus"
+Code_QC;Fr_name;Genus;species
+AME;Amélanchier;Amelanchier;
+AUC;Aulne crispé;Alnus;viridis
+AUR;Aulne rugueux;Alnus;rugosa
+BOJ;Bouleau jaune;Betula;alleghaniensis
+BOP;Bouleau blanc (à papier);Betula;papyrifera
+COC;Noisetier à long bec;Corylus;cornuta
+EPB;Épinette blanche;Picea;glauca
+EPN;Épinette noire;Picea;mariana
+ERE;Érable à épis;Acer;spicatum
+ERP;Érable de Pennsylvanie;Acer;pensylvanicum
+ERR;Érable rouge;Acer;rubrum
+ERS;Érable à sucre;Acer;saccharum
+FEU;Feuillu inconnu;;
+FRN;Frêne noir;Fraxinus;nigra
+INC;Genre inconnu;;
+PET;Peuplier faux tremble;Populus;tremuloides
+PIB;Pin blanc;Pinus;strobus
+PIG;Pin gris;Pinus;banksiana
+PIR;Pin rouge;Pinus;resinosa
+PRP;Cerisier de Pennsylvanie;Prunus;pensylvanica
+RES;Résineux inconnu;;
+SAB;Sapin baumier;Abies;balsamea
+SAL;Saule;Alnus;
+SOA;Sorbier d'Amérique;Sorbus;americana
+THO;Thuya occidental;Thuja;occidentalis
+VIC;Viorne cassinoïdes;Viorne;nudum
+ARM;Aronia noir;Aronia;melanocarpa
+BEG;Bouleau glanduleux;Betula;glandulosa
+BEM;Bouleau mineur;Betula;minor
+BEP;Bouleau nain;Betula;nana
+BOG;Bouleau gris (à feuilles de peuplier);Betula;populifolia
+CAC;Caryer cordiforme;Carya;cordiformis
+CAF;Caryer à fruits doux;Carya;ovata
+CAR;Charme de Caroline;Carpinus;caroliniana
+CEO;Micocoulier occidental;Celtis;occidentalis
+CET;Cerisier tardif;Prunus;serotina
+CHB;Chêne blanc;Quercus;alba
+CHE;Chêne bicolore;Quercus;bicolor
+CHG;Chêne à gros fruits;Quercus;macrocarpa
+CHR;Chêne rouge;Quercus;rubra
+COA;Cornouiller à feuilles alternes;Cornus;alternifolia
+COP;Comptonie voyageuse;Comptonia;peregrina
+COR;Cornouiller stolonifère;Cornus;stonolifera
+CRA;Aubépine;Crataegus;
+DIE;Dièréville chèvrefeuille;Diervilla;lonicera
+DIR;Dirca des marais;Dirca;palustris
+EPO;Épinette de Norvège;Picea;abies
+EPR;Épinette rouge;Picea;rubens
+ERA;Érable argenté;Acer;saccharinum
+ERG;Érable à Giguère;Acer;negundo
+ERN;Érable noir;Acer;nigrum
+FRA;Frêne d'Amérique;Fraxinus;americana
+FRP;Frêne de Pennsylvanie;Fraxinus;pennsylvanica
+HEG;Hêtre à grandes feuilles;Fagus;grandifolia
+ILV;Houx verticillé;Ilex;verticillata
+JUC;Genévrier commun;Juniperus;communis
+JUH;Genévrier horizontal;Juniperus;horizontalis
+JUN;Genévriers;Juniperus;
+JUV;Genévrier de Virginie;Juniperus;virginiana
+LOH;Chèvrefeuille hirsute;Lonicera; hirsuta
+LON;Chèvrefeuille du Canada;Lonicera;canadensis
+LOV;Chèvrefeuille velu;Lonicera;villosa
+MAS;Pommier;Malus;
+MEH;Mélèze hybride;Larix;
+MEL;Mélèze laricin;Larix;laricina
+MEU;Mélèze européen;Larix;decidua
+MYG;Myrique baumier;Myrica;gale
+NEM;Némopanthe mucroné;Ilex;mucronata
+NOC;Noyer cendré;Juglans;cinerea
+NON;Noyer noir;Juglans;nigra
+ORA;Orme d'Amérique;Ulmus;americana
+ORR;Orme rouge;Ulmus;rubra
+ORT;Orme de Thomas;Ulmus;thomasii
+OSV;Ostryer de Virginie;Ostrya;virginiana
+PAQ;Parthénocisse à cinq folioles;Parthenocissus;quinquefolia
+PEB;Peuplier baumier;Populus;balsamifera
+PED;Peuplier à feuilles deltoïdes;Populus;deltoides
+PEG;Peuplier à grandes dents;Populus;grandidentata
+PEH;Peuplier hybride;Populus;
+PID;Pin rigide;Pinus;rigida
+PIS;Pin sylvestre;Pinus;sylvestris
+PRU;Pruche de l'Est;Tsuga;canadensis
+PRV;Cerisier de Virginie;Prunus;virginiana
+RHA;Nerprun à feuilles d'aulne;Rhamnus;alnifolia
+RHM;Nerprun cathartique;Rhamnus;cathartica
+RHR;Sumac grimpant;Toxicodendron;radicans
+RHT;Sumac vinaigrier;Rhus;typhina
+RIA;Gadellier américain;Ribes;americanum
+RIC;Gadellier des chiens;;
+RIG;Gadellier glanduleux;Ribes;glandulosum
+RIH;Gadellier hérissé;;
+RIL;Gadellier lacustre;Ribes;lacustre
+RIT;Gadellier amer;Ribes;triste
+ROA;Rosier aciculaire;Rosa;acicularis
+RUA;Ronce alléghanienne;Rubus;allegheniensis
+RUD;Ronce odorante;Rubus;odoratus
+RUI;Ronce du mont Ida;Rubus;idaeus
+RUO;Ronce occidentale;Rubus;occidentalis
+SAC;Sureau du Canada;Sambucus;canadensis
+SAP;Sureau pubescent;Sambucus;racemosa
+SHP;Shepherdie du Canada;Shepherdia;canadensis
+SOD;Sorbier des montagnes;Sorbus;decora
+SPL;Spirée à larges feuilles;Spiraea;latifolia
+SPT;Spirée tomenteuse;Spiraea;tomentosa
+TAC;If du Canada;Taxus;canadensis
+TIL;Tilleul d'Amérique;Tilia;americana
+VIE;Viorne comestible;Viburnum;edule
+VIL;Viorne à feuilles d'aulne;Viburnum;lantanoides
+VIR;Vigne des rivages;Vitis;riparia
+VIT;Viorne trilobée;Viburnum;opulus
