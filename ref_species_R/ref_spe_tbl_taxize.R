@@ -53,18 +53,19 @@ options(eolApiKey="6ab6532c0ba87bae5665e9c684dcec73479fef8a")
 
 # Function to merge and validate TSN
 # datset need to have 
-cleanup_dat  <- function(data){
+#cleanup_dat  <- function(data){
   data  <- us_sp
   match  <- tnrs(query = data$id, source = "iPlant_TNRS",verbose=FALSE,getpost = "POST")[, -c(3,5:7)]
   match  <- match[match$score>0.4,-3]
   colnames(match)[1] <- "id"
+  data$id  <- str_trim(data$id)
   data  <- unique(merge(data,match,by="id",all.x=TRUE))
   tsn <- get_tsn(data$id,ask=FALSE, verbose=FALSE, searchtype = "scientific", accepted = TRUE)
   tsn <- ldply(tsn, itis_acceptname)
   data$tsn  <-  tsn[,1]
   data  <- data[,-1]
   return(data)
-}
+#}
 
 # Paste function - special NA
 paste3 <- function(...,sep=", ") {
