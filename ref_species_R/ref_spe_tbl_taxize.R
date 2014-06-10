@@ -10,6 +10,7 @@ rm(list=ls())
 # install and load package ------------------------------------------------
 #library(devtools)
 #install_github("ropensci/taxize")
+library("rPlant")
 library("taxize")
 library("plyr")
 library("snowfall")
@@ -36,6 +37,10 @@ on_sp$id  <- paste(on_sp$genus, on_sp$species)
 nb_sp$id  <- nb_sp$en_verna_name
 
 
+# Keys --------------------------------------------------------------------
+
+options(eolApiKey="6ab6532c0ba87bae5665e9c684dcec73479fef8a")
+
 # Split dataframe  --------------------------------------------------------
 
 # us_seq  <- c(seq(1,dim(us_sp)[1],100),dim(us_sp)[1])
@@ -49,14 +54,15 @@ nb_sp$id  <- nb_sp$en_verna_name
 # Function to merge and validate TSN
 # datset need to have 
 cleanup_dat  <- function(data){
+  data  <- us_sp
   match  <- tnrs(query = data$id, source = "iPlant_TNRS",verbose=FALSE,getpost = "POST")[, -c(3,5:7)]
   match  <- match[match$score>0.4,-3]
   colnames(match)[1] <- "id"
-  data  <- merge(data,match,by="id",all.x=T)[,-1]
-  tsn <- get_tsn(data$acceptedname,ask=FALSE,verbose=FALSE, searchtype = "scientific", accepted = TRUE)
+  data  <- unique(merge(data,match,by="id",all.x=TRUE))
+  tsn <- get_tsn(data$id,ask=FALSE, verbose=FALSE, searchtype = "scientific", accepted = TRUE)
   tsn <- ldply(tsn, itis_acceptname)
-  tsn[tsn[,1]=='true',] <- NA
   data$tsn  <-  tsn[,1]
+  data  <- data[,-1]
   return(data)
 }
 
@@ -84,7 +90,7 @@ tsn_on  <- cleanup_dat(data=on_sp)
 #save(tsn_on,file='tsn_on.Robj')
 
 tsn_us  <- cleanup_dat(data=us_sp)
-#save(tsn_us,file='tsn_us.Robj')
+save(tsn_us,file='tsn_us.Robj')
 
 #####################################################################################################
 
