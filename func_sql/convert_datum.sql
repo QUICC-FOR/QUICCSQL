@@ -157,3 +157,14 @@ WHERE on_pp.pgp_plot_info.map_datum = 83 AND on_pp.pgp_plot_info.map_zone = '17'
 ALTER TABLE us_pp.plot DROP COLUMN IF EXISTS coord_geom;
 SELECT AddGeometryColumn('us_pp', 'plot', 'coord_geom', 4326,'POINT', 2 );
 UPDATE us_pp.plot SET coord_geom = ST_Transform(ST_SetSRID(ST_MakePoint(lon,lat),4269), 4326);
+
+
+----------------------------
+------  DOMTAR    -----
+----------------------------
+
+---------------------------------------------------------------------------------------------
+
+ALTER TABLE domtar_pp.domtar_data DROP COLUMN IF EXISTS coord_geom;
+SELECT AddGeometryColumn('domtar_pp', 'domtar_data', 'coord_geom', 4326,'POINT', 2 );
+UPDATE domtar_pp.domtar_data SET coord_geom = ST_Transform(ST_SetSRID(ST_MakePoint(xcoord,ycoord),2149), 4326);
