@@ -113,7 +113,7 @@ UNION ALL
 ---------------------------------------
 
 SELECT DISTINCT
-    CAST(concat_ws('-',statecd,unitcd,countycd,plot) AS char(20))   AS id ,
+    CAST(concat_ws('-',statecd,unitcd,countycd,plot) AS char(20))   AS plot_id ,
     'us_pp' :: char(20) AS org_code_db
   FROM
     us_pp.plot
@@ -128,7 +128,7 @@ UNION ALL
 ---------------------------------------
 
 SELECT DISTINCT
-    CAST(domtar_pp.domtar_data.idpep AS char (20)) AS id,
+    CAST(domtar_pp.domtar_data.idpep AS char (20)) AS plot_id,
     'domtar_pp' :: char(20) AS org_code_db
 FROM
     domtar_pp.domtar_data
@@ -141,6 +141,6 @@ WHERE domtar_pp.domtar_data.coord_geom IS NOT NULL;
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 
 DELETE FROM rdb_quicc.plot_info;
-INSERT INTO rdb_quicc.plot_info (org_db_loc,org_db_id) SELECT org_code_db, id FROM temp_quicc.mv_plot_info;
+INSERT INTO rdb_quicc.plot_info (org_db_loc,org_db_id) SELECT org_code_db, plot_id FROM temp_quicc.mv_plot_info;
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
