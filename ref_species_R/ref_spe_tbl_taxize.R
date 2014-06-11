@@ -53,8 +53,8 @@ options(eolApiKey="6ab6532c0ba87bae5665e9c684dcec73479fef8a")
 
 # Function to merge and validate TSN
 # datset need to have 
-#cleanup_dat  <- function(data){
-  data  <- us_sp
+cleanup_dat  <- function(data){
+#  data  <- us_sp
   match  <- tnrs(query = data$id, source = "iPlant_TNRS",verbose=FALSE,getpost = "POST")[, -c(3,5:7)]
   match  <- match[match$score>0.4,-3]
   colnames(match)[1] <- "id"
@@ -62,10 +62,10 @@ options(eolApiKey="6ab6532c0ba87bae5665e9c684dcec73479fef8a")
   data  <- unique(merge(data,match,by="id",all.x=TRUE))
   tsn <- get_tsn(data$id,ask=FALSE, verbose=FALSE, searchtype = "scientific", accepted = TRUE)
   tsn <- ldply(tsn, itis_acceptname)
-  data$tsn  <-  tsn[,1]
+  data$tsn  <-  as.numeric(tsn)
   data  <- data[,-1]
   return(data)
-#}
+}
 
 # Paste function - special NA
 paste3 <- function(...,sep=", ") {
@@ -91,18 +91,28 @@ tsn_on  <- cleanup_dat(data=on_sp)
 #save(tsn_on,file='tsn_on.Robj')
 
 tsn_us  <- cleanup_dat(data=us_sp)
-save(tsn_us,file='tsn_us.Robj')
+#save(tsn_us,file='tsn_us.Robj')
 
 #####################################################################################################
 
 load('tsn_on.Robj')
 load('tsn_qc.Robj')
+load('tsn_us.Robj')
 # load('Common_name_en.Robj')
 # load('Common_name_fr.Robj')
 
-merge_ref <- merge(tsn_on[,c(1,2,7,8)],tsn_qc[,c(1,2,5,6)],by=c("tsn","acceptedname"),all=T)
-colnames(merge_ref)[2:6]  <- c("scientific_name","on_tree_code","on_alpha_code","qc_tree_code","fr_common_name")
+# reshape and merge data ------------------------------------------------------------
 
+dat_on  <- tsn_on[,c(8,3,4,7,5,1,2)]
+dat_us  <- tsn_us[,c(6,3,4,5,2,1)]
+dat_qc  <- tsn_qc[,c(6,3,4,5,2,1)]
+
+colnames(dat_on)[2:3]  <- c("genus","species")
+colnames(dat_us)[2:3]  <- c("genus","species")
+colnames(dat_qc)[2:3]  <- c("genus","species")
+
+fin_dat <- merge(dat_on,dat_qc,by=c("acceptedname","tsn","genus","species"),all=T,incomparables=NA)
+fin_dat <- merge(fin_dat,dat_us,by=c("acceptedname","tsn","genus","species"),all=T,incomparables=NA)
 # Common name traitment ---------------------------------------------------
 
 ###### Fr
