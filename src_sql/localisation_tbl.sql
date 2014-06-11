@@ -8,8 +8,8 @@
 -- By Steve Vissault
 
 
---DROP MATERIALIZED VIEW IF EXISTS  temp_quicc.mv_localisation;
-REFRESH MATERIALIZED VIEW temp_quicc.mv_localisation;
+DROP MATERIALIZED VIEW IF EXISTS  temp_quicc.mv_localisation;
+--REFRESH MATERIALIZED VIEW temp_quicc.mv_localisation;
 CREATE MATERIALIZED VIEW temp_quicc.mv_localisation AS
 
 SELECT org_plot_id, max(coord_geom) AS coord_geom ,org_code_db FROM (
@@ -76,6 +76,7 @@ FROM
 			-- Permanent sample plot from Ontario       ---
 			-----------------------------------------------
 			-- Datum is different by year and from others databases
+
 			SELECT DISTINCT
 				on_pp.boreal_psp_treedbh_ht.plot_num AS org_plot_id,
 				on_pp.boreal_psp_treedbh_ht.obs_year,
@@ -109,6 +110,17 @@ FROM
 				us_pp.plot.coord_geom,
 				'us_pp' AS org_code_db
 			FROM us_pp.plot
+
+			-----------------------------------------------
+			-- 	DOMTAR   	             ---
+			-----------------------------------------------
+			UNION ALL
+			SELECT DISTINCT
+				domtar_pp.domtar_data.idpep AS org_plot_id,
+				domtar_pp.domtar_data.annee_corrigee AS yr_measured,
+				domtar_pp.domtar_data.coord_geom,
+				'domtar_pp' AS org_code_db
+			FROM domtar_pp.domtar_data
 ) AS all_locations
 WHERE
 		coord_geom IS NOT NULL
