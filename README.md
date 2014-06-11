@@ -24,7 +24,7 @@ Work-in-progress...
 - [x] **Check** validity of `RIGHT JOIN` (**Done**)
 - [x] Add elevation from temp_quicc.elev_tbl
 - [ ] Investigate why some plots don't have an elevation
-- [x] Table working for: `FIA`, `QC`, `ON`, `NB`
+- [x] Table working for: `FIA`, `QC`, `ON`, `NB`,`DOMTAR`
 
 #### **Filters** (**Done**)
  * Coordinates taken on the last measurement
@@ -38,7 +38,7 @@ Work-in-progress...
 - [ ] Remove `DEFAULT nextval('plot_info_plot_id_seq'::regclass)` on plot_id_plot_info **(MANUAL)**
 - [ ] Add bolean field: is_planted ?
 - [ ] Need create functions on `has_superplot`, `plot_size`, `sapling_plot_size`, `seedling_plot_size`, `is_planted`
-- [ ] Table working for: `FIA`, `QC`, `ON`, `NB`
+- [ ] Table working for: `FIA`, `QC`, `ON`, `NB`,`DOMTAR`
 
 #### **Filters** (**Done**)
  * Remove all plots with no year of measurement (`NB`)
