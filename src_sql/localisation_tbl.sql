@@ -8,7 +8,7 @@
 -- By Steve Vissault
 
 
-DROP MATERIALIZED VIEW IF EXISTS  temp_quicc.mv_localisation;
+--DROP MATERIALIZED VIEW IF EXISTS  temp_quicc.mv_localisation;
 --REFRESH MATERIALIZED VIEW temp_quicc.mv_localisation;
 CREATE MATERIALIZED VIEW temp_quicc.mv_localisation AS
 
@@ -23,7 +23,6 @@ FROM
 		---------------------------------------
 			SELECT DISTINCT
 				qc_pp.pp_infogen.id_pep AS org_plot_id,
-				date_part('year'::text, qc_pp.pp_infogen.date_sond::date) AS yr_measured,
 				qc_pp.pp_localis.coord_geom,
 				'qc_pp' AS org_code_db
 			FROM qc_pp.pp_infogen
@@ -35,7 +34,6 @@ FROM
 			---------------------------------------
 			SELECT DISTINCT
 				qc_tp.infogen_pet2.id_pet AS org_plot_id,
-				date_part('year'::text, qc_tp.infogen_pet2.date_sond::date) AS yr_measured,
 				qc_tp.localis_pet2.coord_geom,
 				'qc_tp2' AS org_code_db
 			FROM qc_tp.infogen_pet2
@@ -44,7 +42,6 @@ FROM
 			UNION ALL
 			SELECT DISTINCT
 				qc_tp.infogen_pet3.id_pet AS org_plot_id,
-				date_part('year'::text, qc_tp.infogen_pet3.date_sond::date) AS yr_measured,
 				qc_tp.localis_pet3.coord_geom,
 				'qc_tp3' AS org_code_db
 			FROM qc_tp.infogen_pet3
@@ -53,7 +50,6 @@ FROM
 			UNION ALL
 			SELECT DISTINCT
 				qc_tp.infogen_pet4.id_pet AS org_plot_id,
-				date_part('year'::text, qc_tp.infogen_pet4.date_sond::date) AS yr_measured,
 				qc_tp.localis_pet4.coord_geom,
 				'qc_tp4' AS org_code_db
 			FROM qc_tp.infogen_pet4
@@ -65,7 +61,6 @@ FROM
 			-----------------------------------------------
 			SELECT DISTINCT
 				nb_pp.psp_plots.plot AS org_plot_id,
-				nb_pp.psp_plots_yr.year AS yr_measured,
 				nb_pp.psp_plots.coord_geom,
 				'nb_pp' AS org_code_db
 			FROM nb_pp.psp_plots
@@ -79,7 +74,6 @@ FROM
 
 			SELECT DISTINCT
 				on_pp.boreal_psp_treedbh_ht.plot_num AS org_plot_id,
-				on_pp.boreal_psp_treedbh_ht.obs_year,
 				on_pp.boreal_psp_plot_info.coord_geom,
 				'on_pp_boreal' AS org_code_db
 				FROM on_pp.boreal_psp_treedbh_ht
@@ -87,7 +81,6 @@ FROM
 			UNION ALL
 			SELECT DISTINCT
 				on_pp.glsl_psp_trees_dbh_ht.plotname AS org_plot_id,
-				date_part('year'::text, on_pp.glsl_psp_trees_dbh_ht.msrdate::date) AS yr_measured,
 				on_pp.glsl_psp_plotinfo.coord_geom,
 				'on_pp_glsl' AS org_code_db
 				FROM on_pp.glsl_psp_trees_dbh_ht
@@ -95,7 +88,6 @@ FROM
 			UNION ALL
 			SELECT DISTINCT
 				on_pp.pgp_treedbh_ht.plot_num AS org_plot_id,
-				on_pp.pgp_treedbh_ht.obs_year AS yr_measured,
 				on_pp.pgp_plot_info.coord_geom,
 				'on_pp_pgp' AS org_code_db
 				FROM on_pp.pgp_treedbh_ht
@@ -106,7 +98,6 @@ FROM
 			UNION ALL
 			SELECT DISTINCT
 				concat_ws('-',statecd,unitcd,countycd,plot) AS org_plot_id,
-				us_pp.plot.measyear AS yr_measured,
 				us_pp.plot.coord_geom,
 				'us_pp' AS org_code_db
 			FROM us_pp.plot
@@ -117,7 +108,6 @@ FROM
 			UNION ALL
 			SELECT DISTINCT
 				domtar_pp.domtar_data.idpep AS org_plot_id,
-				domtar_pp.domtar_data.annee_corrigee AS yr_measured,
 				domtar_pp.domtar_data.coord_geom,
 				'domtar_pp' AS org_code_db
 			FROM domtar_pp.domtar_data
