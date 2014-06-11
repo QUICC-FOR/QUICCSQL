@@ -13,17 +13,6 @@
 REFRESH MATERIALIZED VIEW temp_quicc.mv_tree_info;
 CREATE MATERIALIZED VIEW temp_quicc.mv_plot_info AS
 
----------------------------------------
-------  FIA database
----------------------------------------
-
-  SELECT DISTINCT
-
-    concat_ws('-',statecd,unitcd,countycd,plot)   AS id ,
-    'us_pp' AS org_code_db
-  FROM
-    us_pp.plot
-WHERE us_pp.plot.coord_geom IS NOT NULL
 
 ---------------------------------------
 ------ QC_PP database
@@ -118,9 +107,33 @@ SELECT DISTINCT
     'on_pp_pgp' :: char(20) AS org_code_db
 FROM
     on_pp.pgp_plot_info
-WHERE on_pp.pgp_plot_info.coord_geom IS NOT NULL;
+WHERE on_pp.pgp_plot_info.coord_geom IS NOT NULL
+
+UNION ALL
+
+---------------------------------------
+------  FIA database
+---------------------------------------
+
+SELECT DISTINCT
+    CAST(concat_ws('-',statecd,unitcd,countycd,plot) AS char(20))   AS id ,
+    'us_pp' :: char(20) AS org_code_db
+  FROM
+    us_pp.plot
+WHERE us_pp.plot.coord_geom IS NOT NULL
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+---------------------------------------
+------  DOMTAR database
+---------------------------------------
+
+SELECT DISTINCT
+    CAST(domtar_pp.domtar_data.idpep AS char (20)) AS id,
+    'domtar_pp' :: char(20) AS org_code_db
+FROM
+    domtar_pp.domtar_data
+WHERE domtar_pp.domtar_data.coord_geom IS NOT NULL;
 
 --------------------------------------------------------
 -- INSERT DATA INTO PLOT INFO TABLE ---
