@@ -12,7 +12,7 @@
 ---------------------------------------
 
 --DROP MATERIALIZED VIEW IF EXISTS  temp_quicc.mv_plot;
-REFRESH MATERIALIZED VIEW temp_quicc.mv_plot;
+--REFRESH MATERIALIZED VIEW temp_quicc.mv_plot;
 CREATE MATERIALIZED VIEW temp_quicc.mv_plot AS
 
 -- aller chercher ID d'origine
@@ -178,6 +178,24 @@ SELECT DISTINCT
     CAST(concat_ws('-',statecd,unitcd,countycd,plot)  AS char(20)) AS plot_id,
     'us_pp' :: char(10) AS org_code_db,
     us_pp.plot.measyear :: integer AS year_measured,
+    CAST( 0 AS numeric) AS plot_size,
+    CAST( 0 AS numeric) AS sapling_plot_size,
+    CAST( 0 AS numeric) AS seedling_plot_size,
+    0 :: boolean AS is_templot,
+    0 :: boolean AS has_superplot
+FROM
+    us_pp.plot
+
+UNION ALL
+
+----------------------------------------------
+-- DOMTAR   --
+----------------------------------------------
+
+SELECT DISTINCT
+    CAST(domtar_pp.domtar_data.idpep AS char(20)) AS plot_id,
+    'us_pp' :: char(10) AS org_code_db,
+    domtar_pp.domtar_data.measyear :: integer AS year_measured,
     CAST( 0 AS numeric) AS plot_size,
     CAST( 0 AS numeric) AS sapling_plot_size,
     CAST( 0 AS numeric) AS seedling_plot_size,
