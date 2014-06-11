@@ -194,15 +194,15 @@ UNION ALL
 
 SELECT DISTINCT
     CAST(domtar_pp.domtar_data.idpep AS char(20)) AS plot_id,
-    'us_pp' :: char(10) AS org_code_db,
-    domtar_pp.domtar_data.measyear :: integer AS year_measured,
+    'domtar_pp' :: char(10) AS org_code_db,
+    CAST(domtar_pp.domtar_data.annee_corrigee AS integer) AS yr_measured,
     CAST( 0 AS numeric) AS plot_size,
     CAST( 0 AS numeric) AS sapling_plot_size,
     CAST( 0 AS numeric) AS seedling_plot_size,
     0 :: boolean AS is_templot,
     0 :: boolean AS has_superplot
 FROM
-    us_pp.plot
+    domtar_pp.domtar_data
 ;
 
 
