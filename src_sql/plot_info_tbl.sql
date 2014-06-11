@@ -9,16 +9,13 @@
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 
--- DROP MATERIALIZED VIEW IF EXISTS  temp_quicc.mv_plot_info;
-REFRESH MATERIALIZED VIEW temp_quicc.mv_tree_info;
+DROP MATERIALIZED VIEW IF EXISTS  temp_quicc.mv_plot_info;
 CREATE MATERIALIZED VIEW temp_quicc.mv_plot_info AS
 
 
 ---------------------------------------
 ------ QC_PP database
 ---------------------------------------
-
-UNION ALL
 
 SELECT DISTINCT
     CAST(qc_pp.pp_infogen.id_pep AS char(20)) AS plot_id,
@@ -122,6 +119,8 @@ SELECT DISTINCT
     us_pp.plot
 WHERE us_pp.plot.coord_geom IS NOT NULL
 
+
+UNION ALL
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 
 ---------------------------------------
