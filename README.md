@@ -16,7 +16,7 @@ Work-in-progress...
 ### Plot_info table
 
 - [x] Generate ID in plot_id reference table (**Done**)
-- [x] Table clean, closed and working for: `FIA`, `QC`, `ON`, `NB`
+- [x] Table clean, closed and working for: `FIA`, `QC`, `ON`, `NB`,`DOMTAR`
 
 ### Location table
 
