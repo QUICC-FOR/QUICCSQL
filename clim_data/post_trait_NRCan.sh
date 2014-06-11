@@ -51,7 +51,7 @@ psql -U $USER -h $HOST -p $PORT -d $DB -c "\i $TABLE/climate_tbl.sql"
 echo "------- SQL: CREATE VIEW range_years...."
 
 psql -U $USER -h $HOST -p $PORT -d $DB -c "
-CREATE OR REPLACE VIEW rdb_quicc.range_yrs_clim AS
+CREATE OR REPLACE VIEW temp_quicc.range_yrs_clim AS
  SELECT DISTINCT plot_info.plot_id,
     plot_info.org_db_id,
     localisation.latitude,
@@ -80,13 +80,13 @@ USING (SELECT DISTINCT
   climatic_data.x_longitude,
   climatic_data.y_latitude,
   climatic_data.year_data,
-  rdb_quicc.range_yrs_clim.plot_id
+  temp_quicc.range_yrs_clim.plot_id
 FROM
   temp_quicc.climatic_data
-LEFT JOIN rdb_quicc.range_yrs_clim ON
-climatic_data.id_plot = rdb_quicc.range_yrs_clim.org_db_id AND
-climatic_data.x_longitude = rdb_quicc.range_yrs_clim.longitude AND
-climatic_data.y_latitude = rdb_quicc.range_yrs_clim.latitude
+LEFT JOIN temp_quicc.range_yrs_clim ON
+climatic_data.id_plot = temp_quicc.range_yrs_clim.org_db_id AND
+climatic_data.x_longitude = temp_quicc.range_yrs_clim.longitude AND
+climatic_data.y_latitude = temp_quicc.range_yrs_clim.latitude
 WHERE range_yrs_clim.plot_id IS NULL
 ) AS del_rec
 WHERE
@@ -99,28 +99,28 @@ echo "------- SQL: Clean unused years"
 
 psql -U $USER -h $HOST -p $PORT -d $DB -c "
 DELETE FROM temp_quicc.climatic_data
-USING rdb_quicc.range_yrs_clim
+USING temp_quicc.range_yrs_clim
 WHERE
- temp_quicc.climatic_data.id_plot = rdb_quicc.range_yrs_clim.org_db_id AND
- temp_quicc.climatic_data.x_longitude = rdb_quicc.range_yrs_clim.longitude AND
- temp_quicc.climatic_data.y_latitude = rdb_quicc.range_yrs_clim.latitude AND
- temp_quicc.climatic_data.year_data > rdb_quicc.range_yrs_clim.year_max
+ temp_quicc.climatic_data.id_plot = temp_quicc.range_yrs_clim.org_db_id AND
+ temp_quicc.climatic_data.x_longitude = temp_quicc.range_yrs_clim.longitude AND
+ temp_quicc.climatic_data.y_latitude = temp_quicc.range_yrs_clim.latitude AND
+ temp_quicc.climatic_data.year_data > temp_quicc.range_yrs_clim.year_max
  OR
- temp_quicc.climatic_data.id_plot = rdb_quicc.range_yrs_clim.org_db_id AND
- temp_quicc.climatic_data.x_longitude = rdb_quicc.range_yrs_clim.longitude AND
- temp_quicc.climatic_data.y_latitude = rdb_quicc.range_yrs_clim.latitude AND
- temp_quicc.climatic_data.year_data < rdb_quicc.range_yrs_clim.year_min;"
+ temp_quicc.climatic_data.id_plot = temp_quicc.range_yrs_clim.org_db_id AND
+ temp_quicc.climatic_data.x_longitude = temp_quicc.range_yrs_clim.longitude AND
+ temp_quicc.climatic_data.y_latitude = temp_quicc.range_yrs_clim.latitude AND
+ temp_quicc.climatic_data.year_data < temp_quicc.range_yrs_clim.year_min;"
 
 echo "------- SQL: Update id"
 
 psql -U $USER -h $HOST -p $PORT -d $DB -c "
 UPDATE temp_quicc.climatic_data
 SET id_plot = plot_id
-FROM rdb_quicc.range_yrs_clim
+FROM temp_quicc.range_yrs_clim
 WHERE
-temp_quicc.climatic_data.id_plot = rdb_quicc.range_yrs_clim.org_db_id AND
-temp_quicc.climatic_data.x_longitude = rdb_quicc.range_yrs_clim.longitude AND
-temp_quicc.climatic_data.y_latitude = rdb_quicc.range_yrs_clim.latitude;"
+temp_quicc.climatic_data.id_plot = temp_quicc.range_yrs_clim.org_db_id AND
+temp_quicc.climatic_data.x_longitude = temp_quicc.range_yrs_clim.longitude AND
+temp_quicc.climatic_data.y_latitude = temp_quicc.range_yrs_clim.latitude;"
 
 echo "------- SQL: Import data to final rdb"
 

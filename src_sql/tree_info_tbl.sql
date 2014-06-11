@@ -8,7 +8,6 @@
 -- By Steve Vissault, Miranda Bryant
 
 -- DROP MATERIALIZED VIEW IF EXISTS  temp_quicc.mv_tree_info;
-REFRESH MATERIALIZED VIEW temp_quicc.mv_tree_info;
 CREATE MATERIALIZED VIEW temp_quicc.mv_tree_info AS
 
 ----------------------------------------------------------
@@ -128,8 +127,20 @@ SELECT DISTINCT
 FROM
     on_pp.pgp_plot_info
 LEFT JOIN on_pp.pgp_treedbh_ht ON on_pp.pgp_plot_info.plot_num =on_pp.pgp_treedbh_ht.plot_num
-;
 
+UNION ALL
+
+----------------------------------------------------------
+-- DOMTAR ---
+----------------------------------------------------------
+
+SELECT DISTINCT
+    CAST(domtar_pp.domtar_data.idpep AS char(20)) AS plot_id,
+    'domtar_pp' :: char(20) AS org_code_db,
+    CAST(domtar_pp.domtar_data.noarbre AS char(3)) AS tree_id
+FROM
+    domtar_pp.domtar_data
+;
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 

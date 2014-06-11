@@ -52,14 +52,15 @@ options(eolApiKey="6ab6532c0ba87bae5665e9c684dcec73479fef8a")
 # Cleaning data: GET TSN + Scientific names accepted----------------------------------------------------------------
 
 # Function to merge and validate TSN
-# datset need to have 
+# dataset need to have a field called id
+
 cleanup_dat  <- function(data){
-#  data  <- us_sp
-  match  <- tnrs(query = data$id, source = "iPlant_TNRS",verbose=FALSE,getpost = "POST")[, -c(3,5:7)]
-  match  <- match[match$score>0.4,-3]
-  colnames(match)[1] <- "id"
+  data  <- us_sp
+  #match  <- tnrs(query = data$id, source = "iPlant_TNRS",verbose=FALSE,getpost = "POST")[, -c(3,5:7)]
+  #match  <- match[match$score>0.4,-3]
+  #colnames(match)[1] <- "id"
   data$id  <- str_trim(data$id)
-  data  <- unique(merge(data,match,by="id",all.x=TRUE))
+  #data  <- unique(merge(data,match,by="id",all.x=TRUE))
   tsn <- get_tsn(data$id,ask=FALSE, verbose=FALSE, searchtype = "scientific", accepted = TRUE)
   tsn <- ldply(tsn, itis_acceptname)
   data$tsn  <-  as.numeric(tsn)
@@ -113,6 +114,13 @@ colnames(dat_qc)[2:3]  <- c("genus","species")
 
 fin_dat <- merge(dat_on,dat_qc,by=c("acceptedname","tsn","genus","species"),all=T,incomparables=NA)
 fin_dat <- merge(fin_dat,dat_us,by=c("acceptedname","tsn","genus","species"),all=T,incomparables=NA)
+fin_dat$Com_name <- paste3(fin_dat$common_nam,fin_dat$common_name,sep=" ;")
+
+fin_dat  <- fin_dat[,c(2,3,4,1,12,8,11,9,7,6)]
+colnames(fin_dat)[4:10]  <- c("itis_acceptedname","en_common","fr_common","us_code","qc_code","on_alpha_code","on_tree_code") 
+
+write.csv2(fin_dat,file="tbl_species_final.csv",row.names=F)
+
 # Common name traitment ---------------------------------------------------
 
 ###### Fr
