@@ -115,7 +115,7 @@ fin_dat$En_com_name <- paste3(fin_dat$common_nam,fin_dat$common_name,sep=" ;")
 fin_dat  <- fin_dat[,c(1:3,11,7,8,5:6,10)]
 colnames(fin_dat) <- c("tsn","genus","species","en_com_name","fr_com_name","qc_code","on_tree_code","on_alpha_code","us_code") 
 
-write.csv2(fin_dat,file="tbl_species_final.csv",row.names=F)
+write.csv2(fin_dat,file="ref_species.csv",row.names=F)
 
 
 ###########################################################################
