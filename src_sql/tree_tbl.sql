@@ -97,15 +97,13 @@ SELECT CAST(qc_tp.infogen_pet4.id_pet AS char(10)) AS plot_id,
     	NULL :: char(5) AS is_dead
 FROM qc_tp.etudarbr_pet4 LEFT OUTER JOIN qc_tp.infogen_pet4 ON qc_tp.etudarbr_pet4.id_pet_mes = qc_tp.infogen_pet4.id_pet_mes
 
-;
 
 -----------------------------------------------
 -- Permenent sample plot from New-Brunswick ---
 -----------------------------------------------
 
-DROP MATERIALIZED VIEW IF EXISTS nb_pp.mv_nb_partialcut_tree;
+UNION ALL
 
-CREATE MATERIALIZED VIEW nb_pp.mv_nb_partialcut_tree AS
 SELECT nb_pp.psp_plots_yr.plot,
 	nb_pp.psp_plots_yr.year,
 	nb_pp.psp_tree_partialcut.treenum,
@@ -113,17 +111,11 @@ SELECT nb_pp.psp_plots_yr.plot,
 	nb_pp.psp_tree_partialcut.totalHt,
 	nb_pp.psp_tree_partialcut.dbh
 FROM nb_pp.psp_plots_yr INNER JOIN nb_pp.psp_tree_partialcut ON nb_pp.psp_plots_yr.remeasid = nb_pp.psp_tree_partialcut.remeasid
-ORDER BY
-	nb_pp.psp_plots_yr.plot ASC,
-	nb_pp.psp_plots_yr.year ASC,
-	nb_pp.psp_tree_partialcut.treenum ASC
 -- Uncomment the line below for smallest query (1000 records)
 -- LIMIT 200
-;
 
-DROP MATERIALIZED VIEW IF EXISTS nb_pp.mv_nb_yimo_tree;
+UNION ALL
 
-CREATE MATERIALIZED VIEW nb_pp.mv_nb_yimo_tree AS
 SELECT nb_pp.psp_plots_yr.plot,
 	nb_pp.psp_plots_yr.year,
 	nb_pp.psp_tree_yimo.treenum,
@@ -135,11 +127,9 @@ FROM nb_pp.psp_plots_yr INNER JOIN nb_pp.psp_tree_yimo ON nb_pp.psp_plots_yr.rem
 
 -- Uncomment the line below for smallest query (1000 records)
 -- LIMIT 200
-;
 
-DROP MATERIALIZED VIEW IF EXISTS nb_pp.mv_nb_regenthin_tree;
+UNION ALL
 
-CREATE MATERIALIZED VIEW nb_pp.mv_nb_regenthin_tree AS
 SELECT nb_pp.psp_plots_yr.plot,
 	nb_pp.psp_plots_yr.year,
 	nb_pp.psp_tree_regenandthin.treenum,
@@ -151,11 +141,9 @@ FROM nb_pp.psp_plots_yr INNER JOIN nb_pp.psp_tree_regenandthin ON nb_pp.psp_plot
 
 -- Uncomment the line below for smallest query (1000 records)
 -- LIMIT 200
-;
 
-DROP MATERIALIZED VIEW IF EXISTS nb_pp.mv_nb_cutplant_tree;
+UNION ALL
 
-CREATE MATERIALIZED VIEW nb_pp.mv_nb_cutplant_tree AS
 SELECT nb_pp.psp_plots_yr.plot,
 	nb_pp.psp_plots_yr.year,
 	nb_pp.psp_tree_cutandplant.treenum,
@@ -165,21 +153,17 @@ SELECT nb_pp.psp_plots_yr.plot,
 	nb_pp.psp_tree_cutandplant.origin,
 	nb_pp.psp_tree_cutandplant.survival
 FROM nb_pp.psp_plots_yr INNER JOIN nb_pp.psp_tree_cutandplant ON nb_pp.psp_plots_yr.remeasid = nb_pp.psp_tree_cutandplant.remeasid
-ORDER BY
-	nb_pp.psp_plots_yr.plot ASC,
-	nb_pp.psp_plots_yr.year ASC,
-	nb_pp.psp_tree_cutandplant.treenum ASC
 -- Uncomment the line below for smallest query (1000 records)
 -- LIMIT 200
-;
 
+UNION ALL
+
+-----------------------------------------------
+-- Permenent sample plot from FIA ---
+-----------------------------------------------
 -----------------------------------------
 ------------Plots FIA Database-----------
 -----------------------------------------
-
-DROP MATERIALIZED VIEW IF EXISTS us_pp.tot_tree;
-
-CREATE MATERIALIZED VIEW us_pp.tot_tree AS
 SELECT us_pp.tree.plot,
 	us_pp.tree.invyr,
 	us_pp.tree.tree,
@@ -191,15 +175,17 @@ SELECT us_pp.tree.plot,
 FROM us_pp.tree
 -- Uncomment the line below for smallest query (100 records)
 --LIMIT 100
-;
+
+UNION ALL
+
+-----------------------------------------------
+-- Permenent sample plot from Ontario---
+-----------------------------------------------
 
 -----------------------------------------
 -----------Ontario Boreal Plots----------
 -----------------------------------------
 
-DROP MATERIALIZED VIEW IF EXISTS on_pp.bor_tree;
-
-CREATE MATERIALIZED VIEW on_pp.bor_tree AS
 SELECT boreal_psp_treedbh_ht.plot_num,
     boreal_psp_treedbh_ht.obs_year,
     boreal_psp_treedbh_ht.tree_id,
@@ -210,16 +196,13 @@ SELECT boreal_psp_treedbh_ht.plot_num,
 FROM on_pp.boreal_psp_treedbh_ht
 -- Uncomment the line below for smallest query (100 records)
 --LIMIT 10
-;
-
 
 -----------------------------------------
 ------------Ontario GLSL Plots-----------
 -----------------------------------------
 
-DROP MATERIALIZED VIEW IF EXISTS on_pp.glsl_tree;
+UNION ALL
 
-CREATE MATERIALIZED VIEW on_pp.glsl_tree AS
 SELECT glsl_psp_trees_dbh_ht.plotname,
    CAST(date_part('year'::text, glsl_psp_trees_dbh_ht.msrdate::date) AS integer) AS year_measured,
    glsl_psp_trees_dbh_ht.treeid,
@@ -230,15 +213,13 @@ SELECT glsl_psp_trees_dbh_ht.plotname,
 FROM on_pp.glsl_psp_trees_dbh_ht
 -- Uncomment the line below for smallest query (100 records)
 --LIMIT 10
-;
 
 -----------------------------------------
 -----------Ontario PGP Plots-------------
 -----------------------------------------
 
-DROP MATERIALIZED VIEW IF EXISTS on_pp.pgp_tree;
+UNION ALL
 
-CREATE MATERIALIZED VIEW on_pp.pgp_tree AS
 SELECT pgp_treedbh_ht.plot_num,
    pgp_treedbh_ht.obs_year,
    pgp_treedbh_ht.tree_id,
