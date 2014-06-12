@@ -55,7 +55,6 @@ options(eolApiKey="6ab6532c0ba87bae5665e9c684dcec73479fef8a")
 # dataset need to have a field called id
 
 cleanup_dat  <- function(data){
-  data  <- us_sp
   #match  <- tnrs(query = data$id, source = "iPlant_TNRS",verbose=FALSE,getpost = "POST")[, -c(3,5:7)]
   #match  <- match[match$score>0.4,-3]
   #colnames(match)[1] <- "id"
@@ -63,8 +62,8 @@ cleanup_dat  <- function(data){
   #data  <- unique(merge(data,match,by="id",all.x=TRUE))
   tsn <- get_tsn(data$id,ask=FALSE, verbose=FALSE, searchtype = "scientific", accepted = TRUE)
   tsn <- ldply(tsn, itis_acceptname)
-  data$tsn  <-  as.numeric(tsn)
-  data  <- data[,-1]
+  tsn[tsn=='true']  <- NA
+  data$tsn  <- tsn
   return(data)
 }
 
@@ -95,31 +94,34 @@ tsn_us  <- cleanup_dat(data=us_sp)
 #save(tsn_us,file='tsn_us.Robj')
 
 #####################################################################################################
-
-load('tsn_on.Robj')
-load('tsn_qc.Robj')
-load('tsn_us.Robj')
-# load('Common_name_en.Robj')
-# load('Common_name_fr.Robj')
-
 # reshape and merge data ------------------------------------------------------------
 
-dat_on  <- tsn_on[,c(8,3,4,7,5,1,2)]
-dat_us  <- tsn_us[,c(6,3,4,5,2,1)]
-dat_qc  <- tsn_qc[,c(6,3,4,5,2,1)]
+dat_on  <- tsn_on[,c(8,3,4,5,1,2)]
+dat_us  <- tsn_us[,c(6,3,4,2,1)]
+dat_qc  <- tsn_qc[,c(6,3,4,2,1)]
 
 colnames(dat_on)[2:3]  <- c("genus","species")
 colnames(dat_us)[2:3]  <- c("genus","species")
 colnames(dat_qc)[2:3]  <- c("genus","species")
 
-fin_dat <- merge(dat_on,dat_qc,by=c("acceptedname","tsn","genus","species"),all=T,incomparables=NA)
-fin_dat <- merge(fin_dat,dat_us,by=c("acceptedname","tsn","genus","species"),all=T,incomparables=NA)
-fin_dat$Com_name <- paste3(fin_dat$common_nam,fin_dat$common_name,sep=" ;")
+dat_us  <- data.frame(tsn=as.numeric(dat_us[,1]$V1),dat_us[,2:5])
+dat_on  <- data.frame(tsn=as.numeric(dat_on[,1]$V1),dat_on[,2:6])
+dat_qc  <- data.frame(tsn=as.numeric(dat_qc[,1]$V1),dat_qc[,2:5])
 
-fin_dat  <- fin_dat[,c(2,3,4,1,12,8,11,9,7,6)]
-colnames(fin_dat)[4:10]  <- c("itis_acceptedname","en_common","fr_common","us_code","qc_code","on_alpha_code","on_tree_code") 
+fin_dat <- merge(dat_on,dat_qc,by=c("tsn","genus","species"),all=T,incomparables=NA)
+fin_dat <- merge(fin_dat,dat_us,by=c("tsn","genus","species"),all=T,incomparables=NA)
+fin_dat$En_com_name <- paste3(fin_dat$common_nam,fin_dat$common_name,sep=" ;")
+
+fin_dat  <- fin_dat[,c(1:3,11,7,8,5:6,10)]
+colnames(fin_dat) <- c("tsn","genus","species","en_com_name","fr_com_name","qc_code","on_tree_code","on_alpha_code","us_code") 
 
 write.csv2(fin_dat,file="tbl_species_final.csv",row.names=F)
+
+
+###########################################################################
+# DONE --------------------------------------------------------------------
+###########################################################################
+
 
 # Common name traitment ---------------------------------------------------
 
