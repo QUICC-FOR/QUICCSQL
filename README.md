@@ -1,6 +1,6 @@
 QUICC-SQL
 =========
-**Update:** June, 11th
+**Update:** June, 14th
 
 Work-in-progress...
 
@@ -79,6 +79,10 @@ Work-in-progress...
 
 - Function #1 Convert class of plot size (*Need further investigations*)
 - Function #2 Convert radius to area 
+
+## TODO on makefile
+
+- Add exception in temp_sch trigger: climatic_tbl need to be untouched.
 
 ## Getting started
 
