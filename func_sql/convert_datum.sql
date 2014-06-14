@@ -167,4 +167,4 @@ UPDATE us_pp.plot SET coord_geom = ST_Transform(ST_SetSRID(ST_MakePoint(lon,lat)
 
 ALTER TABLE domtar_pp.domtar_data DROP COLUMN IF EXISTS coord_geom;
 SELECT AddGeometryColumn('domtar_pp', 'domtar_data', 'coord_geom', 4326,'POINT', 2 );
-UPDATE domtar_pp.domtar_data SET coord_geom = ST_Transform(ST_SetSRID(ST_MakePoint(xcoord,ycoord),2149), 4326);
+UPDATE domtar_pp.domtar_data SET coord_geom = ST_Transform(ST_SetSRID(ST_MakePoint(xcoord,ycoord),2144), 4326);
