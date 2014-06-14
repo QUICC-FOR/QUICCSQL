@@ -67,6 +67,18 @@ Work-in-progress...
 - [x] Clean scientific name and TSN
 - [ ] Merge all reference table together (**Almost done**)
 
+#### **Code removed** 
+
+|id    |fr_com_name           |qc_code  |
+|:-----|:---------------------|:--------|
+|1966  |Résineux inconnu      |RES      |
+|1967  |Feuillu inconnu       |FEU      |
+|1968  |Gadellier des chiens  |RIC      |
+|1969  |Gadellier hérissé     |RIH      |
+|1970  |Genre inconnu         |INC      |
+
+Removed for **UNK**
+
 ### Tree table 
 
 - [ ] Merge queries with UNION ALL
