@@ -69,15 +69,13 @@ Work-in-progress...
 
 #### **Code removed** 
 
-|id    |fr_com_name           |qc_code  |
-|:-----|:---------------------|:--------|
-|1966  |Résineux inconnu      |RES      |
-|1967  |Feuillu inconnu       |FEU      |
-|1968  |Gadellier des chiens  |RIC      |
-|1969  |Gadellier hérissé     |RIH      |
-|1970  |Genre inconnu         |INC      |
-
-Removed for **UNK**
+|id    |fr_com_name           |**qc_code**  |**new_code**  |
+|:-----|:---------------------|:--------|:---------|
+|1966  |Résineux inconnu      |RES      |UNK       |
+|1967  |Feuillu inconnu       |FEU      |UNK       |
+|1968  |Gadellier des chiens  |RIC      |UNK       |
+|1969  |Gadellier hérissé     |RIH      |UNK       |
+|1970  |Genre inconnu         |INC      |UNK       |
 
 ### Tree table 
 
