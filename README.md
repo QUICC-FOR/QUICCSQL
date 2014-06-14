@@ -69,6 +69,8 @@ Work-in-progress...
 
 #### **Code removed** 
 
+##### Unknown code
+
 |id    |fr_com_name           |**qc_code**  |**new_code**  |
 |:-----|:---------------------|:--------|:---------|
 |1966  |Résineux inconnu      |RES      |UNK       |
@@ -76,6 +78,10 @@ Work-in-progress...
 |1968  |Gadellier des chiens  |RIC      |UNK       |
 |1969  |Gadellier hérissé     |RIH      |UNK       |
 |1970  |Genre inconnu         |INC      |UNK       |
+
+##### Duplicated code
+
+
 
 ### Tree table 
 
