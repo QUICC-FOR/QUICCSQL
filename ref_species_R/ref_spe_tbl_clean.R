@@ -9,15 +9,31 @@ setwd("~/Documents/GitHub/QUICC-SQL/ref_species_R")
 #setwd("/Users/database/Desktop/QUICC-SQL/ref_species_R")
 rm(list=ls())
 
-# Load data and librairy ---------------------------------------------------
+# Load data and libraries ---------------------------------------------------
 
 library("knitr")
+library("stringr")
+library("taxize")
+library("plyr")
+
+#set eol token
+options(eolApiKey="6ab6532c0ba87bae5665e9c684dcec73479fef8a")
+
+#load data
 ref_spe  <- read.csv2("ref_species.csv",stringsAsFactors=F)
 
-# Dump TSN with NA --------------------------------------------------------
+##########################################
+########### First Filter
+##########################################
+
+# Dump TSN with NA (genus empty) --------------------------------------------------------
 
 ref_spe  <- ref_spe[!ref_spe$genus=='',]
-  
+
+##########################################
+########### Second Filter
+##########################################
+
 # Duplicated lines ---------------------------------------------------------------
 
 allDup <- function (df)
@@ -26,32 +42,50 @@ allDup <- function (df)
   }
 
 DumpLines  <- ref_spe[allDup(ref_spe[,1:3]),]
+
 DumpLines  <- split(DumpLines,f=factor(DumpLines$tsn))
+
 Reports_dup  <- lapply(DumpLines, function(x){
-                x = DumpLines[[1]]
-                cons_code  <- rep(x[1,1],dim(x)[1])
-                dump_code  <- x[2:dim(x)[1],]
+                cons_code  <- rep(x[1,c("us_code")],dim(x)[1]-1)
+                dump_code  <- x[2:dim(x)[1],c("tsn","en_com_name","us_code")]
+                fin_code  <- data.frame(dump_code,new_code=cons_code)
+                return(fin_code)
               })
 
+Reports_dup  <- do.call(rbind,Reports_dup)
+#kable(Reports_dup,format="markdown",row.names=F)
 
-###### Fr
-Fr_missing  <- merge_ref[is.na(merge_ref$fr_common_name),"scientific_name"]
-Fr_missing  <- Fr_missing[which(str_length(Fr_missing)>1)]
+ref_spe  <- ref_spe[!ref_spe$us_code %in% Reports_dup$us_code,]
 
-Com_Fr  <- sci2comm(scinames=Fr_missing,simplify=FALSE)
-Com_Fr  <- ldply(Com_Fr,function(dat) as.vector(na.omit(dat[dat$eol_preferred == TRUE 
-                                                            & dat$language=='fr',"vernacularname"]))[1])
+##########################################
+##### Traitment on common names
+##########################################
 
-colnames(Com_Fr)  <- c("id","fr_common_name")
-Com_Fr  <- merge(merge_ref, Com_Fr,by.x="scientific_name",by.y="id",all.x=T)[,c(1,6:7)]
-Com_Fr$merge_fr  <- paste3(as.vector(Com_Fr[,2]),as.vector(Com_Fr[,3]),sep="")
-final_ref  <- merge(merge_ref,Com_Fr[!is.na(merge_ref),c(1,4)],by="scientific_name")
-final_ref  <- final_ref[,-6]
-colnames(final_ref)[6]  <- "fr_common_name"
+ref_spe$genus  <- str_trim(ref_spe$genus)
+ref_spe$species  <- str_trim(ref_spe$species)
+ref_spe$en_com_name  <- str_trim(ref_spe$en_com_name)
 
-###### En
-En_sci  <- merge_ref[,"scientific_name"]
-Com_En  <- sci2comm(scinames=En_sci, db='itis')
-Com_En  <- ldply(Com_En,function(dat) as.vector(na.omit(dat))[1])
-colnames(Com_En)  <- c("scientific_name","en_common_name")
-merge_ref  <- merge(merge_ref,Com_En,id="scientific_name") 
+###### Fr - EOL
+
+ref_spe  <- apply(ref_spe,1,function(x){
+  if(is.na(x[5]) | is.null(x[5])){
+    id  <- str_trim(paste(x[2], x[3]))
+    fr_name  <- sci2comm(scinames=id,simplify=FALSE)
+    fr_name  <- ldply(fr_name,function(dat) as.vector(na.omit(dat[dat$eol_preferred == TRUE 
+                                                                  & dat$language=='fr',"vernacularname"]))[1])
+    if(!is.null(fr_name$V1)){x[5]  <- fr_name$V1}
+  }
+})
+
+
+###### En - ITIS
+
+ref_spe  <- apply(ref_spe,1,function(x){
+  if(is.na(x[4]) | is.null(x[4])){
+    id  <- str_trim(paste(x[2], x[3]))
+    en_name  <- sci2comm(scinames=id,db="itis",simplify=FALSE)
+    en_name  <- ldply(en_name,function(dat) as.vector(na.omit(dat[dat$eol_preferred == TRUE 
+                                                                  & dat$language=='en',"vernacularname"]))[1])
+    if(!is.null(en_name$V1)){x[4]  <- fr_name$V1}
+  }
+})

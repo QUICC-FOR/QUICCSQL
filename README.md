@@ -67,6 +67,7 @@ Work-in-progress...
 - [x] Clean scientific name and TSN
 - [ ] Add NA in all columns exept species column (spp.)
 - [ ] Retrieve fr_com_name and en_com_name using ITIS API
+- [ ] Some code from NB are missing
 - [ ] Merge all reference table together (**Almost done**)
 
 #### **Code removed** 
