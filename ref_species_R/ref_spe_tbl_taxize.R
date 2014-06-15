@@ -41,25 +41,13 @@ nb_sp$id  <- nb_sp$en_verna_name
 
 options(eolApiKey="6ab6532c0ba87bae5665e9c684dcec73479fef8a")
 
-# Split dataframe  --------------------------------------------------------
-
-# us_seq  <- c(seq(1,dim(us_sp)[1],100),dim(us_sp)[1])
-# us_ls = list()
-# for(i in 2:length(us_seq)){
-#   us_ls[[i-1]]  <- us_sp[us_seq[i-1]:us_seq[i],]  
-# }
-
 # Cleaning data: GET TSN + Scientific names accepted----------------------------------------------------------------
 
 # Function to merge and validate TSN
 # dataset need to have a field called id
 
 cleanup_dat  <- function(data){
-  #match  <- tnrs(query = data$id, source = "iPlant_TNRS",verbose=FALSE,getpost = "POST")[, -c(3,5:7)]
-  #match  <- match[match$score>0.4,-3]
-  #colnames(match)[1] <- "id"
   data$id  <- str_trim(data$id)
-  #data  <- unique(merge(data,match,by="id",all.x=TRUE))
   tsn <- get_tsn(data$id,ask=FALSE, verbose=FALSE, searchtype = "scientific", accepted = TRUE)
   tsn <- ldply(tsn, itis_acceptname)
   tsn[tsn=='true']  <- NA
@@ -78,11 +66,7 @@ paste3 <- function(...,sep=", ") {
   ret
 }
 
-#res_us  <- sfClusterApplyLB(us_ls, cleanup_dat)
-
-# stop parralelization ----------------------------------------------------
-#sfExportAll()
-#sfStop()
+# Trait and save ----------------------------------------------------------
 
 tsn_qc  <- cleanup_dat(data=qc_sp)
 #save(tsn_qc,file='tsn_qc.Robj')

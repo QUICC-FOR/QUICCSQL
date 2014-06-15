@@ -3,10 +3,35 @@
 # QUICC-FOR database
 # By Steve Vissault
 
-# Common name traitment ---------------------------------------------------
+# Load workspace ----------------------------------------------------------
 
-ref_spe  <- 
+setwd("~/Documents/GitHub/QUICC-SQL/ref_species_R")
+#setwd("/Users/database/Desktop/QUICC-SQL/ref_species_R")
+rm(list=ls())
 
+# Load data and librairy ---------------------------------------------------
+
+library("knitr")
+ref_spe  <- read.csv2("ref_species.csv",stringsAsFactors=F)
+
+# Dump TSN with NA --------------------------------------------------------
+
+ref_spe  <- ref_spe[!ref_spe$genus=='',]
+  
+# Duplicated lines ---------------------------------------------------------------
+
+allDup <- function (df)
+  {
+    duplicated(df) | duplicated(df, fromLast = TRUE)
+  }
+
+DumpLines  <- ref_spe[allDup(ref_spe[,1:3]),]
+DumpLines  <- split(DumpLines,f=factor(DumpLines$tsn))
+Reports_dup  <- lapply(DumpLines, function(x){
+                x = DumpLines[[1]]
+                cons_code  <- rep(x[1,1],dim(x)[1])
+                dump_code  <- x[2:dim(x)[1],]
+              })
 
 
 ###### Fr

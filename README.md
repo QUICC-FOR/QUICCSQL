@@ -65,6 +65,8 @@ Work-in-progress...
 
 - [x] Write R script in order to use `Taxize` package
 - [x] Clean scientific name and TSN
+- [ ] Add NA in all columns exept species column (spp.)
+- [ ] Retrieve fr_com_name and en_com_name using ITIS API
 - [ ] Merge all reference table together (**Almost done**)
 
 #### **Code removed** 
