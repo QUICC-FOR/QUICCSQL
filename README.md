@@ -81,6 +81,29 @@ Work-in-progress...
 
 ##### Duplicated code
 
+|     tsn|en_com_name                           |  us_code|  new_code|
+|-------:|:-------------------------------------|--------:|---------:|
+|   18036|Honduras pine                         |      144|       111|
+|   18048|Eastern red cedar ;southern redcedar  |       67|        68|
+|   19042|netleaf hackberry                     |      463|       461|
+|   19457|Ozark chinkapin                       |      423|       422|
+|   21536|Basswood ;Carolina basswood           |      953|       952|
+|   21536|Basswood ;American basswood           |      951|       952|
+|   22445|Cottonwood ;eastern cottonwood        |      742|       745|
+|   22453|Balsam poplar ;black cottonwood       |      747|       741|
+|   23825|Surinam bulletwood                    |     7663|      7662|
+|   24764|Black cherry ;black cherry            |      762|      8349|
+|   27204|lathberry                             |     7068|      7067|
+|   27248|bayrumtree                            |     8178|      8177|
+|   28013|Ilex urbaniana                        |     7466|      7465|
+|   28696|western soapberry                     |      919|      8529|
+|   28708|Puerto Rico ceboruquillo              |     8794|      8793|
+|   28718|Texas buckeye                         |      334|       331|
+|   30199|Plumeria obtusa                       |     8269|      8268|
+|   35101|Oahu wild coffee                      |     8382|      8377|
+|  181830|corkbark fir                          |       18|        19|
+|  183353|Arizona pinyon pine                   |      143|       133|
+|  502440|tiger's claw                          |     7016|      7015|
 
 
 ### Tree table 
