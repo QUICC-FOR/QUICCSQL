@@ -7,9 +7,9 @@
 ---------- Add spatial column with postgis : Proj = WSG84
 
 ----------------------------
------- 		  QC 	   -----
+------      QC     -----
 ----------------------------
-ALTER TABLE qc_pep.pp_localis DROP COLUMN IF EXISTS coord_geom;
+ALTER TABLE qc_pp.pp_localis DROP COLUMN IF EXISTS coord_geom;
 ALTER TABLE qc_tp.localis_pet2 DROP COLUMN IF EXISTS coord_geom;
 ALTER TABLE qc_tp.localis_pet3 DROP COLUMN IF EXISTS coord_geom;
 ALTER TABLE qc_tp.localis_pet4 DROP COLUMN IF EXISTS coord_geom;
@@ -20,23 +20,23 @@ UPDATE qc_pp.pp_localis SET coord_geom = ST_Transform(ST_SetSRID(ST_MakePoint(lo
 SELECT AddGeometryColumn('qc_tp', 'localis_pet2', 'coord_geom', 4326, 'POINT', 2 );
 UPDATE qc_tp.localis_pet2 SET coord_geom = ST_Transform(ST_SetSRID(ST_MakePoint(longitude,latitude),4326), 4326);
 
-SELECT AddGeometryColumn('qc_tp', 'localis_pet3', 'coord_geom', 4326,' POINT', 2 );
+SELECT AddGeometryColumn('qc_tp', 'localis_pet3', 'coord_geom', 4326, 'POINT', 2 );
 UPDATE qc_tp.localis_pet3 SET coord_geom = ST_Transform(ST_SetSRID(ST_MakePoint(longitude,latitude),4326), 4326);
 
 SELECT AddGeometryColumn('qc_tp', 'localis_pet4', 'coord_geom', 4326, 'POINT', 2 );
 UPDATE qc_tp.localis_pet4 SET coord_geom = ST_Transform(ST_SetSRID(ST_MakePoint(longitude,latitude),4326), 4326);
 
 ----------------------------
------- 		  nb_pp 	   -----
+------      nb_pp      -----
 ----------------------------
 
-ALTER TABLE nb_pp.psp_plots DROP COLUMN IF EXISTS 'coord_geom';
+ALTER TABLE nb_pp.psp_plots DROP COLUMN IF EXISTS coord_geom;
 
 SELECT AddGeometryColumn('nb_pp', 'psp_plots', 'coord_geom', 4326, 'POINT', 2 );
 UPDATE nb_pp.psp_plots SET coord_geom = ST_Transform(ST_SetSRID(ST_MakePoint(gps_ycoordinate,gps_xcoordinate),4326), 4326);
 
 ----------------------------
------- 		  ON 	       -----
+------      ON         -----
 ----------------------------
 
 ---------------------------------------------------------------------------------------------

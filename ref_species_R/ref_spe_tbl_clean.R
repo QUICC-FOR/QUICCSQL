@@ -66,26 +66,11 @@ ref_spe$species  <- str_trim(ref_spe$species)
 ref_spe$en_com_name  <- str_trim(ref_spe$en_com_name)
 
 ###### Fr - EOL
-
-ref_spe  <- apply(ref_spe,1,function(x){
-  if(is.na(x[5]) | is.null(x[5])){
-    id  <- str_trim(paste(x[2], x[3]))
-    fr_name  <- sci2comm(scinames=id,simplify=FALSE)
-    fr_name  <- ldply(fr_name,function(dat) as.vector(na.omit(dat[dat$eol_preferred == TRUE 
-                                                                  & dat$language=='fr',"vernacularname"]))[1])
-    if(!is.null(fr_name$V1)){x[5]  <- fr_name$V1}
-  }
-})
-
+fr_name  <- sci2comm(scinames=id,simplify=FALSE)
+fr_name  <- ldply(fr_name,function(dat) as.vector(na.omit(dat[dat$eol_preferred == TRUE 
+                                                 & dat$language=='fr',"vernacularname"]))[1])
 
 ###### En - ITIS
+id  <- str_trim(paste(ref_spe$genus, ref_spe$species))
+en_name  <- sci2comm(scinames=id,db="itis",simplify=T)
 
-ref_spe  <- apply(ref_spe,1,function(x){
-  if(is.na(x[4]) | is.null(x[4])){
-    id  <- str_trim(paste(x[2], x[3]))
-    en_name  <- sci2comm(scinames=id,db="itis",simplify=FALSE)
-    en_name  <- ldply(en_name,function(dat) as.vector(na.omit(dat[dat$eol_preferred == TRUE 
-                                                                  & dat$language=='en',"vernacularname"]))[1])
-    if(!is.null(en_name$V1)){x[4]  <- fr_name$V1}
-  }
-})
