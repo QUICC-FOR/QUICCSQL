@@ -95,7 +95,7 @@ AND temp_quicc.climatic_data.x_longitude=del_rec.x_longitude
 AND temp_quicc.climatic_data.y_latitude=del_rec.y_latitude
 AND temp_quicc.climatic_data.year_data=del_rec.year_data;"
 
-echo "------- SQL: Clean unused years"
+echo "------- SQL: Clean unused years (Max)"
 
 psql -U $USER -h $HOST -p $PORT -d $DB -c "
 DELETE FROM temp_quicc.climatic_data
@@ -104,12 +104,19 @@ WHERE
  temp_quicc.climatic_data.id_plot = temp_quicc.range_yrs_clim.org_db_id AND
  temp_quicc.climatic_data.x_longitude = temp_quicc.range_yrs_clim.longitude AND
  temp_quicc.climatic_data.y_latitude = temp_quicc.range_yrs_clim.latitude AND
- temp_quicc.climatic_data.year_data > temp_quicc.range_yrs_clim.year_max
- OR
+ temp_quicc.climatic_data.year_data > temp_quicc.range_yrs_clim.year_max;"
+
+echo "------- SQL: Clean unused years (Min)"
+
+psql -U $USER -h $HOST -p $PORT -d $DB -c "
+DELETE FROM temp_quicc.climatic_data
+USING temp_quicc.range_yrs_clim
+WHERE
  temp_quicc.climatic_data.id_plot = temp_quicc.range_yrs_clim.org_db_id AND
  temp_quicc.climatic_data.x_longitude = temp_quicc.range_yrs_clim.longitude AND
  temp_quicc.climatic_data.y_latitude = temp_quicc.range_yrs_clim.latitude AND
  temp_quicc.climatic_data.year_data < temp_quicc.range_yrs_clim.year_min;"
+
 
 echo "------- SQL: Update id"
 
