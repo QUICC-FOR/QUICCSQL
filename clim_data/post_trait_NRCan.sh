@@ -211,5 +211,5 @@ DELETE FROM temp_quicc.climatic_data;"
  done
 
  psql -U $USER -h $HOST -p $PORT -d $DB -c "
-DELETE TABLE temp_quicc.climatic_data CASCADE;"
+DROP TABLE temp_quicc.climatic_data CASCADE;"
 
