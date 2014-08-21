@@ -1,6 +1,6 @@
 QUICC-SQL
 =========
-**Update:** June, 14th
+**Update:** August, 21th
 
 Work-in-progress...
 
@@ -51,9 +51,9 @@ Work-in-progress...
 - [x] Create Pkey on plot_id and year (**Done**)
 - [x] Remove lat, long, elevation (**Done**)
 - [x] Problem needing to be assess: Some TP and PP in QC schema have the same ID (**Fixed**).
-- [ ] Fix other prob: some plots have 15 and else 20 years of climatic data
+- [x] Fix other prob: some plots have 15 and else 20 years of climatic data
 - [ ] Send a new climatic data request to Dan in order to get `DOMTAR`
-- [ ] Table working for: `FIA`, `QC`, `ON`, `NB`
+- [x] Table working for: `FIA`, `QC`, `ON`, `NB`
 
 ### Tree info table 
 
