@@ -82,4 +82,4 @@ WITH (
 ALTER TABLE temp_quicc.climatic_data
   OWNER TO "QUICC";
 
-  CREATE INDEX  idx_climatic_data ON temp_quicc.climatic_data (id_plot,x_longitude,y_latitude,year_data);
+CREATE INDEX  idx_climatic_data ON temp_quicc.climatic_data (id_plot,x_longitude,y_latitude,year_data);

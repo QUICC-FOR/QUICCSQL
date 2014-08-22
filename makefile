@@ -4,6 +4,7 @@ PG_HOST = localhost
 PG_PORT = 5433
 SRC = src_sql
 CLIM = clim_data
+SP = ref_species_R
 
 temp_sch:
 	psql -U ${PG_USER} -h ${PG_HOST} -p ${PG_PORT} -d ${PG_DB} -c "DROP SCHEMA temp_quicc CASCADE;"
@@ -34,8 +35,12 @@ tree_info_tbl:
 clim_tbl:
 	sh ${CLIM}/post_trait_NRCan.sh
 
+species:
+	psql  -U ${PG_USER} -h ${PG_HOST} -p ${PG_PORT} -d ${PG_DB} -c "\i ${SRC}/ref_species_tbl.sql;"
+	psql -U ${PG_USER} -h ${PG_HOST} -p ${PG_PORT} -d ${PG_DB} -c "\copy rdb_quicc.ref_species FROM '${SP}/final_ref_table.csv' null '' ;"
 
-all: temp_sch rdb_sch  plot_info_tbl localisation_tbl elev plot_tbl tree_info_tbl
+
+all: temp_sch rdb_sch  species plot_info_tbl localisation_tbl elev plot_tbl tree_info_tbl
 
 clean:
 	vacuumdb  -U ${PG_USER} -h ${PG_HOST} -p ${PG_PORT} -d ${PG_DB} --analyze --verbose
