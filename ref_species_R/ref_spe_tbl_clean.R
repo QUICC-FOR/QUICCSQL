@@ -15,35 +15,16 @@ library("knitr")
 library("stringr")
 library("taxize")
 library("plyr")
-
-#set eol token
-options(eolApiKey="6ab6532c0ba87bae5665e9c684dcec73479fef8a")
+library('stringr')
 
 #load data
 ref_spe  <- read.csv2("ref_species.csv",stringsAsFactors=F)
-
-
-# Functions ---------------------------------------------------------------
-
-paste3 <- function(...,sep=", ") {
-  L <- list(...)
-  L <- lapply(L,function(x) {x[is.na(x)] <- ""; x})
-  ret <-gsub(paste0("(^",sep,"|",sep,"$)"),"",
-             gsub(paste0(sep,sep),sep,
-                  do.call(paste,c(L,list(sep=sep)))))
-  is.na(ret) <- ret==""
-  ret
-}
-
-sci2comm_error <- function(id) {
-  return(tryCatch(sci2comm(scinames=id,db="itis",simplify=T), error=function(e) NULL))
-}
 
 ##########################################
 ########### First Filter
 ##########################################
 
-# Dump TSN with NA (genus empty) --------------------------------------------------------
+# Dump TSN with NA (only genus empty) --------------------------------------------------------
 
 ref_spe  <- ref_spe[!ref_spe$genus=='',]
 
@@ -75,24 +56,31 @@ Reports_dup  <- do.call(rbind,Reports_dup)
 ref_spe  <- ref_spe[!ref_spe$us_code %in% Reports_dup$us_code,]
 
 ##########################################
-##### Traitment on common names
+##### Trim white space
 ##########################################
 
 ref_spe$genus  <- str_trim(ref_spe$genus)
 ref_spe$species  <- str_trim(ref_spe$species)
 ref_spe$en_com_name  <- str_trim(ref_spe$en_com_name)
-ref_spe$id  <- str_trim(paste(ref_spe$genus, ref_spe$species, sep=" "))
 
-###### Fr - EOL
-fr_name  <- sci2comm(scinames=id,simplify=FALSE)
-fr_name  <- ldply(fr_name,function(dat) as.vector(na.omit(dat[dat$eol_preferred == TRUE 
-                                                 & dat$language=='fr',"vernacularname"]))[1])
-ref_spe_fr  <- ref_spe
-ref_spe_fr  <- merge(ref_spe_fr,fr_name,by.x="id",by.y=".id")
-ref_spe_fr$fr_com_name  <- str_trim(paste3(ref_spe_fr$fr_com_name,ref_spe_fr$V1))
-ref_spe  <- ref_spe_fr[,-12]
+##########################################
+##### Create ID 
+##########################################
 
-###### En - ITIS
+# replace empty string by NA in species column
+ref_spe[ref_spe$species=="",'species']  <- NA
 
-en_name  <- sci2comm_error(id)
+# TSN + three first letters of genus and species
+ref_spe$id_spe  <- toupper(paste(ref_spe$tsn,substr(ref_spe$genus,1,3),substr(ref_spe$species,1,3),sep="-"))
+
+# if id_spe is duplicated add a new letter at the end of the string
+ref_spe[duplicated(ref_spe$id_spe),'id_spe']  <- toupper(paste(ref_spe[duplicated(ref_spe$id_spe),'tsn'],substr(ref_spe[duplicated(ref_spe$id_spe),'genus'],1,3),substr(ref_spe[duplicated(ref_spe$id_spe),'species'],1,4),sep="-"))
+
+##########################################
+##### Export final table
+##########################################
+
+# Replace NA value by an empty string - Best import process in postgreSQL
+write.csv2(ref_spe,file='final_ref_table.csv',row.names=F,na='')
+
 
