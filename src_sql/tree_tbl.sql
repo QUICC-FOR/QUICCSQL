@@ -22,16 +22,16 @@ SELECT CAST(qc_pp.pp_infogen.id_pep AS char(10))  AS plot_id,
 	CAST(qc_pp.pp_tiges.essence AS char(10)) AS species_code,
 	CAST(qc_pp.pp_etudarbr.hauteur AS integer) AS height,
 	CAST(qc_pp.pp_tiges.dhpmm AS integer) AS dbh,
-	CAST(qc_pp.pp_etudarbr.age AS char(5)) ,
+	CAST(qc_pp.pp_etudarbr.age AS char(5))  AS age,
 	CAST(qc_pp.pp_etudarbr.ensoleil AS char(5)) AS sun_access,
 	CAST(qc_pp.pp_etudarbr.etage AS char(5)) AS position_canopy,
-	CAST(qc_pp.pp_etudarbr.source_age AS char(5)) AS age_id,
-	0 :: boolean AS is_sapling,
-	0 :: boolean AS is_planted,
-	CAST(qc_pp.pp_tiges.etat AS char(5)) AS is_dead
-
+	CAST(qc_pp.pp_etudarbr.source_age AS char(5)) AS age_id_method,
+	NULL AS height_id_method,
+	NULL AS is_sapling,
+	CAST(NULL AS char(5)) AS is_planted,
+	CAST(qc_pp.pp_tiges.etat AS char(5)) AS is_dead,
+	'qc_pp' AS source_db
 FROM qc_pp.pp_infogen
-
 LEFT OUTER JOIN qc_pp.pp_tiges ON qc_pp.pp_infogen.id_pep_mes = qc_pp.pp_tiges.id_pep_mes
 LEFT OUTER JOIN qc_pp.pp_etudarbr ON qc_pp.pp_etudarbr.id_pep_mes = qc_pp.pp_tiges.id_pep_mes AND qc_pp.pp_etudarbr.no_arbre = qc_pp.pp_tiges.no_arbre AND qc_pp.pp_etudarbr.essence = qc_pp.pp_tiges.essence
 
@@ -50,13 +50,15 @@ SELECT CAST(qc_tp.infogen_pet2.id_pet AS char(10)) AS plot_id,
 	CAST(qc_tp.etudarbr_pet2.essence AS char(10)) AS species_code,
 	CAST(qc_tp.etudarbr_pet2.hauteur AS integer) AS height,
 	CAST(qc_tp.etudarbr_pet2.dhpmm AS integer) AS dbh,
-	CAST(qc_tp.etudarbr_pet2.age AS char(5)),
+	CAST(qc_tp.etudarbr_pet2.age AS char(5)) AS age,
 	NULL :: char(5) AS sun_access,
 	CAST(qc_tp.etudarbr_pet2.etage AS char(5)) AS position_canopy,
-	CAST(qc_tp.etudarbr_pet2.source_age AS char(5)) AS age_id,
-	0 :: boolean AS is_sapling,
-    	0 :: boolean AS is_planted,
-    	NULL :: char(5) AS is_dead
+	CAST(qc_tp.etudarbr_pet2.source_age AS char(5)) AS age_id_method,
+	NULL AS height_id_method,
+	NULL AS is_sapling,
+    	CAST(NULL AS char(5)) AS is_planted,
+    	NULL :: char(5) AS is_dead,
+    	'qc_pet2' AS source_db
 FROM qc_tp.etudarbr_pet2 LEFT OUTER JOIN qc_tp.infogen_pet2 ON qc_tp.etudarbr_pet2.id_pet_mes = qc_tp.infogen_pet2.id_pet_mes
 
 -- Uncomment the line below for smallest query (1000 records)
@@ -74,10 +76,12 @@ SELECT CAST(qc_tp.infogen_pet3.id_pet AS char(10)) AS plot_id,
 	CAST(qc_tp.etudarbr_pet3.age AS char(5)),
 	NULL :: char(5) AS sun_access,
 	CAST(qc_tp.etudarbr_pet3.etage AS char(5)) AS position_canopy,
-	CAST(qc_tp.etudarbr_pet3.source_age AS char(5)) AS age_id,
-	0 :: boolean AS is_sapling,
-    	0 :: boolean AS is_planted,
-    	NULL :: char(5) AS is_dead
+	CAST(qc_tp.etudarbr_pet3.source_age AS char(5)) AS age_id_method,
+	NULL AS height_id_method,
+	NULL AS is_sapling,
+    	CAST(NULL AS char(5)) AS is_planted,
+    	NULL :: char(5) AS is_dead,
+    	'qc_pet3' AS source_db 
 FROM qc_tp.etudarbr_pet3 LEFT OUTER JOIN qc_tp.infogen_pet3 ON qc_tp.etudarbr_pet3.id_pet_mes = qc_tp.infogen_pet3.id_pet_mes
 
 UNION ALL
@@ -88,41 +92,60 @@ SELECT CAST(qc_tp.infogen_pet4.id_pet AS char(10)) AS plot_id,
 	CAST(qc_tp.etudarbr_pet4.essence AS char(10)) AS species_code,
 	CAST(qc_tp.etudarbr_pet4.hauteur AS integer) AS height,
 	CAST(qc_tp.etudarbr_pet4.dhpmm AS integer) AS dbh,
-	CAST(qc_tp.etudarbr_pet4.age AS char(5)),
+	CAST(qc_tp.etudarbr_pet4.age AS char(5)) AS age,
 	NULL :: char(5) AS sun_access,
 	CAST(qc_tp.etudarbr_pet4.etage AS char(5)) AS position_canopy,
-	CAST(qc_tp.etudarbr_pet4.source_age AS char(5)) AS age_id,
-	0 :: boolean AS is_sapling,
-    	0 :: boolean AS is_planted,
-    	NULL :: char(5) AS is_dead
+	CAST(qc_tp.etudarbr_pet4.source_age AS char(5)) AS age_id_method,
+	NULL AS height_id_method,
+	NULL AS is_sapling,
+    	CAST(NULL AS char(5)) AS is_planted,
+    	NULL :: char(5) AS is_dead,
+    	'qc_pet4' AS source_db
 FROM qc_tp.etudarbr_pet4 LEFT OUTER JOIN qc_tp.infogen_pet4 ON qc_tp.etudarbr_pet4.id_pet_mes = qc_tp.infogen_pet4.id_pet_mes
 
 
 -----------------------------------------------
--- Permenent sample plot from New-Brunswick ---
+-- Permanent sample plot from New-Brunswick ---
 -----------------------------------------------
 
 UNION ALL
 
-SELECT nb_pp.psp_plots_yr.plot,
-	nb_pp.psp_plots_yr.year,
-	nb_pp.psp_tree_partialcut.treenum,
-	nb_pp.psp_tree_partialcut.species,
-	nb_pp.psp_tree_partialcut.totalHt,
-	nb_pp.psp_tree_partialcut.dbh
+SELECT CAST(nb_pp.psp_plots_yr.plot AS char(10)) AS plot_id,
+	CAST(nb_pp.psp_tree_partialcut.treenum AS char(5)) AS tree_id,
+	CAST(nb_pp.psp_plots_yr.year  AS integer) AS year_measured,
+	CAST(nb_pp.psp_tree_partialcut.species AS char(10)) AS species_code,
+	nb_pp.psp_tree_partialcut.totalHt AS height,
+	nb_pp.psp_tree_partialcut.dbh AS dbh,
+	NULL AS age,
+	NULL AS sun_access,
+	NULL AS position_canopy,
+	NULL AS age_id_method,
+	NULL AS height_id_method,
+	NULL AS is_sapling,
+    	CAST(NULL AS char(5)) AS is_planted,
+    	nb_pp.psp_tree_partialcut.cause AS is_dead,
+    	'pp_nb_partial_cut' AS source_db
 FROM nb_pp.psp_plots_yr INNER JOIN nb_pp.psp_tree_partialcut ON nb_pp.psp_plots_yr.remeasid = nb_pp.psp_tree_partialcut.remeasid
 -- Uncomment the line below for smallest query (1000 records)
 -- LIMIT 200
 
 UNION ALL
 
-SELECT nb_pp.psp_plots_yr.plot,
-	nb_pp.psp_plots_yr.year,
-	nb_pp.psp_tree_yimo.treenum,
-	nb_pp.psp_tree_yimo.species,
-	nb_pp.psp_tree_yimo.dbh,
-	nb_pp.psp_tree_yimo.agecl,
-	nb_pp.psp_tree_yimo.lat
+SELECT CAST(nb_pp.psp_plots_yr.plot AS char(10)) AS plot_id,
+	CAST(nb_pp.psp_tree_yimo.treenum AS char(5)) AS tree_id,
+	CAST(nb_pp.psp_plots_yr.year  AS integer) AS year_measured,
+	CAST(nb_pp.psp_tree_yimo.species AS char(10)) AS species_code,
+	NULL AS height,
+	nb_pp.psp_tree_yimo.dbh AS dbh,
+	nb_pp.psp_tree_yimo.agecl AS age,
+	NULL AS sun_access,
+	NULL AS position_canopy,
+	NULL AS age_id_method,
+	NULL AS height_id_method,
+	NULL AS is_sapling,
+    	CAST(NULL AS char(5)) AS is_planted,
+    	nb_pp.psp_tree_yimo.cause AS is_dead,
+    	'pp_nb_YIMO' AS source_db
 FROM nb_pp.psp_plots_yr INNER JOIN nb_pp.psp_tree_yimo ON nb_pp.psp_plots_yr.remeasid = nb_pp.psp_tree_yimo.remeasid
 
 -- Uncomment the line below for smallest query (1000 records)
@@ -130,13 +153,21 @@ FROM nb_pp.psp_plots_yr INNER JOIN nb_pp.psp_tree_yimo ON nb_pp.psp_plots_yr.rem
 
 UNION ALL
 
-SELECT nb_pp.psp_plots_yr.plot,
-	nb_pp.psp_plots_yr.year,
-	nb_pp.psp_tree_regenandthin.treenum,
-	nb_pp.psp_tree_regenandthin.species,
-	nb_pp.psp_tree_regenandthin.hgt,
-	nb_pp.psp_tree_regenandthin.dbh,
-	nb_pp.psp_tree_regenandthin.origin
+SELECT CAST(nb_pp.psp_plots_yr.plot AS char(10)) AS plot_id,
+	CAST(nb_pp.psp_tree_regenandthin.treenum AS char(5)) AS tree_id,
+	CAST(nb_pp.psp_plots_yr.year  AS integer) AS year_measured,
+	CAST(nb_pp.psp_tree_regenandthin.species AS char(10)) AS species_code,
+	nb_pp.psp_tree_regenandthin.hgt AS height,
+	nb_pp.psp_tree_regenandthin.dbh AS dbh,
+	NULL AS age,
+	NULL AS sun_access,
+	NULL AS position_canopy,
+	NULL AS age_id_method,
+	NULL AS height_id_method,
+	NULL AS is_sapling,
+	CAST(nb_pp.psp_tree_regenandthin.origin AS char(5)) AS is_planted,
+	nb_pp.psp_tree_regenandthin.cause AS is_dead,
+    	'pp_nb_regenandthin' AS source_db
 FROM nb_pp.psp_plots_yr INNER JOIN nb_pp.psp_tree_regenandthin ON nb_pp.psp_plots_yr.remeasid = nb_pp.psp_tree_regenandthin.remeasid
 
 -- Uncomment the line below for smallest query (1000 records)
@@ -144,14 +175,21 @@ FROM nb_pp.psp_plots_yr INNER JOIN nb_pp.psp_tree_regenandthin ON nb_pp.psp_plot
 
 UNION ALL
 
-SELECT nb_pp.psp_plots_yr.plot,
-	nb_pp.psp_plots_yr.year,
-	nb_pp.psp_tree_cutandplant.treenum,
-	nb_pp.psp_tree_cutandplant.species,
-	nb_pp.psp_tree_cutandplant.hgt,
-	nb_pp.psp_tree_cutandplant.dbh,
-	nb_pp.psp_tree_cutandplant.origin,
-	nb_pp.psp_tree_cutandplant.survival
+SELECT CAST(nb_pp.psp_plots_yr.plot AS char(10)) AS plot_id,
+	CAST(nb_pp.psp_tree_cutandplant.treenum AS char(5)) AS tree_id,
+	CAST(nb_pp.psp_plots_yr.year  AS integer) AS year_measured,
+	CAST(nb_pp.psp_tree_cutandplant.species AS char(10)) AS species_code,
+	nb_pp.psp_tree_cutandplant.hgt AS height,
+	nb_pp.psp_tree_cutandplant.dbh AS dbh,
+	NULL AS age,
+	NULL AS sun_access,
+	NULL AS position_canopy,
+	NULL AS age_id_method,
+	NULL AS height_id_method,
+	NULL AS is_sapling,
+	CAST(nb_pp.psp_tree_cutandplant.origin AS char(5)) AS is_planted,
+	nb_pp.psp_tree_cutandplant.cause AS is_dead,
+	'pp_nb_cutandplant' AS source_db
 FROM nb_pp.psp_plots_yr INNER JOIN nb_pp.psp_tree_cutandplant ON nb_pp.psp_plots_yr.remeasid = nb_pp.psp_tree_cutandplant.remeasid
 -- Uncomment the line below for smallest query (1000 records)
 -- LIMIT 200
