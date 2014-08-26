@@ -69,6 +69,13 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<roles names="vissst01" role-type="member" />
 </role>
 
+<role name="QUICC_cp"
+      inherit="true"
+      encrypted="true"
+      validity="2014-03-22 00:00:00"
+      password="********">
+</role>
+
 <database name="db_quicc_for">
 </database>
 
@@ -161,8 +168,8 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="year_measured" not-null="true">
 		<type name="integer"/>
 	</column>
-	<column name="species_TSN">
-		<type name="integer"/>
+	<column name="id_spe" not-null="true">
+		<type name="character" length="15"/>
 	</column>
 	<column name="height">
 		<type name="integer"/>
@@ -202,7 +209,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="class_tree">
 	<schema name="rdb_quicc"/>
 	<role name="&quot;QUICC&quot;"/>
-	<position x="460" y="80"/>
+	<position x="454" y="62"/>
 	<column name="plot_id" not-null="true">
 		<type name="integer"/>
 	</column>
@@ -212,8 +219,8 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="year_measured" not-null="true">
 		<type name="integer"/>
 	</column>
-	<column name="species_tsn">
-		<type name="integer"/>
+	<column name="id_spe" not-null="true">
+		<type name="character" length="15"/>
 	</column>
 	<column name="dbh_class_id">
 		<type name="integer"/>
@@ -229,45 +236,6 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</column>
 	<constraint name="class_tree_tbl_pk" type="pk-constr" factor="100" table="rdb_quicc.class_tree">
 		<columns names="plot_id,tree_class_id,year_measured" ref-type="src-columns"/>
-	</constraint>
-</table>
-
-<table name="ref_species">
-	<schema name="rdb_quicc"/>
-	<role name="&quot;QUICC&quot;"/>
-	<position x="900" y="120"/>
-	<column name="species_tsn" not-null="true">
-		<type name="integer"/>
-	</column>
-	<column name="alph_code_uq" not-null="true">
-		<type name="char" length="6"/>
-	</column>
-	<column name="qc_sp_id">
-		<type name="character" length="3"/>
-	</column>
-	<column name="nb_sp_id">
-		<type name="integer"/>
-	</column>
-	<column name="on_sp_id">
-		<type name="integer"/>
-	</column>
-	<column name="us_sp_id">
-		<type name="integer"/>
-	</column>
-	<column name="genus">
-		<type name="character" length="60"/>
-	</column>
-	<column name="species">
-		<type name="character" length="60"/>
-	</column>
-	<column name="fr_common_name">
-		<type name="character" length="100"/>
-	</column>
-	<column name="en_common_name">
-		<type name="character" length="100"/>
-	</column>
-	<constraint name="species_tbl_pk" type="pk-constr" factor="100" table="rdb_quicc.ref_species">
-		<columns names="species_tsn" ref-type="src-columns"/>
 	</constraint>
 </table>
 
@@ -510,33 +478,11 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	upd-action="CASCADE"
 	del-action="CASCADE"/>
 
-<relationship name="ref_species_has_many_class_tree" type="rel1n"
-	 src-col-pattern="{sc}_{st}"
-	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_fk"
-	 col-indexes="12" constr-indexes="3"
-	 src-table="rdb_quicc.ref_species"
-	 dst-table="rdb_quicc.class_tree"
-	 src-required="true" dst-required="false"
-	upd-action="CASCADE"
-	del-action="CASCADE"/>
-
-<relationship name="ref_species_has_many_tree" type="rel1n"
-	 src-col-pattern="{sc}_{st}"
-	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_fk"
-	 col-indexes="16" constr-indexes="2"
-	 src-table="rdb_quicc.ref_species"
-	 dst-table="rdb_quicc.tree"
-	 src-required="true" dst-required="false"
-	upd-action="CASCADE"
-	del-action="CASCADE"/>
-
 <relationship name="tree_info_has_many_tree" type="rel1n"
 	 src-col-pattern="{sc}_{st}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk"
-	 col-indexes="17,18" constr-indexes="3"
+	 col-indexes="16,17" constr-indexes="2"
 	 src-table="rdb_quicc.tree_info"
 	 dst-table="rdb_quicc.tree"
 	 src-required="true" dst-required="false"
@@ -547,7 +493,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 src-col-pattern="{sc}_{st}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk"
-	 col-indexes="19" constr-indexes="4"
+	 col-indexes="18" constr-indexes="3"
 	 src-table="rdb_quicc.ref_tree_age_method"
 	 dst-table="rdb_quicc.tree"
 	 src-required="true" dst-required="false"
@@ -562,7 +508,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 src-col-pattern="{sc}_{st}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk"
-	 col-indexes="20" constr-indexes="5"
+	 col-indexes="19" constr-indexes="4"
 	 src-table="rdb_quicc.ref_tree_height_method"
 	 dst-table="rdb_quicc.tree"
 	 src-required="true" dst-required="false"
@@ -691,7 +637,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 src-col-pattern="{sc}_{st}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk"
-	 col-indexes="13" constr-indexes="4"
+	 col-indexes="12" constr-indexes="3"
 	 src-table="rdb_quicc.conv_class_dbh"
 	 dst-table="rdb_quicc.class_tree"
 	 src-required="true" dst-required="false"
@@ -702,7 +648,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 src-col-pattern="{sc}_{st}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk"
-	 col-indexes="14" constr-indexes="5"
+	 col-indexes="13" constr-indexes="4"
 	 src-table="rdb_quicc.conv_class_height"
 	 dst-table="rdb_quicc.class_tree"
 	 src-required="true" dst-required="false"
@@ -727,6 +673,70 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 col-indexes="8" constr-indexes="2"
 	 src-table="rdb_quicc.plot_info"
 	 dst-table="rdb_quicc.plot"
+	 src-required="true" dst-required="false"
+	upd-action="CASCADE"
+	del-action="CASCADE"/>
+
+<table name="ref_species">
+	<schema name="rdb_quicc"/>
+	<role name="postgres"/>
+	<position x="902" y="96"/>
+	<column name="id_spe" not-null="true">
+		<type name="character" length="15"/>
+	</column>
+	<column name="tsn">
+		<type name="integer"/>
+	</column>
+	<column name="genus">
+		<type name="character" length="60"/>
+	</column>
+	<column name="species">
+		<type name="character" length="60"/>
+	</column>
+	<column name="en_common_name">
+		<type name="character" length="100"/>
+	</column>
+	<column name="fr_common_name">
+		<type name="character" length="100"/>
+	</column>
+	<column name="qc_code">
+		<type name="character" length="3"/>
+	</column>
+	<column name="on_tree_code">
+		<type name="integer"/>
+	</column>
+	<column name="on_alpha_code">
+		<type name="character" length="3"/>
+	</column>
+	<column name="us_code">
+		<type name="integer"/>
+	</column>
+	<column name="nb_code">
+		<type name="integer"/>
+	</column>
+	<constraint name="ref_species_tbl_pk" type="pk-constr" factor="100" table="rdb_quicc.ref_species">
+		<columns names="id_spe" ref-type="src-columns"/>
+	</constraint>
+</table>
+
+<relationship name="ref_species_has_many_class_tree" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 col-indexes="14" constr-indexes="5"
+	 src-table="rdb_quicc.ref_species"
+	 dst-table="rdb_quicc.class_tree"
+	 src-required="true" dst-required="false"
+	upd-action="CASCADE"
+	del-action="CASCADE"/>
+
+<relationship name="ref_species_has_many_tree" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 col-indexes="20" constr-indexes="5"
+	 src-table="rdb_quicc.ref_species"
+	 dst-table="rdb_quicc.tree"
 	 src-required="true" dst-required="false"
 	upd-action="CASCADE"
 	del-action="CASCADE"/>
@@ -758,11 +768,6 @@ CAUTION: Do not modify this file unless you know what you are doing.
 </permission>
 <permission>
 	<object name="rdb_quicc.class_tree" type="table"/>
-	<roles names="vissst01"/>
-	<privileges select="true" delete="true" insert="true" update="true" truncate="true" references="true" trigger="true"/>
-</permission>
-<permission>
-	<object name="rdb_quicc.ref_species" type="table"/>
 	<roles names="vissst01"/>
 	<privileges select="true" delete="true" insert="true" update="true" truncate="true" references="true" trigger="true"/>
 </permission>
