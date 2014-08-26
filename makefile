@@ -36,7 +36,6 @@ clim_tbl:
 	sh ${CLIM}/post_trait_NRCan.sh
 
 species:
-	psql  -U ${PG_USER} -h ${PG_HOST} -p ${PG_PORT} -d ${PG_DB} -c "\i ${SRC}/ref_species_tbl.sql;"
 	psql -U ${PG_USER} -h ${PG_HOST} -p ${PG_PORT} -d ${PG_DB} -c "\copy rdb_quicc.ref_species FROM '${SP}/final_ref_table.csv' null '' ;"
 
 
