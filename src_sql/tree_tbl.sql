@@ -202,14 +202,21 @@ UNION ALL
 -----------------------------------------
 ------------Plots FIA Database-----------
 -----------------------------------------
-SELECT us_pp.tree.plot,
-	us_pp.tree.invyr,
-	us_pp.tree.tree,
-	us_pp.tree.spcd,
-	us_pp.tree.actualht,
-	us_pp.tree.dia,
-	us_pp.tree.statecd,
-	CAST (us_pp.tree.mortyr AS boolean) AS survival
+SELECT CAST(us_pp.tree.plot AS char(10)) AS plot_id,
+	CAST(us_pp.tree.tree  AS char(5)) AS tree_id,
+	us_pp.tree.invyr AS year_measured,
+	CAST(us_pp.tree.spcd AS char(10)) AS species_code,
+	us_pp.tree.actualht AS height,
+	us_pp.tree.dia AS dbh, --- WARNING: INCHES !!!!!!!!!!!!!!!!
+	CAST(us_pp.tree.totage AS char(5)) AS age,
+	CAST(us_pp.tree.clightcd AS char(5)) AS sun_access,
+	CAST(us_pp.tree.cposcd AS char(5)) AS position_canopy,
+	NULL AS age_id_method,
+	CAST(us_pp.tree.htcd AS char(5)) AS height_id_method,
+	NULL AS is_sapling,
+	NULL AS is_planted,
+	CAST(us_pp.tree.statuscd AS char(5)) AS is_dead,
+	'pp_us' AS source_db
 FROM us_pp.tree
 -- Uncomment the line below for smallest query (100 records)
 --LIMIT 100
