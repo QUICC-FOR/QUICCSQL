@@ -231,13 +231,21 @@ UNION ALL
 -----------Ontario Boreal Plots----------
 -----------------------------------------
 
-SELECT boreal_psp_treedbh_ht.plot_num,
-    boreal_psp_treedbh_ht.obs_year,
-    boreal_psp_treedbh_ht.tree_id,
-    boreal_psp_treedbh_ht.tree_spec,
-    boreal_psp_treedbh_ht.dbh_ht,
-    boreal_psp_treedbh_ht.dbh,
-    boreal_psp_treedbh_ht.status
+SELECT CAST(boreal_psp_treedbh_ht.plot_num AS char(10)) AS plot_id,
+    	CAST(boreal_psp_treedbh_ht.tree_id AS char(5)) AS tree_id,
+    	boreal_psp_treedbh_ht.obs_year AS year_measured,
+    	CAST(boreal_psp_treedbh_ht.tree_spec AS char(10)) AS species_code,
+    	boreal_psp_treedbh_ht.dbh_ht AS height,
+    	boreal_psp_treedbh_ht.dbh AS dbh,
+    	NULL AS age,
+	NULL AS sun_access,
+	NULL AS position_canopy,
+	NULL AS age_id_method,
+	NULL AS height_id_method,
+	NULL AS is_sapling,
+	CAST(boreal_psp_treedbh_ht.origin  AS char(5)) AS is_planted,
+	CAST(boreal_psp_treedbh_ht.status  AS char(5)) AS is_dead,
+	'pp_on_boreal' AS source_db
 FROM on_pp.boreal_psp_treedbh_ht
 -- Uncomment the line below for smallest query (100 records)
 --LIMIT 10
@@ -248,13 +256,21 @@ FROM on_pp.boreal_psp_treedbh_ht
 
 UNION ALL
 
-SELECT glsl_psp_trees_dbh_ht.plotname,
-   CAST(date_part('year'::text, glsl_psp_trees_dbh_ht.msrdate::date) AS integer) AS year_measured,
-   glsl_psp_trees_dbh_ht.treeid,
-   glsl_psp_trees_dbh_ht.speccode,
-   glsl_psp_trees_dbh_ht.htofdbh,
-   glsl_psp_trees_dbh_ht.dbh,
-   glsl_psp_trees_dbh_ht.treestatuscode
+SELECT CAST(glsl_psp_trees_dbh_ht.plotname AS char(10)) AS plot_id,
+	CAST(glsl_psp_trees_dbh_ht.treeid AS char(5)) AS tree_id,
+	CAST(date_part('year'::text, glsl_psp_trees_dbh_ht.msrdate::date) AS integer) AS year_measured,
+	CAST(glsl_psp_trees_dbh_ht.speccode AS char(10)) AS species_code,
+	glsl_psp_trees_dbh_ht.httot AS height,
+	glsl_psp_trees_dbh_ht.dbh AS dbh,
+	NULL AS age,
+	NULL AS sun_access,
+	NULL AS position_canopy,
+	NULL AS age_id_method,
+	NULL AS height_id_method,
+	NULL AS is_sapling,
+	CAST(glsl_psp_trees_dbh_ht.lcr  AS char(5)) AS is_planted,
+	CAST(glsl_psp_trees_dbh_ht.treestatuscode AS char(5)) AS is_dead,
+	'pp_on_glsl' AS source_db
 FROM on_pp.glsl_psp_trees_dbh_ht
 -- Uncomment the line below for smallest query (100 records)
 --LIMIT 10
@@ -265,13 +281,21 @@ FROM on_pp.glsl_psp_trees_dbh_ht
 
 UNION ALL
 
-SELECT pgp_treedbh_ht.plot_num,
-   pgp_treedbh_ht.obs_year,
-   pgp_treedbh_ht.tree_id,
-   pgp_treedbh_ht.tree_spec,
-   pgp_treedbh_ht.dbh_ht,
-   pgp_treedbh_ht.dbh,
-   pgp_treedbh_ht.status
+SELECT CAST(pgp_treedbh_ht.plot_num AS char(10)) AS plot_id,
+	CAST(pgp_treedbh_ht.tree_id AS char(5)) AS tree_id,
+	pgp_treedbh_ht.obs_year AS year_measured,
+	CAST(pgp_treedbh_ht.tree_spec AS char(10)) AS species_code,
+	pgp_treedbh_ht.ht_total AS height,
+	pgp_treedbh_ht.dbh AS dbh,
+	NULL AS age,
+	NULL AS sun_access,
+	NULL AS position_canopy,
+	NULL AS age_id_method,
+	NULL AS height_id_method,
+	NULL AS is_sapling,
+	CAST(pgp_treedbh_ht.origin  AS char(5)) AS is_planted,
+	CAST(pgp_treedbh_ht.status AS char(5)) AS is_dead,
+	'pp_on_pgp' AS source_db
 FROM on_pp.pgp_treedbh_ht
 -- Uncomment the line below for smallest query (100 records)
 --LIMIT 10
