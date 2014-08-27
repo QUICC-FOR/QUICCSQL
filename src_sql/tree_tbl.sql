@@ -299,5 +299,26 @@ SELECT CAST(pgp_treedbh_ht.plot_num AS char(10)) AS plot_id,
 FROM on_pp.pgp_treedbh_ht
 -- Uncomment the line below for smallest query (100 records)
 --LIMIT 10
-;
+
+-----------------------------------------------
+-- Permenent sample plot from DOMTAR---
+-----------------------------------------------
+
+SELECT CAST(domtar_pp.domtar_data.idpep AS char(10))  AS plot_id,
+	CAST(domtar_pp.domtar_data.noarbre AS char(5)) AS tree_id,
+	CAST(domtar_pp.domtar_data.annee_corrigee AS integer) AS year_measured,
+	CAST(domtar_pp.domtar_data.essence AS char(10)) AS species_code,
+	NULL AS height,
+	CAST(domtar_pp.domtar_data.dhpmm AS integer) AS dbh,
+	NULL AS age,
+	CAST(domtar_pp.domtar_data.ensoleillement AS char(5)) AS sun_access,
+	CAST(domtar_pp.domtar_data.etage AS char(5)) AS position_canopy,
+	NULL AS age_id_method,
+	NULL AS height_id_method,
+	NULL AS is_sapling,
+	CAST(NULL AS char(5)) AS is_planted,
+	CAST(domtar_pp.domtar_data.etat AS char(5)) AS is_dead,
+	'domtar_pp' AS source_db
+FROM domtar_pp.domtar_data;
+
 -----------------------------------------
