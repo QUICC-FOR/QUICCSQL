@@ -6,6 +6,8 @@ SRC = src_sql
 CLIM = clim_data
 SP = ref_species_R
 
+test
+
 temp_sch:
 	psql -U ${PG_USER} -h ${PG_HOST} -p ${PG_PORT} -d ${PG_DB} -c "DROP SCHEMA temp_quicc CASCADE;"
 	psql -U ${PG_USER} -h ${PG_HOST} -p ${PG_PORT} -d ${PG_DB} -c "CREATE SCHEMA temp_quicc;"
