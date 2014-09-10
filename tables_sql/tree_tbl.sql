@@ -300,6 +300,8 @@ FROM on_pp.pgp_treedbh_ht
 -- Uncomment the line below for smallest query (100 records)
 --LIMIT 10
 
+UNION ALL
+
 -----------------------------------------------
 -- Permenent sample plot from DOMTAR---
 -----------------------------------------------
