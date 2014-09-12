@@ -5,6 +5,13 @@
 -- Inputs: original code of the  database;  Size corresponding to the plot
 -------------------------------------------------------------------
 
+/*  Function:     SCHEMA.NAME(PARAM)
+    Description:  DESCRIPTION
+    Affects:      
+    Arguments:    
+    Returns:      RETURN_TYPE
+*/
+
 DROP FUNCTION IF EXISTS temp_quicc.plot_size();
 
 CREATE OR REPLACE FUNCTION temp_quicc.plot_size(org_db char, size numeric)
