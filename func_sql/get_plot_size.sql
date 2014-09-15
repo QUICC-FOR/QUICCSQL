@@ -3,16 +3,16 @@
 --------------------------------------------------------------------
 -- By Steve Vissault
 
-/*  Function:     public.plot_size(PARAM)
+/*  Function:     public.get_plot_size(PARAM)
     Description:  Transform original code to the surface of the sample plot
     Affects:      
     Arguments:    Code
     Returns:      double
 */
 
-DROP FUNCTION IF EXISTS temp_quicc.plot_size();
+DROP FUNCTION IF EXISTS temp_quicc.get_plot_size();
 
-CREATE OR REPLACE FUNCTION temp_quicc.plot_size(org_db char, size numeric)
+CREATE OR REPLACE FUNCTION temp_quicc.get_plot_size(org_db char, size numeric)
 RETURNS double precision AS $$
 DECLARE res double precision;
 BEGIN

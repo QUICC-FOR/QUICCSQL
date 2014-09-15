@@ -1,6 +1,6 @@
 QUICC-SQL
 =========
-**Update:** August, 21th
+**Update:** September, 15th
 
 Work-in-progress...
 
@@ -114,12 +114,10 @@ Work-in-progress...
 - [ ] Validate ID_tree
 - [ ] Table working for: `QC`, `ON`, `NB`, `FIA`
 
-## TODO on conversion functions
+## Conversion functions
 
-### Plot table
+- conv_rad_to_surface(): Haven't check unit of the plot radius. **Warning**
 
-- Function #1 Convert class of plot size (*Need further investigations*)
-- Function #2 Convert radius to area 
 
 ## TODO on makefile
 
