@@ -2,14 +2,12 @@
 ---------   Plot size conversion
 --------------------------------------------------------------------
 -- By Steve Vissault
--- Inputs: original code of the  database;  Size corresponding to the plot
--------------------------------------------------------------------
 
-/*  Function:     SCHEMA.NAME(PARAM)
-    Description:  DESCRIPTION
+/*  Function:     public.plot_size(PARAM)
+    Description:  Transform original code to the surface of the sample plot
     Affects:      
-    Arguments:    
-    Returns:      RETURN_TYPE
+    Arguments:    Code
+    Returns:      double
 */
 
 DROP FUNCTION IF EXISTS temp_quicc.plot_size();
