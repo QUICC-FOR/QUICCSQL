@@ -172,7 +172,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<type name="character" length="15"/>
 	</column>
 	<column name="height">
-		<type name="integer"/>
+		<type name="float4"/>
 	</column>
 	<column name="dbh">
 		<type name="integer"/>
@@ -375,7 +375,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<type name="character"/>
 	</column>
 	<column name="height">
-		<type name="integer"/>
+		<type name="float4"/>
 	</column>
 	<column name="height_id_method">
 		<type name="character"/>
