@@ -1,11 +1,12 @@
-/*  Function:     SCHEMA.NAME(PARAM)
-    Description:  DESCRIPTION
+
+/*  Function:     public.conv_dm_to_m(value)
+    Description:  Conversion function - dm to meters
     Affects:      
-    Arguments:    
-    Returns:      RETURN_TYPE
+    Arguments:    Value in dm
+    Returns:      FLOAT
 */
 
-CREATE OR REPLACE FUNCTION dm_to_m(x float) RETURNS float AS $$
+CREATE OR REPLACE FUNCTION conv_dm_to_m(x float) RETURNS float AS $$
         BEGIN
                 RETURN (x * 0.1);
         END;

@@ -4,7 +4,7 @@
 -- By Steve Vissault
 
 /*  Function:     public.conv_rad_to_surface(PARAM)
-    Description:  Transform original code to the surface of the sample plot
+    Description:  Transform original code (radius size of the plot) to the surface of the sample plot
     Affects:      
     Arguments:    Radius of the sample plot
     Returns:      double

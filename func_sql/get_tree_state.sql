@@ -132,7 +132,7 @@ BEGIN
 
 ----------------------------------------------------------------------------
 
-    ELSE org_db = 'pp_on_boreal' OR org_db = 'pp_on_glsl' OR org_db = 'pp_on_pgp' THEN
+    ELSEIF org_db = 'pp_on_boreal' OR org_db = 'pp_on_glsl' OR org_db = 'pp_on_pgp' THEN
         CASE  
         WHEN code='L'
         OR code='V'
