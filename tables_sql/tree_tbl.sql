@@ -115,7 +115,7 @@ SELECT CAST(nb_pp.psp_plots_yr.plot AS char(10)) AS plot_id,
 	CAST(nb_pp.psp_plots_yr.year  AS integer) AS year_measured,
 	CAST(nb_pp.psp_tree_partialcut.species AS char(10)) AS species_code,
 	conv_cm_to_m(nb_pp.psp_tree_partialcut.totalHt) AS height,
-	nb_pp.psp_tree_partialcut.dbh AS dbh,
+	nb_pp.psp_tree_partialcut.dbh AS dbh, -- cm
 	NULL AS age,
 	-- NULL AS sun_access,
 	-- NULL AS position_canopy,
@@ -137,7 +137,7 @@ SELECT CAST(nb_pp.psp_plots_yr.plot AS char(10)) AS plot_id,
 	CAST(nb_pp.psp_tree_yimo.species AS char(10)) AS species_code,
 	NULL AS height,
 	nb_pp.psp_tree_yimo.dbh AS dbh,
-	nb_pp.psp_tree_yimo.agecl AS age,
+	NULL AS age,
 	-- NULL AS sun_access,
 	-- NULL AS position_canopy,
 	NULL AS age_id_method,
@@ -207,7 +207,7 @@ SELECT CAST(us_pp.tree.plot AS char(10)) AS plot_id,
 	us_pp.tree.invyr AS year_measured,
 	CAST(us_pp.tree.spcd AS char(10)) AS species_code,
 	conv_feet_to_m(us_pp.tree.ht) AS height, ---- WARNING FEETS !!!!!!!!!!!!!!!!
-	us_pp.tree.dia AS dbh, --- WARNING: INCHES !!!!!!!!!!!!!!!!
+	conv_in_to_mm(us_pp.tree.dia) AS dbh, --- WARNING: INCHES !!!!!!!!!!!!!!!!
 	CAST(us_pp.tree.totage AS char(5)) AS age, 
 	-- CAST(us_pp.tree.clightcd AS char(5)) AS sun_access,
 	-- CAST(us_pp.tree.cposcd AS char(5)) AS position_canopy,
@@ -236,7 +236,7 @@ SELECT CAST(boreal_psp_treedbh_ht.plot_num AS char(10)) AS plot_id,
     	boreal_psp_treedbh_ht.obs_year AS year_measured,
     	CAST(boreal_psp_treedbh_ht.tree_spec AS char(10)) AS species_code,
     	boreal_psp_treedbh_ht.ht_total AS height,
-    	boreal_psp_treedbh_ht.dbh AS dbh,
+    	conv_cm_to_mm(boreal_psp_treedbh_ht.dbh) AS dbh,
     	NULL AS age,
 	-- NULL AS sun_access,
 	-- NULL AS position_canopy,
@@ -261,7 +261,7 @@ SELECT CAST(glsl_psp_trees_dbh_ht.plotname AS char(10)) AS plot_id,
 	CAST(date_part('year'::text, glsl_psp_trees_dbh_ht.msrdate::date) AS integer) AS year_measured,
 	CAST(glsl_psp_trees_dbh_ht.speccode AS char(10)) AS species_code,
 	glsl_psp_trees_dbh_ht.httot AS height,
-	glsl_psp_trees_dbh_ht.dbh AS dbh,
+	conv_cm_to_mm(glsl_psp_trees_dbh_ht.dbh) AS dbh,
 	NULL AS age,
 	-- NULL AS sun_access,
 	-- NULL AS position_canopy,
@@ -286,7 +286,7 @@ SELECT CAST(pgp_treedbh_ht.plot_num AS char(10)) AS plot_id,
 	pgp_treedbh_ht.obs_year AS year_measured,
 	CAST(pgp_treedbh_ht.tree_spec AS char(10)) AS species_code,
 	pgp_treedbh_ht.ht_total AS height,
-	pgp_treedbh_ht.dbh AS dbh,
+	conv_cm_to_mm(pgp_treedbh_ht.dbh) AS dbh,
 	NULL AS age,
 	-- NULL AS sun_access,
 	-- NULL AS position_canopy,
@@ -298,7 +298,7 @@ SELECT CAST(pgp_treedbh_ht.plot_num AS char(10)) AS plot_id,
 	'pp_on_pgp' AS source_db
 FROM on_pp.pgp_treedbh_ht
 -- Uncomment the line below for smallest query (100 records)
---LIMIT 10
+-- LIMIT 10
 
 UNION ALL
 
