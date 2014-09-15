@@ -38,8 +38,11 @@ clim_tbl:
 species:
 	psql -U ${PG_USER} -h ${PG_HOST} -p ${PG_PORT} -d ${PG_DB} -c "\copy rdb_quicc.ref_species FROM '${SP}/final_ref_table.csv' null '' ;"
 
+functions:
 
 all: temp_sch rdb_sch  species plot_info_tbl localisation_tbl elev plot_tbl tree_info_tbl
 
 clean:
 	vacuumdb  -U ${PG_USER} -h ${PG_HOST} -p ${PG_PORT} -d ${PG_DB} --analyze --verbose
+
+dump:
