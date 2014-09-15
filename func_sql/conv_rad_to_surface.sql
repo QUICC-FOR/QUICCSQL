@@ -1,18 +1,14 @@
 -------------------------------------------------------------------------------------------------------------
----------   Circle radius to surface
+---------   Get the surface of the same plot based on the radius
 --------------------------------------------------------------------
 -- By Steve Vissault
--- Input:  radius of the plot
--- !!! WARNING !!! Look the units
--------------------------------------------------------------------
 
-/*  Function:     SCHEMA.NAME(PARAM)
-    Description:  DESCRIPTION
+/*  Function:     public.conv_rad_to_surface(PARAM)
+    Description:  Transform original code to the surface of the sample plot
     Affects:      
-    Arguments:    
-    Returns:      RETURN_TYPE
+    Arguments:    Radius of the sample plot
+    Returns:      double
 */
-
 DROP FUNCTION IF EXISTS temp_quicc.surf();
 
 CREATE OR REPLACE FUNCTION temp_quicc.surf(rad numeric)
