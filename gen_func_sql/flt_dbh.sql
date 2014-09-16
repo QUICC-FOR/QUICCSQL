@@ -6,7 +6,7 @@
     Returns:      integer
 */
 
-DROP FUNCTION IF EXISTS temp_quicc.get_plot_size();
+DROP FUNCTION IF EXISTS temp_quicc.flt_dbh();
 
 CREATE OR REPLACE FUNCTION temp_quicc.flt_dbh(org_db char, dbh integer)
 RETURNS integer AS $$
@@ -14,7 +14,7 @@ DECLARE res integer;
 BEGIN
 	IF dbh <= 0 THEN res:= NULL;
 
-    ELSIF dbh = 9999 THEN res := NULL;
+    ELSIF  = 9999 THEN res := NULL;
 
     ELSE res := dbh;
 
