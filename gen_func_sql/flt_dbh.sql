@@ -13,7 +13,6 @@ RETURNS integer AS $$
 DECLARE res integer;
 BEGIN
 	IF dbh <= 0 THEN res:= NULL;
-	END IF;
 
     ELSIF dbh = 9999 THEN res := NULL;
 
