@@ -104,21 +104,6 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</constraint>
 </table>
 
-<table name="ref_tree_age_method">
-	<schema name="rdb_quicc"/>
-	<role name="&quot;QUICC&quot;"/>
-	<position x="1340" y="460"/>
-	<column name="age_id_method" not-null="true">
-		<type name="character"/>
-	</column>
-	<column name="age_desc">
-		<type name="character varying"/>
-	</column>
-	<constraint name="tree_age_method_pk" type="pk-constr" factor="10" table="rdb_quicc.ref_tree_age_method">
-		<columns names="age_id_method" ref-type="src-columns"/>
-	</constraint>
-</table>
-
 <table name="ref_tree_height_method">
 	<schema name="rdb_quicc"/>
 	<role name="&quot;QUICC&quot;"/>
@@ -184,9 +169,6 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<type name="integer"/>
 	</column>
 	<column name="position_canopy">
-		<type name="character"/>
-	</column>
-	<column name="age_id_method">
 		<type name="character"/>
 	</column>
 	<column name="height_id_method">
@@ -489,21 +471,6 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	upd-action="CASCADE"
 	del-action="CASCADE"/>
 
-<relationship name="ref_tree_age_method_has_many_tree" type="rel1n"
-	 src-col-pattern="{sc}_{st}"
-	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_fk"
-	 col-indexes="18" constr-indexes="3"
-	 src-table="rdb_quicc.ref_tree_age_method"
-	 dst-table="rdb_quicc.tree"
-	 src-required="true" dst-required="false"
-	upd-action="CASCADE"
-	del-action="CASCADE">
-	<label ref-type="dst-label">
-		<position x="0" y="0"/>
-	</label>
-</relationship>
-
 <relationship name="ref_tree_height_method_has_many_tree" type="rel1n"
 	 src-col-pattern="{sc}_{st}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
@@ -743,11 +710,6 @@ CAUTION: Do not modify this file unless you know what you are doing.
 
 <permission>
 	<object name="rdb_quicc.superplot" type="table"/>
-	<roles names="vissst01"/>
-	<privileges select="true" delete="true" insert="true" update="true" truncate="true" references="true" trigger="true"/>
-</permission>
-<permission>
-	<object name="rdb_quicc.ref_tree_age_method" type="table"/>
 	<roles names="vissst01"/>
 	<privileges select="true" delete="true" insert="true" update="true" truncate="true" references="true" trigger="true"/>
 </permission>
