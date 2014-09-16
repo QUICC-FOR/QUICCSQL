@@ -1,9 +1,5 @@
--------------------------------------------------------------------------------------------------------------
----------   Get if the tree is alive or dead
---------------------------------------------------------------------
--- By Steve Vissault
 
-/*  Function:     public.get_tree_state(PARAM)
+/*  Function:     temp_quicc.get_tree_state(PARAM)
     Description:   Get if the tree is alive or dead
     Affects:      
     Arguments:    Code

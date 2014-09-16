@@ -1,14 +1,28 @@
 
-/*  Function:     public.conv_cm_to_m(value)
-    Description:  Conversion function - cm to meters
-    Affects:      
-    Arguments:    Value in cm
-    Returns:      FLOAT
+/*  Function:     temp_quicc.flt_dbh(org_db, dbh)
+    Description:  Filters on dbh values
+    Affects:      outlier dbh values and dbh values <= 0
+    Arguments:    dbhmm and database source of the dbh (org_db) - DBH NEED TO BE in mm
+    Returns:      integer
 */
 
-CREATE OR REPLACE FUNCTION conv_cm_to_m(x float) RETURNS float AS $$
-        BEGIN
-                RETURN (x * 0.01);
-        END;
-$$ LANGUAGE plpgsql;--
+DROP FUNCTION IF EXISTS temp_quicc.get_plot_size();
+
+CREATE OR REPLACE FUNCTION temp_quicc.flt_dbh(org_db char, dbh integer)
+RETURNS integer AS $$
+DECLARE res integer;
+BEGIN
+	IF dbh <= 0 THEN res:= NULL;
+	END IF;
+
+    ELSIF dbh = 9999 THEN res := NULL;
+
+    ELSE res := dbh;
+
+    END IF;
+RETURN res;
+END;
+$$
+LANGUAGE plpgsql;
+
 
