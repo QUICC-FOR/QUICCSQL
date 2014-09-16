@@ -38,7 +38,7 @@ BEGIN
 		    	OR org_db = 'pp_nb_regenandthin'
 		    	OR org_db = 'pp_nb_cutandplant'
 		    THEN res := 'U';
-
+		    
 		    ELSIF org_db = 'us_pp' THEN
 		      CASE    
 		      	WHEN height_id_method='1' THEN res := 'A';
