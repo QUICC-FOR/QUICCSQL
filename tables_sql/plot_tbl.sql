@@ -11,7 +11,7 @@
 -- Permanent sample plot from Quebec---
 ---------------------------------------
 
---DROP MATERIALIZED VIEW IF EXISTS  temp_quicc.mv_plot;
+DROP MATERIALIZED VIEW IF EXISTS  temp_quicc.mv_plot;
 --REFRESH MATERIALIZED VIEW temp_quicc.mv_plot;
 CREATE MATERIALIZED VIEW temp_quicc.mv_plot AS
 
@@ -226,7 +226,7 @@ DELETE FROM rdb_quicc.plot;
         rdb_quicc.plot_info.plot_id,
         rdb_quicc.plot_info.plot_id
     FROM temp_quicc.mv_plot
-    INNER JOIN rdb_quicc.plot_info ON temp_quicc.mv_plot.plot_id = rdb_quicc.plot_info.org_db_id
+    RIGHT OUTER JOIN rdb_quicc.plot_info ON temp_quicc.mv_plot.plot_id = rdb_quicc.plot_info.org_db_id
         AND temp_quicc.mv_plot.org_code_db = rdb_quicc.plot_info.org_db_loc
     WHERE temp_quicc.mv_plot.year_measured IS NOT NULL;
 

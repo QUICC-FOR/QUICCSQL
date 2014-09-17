@@ -7,7 +7,7 @@
 -- Extract plot level information from original database
 -- By Steve Vissault, Miranda Bryant
 
--- DROP MATERIALIZED VIEW IF EXISTS  temp_quicc.mv_tree_info;
+DROP MATERIALIZED VIEW IF EXISTS  temp_quicc.mv_tree_info;
 CREATE MATERIALIZED VIEW temp_quicc.mv_tree_info AS
 
 ----------------------------------------------------------
@@ -159,7 +159,7 @@ INSERT INTO rdb_quicc.tree_info
         temp_quicc.mv_tree_info.org_db_loc,
         temp_quicc.mv_tree_info.plot_id
 FROM temp_quicc.mv_tree_info
-INNER JOIN rdb_quicc.plot_info ON temp_quicc.mv_tree_info.plot_id = rdb_quicc.plot_info.org_db_id
+RIGHT OUTER JOIN rdb_quicc.plot_info ON temp_quicc.mv_tree_info.plot_id = rdb_quicc.plot_info.org_db_id
 AND temp_quicc.mv_tree_info.org_db_loc = rdb_quicc.plot_info.org_db_loc
 WHERE  temp_quicc.mv_tree_info.plot_id IS NOT NULL AND
 temp_quicc.mv_tree_info.tree_id IS NOT NULL;

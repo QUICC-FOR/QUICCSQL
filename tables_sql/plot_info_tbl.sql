@@ -9,10 +9,9 @@
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 
---DROP MATERIALIZED VIEW IF EXISTS  temp_quicc.mv_plot_info;
+DROP MATERIALIZED VIEW IF EXISTS  temp_quicc.mv_plot_info;
+
 CREATE MATERIALIZED VIEW temp_quicc.mv_plot_info AS
-
-
 ---------------------------------------
 ------ QC_PP database
 ---------------------------------------
@@ -117,7 +116,14 @@ SELECT DISTINCT
     'us_pp' :: char(20) AS org_code_db
   FROM
     us_pp.plot
-WHERE us_pp.plot.coord_geom IS NOT NULL
+WHERE us_pp.plot.coord_geom IS NOT NULL AND (us_pp.plot.designcd = 1 OR 
+    us_pp.plot.designcd = 314 OR us_pp.plot.designcd = 312 OR 
+    us_pp.plot.designcd = 220 OR us_pp.plot.designcd = 240 OR
+    us_pp.plot.designcd = 311 OR us_pp.plot.designcd = 313 OR
+    us_pp.plot.designcd = 328 OR us_pp.plot.designcd = 502 OR
+    us_pp.plot.designcd = 503 OR us_pp.plot.designcd = 504 OR
+    us_pp.plot.designcd = 505) AND (us_pp.plot.kindcd > 0 AND us_pp.plot.kindcd < 4) AND 
+    us_pp.plot.manual >= 1
 
 
 UNION ALL

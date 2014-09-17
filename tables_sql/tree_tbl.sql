@@ -198,7 +198,7 @@ SELECT CAST(concat_ws('-',statecd,unitcd,countycd,plot) AS char(20))   AS plot_i
 	CAST(us_pp.tree.tree  AS char(5)) AS tree_id,
 	us_pp.tree.invyr AS year_measured,
 	CAST(us_pp.tree.spcd AS char(10)) AS species_code,
-	conv_feet_to_m(us_pp.tree.ht) AS height, ---- WARNING FEETS !!!!!!!!!!!!!!!!
+	conv_feet_to_m(us_pp.tree.ht) AS height, ---- WARNING FEET !!!!!!!!!!!!!!!!
 	conv_in_to_mm(us_pp.tree.dia) AS dbh, --- WARNING: INCHES !!!!!!!!!!!!!!!!
 	CAST(us_pp.tree.totage AS char(5)) AS age, 
 	-- CAST(us_pp.tree.clightcd AS char(5)) AS sun_access,
