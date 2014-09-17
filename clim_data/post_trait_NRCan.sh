@@ -25,7 +25,7 @@ fi
 # Pre-traitement config Path
 SRC=$(pwd)
 EXPORT=$SRC/export_climat
-TABLE=$SRC/src_sql
+TABLE=$SRC/tables_sql
 DATACLIM=$SRC/clim_data/pntgrids
 
 if [ "$POST" = "no" ]; then

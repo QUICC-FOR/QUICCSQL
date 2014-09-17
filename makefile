@@ -2,8 +2,9 @@ PG_USER = postgres
 PG_DB = "QUICC-FOR-Dev"
 PG_HOST = localhost
 PG_PORT = 5433
-SRC = src_sql
+SRC = tables_sql
 CLIM = clim_data
+ARCHI = archi_sql
 SP = ref_species_R
 
 temp_sch:
@@ -12,7 +13,7 @@ temp_sch:
 
 rdb_sch:
 	psql -U ${PG_USER} -h ${PG_HOST} -p ${PG_PORT} -d ${PG_DB} -c "DROP SCHEMA rdb_quicc CASCADE;"
-	psql -U ${PG_USER} -h ${PG_HOST} -p ${PG_PORT} -d ${PG_DB} -c "\i ${SRC}/pgmodeler_script_rdb.sql;"
+	psql -U ${PG_USER} -h ${PG_HOST} -p ${PG_PORT} -d ${PG_DB} -c "\i ${ARCHI}/pgmodeler_script_rdb.sql;"
 
 plot_info_tbl:
 	psql  -U ${PG_USER} -h ${PG_HOST} -p ${PG_PORT} -d ${PG_DB} -c "\i ${SRC}/plot_info_tbl.sql;"
@@ -40,7 +41,7 @@ species:
 
 functions:
 
-all: temp_sch rdb_sch  species plot_info_tbl localisation_tbl elev plot_tbl tree_info_tbl
+all: plot_info_tbl plot_tbl localisation_tbl elev plot_tbl tree_info_tbl
 
 clean:
 	vacuumdb  -U ${PG_USER} -h ${PG_HOST} -p ${PG_PORT} -d ${PG_DB} --analyze --verbose
