@@ -194,7 +194,7 @@ UNION ALL
 -----------------------------------------
 ------------Plots FIA Database-----------
 -----------------------------------------
-SELECT CAST(us_pp.tree.plot AS char(10)) AS plot_id,
+SELECT CAST(concat_ws('-',statecd,unitcd,countycd,plot) AS char(20))   AS plot_id ,
 	CAST(us_pp.tree.tree  AS char(5)) AS tree_id,
 	us_pp.tree.invyr AS year_measured,
 	CAST(us_pp.tree.spcd AS char(10)) AS species_code,
