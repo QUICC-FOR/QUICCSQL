@@ -118,7 +118,7 @@ Work-in-progress...
 
 - conv_rad_to_surface(): Haven't check unit of the plot radius. **Warning**
 
-## Tips for querying the FIA database (not necessarly applied but need to be kept in mind):
+## Tips for querying the FIA database:
 
 
 - **SURVEY.ANN_INVENTORY = "Y"** - selects only those surveys done using the modern, standardized methodology

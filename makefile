@@ -37,11 +37,11 @@ clim_tbl:
 	sh ${CLIM}/post_trait_NRCan.sh
 
 species:
-	psql -U ${PG_USER} -h ${PG_HOST} -p ${PG_PORT} -d ${PG_DB} -c "\copy rdb_quicc.ref_species FROM '${SP}/final_ref_table.csv' null '' ;"
+	psql -U ${PG_USER} -h ${PG_HOST} -p ${PG_PORT} -d ${PG_DB} -c "\copy rdb_quicc.ref_species FROM '${SP}/final_ref_table_sql.csv' null '' ;"
 
 functions:
 
-all: plot_info_tbl plot_tbl localisation_tbl elev plot_tbl tree_info_tbl
+all: temp_sch rdb_sch plot_info_tbl localisation_tbl plot_tbl  elev plot_tbl species tree_info_tbl
 
 clean:
 	vacuumdb  -U ${PG_USER} -h ${PG_HOST} -p ${PG_PORT} -d ${PG_DB} --analyze --verbose
