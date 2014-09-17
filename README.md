@@ -118,6 +118,33 @@ Work-in-progress...
 
 - conv_rad_to_surface(): Haven't check unit of the plot radius. **Warning**
 
+## Tips for querying the FIA database (not necessarly applied but need to be kept in mind):
+
+
+- **SURVEY.ANN_INVENTORY = "Y"** - selects only those surveys done using the modern, standardized methodology
+
+- **PLOT.PLOT_STATUS_CD = 1**: Sampled - at least one accessible forest land condition present
+
+- **PLOT.KINDCD > 0 AND < 4**: Standard National Design plots - basically NOT 0 (Periodic inventory plot - pre 1990s, non standardized) AND NOT 4 (Modeled periodic inventory plot - conducted only in Northeat and North central regions)
+
+- **PLOT.DESIGNCD  = 1 or 220 or 240 or 311 - 314 or 328 or 502-505** - all basically sampled the same way (see Appendix B of Phase 2 documentation for explanations)
+
+- **PLOT.QA_STATUS = 1**: Standard production plot
+
+- **PLOT.MANUAL >= 1**: limits data to those collected using the standardized methodology described in the National FIA Field Guide
+
+- **PLOT.SAMP_METHOD_CD = 1**: Field visited (as opposed to 2 = remote sensed)
+PLOT.INVR < 9999 (INVYR is set to 9999 to distinguish those Western Phase 3 plots that are “off subpanel”. This is due to differences in measurement intervals between Phase 3 (measurement interval=5 years) and Phase 2 (measurement interval=10 years) plots. Only users interested in performing certain Phase 3 data analyses should access plots with this anomalous value in INVYR.)
+
+- **COND.TRTCD1, TRTCD2, and TRTCD3 = 00**: No observable treatment (i.e., no cutting, girdling, herbicides, etc.), but most records are actually NULL in these fields
+
+- **COND.STDORGCD** - Stand origin code - 0 = Natural stand (vs. 1 = clear evidence of artificial regeneration)
+
+- **TREE.STATUSCD = 1** - live trees 
+
+- **PLOT.STATECD, UNITCD, COUNTYCD, and PLOT** should be used in concert to uniquely identify a plot, but the documentation confusingly states that "Along with STATECD, INVYR, UNITCD, COUNTYCD and/or some other combinations of variables, PLOT may be used to uniquely identify a plot."
+
+**Source**: [http://ecologicaldata.org/wiki/forest-inventory-and-analysis-database](http://ecologicaldata.org/wiki/forest-inventory-and-analysis-database)
 
 ## TODO on makefile
 
