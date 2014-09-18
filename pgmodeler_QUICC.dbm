@@ -86,24 +86,6 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<role name="&quot;QUICC&quot;"/>
 </schema>
 
-<table name="superplot">
-	<schema name="rdb_quicc"/>
-	<role name="&quot;QUICC&quot;"/>
-	<position x="1340" y="200"/>
-	<column name="plot_id" not-null="true">
-		<type name="integer"/>
-	</column>
-	<column name="tree_id">
-		<type name="integer"/>
-	</column>
-	<column name="year_measured">
-		<type name="integer"/>
-	</column>
-	<constraint name="superplot_tbl_pk" type="pk-constr" factor="100" table="rdb_quicc.superplot">
-		<columns names="plot_id" ref-type="src-columns"/>
-	</constraint>
-</table>
-
 <table name="ref_tree_height_method">
 	<schema name="rdb_quicc"/>
 	<role name="&quot;QUICC&quot;"/>
@@ -174,7 +156,10 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="height_id_method">
 		<type name="character"/>
 	</column>
-	<column name="is_sapling">
+	<column name="in_subplot">
+		<type name="boolean"/>
+	</column>
+	<column name="in_macroplot">
 		<type name="boolean"/>
 	</column>
 	<column name="is_planted">
@@ -475,7 +460,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 src-col-pattern="{sc}_{st}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk"
-	 col-indexes="19" constr-indexes="4"
+	 col-indexes="18" constr-indexes="3"
 	 src-table="rdb_quicc.ref_tree_height_method"
 	 dst-table="rdb_quicc.tree"
 	 src-required="true" dst-required="false"
@@ -701,18 +686,13 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 src-col-pattern="{sc}_{st}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk"
-	 col-indexes="20" constr-indexes="5"
+	 col-indexes="19" constr-indexes="4"
 	 src-table="rdb_quicc.ref_species"
 	 dst-table="rdb_quicc.tree"
 	 src-required="true" dst-required="false"
 	upd-action="CASCADE"
 	del-action="CASCADE"/>
 
-<permission>
-	<object name="rdb_quicc.superplot" type="table"/>
-	<roles names="vissst01"/>
-	<privileges select="true" delete="true" insert="true" update="true" truncate="true" references="true" trigger="true"/>
-</permission>
 <permission>
 	<object name="rdb_quicc.ref_tree_height_method" type="table"/>
 	<roles names="vissst01"/>
