@@ -119,7 +119,7 @@ SELECT CAST(nb_pp.psp_plots_yr.plot AS char(10)) AS plot_id,
 	NULL AS is_sapling,
     	CAST(NULL AS char(5)) AS is_planted,
     	nb_pp.psp_tree_partialcut.cause AS is_dead,
-    	'pp_nb_partial_cut' AS source_db
+    	'nb_pp_partial_cut' AS source_db
 FROM nb_pp.psp_plots_yr INNER JOIN nb_pp.psp_tree_partialcut ON nb_pp.psp_plots_yr.remeasid = nb_pp.psp_tree_partialcut.remeasid
 -- Uncomment the line below for smallest query (1000 records)
 -- LIMIT 200
@@ -139,7 +139,7 @@ SELECT CAST(nb_pp.psp_plots_yr.plot AS char(10)) AS plot_id,
 	NULL AS is_sapling,
     	CAST(NULL AS char(5)) AS is_planted,
     	nb_pp.psp_tree_yimo.cause AS is_dead,
-    	'pp_nb_YIMO' AS source_db
+    	'nb_pp_YIMO' AS source_db
 FROM nb_pp.psp_plots_yr INNER JOIN nb_pp.psp_tree_yimo ON nb_pp.psp_plots_yr.remeasid = nb_pp.psp_tree_yimo.remeasid
 
 -- Uncomment the line below for smallest query (1000 records)
@@ -160,7 +160,7 @@ SELECT CAST(nb_pp.psp_plots_yr.plot AS char(10)) AS plot_id,
 	NULL AS is_sapling,
 	CAST(nb_pp.psp_tree_regenandthin.origin AS char(5)) AS is_planted,
 	nb_pp.psp_tree_regenandthin.cause AS is_dead,
-    	'pp_nb_regenandthin' AS source_db
+    	'nb_pp_regenandthin' AS source_db
 FROM nb_pp.psp_plots_yr INNER JOIN nb_pp.psp_tree_regenandthin ON nb_pp.psp_plots_yr.remeasid = nb_pp.psp_tree_regenandthin.remeasid
 
 -- Uncomment the line below for smallest query (1000 records)
@@ -181,7 +181,7 @@ SELECT CAST(nb_pp.psp_plots_yr.plot AS char(10)) AS plot_id,
 	NULL AS is_sapling,
 	CAST(nb_pp.psp_tree_cutandplant.origin AS char(5)) AS is_planted,
 	nb_pp.psp_tree_cutandplant.cause AS is_dead,
-	'pp_nb_cutandplant' AS source_db
+	'nb_pp_cutandplant' AS source_db
 FROM nb_pp.psp_plots_yr INNER JOIN nb_pp.psp_tree_cutandplant ON nb_pp.psp_plots_yr.remeasid = nb_pp.psp_tree_cutandplant.remeasid
 -- Uncomment the line below for smallest query (1000 records)
 -- LIMIT 200
@@ -198,7 +198,7 @@ SELECT CAST(concat_ws('-',statecd,unitcd,countycd,plot) AS char(20))   AS plot_i
 	CAST(us_pp.tree.tree  AS char(5)) AS tree_id,
 	us_pp.tree.invyr AS year_measured,
 	CAST(us_pp.tree.spcd AS char(10)) AS species_code,
-	conv_feet_to_m(us_pp.tree.ht) AS height, ---- WARNING FEET !!!!!!!!!!!!!!!!
+	conv_feet_to_m(us_pp.tree.ht) AS height, ---- WARNING FEETS !!!!!!!!!!!!!!!!
 	conv_in_to_mm(us_pp.tree.dia) AS dbh, --- WARNING: INCHES !!!!!!!!!!!!!!!!
 	CAST(us_pp.tree.totage AS char(5)) AS age, 
 	-- CAST(us_pp.tree.clightcd AS char(5)) AS sun_access,
@@ -207,7 +207,7 @@ SELECT CAST(concat_ws('-',statecd,unitcd,countycd,plot) AS char(20))   AS plot_i
 	NULL AS is_sapling,
 	NULL AS is_planted,
 	CAST(us_pp.tree.statuscd AS char(5)) AS is_dead,
-	'pp_us' AS source_db
+	'us_pp' AS source_db
 FROM us_pp.tree
 -- Uncomment the line below for smallest query (100 records)
 --LIMIT 100
@@ -235,7 +235,7 @@ SELECT CAST(boreal_psp_treedbh_ht.plot_num AS char(10)) AS plot_id,
 	NULL AS is_sapling,
 	CAST(boreal_psp_treedbh_ht.origin  AS char(5)) AS is_planted,
 	CAST(boreal_psp_treedbh_ht.status  AS char(5)) AS is_dead,
-	'pp_on_boreal' AS source_db
+	'on_pp_boreal' AS source_db
 FROM on_pp.boreal_psp_treedbh_ht
 -- Uncomment the line below for smallest query (100 records)
 --LIMIT 10
@@ -259,7 +259,7 @@ SELECT CAST(glsl_psp_trees_dbh_ht.plotname AS char(10)) AS plot_id,
 	NULL AS is_sapling,
 	CAST(glsl_psp_trees_dbh_ht.lcr  AS char(5)) AS is_planted,
 	CAST(glsl_psp_trees_dbh_ht.treestatuscode AS char(5)) AS is_dead,
-	'pp_on_glsl' AS source_db
+	'on_pp_glsl' AS source_db
 FROM on_pp.glsl_psp_trees_dbh_ht
 -- Uncomment the line below for smallest query (100 records)
 --LIMIT 10
@@ -283,7 +283,7 @@ SELECT CAST(pgp_treedbh_ht.plot_num AS char(10)) AS plot_id,
 	NULL AS is_sapling,
 	CAST(pgp_treedbh_ht.origin  AS char(5)) AS is_planted,
 	CAST(pgp_treedbh_ht.status AS char(5)) AS is_dead,
-	'pp_on_pgp' AS source_db
+	'on_pp_pgp' AS source_db
 FROM on_pp.pgp_treedbh_ht
 -- Uncomment the line below for smallest query (100 records)
 -- LIMIT 10
