@@ -4,6 +4,12 @@ QUICC-SQL
 
 Work-in-progress...
 
+## Priorities
+
+1. Restore new schema and DB
+2. Add DOMTAR on functions
+3. Ask Dan for the DOMTAR clim_data
+
 ## TODO on RDB tables
 
 ### General

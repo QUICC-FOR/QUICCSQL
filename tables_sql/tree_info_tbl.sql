@@ -99,7 +99,7 @@ UNION ALL
 
 SELECT DISTINCT
     CAST(on_pp.boreal_psp_plot_info.plot_num AS char(20)) AS plot_id,
-    'on_pp_boreal' :: char(20) AS org_code_db,
+    'on_pp' :: char(20) AS org_code_db,
     CAST(on_pp.boreal_psp_treedbh_ht.tree_id AS char(3)) AS tree_id
 FROM
     on_pp.boreal_psp_plot_info
@@ -112,7 +112,7 @@ UNION ALL
 
 SELECT DISTINCT
     CAST(on_pp.glsl_psp_plotinfo.plotname AS char(20)) AS plot_id,
-    'on_pp_glsl' :: char(20) AS org_code_db,
+    'on_pp' :: char(20) AS org_code_db,
     CAST(on_pp.glsl_psp_trees_dbh_ht.treeid AS char(3)) AS tree_id
 FROM
     on_pp.glsl_psp_plotinfo
@@ -122,7 +122,7 @@ UNION ALL
 
 SELECT DISTINCT
     CAST(on_pp.pgp_plot_info.plot_num AS char(20)) AS plot_id,
-    'on_pp_pgp' :: char(20) AS org_code_db,
+    'on_pp' :: char(20) AS org_code_db,
     CAST(on_pp.pgp_treedbh_ht.tree_id AS char(3)) AS tree_id
 FROM
     on_pp.pgp_plot_info

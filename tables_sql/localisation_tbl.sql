@@ -81,7 +81,7 @@ FROM
 				on_pp.boreal_psp_treedbh_ht.plot_num AS org_plot_id,
 				on_pp.boreal_psp_treedbh_ht.obs_year,
 				on_pp.boreal_psp_plot_info.coord_geom,
-				'on_pp_boreal' AS org_code_db
+				'on_pp' AS org_code_db
 				FROM on_pp.boreal_psp_treedbh_ht
 				INNER JOIN on_pp.boreal_psp_plot_info ON on_pp.boreal_psp_treedbh_ht.plot_num = on_pp.boreal_psp_plot_info.plot_num
 			UNION ALL
@@ -89,7 +89,7 @@ FROM
 				on_pp.glsl_psp_trees_dbh_ht.plotname AS org_plot_id,
 				date_part('year'::text, on_pp.glsl_psp_trees_dbh_ht.msrdate::date) AS yr_measured,
 				on_pp.glsl_psp_plotinfo.coord_geom,
-				'on_pp_glsl' AS org_code_db
+				'on_pp' AS org_code_db
 				FROM on_pp.glsl_psp_trees_dbh_ht
 				INNER JOIN on_pp.glsl_psp_plotinfo ON on_pp.glsl_psp_plotinfo.plotname = on_pp.glsl_psp_trees_dbh_ht.plotname
 			UNION ALL
@@ -97,7 +97,7 @@ FROM
 				on_pp.pgp_treedbh_ht.plot_num AS org_plot_id,
 				on_pp.pgp_treedbh_ht.obs_year AS yr_measured,
 				on_pp.pgp_plot_info.coord_geom,
-				'on_pp_pgp' AS org_code_db
+				'on_pp' AS org_code_db
 				FROM on_pp.pgp_treedbh_ht
 				INNER JOIN on_pp.pgp_plot_info ON on_pp.pgp_treedbh_ht.plot_num = on_pp.pgp_plot_info.plot_num
 			-----------------------------------------------
@@ -159,6 +159,8 @@ GROUP BY
 
 DELETE FROM rdb_quicc.localisation;
 
+----- PROB: some coordonnates = 0
+
 INSERT INTO rdb_quicc.localisation (plot_id, latitude, longitude, coord_postgis, srid,plot_location)
 SELECT DISTINCT rdb_quicc.plot_info.plot_id,
 		ST_Y(temp_quicc.mv_localisation.coord_geom) AS latitude,
@@ -168,4 +170,3 @@ SELECT DISTINCT rdb_quicc.plot_info.plot_id,
 		temp_quicc.mv_localisation.org_code_db AS plot_location
 FROM temp_quicc.mv_localisation
 RIGHT OUTER JOIN rdb_quicc.plot_info ON temp_quicc.mv_localisation.org_plot_id = rdb_quicc.plot_info.org_db_id AND temp_quicc.mv_localisation.org_code_db = rdb_quicc.plot_info.org_db_loc;
-

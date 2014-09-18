@@ -6,9 +6,9 @@
     Returns:      double
 */
 
-DROP FUNCTION IF EXISTS temp_quicc.get_plot_size();
+DROP FUNCTION IF EXISTS temp_quicc.get_tree_state();
 
-CREATE OR REPLACE FUNCTION temp_quicc.get_plot_size(org_db char, code char)
+CREATE OR REPLACE FUNCTION temp_quicc.get_tree_state(org_db char, code char)
 RETURNS boolean AS $$
 DECLARE res boolean;
 BEGIN

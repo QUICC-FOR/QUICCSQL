@@ -324,3 +324,42 @@ SELECT CAST(domtar_pp.domtar_data.idpep AS char(10))  AS plot_id,
 FROM domtar_pp.domtar_data;
 
 -----------------------------------------
+
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+--------------------------------------------------------
+-- INSERT DATA INTO PLOT INFO TABLE ---
+--------------------------------------------------------
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+DELETE FROM rdb_quicc.tree;
+INSERT INTO rdb_quicc.tree
+    SELECT DISTINCT
+        rdb_quicc.plot_info.plot_id,
+        rdb_quicc.tree_info.tree_id,
+        temp_quicc.mv_tree.year_measured,
+        rdb_quicc.ref_species.id_spe,
+        temp_quicc.flt_height(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.height),
+        temp_quicc.flt_dbh(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.dbh),
+        temp_quicc.mv_tree.age,
+        NULL AS sun_access,
+		NULL AS position_canopy,
+		temp_quicc.get_height_method_tree(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.height_id_method, temp_quicc.flt_height(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.height)),
+        temp_quicc.in_subplot(temp_quicc.mv_tree.source_db, temp_quicc.flt_dbh(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.dbh)),
+        NULL AS is_planted,
+        temp_quicc.get_tree_state(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.is_dead),
+        rdb_quicc.plot_info.plot_id,
+        rdb_quicc.plot_info.year_measured,
+        rdb_quicc.plot_info.plot_id,
+        rdb_quicc.plot_info.tree_id,
+        rdb_quicc.ref_tree_height_method.height_id_method,
+        rdb_quicc.ref_species.id_spe
+    FROM temp_quicc.mv_tree
+    RIGHT OUTER JOIN rdb_quicc.plot_info ON temp_quicc.mv_tree.plot_id = rdb_quicc.plot_info.org_db_id
+        AND temp_quicc.mv_tree.source_db = rdb_quicc.plot_info.org_db_loc
+    RIGHT OUTER JOIN rdb_quicc.tree_info ON temp_quicc.mv_tree.tree_id = rdb_quicc.plot_info.tree_id
+        AND temp_quicc.mv_tree.source_db = rdb_quicc.plot_info.org_db_loc AND temp_quicc.mv_tree.plot_id = rdb_quicc.plot_info.org_db_id
+  ;
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
