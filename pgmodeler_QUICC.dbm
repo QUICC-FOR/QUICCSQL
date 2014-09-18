@@ -282,16 +282,16 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="plot_size">
 		<type name="double precision"/>
 	</column>
-	<column name="seed_plot_size">
+	<column name="subplot_size">
 		<type name="double precision"/>
 	</column>
-	<column name="sap_plot_size">
+	<column name="microplot_size">
 		<type name="double precision"/>
 	</column>
-	<column name="is_temp">
+	<column name="has_macroplot">
 		<type name="boolean"/>
 	</column>
-	<column name="has_superplot">
+	<column name="is_temp">
 		<type name="boolean"/>
 	</column>
 	<constraint name="plot_tbl_pk" type="pk-constr" factor="100" table="rdb_quicc.plot">

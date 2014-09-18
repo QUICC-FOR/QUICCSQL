@@ -41,7 +41,7 @@ species:
 
 functions:
 
-all: temp_sch rdb_sch plot_info_tbl localisation_tbl plot_tbl  elev plot_tbl species tree_info_tbl
+all: plot_info_tbl localisation_tbl plot_tbl  elev plot_tbl species tree_info_tbl
 
 clean:
 	vacuumdb  -U ${PG_USER} -h ${PG_HOST} -p ${PG_PORT} -d ${PG_DB} --analyze --verbose

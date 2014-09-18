@@ -241,10 +241,10 @@ CREATE TABLE rdb_quicc.plot(
 	plot_id integer NOT NULL,
 	year_measured integer,
 	plot_size double precision,
-	seed_plot_size double precision,
-	sap_plot_size double precision,
+	subplot_size double precision,
+	microplot_size double precision,
+	has_macroplot boolean,
 	is_temp boolean,
-	has_superplot boolean,
 	plot_id_localisation integer,
 	plot_id_plot_info integer NOT NULL,
 	CONSTRAINT plot_tbl_pk PRIMARY KEY (plot_id,year_measured)
