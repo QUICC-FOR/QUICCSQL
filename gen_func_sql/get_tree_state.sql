@@ -99,7 +99,7 @@ BEGIN
 
 ----------------------------------------------------------------------------
 
-    ELSIF org_db = 'pp_nb_partial_cut' OR org_db = 'pp_nb_cutandplant' OR org_db = 'pp_nb_regenandthin'  
+    ELSIF org_db = 'nb_pp_partial_cut' OR org_db = 'nb_pp_cutandplant' OR org_db = 'nb_pp_regenandthin'  
 
     THEN
     -- If field is not NULL then tree is dead
@@ -128,7 +128,7 @@ BEGIN
 
 ----------------------------------------------------------------------------
 
-    ELSEIF org_db = 'pp_on_boreal' OR org_db = 'pp_on_glsl' OR org_db = 'pp_on_pgp' THEN
+    ELSEIF org_db = 'on_pp_boreal' OR org_db = 'on_pp_glsl' OR org_db = 'on_pp_pgp' THEN
         CASE  
         WHEN code='L'
         OR code='V'
