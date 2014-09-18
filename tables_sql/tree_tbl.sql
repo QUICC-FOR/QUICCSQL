@@ -26,7 +26,8 @@ SELECT CAST(qc_pp.pp_infogen.id_pep AS char(10))  AS plot_id,
 	-- CAST(qc_pp.pp_etudarbr.ensoleil AS char(5)) AS sun_access,
 	-- CAST(qc_pp.pp_etudarbr.etage AS char(5)) AS position_canopy,
 	NULL AS height_id_method,
-	NULL AS is_sapling,
+	NULL AS in_macroplot,
+	NULL AS in_subplot,
 	NULL AS is_planted,
 	CAST(qc_pp.pp_tiges.etat AS char(5)) AS is_dead,
 	'qc_pp' AS source_db
@@ -53,10 +54,11 @@ SELECT CAST(qc_tp.infogen_pet2.id_pet AS char(10)) AS plot_id,
 	-- NULL :: char(5) AS sun_access,
 	-- CAST(qc_tp.etudarbr_pet2.etage AS char(5)) AS position_canopy,
 	NULL AS height_id_method,
-	NULL AS is_sapling,
-    	CAST(NULL AS char(5)) AS is_planted,
-    	NULL :: char(5) AS is_dead,
-    	'qc_pet2' AS source_db
+	NULL AS in_macroplot,
+	NULL AS in_subplot,
+    CAST(NULL AS char(5)) AS is_planted,
+    NULL :: char(5) AS is_dead,
+    'qc_pet2' AS source_db
 FROM qc_tp.etudarbr_pet2 LEFT OUTER JOIN qc_tp.infogen_pet2 ON qc_tp.etudarbr_pet2.id_pet_mes = qc_tp.infogen_pet2.id_pet_mes
 
 -- Uncomment the line below for smallest query (1000 records)
@@ -75,10 +77,11 @@ SELECT CAST(qc_tp.infogen_pet3.id_pet AS char(10)) AS plot_id,
 	-- NULL :: char(5) AS sun_access,
 	-- CAST(qc_tp.etudarbr_pet3.etage AS char(5)) AS position_canopy,
 	NULL AS height_id_method,
-	NULL AS is_sapling,
-    	CAST(NULL AS char(5)) AS is_planted,
-    	NULL :: char(5) AS is_dead,
-    	'qc_pet3' AS source_db 
+	NULL AS in_macroplot,
+	NULL AS in_subplot,
+    CAST(NULL AS char(5)) AS is_planted,
+    NULL :: char(5) AS is_dead,
+    'qc_pet3' AS source_db 
 FROM qc_tp.etudarbr_pet3 LEFT OUTER JOIN qc_tp.infogen_pet3 ON qc_tp.etudarbr_pet3.id_pet_mes = qc_tp.infogen_pet3.id_pet_mes
 
 UNION ALL
@@ -93,10 +96,11 @@ SELECT CAST(qc_tp.infogen_pet4.id_pet AS char(10)) AS plot_id,
 	-- NULL :: char(5) AS sun_access,
 	-- CAST(qc_tp.etudarbr_pet4.etage AS char(5)) AS position_canopy,
 	NULL AS height_id_method,
-	NULL AS is_sapling,
-    	CAST(NULL AS char(5)) AS is_planted,
-    	NULL :: char(5) AS is_dead,
-    	'qc_pet4' AS source_db
+	NULL AS in_macroplot,
+	NULL AS in_subplot,
+    CAST(NULL AS char(5)) AS is_planted,
+    NULL :: char(5) AS is_dead,
+    'qc_pet4' AS source_db
 FROM qc_tp.etudarbr_pet4 LEFT OUTER JOIN qc_tp.infogen_pet4 ON qc_tp.etudarbr_pet4.id_pet_mes = qc_tp.infogen_pet4.id_pet_mes
 
 
@@ -116,10 +120,11 @@ SELECT CAST(nb_pp.psp_plots_yr.plot AS char(10)) AS plot_id,
 	-- NULL AS sun_access,
 	-- NULL AS position_canopy,
 	NULL AS height_id_method,
-	NULL AS is_sapling,
-    	CAST(NULL AS char(5)) AS is_planted,
-    	nb_pp.psp_tree_partialcut.cause AS is_dead,
-    	'nb_pp_partial_cut' AS source_db
+	NULL AS in_macroplot,
+	NULL AS in_subplot,
+    CAST(NULL AS char(5)) AS is_planted,
+    nb_pp.psp_tree_partialcut.cause AS is_dead,
+    'nb_pp_partial_cut' AS source_db
 FROM nb_pp.psp_plots_yr INNER JOIN nb_pp.psp_tree_partialcut ON nb_pp.psp_plots_yr.remeasid = nb_pp.psp_tree_partialcut.remeasid
 -- Uncomment the line below for smallest query (1000 records)
 -- LIMIT 200
@@ -136,10 +141,11 @@ SELECT CAST(nb_pp.psp_plots_yr.plot AS char(10)) AS plot_id,
 	-- NULL AS sun_access,
 	-- NULL AS position_canopy,
 	NULL AS height_id_method,
-	NULL AS is_sapling,
-    	CAST(NULL AS char(5)) AS is_planted,
-    	nb_pp.psp_tree_yimo.cause AS is_dead,
-    	'nb_pp_YIMO' AS source_db
+	NULL AS in_macroplot,
+	NULL AS in_subplot,
+    CAST(NULL AS char(5)) AS is_planted,
+    nb_pp.psp_tree_yimo.cause AS is_dead,
+    'nb_pp_YIMO' AS source_db
 FROM nb_pp.psp_plots_yr INNER JOIN nb_pp.psp_tree_yimo ON nb_pp.psp_plots_yr.remeasid = nb_pp.psp_tree_yimo.remeasid
 
 -- Uncomment the line below for smallest query (1000 records)
@@ -157,7 +163,8 @@ SELECT CAST(nb_pp.psp_plots_yr.plot AS char(10)) AS plot_id,
 	-- NULL AS sun_access,
 	-- NULL AS position_canopy,
 	NULL AS height_id_method,
-	NULL AS is_sapling,
+	NULL AS in_macroplot,
+	NULL AS in_subplot,
 	CAST(nb_pp.psp_tree_regenandthin.origin AS char(5)) AS is_planted,
 	nb_pp.psp_tree_regenandthin.cause AS is_dead,
     	'nb_pp_regenandthin' AS source_db
@@ -178,7 +185,8 @@ SELECT CAST(nb_pp.psp_plots_yr.plot AS char(10)) AS plot_id,
 	-- NULL AS sun_access,
 	-- NULL AS position_canopy,
 	NULL AS height_id_method,
-	NULL AS is_sapling,
+	NULL AS in_macroplot,
+	NULL AS in_subplot,
 	CAST(nb_pp.psp_tree_cutandplant.origin AS char(5)) AS is_planted,
 	nb_pp.psp_tree_cutandplant.cause AS is_dead,
 	'nb_pp_cutandplant' AS source_db
@@ -204,7 +212,8 @@ SELECT CAST(concat_ws('-',statecd,unitcd,countycd,plot) AS char(20))   AS plot_i
 	-- CAST(us_pp.tree.clightcd AS char(5)) AS sun_access,
 	-- CAST(us_pp.tree.cposcd AS char(5)) AS position_canopy, -- Core sample (p.123)
 	CAST(us_pp.tree.htcd AS char(5)) AS height_id_method, -- Details (p.111)
-	NULL AS is_sapling,
+	NULL AS in_macroplot,
+	NULL AS in_subplot,
 	NULL AS is_planted,
 	CAST(us_pp.tree.statuscd AS char(5)) AS is_dead,
 	'us_pp' AS source_db
@@ -232,7 +241,8 @@ SELECT CAST(boreal_psp_treedbh_ht.plot_num AS char(10)) AS plot_id,
 	-- NULL AS sun_access,
 	-- NULL AS position_canopy,
 	NULL AS height_id_method,
-	NULL AS is_sapling,
+	NULL AS in_macroplot,
+	NULL AS in_subplot,
 	CAST(boreal_psp_treedbh_ht.origin  AS char(5)) AS is_planted,
 	CAST(boreal_psp_treedbh_ht.status  AS char(5)) AS is_dead,
 	'on_pp_boreal' AS source_db
@@ -256,7 +266,8 @@ SELECT CAST(glsl_psp_trees_dbh_ht.plotname AS char(10)) AS plot_id,
 	-- NULL AS sun_access,
 	-- NULL AS position_canopy,
 	NULL AS height_id_method,
-	NULL AS is_sapling,
+	NULL AS in_macroplot,
+	NULL AS in_subplot,
 	CAST(glsl_psp_trees_dbh_ht.lcr  AS char(5)) AS is_planted,
 	CAST(glsl_psp_trees_dbh_ht.treestatuscode AS char(5)) AS is_dead,
 	'on_pp_glsl' AS source_db
@@ -280,7 +291,8 @@ SELECT CAST(pgp_treedbh_ht.plot_num AS char(10)) AS plot_id,
 	-- NULL AS sun_access,
 	-- NULL AS position_canopy,
 	NULL AS height_id_method,
-	NULL AS is_sapling,
+	NULL AS in_macroplot,
+	NULL AS in_subplot,
 	CAST(pgp_treedbh_ht.origin  AS char(5)) AS is_planted,
 	CAST(pgp_treedbh_ht.status AS char(5)) AS is_dead,
 	'on_pp_pgp' AS source_db
@@ -304,7 +316,8 @@ SELECT CAST(domtar_pp.domtar_data.idpep AS char(10))  AS plot_id,
 	-- CAST(domtar_pp.domtar_data.ensoleillement AS char(5)) AS sun_access,
 	-- CAST(domtar_pp.domtar_data.etage AS char(5)) AS position_canopy,
 	NULL AS height_id_method,
-	NULL AS is_sapling,
+	NULL AS in_macroplot,
+	NULL AS in_subplot,
 	CAST(NULL AS char(5)) AS is_planted,
 	CAST(domtar_pp.domtar_data.etat AS char(5)) AS is_dead,
 	'domtar_pp' AS source_db
