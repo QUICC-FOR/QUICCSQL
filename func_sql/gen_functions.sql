@@ -1,5 +1,7 @@
-## All general fonctions invoked by the QUICC-FOR Database
-
+--------------------------------------------------------------------
+---------   All general fonctions invoked by the QUICC-FOR Database
+--------------------------------------------------------------------
+-- By Steve Vissault
 
 /*  Function:     temp_quicc.flt_dbh(org_db, dbh)
     Description:  Filters on dbh values
@@ -9,7 +11,6 @@
     Warning:      DBH need to be in mm
 */
 
-DROP FUNCTION IF EXISTS temp_quicc.flt_dbh();
 
 CREATE OR REPLACE FUNCTION temp_quicc.flt_dbh(org_db char, dbh integer)
 RETURNS integer AS $$
@@ -28,7 +29,6 @@ $$
 LANGUAGE plpgsql;
 
 
-
 /*  Function:     temp_quicc.flt_height(height)
     Description:  Filters on height values - Set height of the tree on NULL when height <= 0
     Affects:      Replace values <= 0
@@ -36,7 +36,6 @@ LANGUAGE plpgsql;
     Returns:      NULL value
 */
 
-DROP FUNCTION IF EXISTS temp_quicc.flt_height();
 
 CREATE OR REPLACE FUNCTION temp_quicc.flt_height(org_db char, dbh integer)
 RETURNS integer AS $$
@@ -52,7 +51,6 @@ $$
 LANGUAGE plpgsql;
 
 
-
 /*  Function:     temp_quicc.get_height_method_tree(org_db, height_id_method, height)
     Description:  Return method used to evaluate height of trees
     Affects:      height_id_method field
@@ -60,7 +58,6 @@ LANGUAGE plpgsql;
     Returns:      char
 */
 
-DROP FUNCTION IF EXISTS temp_quicc.get_height_method_tree();
 
 CREATE OR REPLACE FUNCTION temp_quicc.get_height_method_tree(org_db char, height_id_method char, height double precision)
 RETURNS char AS $$
@@ -110,12 +107,6 @@ END;
 $$
 LANGUAGE plpgsql;
 
-
--------------------------------------------------------------------------------------------------------------
----------   Plot size conversion
---------------------------------------------------------------------
--- By Steve Vissault
-
 /*  Function:     public.get_plot_size(PARAM)
     Description:  Transform original code to the surface of the sample plot
     Affects:      
@@ -123,7 +114,6 @@ LANGUAGE plpgsql;
     Returns:      double
 */
 
-DROP FUNCTION IF EXISTS temp_quicc.get_plot_size();
 
 CREATE OR REPLACE FUNCTION temp_quicc.get_plot_size(org_db char, size numeric)
 RETURNS double precision AS $$
@@ -167,7 +157,6 @@ LANGUAGE plpgsql;
     Returns:      double
 */
 
-DROP FUNCTION IF EXISTS temp_quicc.get_tree_state();
 
 CREATE OR REPLACE FUNCTION temp_quicc.get_tree_state(org_db char, code char)
 RETURNS boolean AS $$
@@ -327,7 +316,6 @@ LANGUAGE plpgsql;
     DBH NEED TO BE in MM !!!
 */
 
-DROP FUNCTION IF EXISTS temp_quicc.in_subplot();
 
 CREATE OR REPLACE FUNCTION temp_quicc.in_subplot(org_db char, dbh numeric)
 RETURNS boolean AS $$
@@ -335,10 +323,10 @@ DECLARE res boolean;
 BEGIN
 
 	IF org_db = 'us_pp' THEN
-	CASE 
-		WHEN dbh < 127 THEN res := 1;
-		WHEN dbh >= 127 THEN res := 0;
-    END CASE;
+    	CASE 
+    		WHEN dbh < 127 THEN res := 1;
+    		WHEN dbh >= 127 THEN res := 0;
+        END CASE;
 
     ELSIF org_db = 'qc_pp' OR org_db = 'qc_pet2' OR org_db = 'qc_pet3' OR org_db = 'qc_pet4' THEN res:= 0;
     
@@ -363,54 +351,49 @@ LANGUAGE plpgsql;
     Returns:      boolean
 */
 
-DROP FUNCTION IF EXISTS temp_quicc.get_height_method_tree();
 
-CREATE OR REPLACE FUNCTION temp_quicc.get_height_method_tree(org_db char, height_id_method char, height double precision)
-RETURNS char AS $$
-DECLARE res char;
+/*  Function:     temp_quicc.get_new_spcode(org_db, species_code)
+    Description:  Return the species code specific to the QUICC-FOR database. 
+    Arguments:    database source, original code of the species
+    Returns:      char
+*/
+
+CREATE OR REPLACE FUNCTION temp_quicc.get_new_spcode(org_db char(15), species_code char(10))
+RETURNS char(15) AS $$
+DECLARE res char(15);
 BEGIN
 
-	IF height IS NOT NULL THEN
-		IF height <= 0 THEN res:= NULL;
-	    	ELSIF (org_db = 'pp_on_boreal' 
-		    	OR org_db = 'pp_on_glsl'
-		    	OR org_db = 'pp_on_pgp') 
-		    	AND height < 12
-	    	THEN res := 'E';
+        IF org_db = 'us_pp' THEN
+            EXECUTE 
+            format('SELECT ref_species.id_spe FROM rdb_quicc.ref_species WHERE us_code = %L', species_code)
+            INTO res;
 
-		    ELSIF (org_db = 'pp_on_boreal' 
-		    	OR org_db = 'pp_on_glsl'
-		    	OR org_db = 'pp_on_pgp') 
-		    	AND height >= 12
-		    THEN res := 'D';
+        ELSIF org_db = 'qc_pp' OR org_db = 'qc_pet2' OR org_db = 'qc_pet3' OR org_db = 'qc_pet4' THEN 
+            EXECUTE 
+            format('SELECT ref_species.id_spe FROM rdb_quicc.ref_species WHERE qc_code = %L', species_code)
+            INTO res;
 
-		    ELSIF org_db = 'qc_pp'
-		    	OR org_db = 'qc_pet2'
-		    	OR org_db = 'qc_pet3'
-		    	OR org_db = 'qc_pet4'
-		    THEN res := 'D';
+        ELSIF org_db = 'nb_pp_partial_cut' OR org_db = 'nb_pp_cutandplant' OR org_db = 'nb_pp_regenandthin' THEN 
+            EXECUTE 
+            format('SELECT ref_species.id_spe FROM rdb_quicc.ref_species WHERE nb_code = %L', species_code)
+            INTO res;
 
-		    ELSIF org_db = 'pp_nb_partial_cut' 
-		    	OR org_db = 'pp_nb_YIMO'
-		    	OR org_db = 'pp_nb_regenandthin'
-		    	OR org_db = 'pp_nb_cutandplant'
-		    THEN res := 'U';
-		    
-		    ELSIF org_db = 'us_pp' THEN
-		      CASE    
-		      	WHEN height_id_method='1' THEN res := 'A';
-		      	WHEN height_id_method='2' THEN res := 'B';
-		      	WHEN height_id_method='3' THEN res := 'B';
-		      	WHEN height_id_method='4' THEN res := 'C';
-		      END CASE;
-    	END IF;
+        ELSIF org_db = 'on_pp_boreal' OR org_db = 'on_pp_glsl' OR org_db = 'on_pp_pgp' THEN 
+            EXECUTE 
+            format('SELECT ref_species.id_spe FROM rdb_quicc.ref_species WHERE on_tree_code = %L', species_code)
+            INTO res;
 
-    ELSE res := NULL;
+        ELSIF org_db = 'domtar_pp' THEN 
+            EXECUTE 
+            format('SELECT ref_species.id_spe FROM rdb_quicc.ref_species WHERE qc_code = %L', species_code)
+            INTO res;
 
-    END IF;
-RETURN res;
+        ELSE res := NULL;
+
+        END IF;
+
+    RETURN res;
 END;
-$$
-LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql;
 
 

@@ -1,5 +1,7 @@
-## All conversions fonctions invoked by the QUICC-FOR Database
-
+------------------------------------------------------------------------
+---------   All conversions fonctions invoked by the QUICC-FOR Database
+------------------------------------------------------------------------
+-- By Steve Vissault
 
 /*  Function:     temp_quicc.conv_cm_to_m(value)
     Description:  Conversion function - cm to meters
@@ -77,8 +79,6 @@ $$ LANGUAGE plpgsql;--
     Arguments:    Radius of the sample plot
     Returns:      double
 */
-
-DROP FUNCTION IF EXISTS temp_quicc.surf();
 
 CREATE OR REPLACE FUNCTION temp_quicc.surf(rad numeric)
 RETURNS double precision AS $$
