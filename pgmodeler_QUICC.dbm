@@ -4,61 +4,11 @@ CAUTION: Do not modify this file unless you know what you are doing.
          Unexpected results may occur if the code is changed deliberately.
 -->
 <dbmodel pgmodeler-ver="0.7.1" author="Steve Vissault and Miranda Bryant">
-<role name="caveenj"
-      superuser="true"
-      password="********">
-</role>
-
 <role name="vissst01"
       inherit="true"
       login="true"
       encrypted="true"
       password="********">
-</role>
-
-<role name="poisti01"
-      inherit="true"
-      login="true"
-      encrypted="true"
-      password="********">
-</role>
-
-<role name="MANGAL"
-      inherit="true"
-      encrypted="true"
-      password="********">
-	<roles names="caveenj,poisti01" role-type="member" />
-</role>
-
-<role name="mirata01"
-      inherit="true"
-      login="true"
-      encrypted="true"
-      password="********">
-</role>
-
-<role name="geocatalog"
-      inherit="true"
-      login="true"
-      encrypted="true"
-      password="********">
-	<comment><![CDATA[Utilisateur pour la base de données postgis du geocatalogue de l'UQAR]]></comment>
-</role>
-
-<role name="gravdo01"
-      inherit="true"
-      login="true"
-      encrypted="true"
-      password="********">
-	<comment><![CDATA[Dominique Gravel]]></comment>
-</role>
-
-<role name="QUICC_CONSULT"
-      inherit="true"
-      encrypted="true"
-      password="********">
-	<comment><![CDATA[Groupe quicc pour consultation]]></comment>
-	<roles names="gravdo01" role-type="member" />
 </role>
 
 <role name="QUICC"
@@ -67,13 +17,6 @@ CAUTION: Do not modify this file unless you know what you are doing.
       validity="2014-03-22 00:00:00"
       password="********">
 	<roles names="vissst01" role-type="member" />
-</role>
-
-<role name="QUICC_cp"
-      inherit="true"
-      encrypted="true"
-      validity="2014-03-22 00:00:00"
-      password="********">
 </role>
 
 <database name="db_quicc_for">

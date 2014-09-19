@@ -7,70 +7,12 @@
 SET check_function_bodies = false;
 -- ddl-end --
 
--- object: caveenj | type: ROLE --
--- DROP ROLE caveenj;
-CREATE ROLE caveenj WITH 
-	SUPERUSER
-	UNENCRYPTED PASSWORD '********';
--- ddl-end --
-
 -- object: vissst01 | type: ROLE --
 -- DROP ROLE vissst01;
 CREATE ROLE vissst01 WITH 
 	INHERIT
 	LOGIN
 	ENCRYPTED PASSWORD '********';
--- ddl-end --
-
--- object: poisti01 | type: ROLE --
--- DROP ROLE poisti01;
-CREATE ROLE poisti01 WITH 
-	INHERIT
-	LOGIN
-	ENCRYPTED PASSWORD '********';
--- ddl-end --
-
--- object: "MANGAL" | type: ROLE --
--- DROP ROLE "MANGAL";
-CREATE ROLE "MANGAL" WITH 
-	INHERIT
-	ENCRYPTED PASSWORD '********'
-	ROLE caveenj,poisti01;
--- ddl-end --
-
--- object: mirata01 | type: ROLE --
--- DROP ROLE mirata01;
-CREATE ROLE mirata01 WITH 
-	INHERIT
-	LOGIN
-	ENCRYPTED PASSWORD '********';
--- ddl-end --
-
--- object: geocatalog | type: ROLE --
--- DROP ROLE geocatalog;
-CREATE ROLE geocatalog WITH 
-	INHERIT
-	LOGIN
-	ENCRYPTED PASSWORD '********';
-COMMENT ON ROLE geocatalog IS 'Utilisateur pour la base de données postgis du geocatalogue de l''UQAR';
--- ddl-end --
-
--- object: gravdo01 | type: ROLE --
--- DROP ROLE gravdo01;
-CREATE ROLE gravdo01 WITH 
-	INHERIT
-	LOGIN
-	ENCRYPTED PASSWORD '********';
-COMMENT ON ROLE gravdo01 IS 'Dominique Gravel';
--- ddl-end --
-
--- object: "QUICC_CONSULT" | type: ROLE --
--- DROP ROLE "QUICC_CONSULT";
-CREATE ROLE "QUICC_CONSULT" WITH 
-	INHERIT
-	ENCRYPTED PASSWORD '********'
-	ROLE gravdo01;
-COMMENT ON ROLE "QUICC_CONSULT" IS 'Groupe quicc pour consultation';
 -- ddl-end --
 
 -- object: "QUICC" | type: ROLE --
@@ -80,14 +22,6 @@ CREATE ROLE "QUICC" WITH
 	ENCRYPTED PASSWORD '********'
 	VALID UNTIL '2014-03-22 00:00:00'
 	ROLE vissst01;
--- ddl-end --
-
--- object: "QUICC_cp" | type: ROLE --
--- DROP ROLE "QUICC_cp";
-CREATE ROLE "QUICC_cp" WITH 
-	INHERIT
-	ENCRYPTED PASSWORD '********'
-	VALID UNTIL '2014-03-22 00:00:00';
 -- ddl-end --
 
 
@@ -525,61 +459,61 @@ ON DELETE CASCADE ON UPDATE CASCADE;
 -- ddl-end --
 
 
--- object: grant_9c77523454 | type: PERMISSION --
+-- object: grant_8e75f8ddde | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.ref_tree_height_method
    TO vissst01;
 -- ddl-end --
 
--- object: grant_d94adecb48 | type: PERMISSION --
+-- object: grant_5d0627deee | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.tree_class_info
    TO vissst01;
 -- ddl-end --
 
--- object: grant_3092e9fbe2 | type: PERMISSION --
+-- object: grant_8152c51ce8 | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.tree
    TO vissst01;
 -- ddl-end --
 
--- object: grant_0cbde011cc | type: PERMISSION --
+-- object: grant_c2c964284b | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.class_tree
    TO vissst01;
 -- ddl-end --
 
--- object: grant_1254bd7ca2 | type: PERMISSION --
+-- object: grant_55c3b24adb | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.stand_disturbed
    TO vissst01;
 -- ddl-end --
 
--- object: grant_7493d47207 | type: PERMISSION --
+-- object: grant_f1b6580993 | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.ref_stand_disturb_type
    TO vissst01;
 -- ddl-end --
 
--- object: grant_ae0ca8afcb | type: PERMISSION --
+-- object: grant_29b455bcd5 | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.tree_info
    TO vissst01;
 -- ddl-end --
 
--- object: grant_1b1dd0a34f | type: PERMISSION --
+-- object: grant_8930ffe4aa | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.plot
    TO vissst01;
 -- ddl-end --
 
--- object: grant_dac88549b9 | type: PERMISSION --
+-- object: grant_845fec16ac | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.plot_info
    TO vissst01;
 -- ddl-end --
 
--- object: grant_1c67510d69 | type: PERMISSION --
+-- object: grant_8ac056a3df | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.stand
    TO vissst01;
