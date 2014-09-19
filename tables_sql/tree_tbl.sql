@@ -337,7 +337,7 @@ INSERT INTO rdb_quicc.tree
         rdb_quicc.plot_info.plot_id,
         rdb_quicc.tree_info.tree_id,
         temp_quicc.mv_tree.year_measured,
-        rdb_quicc.ref_species.id_spe,
+        temp_quicc.get_new_spcode(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.species_code),
         temp_quicc.flt_height(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.height),
         temp_quicc.flt_dbh(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.dbh),
         temp_quicc.mv_tree.age,

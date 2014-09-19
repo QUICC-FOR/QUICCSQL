@@ -1,5 +1,5 @@
 
-CREATE OR REPLACE TABLE rdb_quicc.climatic_data
+CREATE TABLE IF NOT EXISTS rdb_quicc.climatic_data
 (
   plot_id integer NOT NULL,
   year_clim integer NOT NULL,

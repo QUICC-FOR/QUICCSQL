@@ -7,7 +7,7 @@
 -- Extract plot level information from original database
 -- By Steve Vissault, Miranda Bryant
 
-CREATE OR REPLACE MATERIALIZED VIEW temp_quicc.mv_tree_info AS
+CREATE OR REPLACE VIEW temp_quicc.mv_tree_info AS
 
 ----------------------------------------------------------
 -- Permanent sample plot from Quebec---
