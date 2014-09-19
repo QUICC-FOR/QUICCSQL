@@ -9,9 +9,7 @@
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 
-DROP MATERIALIZED VIEW IF EXISTS  temp_quicc.mv_plot_info;
-
-CREATE MATERIALIZED VIEW temp_quicc.mv_plot_info AS
+CREATE OR REPLACE VIEW temp_quicc.mv_plot_info AS
 ---------------------------------------
 ------ QC_PP database
 ---------------------------------------

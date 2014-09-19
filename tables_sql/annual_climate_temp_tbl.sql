@@ -1,8 +1,6 @@
 ------ Create temporary climatic table necessary to sub_import process
 
-DROP TABLE temp_quicc.climatic_data CASCADE;
-
-CREATE TABLE temp_quicc.climatic_data
+CREATE OR REPLACE TABLE temp_quicc.climatic_data
 (
   id_plot character varying NOT NULL,
   x_longitude double precision,

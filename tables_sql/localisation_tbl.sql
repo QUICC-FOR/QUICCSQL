@@ -7,10 +7,7 @@
 -- Extract and remove doublons on plot location from original database
 -- By Steve Vissault
 
-
-DROP MATERIALIZED VIEW IF EXISTS  temp_quicc.mv_localisation;
---REFRESH MATERIALIZED VIEW temp_quicc.mv_localisation;
-CREATE MATERIALIZED VIEW temp_quicc.mv_localisation AS
+CREATE OR REPLACE VIEW temp_quicc.mv_localisation AS
 
 SELECT org_plot_id, max(coord_geom) AS coord_geom ,org_code_db FROM (
 SELECT org_plot_id, max(yr_measured) AS yr_measured, coord_geom,org_code_db

@@ -12,9 +12,7 @@
 -- Permanent sample plot from Quebec ---
 ---------------------------------------
 
-DROP MATERIALIZED VIEW IF EXISTS temp_quicc.mv_tree;
-
-CREATE MATERIALIZED VIEW temp_quicc.mv_tree AS
+CREATE OR REPLACE VIEW temp_quicc.mv_tree AS
 
 SELECT CAST(qc_pp.pp_infogen.id_pep AS char(10))  AS plot_id,
 	CAST(qc_pp.pp_tiges.no_arbre AS char(5)) AS tree_id,

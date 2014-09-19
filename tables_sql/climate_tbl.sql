@@ -1,6 +1,5 @@
-DROP TABLE rdb_quicc.climatic_data CASCADE;
 
-CREATE TABLE rdb_quicc.climatic_data
+CREATE OR REPLACE TABLE rdb_quicc.climatic_data
 (
   plot_id integer NOT NULL,
   year_clim integer NOT NULL,
