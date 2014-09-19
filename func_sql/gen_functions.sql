@@ -1,9 +1,12 @@
+## All general fonctions invoked by the QUICC-FOR Database
+
 
 /*  Function:     temp_quicc.flt_dbh(org_db, dbh)
     Description:  Filters on dbh values
     Affects:      outlier dbh values and dbh values <= 0
-    Arguments:    dbhmm and database source of the dbh (org_db) - DBH NEED TO BE in mm
+    Arguments:    dbhmm and database source of the dbh (org_db)
     Returns:      integer
+    Warning:      DBH need to be in mm
 */
 
 DROP FUNCTION IF EXISTS temp_quicc.flt_dbh();

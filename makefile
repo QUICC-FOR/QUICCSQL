@@ -6,6 +6,8 @@ SRC = tables_sql
 CLIM = clim_data
 ARCHI = archi_sql
 SP = ref_species_R
+FUNC = func_sql
+REF = ref_tbl_sql
 
 temp_sch:
 	psql -U ${PG_USER} -h ${PG_HOST} -p ${PG_PORT} -d ${PG_DB} -c "DROP SCHEMA temp_quicc CASCADE;"
@@ -14,6 +16,9 @@ temp_sch:
 rdb_sch:
 	psql -U ${PG_USER} -h ${PG_HOST} -p ${PG_PORT} -d ${PG_DB} -c "DROP SCHEMA rdb_quicc CASCADE;"
 	psql -U ${PG_USER} -h ${PG_HOST} -p ${PG_PORT} -d ${PG_DB} -c "\i ${ARCHI}/pgmodeler_script_rdb.sql;"
+
+impl_ref:
+	psql  -U ${PG_USER} -h ${PG_HOST} -p ${PG_PORT} -d ${PG_DB} -c "\i ${REF}/ref_height_method.sql;"
 
 plot_info_tbl:
 	psql  -U ${PG_USER} -h ${PG_HOST} -p ${PG_PORT} -d ${PG_DB} -c "\i ${SRC}/plot_info_tbl.sql;"
@@ -40,6 +45,8 @@ species:
 	psql -U ${PG_USER} -h ${PG_HOST} -p ${PG_PORT} -d ${PG_DB} -c "\copy rdb_quicc.ref_species FROM '${SP}/final_ref_table_sql.csv' null '' ;"
 
 functions:
+	psql  -U ${PG_USER} -h ${PG_HOST} -p ${PG_PORT} -d ${PG_DB} -c "\i ${FUNC}/conv_functions.sql;"
+	psql  -U ${PG_USER} -h ${PG_HOST} -p ${PG_PORT} -d ${PG_DB} -c "\i ${FUNC}/gen_functions.sql;"
 
 all: temp_sch rdb_sch plot_info_tbl localisation_tbl plot_tbl  elev plot_tbl species tree_info_tbl
 
