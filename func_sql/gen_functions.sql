@@ -12,7 +12,7 @@
 */
 
 
-CREATE OR REPLACE FUNCTION temp_quicc.flt_dbh(org_db char, dbh integer)
+CREATE OR REPLACE FUNCTION temp_quicc.flt_dbh(org_db char(15), dbh integer)
 RETURNS integer AS $$
 DECLARE res integer;
 BEGIN
@@ -37,9 +37,9 @@ LANGUAGE plpgsql;
 */
 
 
-CREATE OR REPLACE FUNCTION temp_quicc.flt_height(org_db char, dbh integer)
-RETURNS integer AS $$
-DECLARE res integer;
+CREATE OR REPLACE FUNCTION temp_quicc.flt_height(org_db char(15), height double precision)
+RETURNS double precision AS $$
+DECLARE res double precision;
 BEGIN
 
 	IF height <= 0 THEN res:= NULL;
@@ -59,7 +59,7 @@ LANGUAGE plpgsql;
 */
 
 
-CREATE OR REPLACE FUNCTION temp_quicc.get_height_method_tree(org_db char, height_id_method char, height double precision)
+CREATE OR REPLACE FUNCTION temp_quicc.get_height_method_tree(org_db char(15), height_id_method char, height double precision)
 RETURNS char AS $$
 DECLARE res char;
 BEGIN
@@ -115,7 +115,7 @@ LANGUAGE plpgsql;
 */
 
 
-CREATE OR REPLACE FUNCTION temp_quicc.get_plot_size(org_db char, size numeric)
+CREATE OR REPLACE FUNCTION temp_quicc.get_plot_size(org_db char(15), size numeric)
 RETURNS double precision AS $$
 DECLARE res double precision;
 BEGIN
@@ -158,7 +158,7 @@ LANGUAGE plpgsql;
 */
 
 
-CREATE OR REPLACE FUNCTION temp_quicc.get_tree_state(org_db char, code char)
+CREATE OR REPLACE FUNCTION temp_quicc.get_tree_state(org_db char(15), code char(5))
 RETURNS boolean AS $$
 DECLARE res boolean;
 BEGIN
@@ -317,7 +317,7 @@ LANGUAGE plpgsql;
 */
 
 
-CREATE OR REPLACE FUNCTION temp_quicc.in_subplot(org_db char, dbh numeric)
+CREATE OR REPLACE FUNCTION temp_quicc.in_subplot(org_db char(15), dbh numeric)
 RETURNS boolean AS $$
 DECLARE res boolean;
 BEGIN
