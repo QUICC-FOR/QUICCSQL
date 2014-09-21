@@ -18,7 +18,7 @@ SELECT CAST(qc_pp.pp_infogen.id_pep AS char(10))  AS plot_id,
 	CAST(qc_pp.pp_tiges.no_arbre AS char(5)) AS tree_id,
 	CAST(date_part('year'::text, qc_pp.pp_infogen.date_sond::date) AS integer) AS year_measured,
 	CAST(qc_pp.pp_tiges.essence AS char(10)) AS species_code,
-	conv_dm_to_m(CAST(qc_pp.pp_etudarbr.hauteur AS integer)) AS height, 
+	temp_quicc.conv_dm_to_m(CAST(qc_pp.pp_etudarbr.hauteur AS integer)) AS height, 
 	CAST(qc_pp.pp_tiges.dhpmm AS integer) AS dbh,
 	CAST(qc_pp.pp_etudarbr.age AS char(5))  AS age,
 	-- CAST(qc_pp.pp_etudarbr.ensoleil AS char(5)) AS sun_access,
@@ -46,7 +46,7 @@ SELECT CAST(qc_tp.infogen_pet2.id_pet AS char(10)) AS plot_id,
 	CAST(qc_tp.etudarbr_pet2.no_arbre AS char(5)) AS tree_id,
 	CAST(date_part('year'::text, infogen_pet2.date_sond::date) AS integer) AS year_measured,
 	CAST(qc_tp.etudarbr_pet2.essence AS char(10)) AS species_code,
-	conv_dm_to_m(CAST(qc_tp.etudarbr_pet2.hauteur AS integer)) AS height,
+	temp_quicc.conv_dm_to_m(CAST(qc_tp.etudarbr_pet2.hauteur AS integer)) AS height,
 	CAST(qc_tp.etudarbr_pet2.dhpmm AS integer) AS dbh,
 	CAST(qc_tp.etudarbr_pet2.age AS char(5)) AS age,
 	-- NULL :: char(5) AS sun_access,
@@ -69,7 +69,7 @@ SELECT CAST(qc_tp.infogen_pet3.id_pet AS char(10)) AS plot_id,
 	CAST(qc_tp.etudarbr_pet3.no_arbre AS char(5)) AS tree_id,
 	CAST(date_part('year'::text, infogen_pet3.date_sond::date) AS integer) AS year_measured,
 	CAST(qc_tp.etudarbr_pet3.essence AS char(10)) AS species_code,
-	conv_dm_to_m(CAST(qc_tp.etudarbr_pet3.hauteur AS integer)) AS height,
+	temp_quicc.conv_dm_to_m(CAST(qc_tp.etudarbr_pet3.hauteur AS integer)) AS height,
 	CAST(qc_tp.etudarbr_pet3.dhpmm AS integer) AS dbh,
 	CAST(qc_tp.etudarbr_pet3.age AS char(5)),
 	-- NULL :: char(5) AS sun_access,
@@ -88,7 +88,7 @@ SELECT CAST(qc_tp.infogen_pet4.id_pet AS char(10)) AS plot_id,
 	CAST(qc_tp.etudarbr_pet4.no_arbre AS char(5)) AS tree_id,
 	CAST(date_part('year'::text, infogen_pet4.date_sond::date) AS integer) AS year_measured,
 	CAST(qc_tp.etudarbr_pet4.essence AS char(10)) AS species_code,
-	conv_dm_to_m(CAST(qc_tp.etudarbr_pet4.hauteur AS integer)) AS height,
+	temp_quicc.conv_dm_to_m(CAST(qc_tp.etudarbr_pet4.hauteur AS integer)) AS height,
 	CAST(qc_tp.etudarbr_pet4.dhpmm AS integer) AS dbh,
 	CAST(qc_tp.etudarbr_pet4.age AS char(5)) AS age,
 	-- NULL :: char(5) AS sun_access,
@@ -112,7 +112,7 @@ SELECT CAST(nb_pp.psp_plots_yr.plot AS char(10)) AS plot_id,
 	CAST(nb_pp.psp_tree_partialcut.treenum AS char(5)) AS tree_id,
 	CAST(nb_pp.psp_plots_yr.year  AS integer) AS year_measured,
 	CAST(nb_pp.psp_tree_partialcut.species AS char(10)) AS species_code,
-	conv_cm_to_m(nb_pp.psp_tree_partialcut.totalHt) AS height,
+	temp_quicc.conv_cm_to_m(nb_pp.psp_tree_partialcut.totalHt) AS height,
 	nb_pp.psp_tree_partialcut.dbh AS dbh, -- cm
 	NULL AS age,
 	-- NULL AS sun_access,
@@ -155,7 +155,7 @@ SELECT CAST(nb_pp.psp_plots_yr.plot AS char(10)) AS plot_id,
 	CAST(nb_pp.psp_tree_regenandthin.treenum AS char(5)) AS tree_id,
 	CAST(nb_pp.psp_plots_yr.year  AS integer) AS year_measured,
 	CAST(nb_pp.psp_tree_regenandthin.species AS char(10)) AS species_code,
-	conv_cm_to_m(nb_pp.psp_tree_regenandthin.hgt) AS height,
+	temp_quicc.conv_cm_to_m(nb_pp.psp_tree_regenandthin.hgt) AS height,
 	nb_pp.psp_tree_regenandthin.dbh AS dbh,
 	NULL AS age,
 	-- NULL AS sun_access,
@@ -177,7 +177,7 @@ SELECT CAST(nb_pp.psp_plots_yr.plot AS char(10)) AS plot_id,
 	CAST(nb_pp.psp_tree_cutandplant.treenum AS char(5)) AS tree_id,
 	CAST(nb_pp.psp_plots_yr.year  AS integer) AS year_measured,
 	CAST(nb_pp.psp_tree_cutandplant.species AS char(10)) AS species_code,
-	conv_cm_to_m(nb_pp.psp_tree_cutandplant.hgt) AS height,
+	temp_quicc.conv_cm_to_m(nb_pp.psp_tree_cutandplant.hgt) AS height,
 	nb_pp.psp_tree_cutandplant.dbh AS dbh,
 	NULL AS age,
 	-- NULL AS sun_access,
@@ -204,8 +204,8 @@ SELECT CAST(concat_ws('-',statecd,unitcd,countycd,plot) AS char(20))   AS plot_i
 	CAST(us_pp.tree.tree  AS char(5)) AS tree_id,
 	us_pp.tree.invyr AS year_measured,
 	CAST(us_pp.tree.spcd AS char(10)) AS species_code,
-	conv_feet_to_m(us_pp.tree.ht) AS height, ---- WARNING FEETS !!!!!!!!!!!!!!!!
-	conv_in_to_mm(us_pp.tree.dia) AS dbh, --- WARNING: INCHES !!!!!!!!!!!!!!!!
+	temp_quicc.conv_feet_to_m(us_pp.tree.ht) AS height, ---- WARNING FEETS !!!!!!!!!!!!!!!!
+	temp_quicc.conv_in_to_mm(us_pp.tree.dia) AS dbh, --- WARNING: INCHES !!!!!!!!!!!!!!!!
 	CAST(us_pp.tree.totage AS char(5)) AS age, 
 	-- CAST(us_pp.tree.clightcd AS char(5)) AS sun_access,
 	-- CAST(us_pp.tree.cposcd AS char(5)) AS position_canopy, -- Core sample (p.123)
@@ -234,7 +234,7 @@ SELECT CAST(boreal_psp_treedbh_ht.plot_num AS char(10)) AS plot_id,
     	boreal_psp_treedbh_ht.obs_year AS year_measured,
     	CAST(boreal_psp_treedbh_ht.tree_spec AS char(10)) AS species_code,
     	boreal_psp_treedbh_ht.ht_total AS height,
-    	conv_cm_to_mm(boreal_psp_treedbh_ht.dbh) AS dbh,
+    	temp_quicc.conv_cm_to_mm(boreal_psp_treedbh_ht.dbh) AS dbh,
     	NULL AS age,
 	-- NULL AS sun_access,
 	-- NULL AS position_canopy,
@@ -259,7 +259,7 @@ SELECT CAST(glsl_psp_trees_dbh_ht.plotname AS char(10)) AS plot_id,
 	CAST(date_part('year'::text, glsl_psp_trees_dbh_ht.msrdate::date) AS integer) AS year_measured,
 	CAST(glsl_psp_trees_dbh_ht.speccode AS char(10)) AS species_code,
 	glsl_psp_trees_dbh_ht.httot AS height,
-	conv_cm_to_mm(glsl_psp_trees_dbh_ht.dbh) AS dbh,
+	temp_quicc.conv_cm_to_mm(glsl_psp_trees_dbh_ht.dbh) AS dbh,
 	NULL AS age,
 	-- NULL AS sun_access,
 	-- NULL AS position_canopy,
@@ -284,7 +284,7 @@ SELECT CAST(pgp_treedbh_ht.plot_num AS char(10)) AS plot_id,
 	pgp_treedbh_ht.obs_year AS year_measured,
 	CAST(pgp_treedbh_ht.tree_spec AS char(10)) AS species_code,
 	pgp_treedbh_ht.ht_total AS height,
-	conv_cm_to_mm(pgp_treedbh_ht.dbh) AS dbh,
+	temp_quicc.conv_cm_to_mm(pgp_treedbh_ht.dbh) AS dbh,
 	NULL AS age,
 	-- NULL AS sun_access,
 	-- NULL AS position_canopy,
@@ -332,7 +332,6 @@ FROM domtar_pp.domtar_data;
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 DELETE FROM rdb_quicc.tree;
-INSERT INTO rdb_quicc.tree
     SELECT DISTINCT
         rdb_quicc.plot_info.plot_id,
         rdb_quicc.tree_info.tree_id,
@@ -344,20 +343,22 @@ INSERT INTO rdb_quicc.tree
         NULL AS sun_access,
 		NULL AS position_canopy,
 		temp_quicc.get_height_method_tree(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.height_id_method, temp_quicc.flt_height(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.height)),
-        temp_quicc.in_subplot(temp_quicc.mv_tree.source_db, temp_quicc.flt_dbh(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.dbh)),
+        temp_quicc.get_in_subplot(temp_quicc.mv_tree.source_db, temp_quicc.flt_dbh(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.dbh)),
+        NULL AS is_macro_plot,
         NULL AS is_planted,
         temp_quicc.get_tree_state(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.is_dead),
         rdb_quicc.plot_info.plot_id,
-        rdb_quicc.plot_info.year_measured,
-        rdb_quicc.plot_info.plot_id,
-        rdb_quicc.plot_info.tree_id,
+        temp_quicc.mv_tree.year_measured,
+        rdb_quicc.tree_info.plot_id,
+        rdb_quicc.tree_info.tree_id,
         rdb_quicc.ref_tree_height_method.height_id_method,
         rdb_quicc.ref_species.id_spe
     FROM temp_quicc.mv_tree
-    RIGHT OUTER JOIN rdb_quicc.plot_info ON temp_quicc.mv_tree.plot_id = rdb_quicc.plot_info.org_db_id
-        AND temp_quicc.mv_tree.source_db = rdb_quicc.plot_info.org_db_loc
-    RIGHT OUTER JOIN rdb_quicc.tree_info ON temp_quicc.mv_tree.tree_id = rdb_quicc.plot_info.tree_id
-        AND temp_quicc.mv_tree.source_db = rdb_quicc.plot_info.org_db_loc AND temp_quicc.mv_tree.plot_id = rdb_quicc.plot_info.org_db_id
-  ;
-
+  	RIGHT OUTER JOIN rdb_quicc.plot_info ON temp_quicc.mv_tree.plot_id = rdb_quicc.plot_info.org_db_id
+        AND temp_quicc.mv_tree.source_db = rdb_quicc.plot_info.org_db_loc 
+    RIGHT OUTER JOIN rdb_quicc.tree_info ON temp_quicc.mv_tree.tree_id = rdb_quicc.tree_info.tree_id
+        AND temp_quicc.mv_tree.source_db = rdb_quicc.tree_info.org_db_loc
+    RIGHT OUTER JOIN rdb_quicc.ref_tree_height_method ON temp_quicc.mv_tree.height_id_method = rdb_quicc.ref_tree_height_method.height_id_method
+    RIGHT OUTER JOIN rdb_quicc.ref_species ON temp_quicc.mv_tree.species_code = rdb_quicc.ref_species.id_spe;
+  
 -----------------------------------------------------------------------------------------------------------------------------------------------------------

@@ -17,14 +17,13 @@ DROP FUNCTION IF EXISTS temp_quicc.flt_dbh();
 DROP FUNCTION IF EXISTS temp_quicc.flt_height();
 DROP FUNCTION IF EXISTS temp_quicc.get_height_method_tree();
 DROP FUNCTION IF EXISTS temp_quicc.get_plot_size();
-DROP FUNCTION IF EXISTS temp_quicc.get_surf();
 DROP FUNCTION IF EXISTS temp_quicc.get_tree_state();
 DROP FUNCTION IF EXISTS temp_quicc.get_in_subplot();
 DROP FUNCTION IF EXISTS temp_quicc.get_is_planted();
 DROP FUNCTION IF EXISTS temp_quicc.get_new_spcode();
 
 CREATE OR REPLACE FUNCTION temp_quicc.flt_dbh(org_db char(15), dbh anyelement)
-RETURNS anyelement AS $$
+RETURNS integer AS $$
 DECLARE res integer;
 BEGIN
 	IF dbh <= 0 THEN res:= NULL;
@@ -49,7 +48,7 @@ LANGUAGE plpgsql;
 
 
 CREATE OR REPLACE FUNCTION temp_quicc.flt_height(org_db char(15), height anyelement)
-RETURNS anyelement AS $$
+RETURNS double precision AS $$
 DECLARE res double precision;
 BEGIN
 
@@ -406,18 +405,3 @@ BEGIN
     RETURN res;
 END;
 $$ LANGUAGE plpgsql;
-
-
-/*  Function:     temp_quicc.get_surf(radius)
-    Description:  Compute the surface of a radial plot
-    Arguments:    Diameter of the plot
-    Returns:      double
-*/
-
-CREATE OR REPLACE FUNCTION temp_quicc.get_surf(rad numeric)
-RETURNS double precision AS $$
-    BEGIN
-    RETURN (rad)^2*pi();
-    END;
-$$
-LANGUAGE plpgsql;

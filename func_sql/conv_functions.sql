@@ -3,6 +3,13 @@
 ------------------------------------------------------------------------
 -- By Steve Vissault
 
+DROP FUNCTION IF EXISTS conv_cm_to_m();
+DROP FUNCTION IF EXISTS conv_cm_to_mm();
+DROP FUNCTION IF EXISTS conv_dm_to_m();
+DROP FUNCTION IF EXISTS conv_feet_to_m();
+DROP FUNCTION IF EXISTS conv_in_to_mm();
+DROP FUNCTION IF EXISTS get_surf();
+
 /*  Function:     temp_quicc.conv_cm_to_m(value)
     Description:  Conversion function - cm to meters
     Affects:      
@@ -73,14 +80,14 @@ CREATE OR REPLACE FUNCTION temp_quicc.conv_in_to_mm(x float) RETURNS integer AS 
 $$ LANGUAGE plpgsql;--
 
 
-/*  Function:     temp_quicc.conv_rad_to_surface(PARAM)
+/*  Function:     temp_quicc.get_surf(PARAM)
     Description:  Transform original code (radius size of the plot) to the surface of the sample plot
     Affects:      
     Arguments:    Radius of the sample plot
     Returns:      double
 */
 
-CREATE OR REPLACE FUNCTION temp_quicc.surf(rad numeric)
+CREATE OR REPLACE FUNCTION temp_quicc.get_surf(rad numeric)
 RETURNS double precision AS $$
 BEGIN
     RETURN (rad)^2*pi();
