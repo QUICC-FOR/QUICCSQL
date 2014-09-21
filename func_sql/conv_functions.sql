@@ -66,9 +66,9 @@ $$ LANGUAGE plpgsql;--
     Returns:      FLOAT
 */
 
-CREATE OR REPLACE FUNCTION temp_quicc.conv_in_to_mm(x float) RETURNS float AS $$
+CREATE OR REPLACE FUNCTION temp_quicc.conv_in_to_mm(x float) RETURNS integer AS $$
         BEGIN
-                RETURN (x * 25.4);
+                RETURN round((x * 25.4));
         END;
 $$ LANGUAGE plpgsql;--
 

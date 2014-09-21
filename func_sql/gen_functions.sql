@@ -1,3 +1,4 @@
+
 --------------------------------------------------------------------
 ---------   All general fonctions invoked by the QUICC-FOR Database
 --------------------------------------------------------------------
@@ -12,13 +13,23 @@
 */
 
 
-CREATE OR REPLACE FUNCTION temp_quicc.flt_dbh(org_db char(15), dbh integer)
-RETURNS integer AS $$
+DROP FUNCTION IF EXISTS temp_quicc.flt_dbh();
+DROP FUNCTION IF EXISTS temp_quicc.flt_height();
+DROP FUNCTION IF EXISTS temp_quicc.get_height_method_tree();
+DROP FUNCTION IF EXISTS temp_quicc.get_plot_size();
+DROP FUNCTION IF EXISTS temp_quicc.get_surf();
+DROP FUNCTION IF EXISTS temp_quicc.get_tree_state();
+DROP FUNCTION IF EXISTS temp_quicc.get_in_subplot();
+DROP FUNCTION IF EXISTS temp_quicc.get_is_planted();
+DROP FUNCTION IF EXISTS temp_quicc.get_new_spcode();
+
+CREATE OR REPLACE FUNCTION temp_quicc.flt_dbh(org_db char(15), dbh anyelement)
+RETURNS anyelement AS $$
 DECLARE res integer;
 BEGIN
 	IF dbh <= 0 THEN res:= NULL;
 
-    ELSIF dbh = 9999 THEN res := NULL;
+    ELSIF dbh > 10000 THEN res := NULL; -- superior to 10 meters of DBH
 
     ELSE res := dbh;
 
@@ -37,8 +48,8 @@ LANGUAGE plpgsql;
 */
 
 
-CREATE OR REPLACE FUNCTION temp_quicc.flt_height(org_db char(15), height double precision)
-RETURNS double precision AS $$
+CREATE OR REPLACE FUNCTION temp_quicc.flt_height(org_db char(15), height anyelement)
+RETURNS anyelement AS $$
 DECLARE res double precision;
 BEGIN
 
@@ -120,22 +131,22 @@ RETURNS double precision AS $$
 DECLARE res double precision;
 BEGIN
      IF org_db = 'qc_pp' THEN
-        CASE    WHEN size='4' OR  size='10' THEN res := temp_quicc.surf(11.28); -- m2
+        CASE    WHEN size='4' OR  size='10' THEN res := temp_quicc.get_surf(11.28); -- m2
         ELSE res := NULL;
         END CASE;
     END IF;
     IF org_db = 'qc_tp2' OR org_db = 'qc_tp3' OR org_db = 'qc_tp4' THEN
         CASE    WHEN size='1' THEN res := 'Unwork'; -- Need investigation
-            WHEN size='2' THEN res := temp_quicc.surf(5.64);
-            WHEN size='3' THEN res := temp_quicc.surf(3.57);
-            WHEN size='4' THEN res := temp_quicc.surf(11.28);
+            WHEN size='2' THEN res := temp_quicc.get_surf(5.64);
+            WHEN size='3' THEN res := temp_quicc.get_surf(3.57);
+            WHEN size='4' THEN res := temp_quicc.get_surf(11.28);
             WHEN size='5' THEN res := 200;
-            WHEN size='6' THEN res := temp_quicc.surf(5.64);
-            WHEN size='7' THEN res := temp_quicc.surf(3.57);
+            WHEN size='6' THEN res := temp_quicc.get_surf(5.64);
+            WHEN size='7' THEN res := temp_quicc.get_surf(3.57);
             WHEN size='8' THEN res := 'Unwork';  -- Need investigation
-            WHEN size='9' THEN res := temp_quicc.surf(11.28);
+            WHEN size='9' THEN res := temp_quicc.get_surf(11.28);
             WHEN size='11' THEN res := 'Unwork'; -- Need investigation
-            WHEN size='12' THEN res := temp_quicc.surf(5.64); -- Need investigation
+            WHEN size='12' THEN res := temp_quicc.get_surf(5.64); -- Need investigation
         ELSE res := NULL;
         END CASE;
     END IF;
@@ -308,7 +319,7 @@ $$
 LANGUAGE plpgsql;
 
 
-/*  Function:     temp_quicc.in_subplot(dbh)
+/*  Function:     temp_quicc.get_in_subplot(dbh)
     Description:  Return if the stem has been measured in subplot
     Affects:      in_subplot field
     Arguments:    dbh and source_db
@@ -317,7 +328,7 @@ LANGUAGE plpgsql;
 */
 
 
-CREATE OR REPLACE FUNCTION temp_quicc.in_subplot(org_db char(15), dbh numeric)
+CREATE OR REPLACE FUNCTION temp_quicc.get_in_subplot(org_db char(15), dbh integer)
 RETURNS boolean AS $$
 DECLARE res boolean;
 BEGIN
@@ -344,7 +355,7 @@ LANGUAGE plpgsql;
 
 
 
-/*  Function:     temp_quicc.is_planted(org_db, is_planted)
+/*  Function:     temp_quicc.get_is_planted(org_db, is_planted)
     Description:  Return if the tree has been planted
     Affects:      is_planted
     Arguments:    database source, Code is_planted (code specific to the database), height of the tree
@@ -397,3 +408,16 @@ END;
 $$ LANGUAGE plpgsql;
 
 
+/*  Function:     temp_quicc.get_surf(radius)
+    Description:  Compute the surface of a radial plot
+    Arguments:    Diameter of the plot
+    Returns:      double
+*/
+
+CREATE OR REPLACE FUNCTION temp_quicc.get_surf(rad numeric)
+RETURNS double precision AS $$
+    BEGIN
+    RETURN (rad)^2*pi();
+    END;
+$$
+LANGUAGE plpgsql;
