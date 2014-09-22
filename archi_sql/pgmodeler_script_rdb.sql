@@ -24,6 +24,14 @@ CREATE ROLE "QUICC" WITH
 	ROLE vissst01;
 -- ddl-end --
 
+-- object: "QUICC_cp" | type: ROLE --
+-- DROP ROLE "QUICC_cp";
+CREATE ROLE "QUICC_cp" WITH 
+	INHERIT
+	ENCRYPTED PASSWORD '********'
+	VALID UNTIL '2014-03-22 00:00:00';
+-- ddl-end --
+
 
 -- Database creation must be done outside an multicommand file.
 -- These commands were put in this file only for convenience.
@@ -575,6 +583,104 @@ ON DELETE CASCADE ON UPDATE CASCADE;
 -- ALTER TABLE rdb_quicc.tree DROP CONSTRAINT ref_species_fk;
 ALTER TABLE rdb_quicc.tree ADD CONSTRAINT ref_species_fk FOREIGN KEY (id_spe_ref_species)
 REFERENCES rdb_quicc.ref_species (id_spe) MATCH FULL
+ON DELETE CASCADE ON UPDATE CASCADE;
+-- ddl-end --
+
+
+-- object: rdb_quicc.climatic_data | type: TABLE --
+-- DROP TABLE rdb_quicc.climatic_data;
+CREATE TABLE rdb_quicc.climatic_data(
+	plot_id integer NOT NULL,
+	year_clim integer NOT NULL,
+	mean_diurnal_range real,
+	isothermality real,
+	temp_seasonality real,
+	max_temp_warmest_period real,
+	min_temp_coldest_period real,
+	temp_annual_range real,
+	mean_temperatre_wettest_quarter real,
+	mean_temp_driest_quarter real,
+	mean_temp_warmest_quarter real,
+	mean_temp_coldest_quarter real,
+	annual_pp real,
+	pp_wettest_period real,
+	pp_driest_period real,
+	pp_seasonality real,
+	pp_wettest_quarter real,
+	pp_driest_quarter real,
+	pp_warmest_quarter real,
+	pp_coldest_quarter real,
+	julian_day_number_start_growing_season real,
+	julian_day_number_at_end_growing_season real,
+	number_days_growing_season real,
+	total_pp_for_period_1 real,
+	total_pp_for_period_3 real,
+	gdd_above_base_temp_for_period_3 real,
+	annual_mean_temp real,
+	annual_min_temp real,
+	annual_max_temp real,
+	mean_temp_for_period_3 real,
+	temp_range_for_period_3 real,
+	january_mean_monthly_min_temp real,
+	february_mean_monthly_min_temp real,
+	march_mean_monthly_min_temp real,
+	april_mean_monthly_min_temp real,
+	may_mean_monthly_min_temp real,
+	june_mean_monthly_min_temp real,
+	july_mean_monthly_min_temp real,
+	august_mean_monthly_min_temp real,
+	september_mean_monthly_min_temp real,
+	october_mean_monthly_min_temp real,
+	november_mean_monthly_min_temp real,
+	december_mean_monthly_min_temp real,
+	january_mean_monthly_max_temp real,
+	february_mean_monthly_max_temp real,
+	march_mean_monthly_max_temp real,
+	april_mean_monthly_max_temp real,
+	may_mean_monthly_max_temp real,
+	june_mean_monthly_max_temp real,
+	july_mean_monthly_max_temp real,
+	august_mean_monthly_max_temp real,
+	september_mean_monthly_max_temp real,
+	october_mean_monthly_max_temp real,
+	november_mean_monthly_max_temp real,
+	december_mean_monthly_max_temp real,
+	january_mean_monthly_pp real,
+	february_mean_monthly_pp real,
+	march_mean_monthly_pp real,
+	april_mean_monthly_pp real,
+	may_mean_monthly_pp real,
+	june_mean_monthly_pp real,
+	july_mean_monthly_pp real,
+	august_mean_monthly_pp real,
+	september_mean_monthly_pp real,
+	october_mean_monthly_pp real,
+	november_mean_monthly_pp real,
+	december_mean_monthly_pp real,
+	plot_id_plot integer NOT NULL,
+	year_measured_plot integer NOT NULL,
+	CONSTRAINT clim_tbl_pk PRIMARY KEY (plot_id,year_clim)
+
+);
+-- ddl-end --
+-- object: idx_clim_data_pk | type: INDEX --
+-- DROP INDEX rdb_quicc.idx_clim_data_pk;
+CREATE INDEX idx_clim_data_pk ON rdb_quicc.climatic_data
+	USING btree
+	(
+	  plot_id ASC NULLS LAST,
+	  year_clim ASC NULLS LAST
+	);
+-- ddl-end --
+
+
+ALTER TABLE rdb_quicc.climatic_data OWNER TO "QUICC_cp";
+-- ddl-end --
+
+-- object: plot_fk | type: CONSTRAINT --
+-- ALTER TABLE rdb_quicc.climatic_data DROP CONSTRAINT plot_fk;
+ALTER TABLE rdb_quicc.climatic_data ADD CONSTRAINT plot_fk FOREIGN KEY (plot_id_plot,year_measured_plot)
+REFERENCES rdb_quicc.plot (plot_id,year_measured) MATCH FULL
 ON DELETE CASCADE ON UPDATE CASCADE;
 -- ddl-end --
 

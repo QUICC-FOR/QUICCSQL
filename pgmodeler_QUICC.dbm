@@ -19,6 +19,13 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<roles names="vissst01" role-type="member" />
 </role>
 
+<role name="QUICC_cp"
+      inherit="true"
+      encrypted="true"
+      validity="2014-03-22 00:00:00"
+      password="********">
+</role>
+
 <database name="db_quicc_for">
 </database>
 
@@ -75,7 +82,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="tree">
 	<schema name="rdb_quicc"/>
 	<role name="&quot;QUICC&quot;"/>
-	<position x="860" y="380"/>
+	<position x="825" y="388.75"/>
 	<column name="plot_id" not-null="true">
 		<type name="integer"/>
 	</column>
@@ -472,7 +479,11 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 dst-table="rdb_quicc.tree"
 	 src-required="true" dst-required="false"
 	upd-action="CASCADE"
-	del-action="CASCADE"/>
+	del-action="CASCADE">
+	<label ref-type="dst-label">
+		<position x="0" y="0"/>
+	</label>
+</relationship>
 
 <table name="ref_stand_age_method">
 	<schema name="rdb_quicc"/>
@@ -731,6 +742,237 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 col-indexes="19" constr-indexes="4"
 	 src-table="rdb_quicc.ref_species"
 	 dst-table="rdb_quicc.tree"
+	 src-required="true" dst-required="false"
+	upd-action="CASCADE"
+	del-action="CASCADE"/>
+
+<table name="climatic_data">
+	<schema name="rdb_quicc"/>
+	<role name="&quot;QUICC_cp&quot;"/>
+	<position x="1653.75" y="62.5"/>
+	<column name="plot_id" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="year_clim" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="mean_diurnal_range">
+		<type name="real"/>
+	</column>
+	<column name="isothermality">
+		<type name="real"/>
+	</column>
+	<column name="temp_seasonality">
+		<type name="real"/>
+	</column>
+	<column name="max_temp_warmest_period">
+		<type name="real"/>
+	</column>
+	<column name="min_temp_coldest_period">
+		<type name="real"/>
+	</column>
+	<column name="temp_annual_range">
+		<type name="real"/>
+	</column>
+	<column name="mean_temperatre_wettest_quarter">
+		<type name="real"/>
+	</column>
+	<column name="mean_temp_driest_quarter">
+		<type name="real"/>
+	</column>
+	<column name="mean_temp_warmest_quarter">
+		<type name="real"/>
+	</column>
+	<column name="mean_temp_coldest_quarter">
+		<type name="real"/>
+	</column>
+	<column name="annual_pp">
+		<type name="real"/>
+	</column>
+	<column name="pp_wettest_period">
+		<type name="real"/>
+	</column>
+	<column name="pp_driest_period">
+		<type name="real"/>
+	</column>
+	<column name="pp_seasonality">
+		<type name="real"/>
+	</column>
+	<column name="pp_wettest_quarter">
+		<type name="real"/>
+	</column>
+	<column name="pp_driest_quarter">
+		<type name="real"/>
+	</column>
+	<column name="pp_warmest_quarter">
+		<type name="real"/>
+	</column>
+	<column name="pp_coldest_quarter">
+		<type name="real"/>
+	</column>
+	<column name="julian_day_number_start_growing_season">
+		<type name="real"/>
+	</column>
+	<column name="julian_day_number_at_end_growing_season">
+		<type name="real"/>
+	</column>
+	<column name="number_days_growing_season">
+		<type name="real"/>
+	</column>
+	<column name="total_pp_for_period_1">
+		<type name="real"/>
+	</column>
+	<column name="total_pp_for_period_3">
+		<type name="real"/>
+	</column>
+	<column name="gdd_above_base_temp_for_period_3">
+		<type name="real"/>
+	</column>
+	<column name="annual_mean_temp">
+		<type name="real"/>
+	</column>
+	<column name="annual_min_temp">
+		<type name="real"/>
+	</column>
+	<column name="annual_max_temp">
+		<type name="real"/>
+	</column>
+	<column name="mean_temp_for_period_3">
+		<type name="real"/>
+	</column>
+	<column name="temp_range_for_period_3">
+		<type name="real"/>
+	</column>
+	<column name="january_mean_monthly_min_temp">
+		<type name="real"/>
+	</column>
+	<column name="february_mean_monthly_min_temp">
+		<type name="real"/>
+	</column>
+	<column name="march_mean_monthly_min_temp">
+		<type name="real"/>
+	</column>
+	<column name="april_mean_monthly_min_temp">
+		<type name="real"/>
+	</column>
+	<column name="may_mean_monthly_min_temp">
+		<type name="real"/>
+	</column>
+	<column name="june_mean_monthly_min_temp">
+		<type name="real"/>
+	</column>
+	<column name="july_mean_monthly_min_temp">
+		<type name="real"/>
+	</column>
+	<column name="august_mean_monthly_min_temp">
+		<type name="real"/>
+	</column>
+	<column name="september_mean_monthly_min_temp">
+		<type name="real"/>
+	</column>
+	<column name="october_mean_monthly_min_temp">
+		<type name="real"/>
+	</column>
+	<column name="november_mean_monthly_min_temp">
+		<type name="real"/>
+	</column>
+	<column name="december_mean_monthly_min_temp">
+		<type name="real"/>
+	</column>
+	<column name="january_mean_monthly_max_temp">
+		<type name="real"/>
+	</column>
+	<column name="february_mean_monthly_max_temp">
+		<type name="real"/>
+	</column>
+	<column name="march_mean_monthly_max_temp">
+		<type name="real"/>
+	</column>
+	<column name="april_mean_monthly_max_temp">
+		<type name="real"/>
+	</column>
+	<column name="may_mean_monthly_max_temp">
+		<type name="real"/>
+	</column>
+	<column name="june_mean_monthly_max_temp">
+		<type name="real"/>
+	</column>
+	<column name="july_mean_monthly_max_temp">
+		<type name="real"/>
+	</column>
+	<column name="august_mean_monthly_max_temp">
+		<type name="real"/>
+	</column>
+	<column name="september_mean_monthly_max_temp">
+		<type name="real"/>
+	</column>
+	<column name="october_mean_monthly_max_temp">
+		<type name="real"/>
+	</column>
+	<column name="november_mean_monthly_max_temp">
+		<type name="real"/>
+	</column>
+	<column name="december_mean_monthly_max_temp">
+		<type name="real"/>
+	</column>
+	<column name="january_mean_monthly_pp">
+		<type name="real"/>
+	</column>
+	<column name="february_mean_monthly_pp">
+		<type name="real"/>
+	</column>
+	<column name="march_mean_monthly_pp">
+		<type name="real"/>
+	</column>
+	<column name="april_mean_monthly_pp">
+		<type name="real"/>
+	</column>
+	<column name="may_mean_monthly_pp">
+		<type name="real"/>
+	</column>
+	<column name="june_mean_monthly_pp">
+		<type name="real"/>
+	</column>
+	<column name="july_mean_monthly_pp">
+		<type name="real"/>
+	</column>
+	<column name="august_mean_monthly_pp">
+		<type name="real"/>
+	</column>
+	<column name="september_mean_monthly_pp">
+		<type name="real"/>
+	</column>
+	<column name="october_mean_monthly_pp">
+		<type name="real"/>
+	</column>
+	<column name="november_mean_monthly_pp">
+		<type name="real"/>
+	</column>
+	<column name="december_mean_monthly_pp">
+		<type name="real"/>
+	</column>
+	<constraint name="clim_tbl_pk" type="pk-constr" factor="100" table="rdb_quicc.climatic_data">
+		<columns names="plot_id,year_clim" ref-type="src-columns"/>
+	</constraint>
+	<index name="idx_clim_data_pk" table="rdb_quicc.climatic_data"
+		 concurrent="false" unique="false" fast-update="false"
+		 index-type="btree" factor="0">
+		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
+			<column name="plot_id"/>
+		</idxelement>
+		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
+			<column name="year_clim"/>
+		</idxelement>
+	</index>
+</table>
+
+<relationship name="plot_has_many_climatic_data" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 col-indexes="67,68" constr-indexes="1"
+	 src-table="rdb_quicc.plot"
+	 dst-table="rdb_quicc.climatic_data"
 	 src-required="true" dst-required="false"
 	upd-action="CASCADE"
 	del-action="CASCADE"/>

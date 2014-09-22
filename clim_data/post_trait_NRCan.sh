@@ -46,7 +46,7 @@ fi
 
 echo "------- SQL: DROP and CREATE climatic tables..."
 psql -U $USER -h $HOST -p $PORT -d $DB -c "\i $TABLE/annual_climate_temp_tbl.sql"
-psql -U $USER -h $HOST -p $PORT -d $DB -c "\i $TABLE/climate_tbl.sql"
+psql -U $USER -h $HOST -p $PORT -d $DB -c "DELETE FROM rdb_quicc.climatic_data;"
 
 echo "------- SQL: CREATE VIEW range_years...."
 
