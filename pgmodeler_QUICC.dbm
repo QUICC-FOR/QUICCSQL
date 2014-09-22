@@ -19,13 +19,6 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<roles names="vissst01" role-type="member" />
 </role>
 
-<role name="QUICC_cp"
-      inherit="true"
-      encrypted="true"
-      validity="2014-03-22 00:00:00"
-      password="********">
-</role>
-
 <database name="db_quicc_for">
 </database>
 
@@ -748,7 +741,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 
 <table name="climatic_data">
 	<schema name="rdb_quicc"/>
-	<role name="&quot;QUICC_cp&quot;"/>
+	<role name="&quot;QUICC&quot;"/>
 	<position x="1653.75" y="62.5"/>
 	<column name="plot_id" not-null="true">
 		<type name="integer"/>

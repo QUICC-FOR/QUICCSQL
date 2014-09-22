@@ -24,14 +24,6 @@ CREATE ROLE "QUICC" WITH
 	ROLE vissst01;
 -- ddl-end --
 
--- object: "QUICC_cp" | type: ROLE --
--- DROP ROLE "QUICC_cp";
-CREATE ROLE "QUICC_cp" WITH 
-	INHERIT
-	ENCRYPTED PASSWORD '********'
-	VALID UNTIL '2014-03-22 00:00:00';
--- ddl-end --
-
 
 -- Database creation must be done outside an multicommand file.
 -- These commands were put in this file only for convenience.
@@ -674,7 +666,7 @@ CREATE INDEX idx_clim_data_pk ON rdb_quicc.climatic_data
 -- ddl-end --
 
 
-ALTER TABLE rdb_quicc.climatic_data OWNER TO "QUICC_cp";
+ALTER TABLE rdb_quicc.climatic_data OWNER TO "QUICC";
 -- ddl-end --
 
 -- object: plot_fk | type: CONSTRAINT --
