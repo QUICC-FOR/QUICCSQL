@@ -52,6 +52,16 @@ CREATE TABLE rdb_quicc.ref_tree_height_method(
 
 );
 -- ddl-end --
+-- object: idx_height_method_pk | type: INDEX --
+-- DROP INDEX rdb_quicc.idx_height_method_pk;
+CREATE INDEX idx_height_method_pk ON rdb_quicc.ref_tree_height_method
+	USING btree
+	(
+	  height_id_method ASC NULLS LAST
+	);
+-- ddl-end --
+
+
 ALTER TABLE rdb_quicc.ref_tree_height_method OWNER TO "QUICC";
 -- ddl-end --
 
@@ -96,6 +106,18 @@ CREATE TABLE rdb_quicc.tree(
 
 );
 -- ddl-end --
+-- object: idx_tree_pk | type: INDEX --
+-- DROP INDEX rdb_quicc.idx_tree_pk;
+CREATE INDEX idx_tree_pk ON rdb_quicc.tree
+	USING btree
+	(
+	  plot_id ASC NULLS LAST,
+	  tree_id ASC NULLS LAST,
+	  year_measured ASC NULLS LAST
+	);
+-- ddl-end --
+
+
 ALTER TABLE rdb_quicc.tree OWNER TO "QUICC";
 -- ddl-end --
 
@@ -159,13 +181,24 @@ ALTER TABLE rdb_quicc.ref_stand_disturb_type OWNER TO "QUICC";
 -- DROP TABLE rdb_quicc.tree_info;
 CREATE TABLE rdb_quicc.tree_info(
 	plot_id integer NOT NULL,
-	tree_id char(20) NOT NULL,
-	org_db_loc character(30),
-	org_db_id character(30),
+	tree_id char(3) NOT NULL,
+	org_db_loc character(20),
+	org_db_id character(20),
 	CONSTRAINT tree_info_tbl_pk PRIMARY KEY (plot_id,tree_id)
 
 );
 -- ddl-end --
+-- object: idx_tree_info_pk | type: INDEX --
+-- DROP INDEX rdb_quicc.idx_tree_info_pk;
+CREATE INDEX idx_tree_info_pk ON rdb_quicc.tree_info
+	USING btree
+	(
+	  plot_id ASC NULLS LAST,
+	  tree_id ASC NULLS LAST
+	);
+-- ddl-end --
+
+
 ALTER TABLE rdb_quicc.tree_info OWNER TO "QUICC";
 -- ddl-end --
 
@@ -185,6 +218,17 @@ CREATE TABLE rdb_quicc.plot(
 
 );
 -- ddl-end --
+-- object: idx_plot | type: INDEX --
+-- DROP INDEX rdb_quicc.idx_plot;
+CREATE INDEX idx_plot ON rdb_quicc.plot
+	USING btree
+	(
+	  plot_id ASC NULLS LAST,
+	  year_measured ASC NULLS LAST
+	);
+-- ddl-end --
+
+
 ALTER TABLE rdb_quicc.plot OWNER TO "QUICC";
 -- ddl-end --
 
@@ -205,12 +249,22 @@ ALTER SEQUENCE rdb_quicc.plot_info_plot_id_seq OWNER TO vissst01;
 -- DROP TABLE rdb_quicc.plot_info;
 CREATE TABLE rdb_quicc.plot_info(
 	plot_id integer NOT NULL DEFAULT nextval('plot_info_plot_id_seq'::regclass),
-	org_db_loc character(30),
-	org_db_id character(30),
+	org_db_loc character(20),
+	org_db_id character(20),
 	CONSTRAINT plot_info_tbl_pk PRIMARY KEY (plot_id)
 
 );
 -- ddl-end --
+-- object: idx_plot_info_pk | type: INDEX --
+-- DROP INDEX rdb_quicc.idx_plot_info_pk;
+CREATE INDEX idx_plot_info_pk ON rdb_quicc.plot_info
+	USING btree
+	(
+	  plot_id ASC NULLS LAST
+	);
+-- ddl-end --
+
+
 ALTER TABLE rdb_quicc.plot_info OWNER TO "QUICC";
 -- ddl-end --
 
@@ -248,11 +302,31 @@ CREATE TABLE rdb_quicc.localisation(
 	coord_postgis geometry(POINT, 4326),
 	srid integer,
 	elevation integer,
-	plot_location character(30),
+	plot_location character(20),
 	CONSTRAINT localis_tbl_pk PRIMARY KEY (plot_id)
 
 );
 -- ddl-end --
+-- object: idx_localisation_pk | type: INDEX --
+-- DROP INDEX rdb_quicc.idx_localisation_pk;
+CREATE INDEX idx_localisation_pk ON rdb_quicc.localisation
+	USING btree
+	(
+	  plot_id ASC NULLS LAST
+	);
+-- ddl-end --
+
+-- object: idx_spatial | type: INDEX --
+-- DROP INDEX rdb_quicc.idx_spatial;
+CREATE INDEX idx_spatial ON rdb_quicc.localisation
+	USING btree
+	(
+	  coord_postgis ASC NULLS LAST,
+	  plot_location ASC NULLS LAST
+	);
+-- ddl-end --
+
+
 ALTER TABLE rdb_quicc.localisation OWNER TO "QUICC";
 -- ddl-end --
 
@@ -440,6 +514,52 @@ CREATE TABLE rdb_quicc.ref_species(
 
 );
 -- ddl-end --
+-- object: idx_ref_species_pk | type: INDEX --
+-- DROP INDEX rdb_quicc.idx_ref_species_pk;
+CREATE INDEX idx_ref_species_pk ON rdb_quicc.ref_species
+	USING btree
+	(
+	  id_spe ASC NULLS LAST
+	);
+-- ddl-end --
+
+-- object: idx_ref_species_qc | type: INDEX --
+-- DROP INDEX rdb_quicc.idx_ref_species_qc;
+CREATE INDEX idx_ref_species_qc ON rdb_quicc.ref_species
+	USING btree
+	(
+	  qc_code ASC NULLS LAST
+	);
+-- ddl-end --
+
+-- object: idx_ref_species_on | type: INDEX --
+-- DROP INDEX rdb_quicc.idx_ref_species_on;
+CREATE INDEX idx_ref_species_on ON rdb_quicc.ref_species
+	USING btree
+	(
+	  on_tree_code ASC NULLS LAST
+	);
+-- ddl-end --
+
+-- object: idx_ref_species_us | type: INDEX --
+-- DROP INDEX rdb_quicc.idx_ref_species_us;
+CREATE INDEX idx_ref_species_us ON rdb_quicc.ref_species
+	USING btree
+	(
+	  us_code ASC NULLS LAST
+	);
+-- ddl-end --
+
+-- object: idx_ref_species_nb | type: INDEX --
+-- DROP INDEX rdb_quicc.idx_ref_species_nb;
+CREATE INDEX idx_ref_species_nb ON rdb_quicc.ref_species
+	USING btree
+	(
+	  nb_code ASC NULLS LAST
+	);
+-- ddl-end --
+
+
 ALTER TABLE rdb_quicc.ref_species OWNER TO postgres;
 -- ddl-end --
 
@@ -459,61 +579,61 @@ ON DELETE CASCADE ON UPDATE CASCADE;
 -- ddl-end --
 
 
--- object: grant_6d8d735901 | type: PERMISSION --
+-- object: grant_7c0ffe7ebd | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.ref_tree_height_method
    TO vissst01;
 -- ddl-end --
 
--- object: grant_ced0353e55 | type: PERMISSION --
+-- object: grant_627efb8737 | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.tree_class_info
    TO vissst01;
 -- ddl-end --
 
--- object: grant_71c4e46d08 | type: PERMISSION --
+-- object: grant_3155fc1d56 | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.tree
    TO vissst01;
 -- ddl-end --
 
--- object: grant_1a2ff9c7f4 | type: PERMISSION --
+-- object: grant_e4ffd316ba | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.class_tree
    TO vissst01;
 -- ddl-end --
 
--- object: grant_a4b4ee0f2a | type: PERMISSION --
+-- object: grant_023296dcee | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.stand_disturbed
    TO vissst01;
 -- ddl-end --
 
--- object: grant_df121a1a78 | type: PERMISSION --
+-- object: grant_d2b5880a57 | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.ref_stand_disturb_type
    TO vissst01;
 -- ddl-end --
 
--- object: grant_bfd4ca2ad1 | type: PERMISSION --
+-- object: grant_b569996475 | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.tree_info
    TO vissst01;
 -- ddl-end --
 
--- object: grant_9afa64d8fc | type: PERMISSION --
+-- object: grant_a384cea30d | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.plot
    TO vissst01;
 -- ddl-end --
 
--- object: grant_85d788a25d | type: PERMISSION --
+-- object: grant_29b251d4c2 | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.plot_info
    TO vissst01;
 -- ddl-end --
 
--- object: grant_30a65d02e5 | type: PERMISSION --
+-- object: grant_e88b43fe09 | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.stand
    TO vissst01;

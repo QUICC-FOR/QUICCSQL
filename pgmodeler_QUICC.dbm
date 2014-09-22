@@ -42,6 +42,13 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<constraint name="tree_height_method_pk" type="pk-constr" factor="10" table="rdb_quicc.ref_tree_height_method">
 		<columns names="height_id_method" ref-type="src-columns"/>
 	</constraint>
+	<index name="idx_height_method_pk" table="rdb_quicc.ref_tree_height_method"
+		 concurrent="false" unique="false" fast-update="false"
+		 index-type="btree" factor="0">
+		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
+			<column name="height_id_method"/>
+		</idxelement>
+	</index>
 </table>
 
 <table name="tree_class_info">
@@ -114,6 +121,19 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<constraint name="tree_table_pk" type="pk-constr" factor="100" table="rdb_quicc.tree">
 		<columns names="plot_id,tree_id,year_measured" ref-type="src-columns"/>
 	</constraint>
+	<index name="idx_tree_pk" table="rdb_quicc.tree"
+		 concurrent="false" unique="false" fast-update="false"
+		 index-type="btree" factor="0">
+		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
+			<column name="plot_id"/>
+		</idxelement>
+		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
+			<column name="tree_id"/>
+		</idxelement>
+		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
+			<column name="year_measured"/>
+		</idxelement>
+	</index>
 </table>
 
 <table name="class_tree">
@@ -210,6 +230,16 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<constraint name="tree_info_tbl_pk" type="pk-constr" factor="100" table="rdb_quicc.tree_info">
 		<columns names="plot_id,tree_id" ref-type="src-columns"/>
 	</constraint>
+	<index name="idx_tree_info_pk" table="rdb_quicc.tree_info"
+		 concurrent="false" unique="false" fast-update="false"
+		 index-type="btree" factor="0">
+		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
+			<column name="plot_id"/>
+		</idxelement>
+		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
+			<column name="tree_id"/>
+		</idxelement>
+	</index>
 </table>
 
 <table name="plot">
@@ -240,6 +270,16 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<constraint name="plot_tbl_pk" type="pk-constr" factor="100" table="rdb_quicc.plot">
 		<columns names="plot_id,year_measured" ref-type="src-columns"/>
 	</constraint>
+	<index name="idx_plot" table="rdb_quicc.plot"
+		 concurrent="false" unique="false" fast-update="false"
+		 index-type="btree" factor="0">
+		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
+			<column name="plot_id"/>
+		</idxelement>
+		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
+			<column name="year_measured"/>
+		</idxelement>
+	</index>
 </table>
 
 <sequence name="plot_info_plot_id_seq"
@@ -253,7 +293,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="plot_info">
 	<schema name="rdb_quicc"/>
 	<role name="&quot;QUICC&quot;"/>
-	<position x="120" y="600"/>
+	<position x="114" y="623"/>
 	<column name="plot_id" not-null="true" default-value="nextval('plot_info_plot_id_seq'::regclass)">
 		<type name="integer"/>
 	</column>
@@ -266,6 +306,13 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<constraint name="plot_info_tbl_pk" type="pk-constr" factor="100" table="rdb_quicc.plot_info">
 		<columns names="plot_id" ref-type="src-columns"/>
 	</constraint>
+	<index name="idx_plot_info_pk" table="rdb_quicc.plot_info"
+		 concurrent="false" unique="false" fast-update="false"
+		 index-type="btree" factor="0">
+		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
+			<column name="plot_id"/>
+		</idxelement>
+	</index>
 </table>
 
 <table name="stand">
@@ -338,6 +385,23 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<constraint name="localis_tbl_pk" type="pk-constr" factor="10" table="rdb_quicc.localisation">
 		<columns names="plot_id" ref-type="src-columns"/>
 	</constraint>
+	<index name="idx_localisation_pk" table="rdb_quicc.localisation"
+		 concurrent="false" unique="false" fast-update="false"
+		 index-type="btree" factor="0">
+		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
+			<column name="plot_id"/>
+		</idxelement>
+	</index>
+	<index name="idx_spatial" table="rdb_quicc.localisation"
+		 concurrent="false" unique="false" fast-update="false"
+		 index-type="btree" factor="0">
+		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
+			<column name="coord_postgis"/>
+		</idxelement>
+		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
+			<column name="plot_location"/>
+		</idxelement>
+	</index>
 </table>
 
 <relationship name="plot_has_many_stand" type="rel1n"
@@ -612,6 +676,41 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<constraint name="ref_species_tbl_pk" type="pk-constr" factor="100" table="rdb_quicc.ref_species">
 		<columns names="id_spe" ref-type="src-columns"/>
 	</constraint>
+	<index name="idx_ref_species_pk" table="rdb_quicc.ref_species"
+		 concurrent="false" unique="false" fast-update="false"
+		 index-type="btree" factor="0">
+		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
+			<column name="id_spe"/>
+		</idxelement>
+	</index>
+	<index name="idx_ref_species_qc" table="rdb_quicc.ref_species"
+		 concurrent="false" unique="false" fast-update="false"
+		 index-type="btree" factor="0">
+		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
+			<column name="qc_code"/>
+		</idxelement>
+	</index>
+	<index name="idx_ref_species_on" table="rdb_quicc.ref_species"
+		 concurrent="false" unique="false" fast-update="false"
+		 index-type="btree" factor="0">
+		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
+			<column name="on_tree_code"/>
+		</idxelement>
+	</index>
+	<index name="idx_ref_species_us" table="rdb_quicc.ref_species"
+		 concurrent="false" unique="false" fast-update="false"
+		 index-type="btree" factor="0">
+		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
+			<column name="us_code"/>
+		</idxelement>
+	</index>
+	<index name="idx_ref_species_nb" table="rdb_quicc.ref_species"
+		 concurrent="false" unique="false" fast-update="false"
+		 index-type="btree" factor="0">
+		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
+			<column name="nb_code"/>
+		</idxelement>
+	</index>
 </table>
 
 <relationship name="ref_species_has_many_class_tree" type="rel1n"
