@@ -214,6 +214,9 @@ BEGIN
             OR  code='24'
             OR  code=NULL
         THEN res := NULL;
+
+        ELSE res := NULL;
+
         END CASE;
 ----------------------------------------------------------------------------
        
@@ -257,6 +260,9 @@ BEGIN
             OR  code='74'
             OR  code=NULL
         THEN res := NULL;
+
+        ELSE res := NULL;
+
         END CASE;
 
 ----------------------------------------------------------------------------
@@ -286,6 +292,9 @@ BEGIN
             OR  code='9'
             OR  code=NULL
         THEN res := NULL;
+
+        ELSE res := NULL;
+
         END CASE;
 
 ----------------------------------------------------------------------------
@@ -309,6 +318,8 @@ BEGIN
         WHEN code='E' 
         OR  code=NULL
         THEN res := NULL;
+
+        ELSE res := NULL;
         
         END CASE;
 
