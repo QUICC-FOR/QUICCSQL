@@ -93,6 +93,7 @@ BEGIN
 		    	OR org_db = 'qc_pet2'
 		    	OR org_db = 'qc_pet3'
 		    	OR org_db = 'qc_pet4'
+                OR org_db = 'domtar_pp'
 		    THEN res := 'D';
 
 		    ELSIF org_db = 'pp_nb_partial_cut' 
@@ -340,7 +341,7 @@ BEGIN
     		WHEN dbh >= 127 THEN res := 0;
         END CASE;
 
-    ELSIF org_db = 'qc_pp' OR org_db = 'qc_pet2' OR org_db = 'qc_pet3' OR org_db = 'qc_pet4' THEN res:= 0;
+    ELSIF org_db = 'qc_pp' OR org_db = 'qc_pet2' OR org_db = 'qc_pet3' OR org_db = 'qc_pet4' OR org_db ='domtar_pp' THEN res:= 0;
     
     ELSIF org_db = 'nb_pp_partial_cut' OR org_db = 'nb_pp_YIMO' OR org_db = 'nb_pp_regenandthin' OR org_db = 'nb_pp_cutandplant'  THEN res :=0;
 
@@ -415,18 +416,19 @@ $$ LANGUAGE plpgsql;
     Returns:      char
 */
 
-CREATE OR REPLACE FUNCTION temp_quicc.get_source_nb_db(id_plot char(30))
+CREATE OR REPLACE FUNCTION temp_quicc.get_source_nb_db(id_plot varchar(255))
 RETURNS char(30) AS $$
 DECLARE datasource char(30); res char(30);
 BEGIN
             EXECUTE 
-            format('SELECT nb_pp.psp_plots.datasource FROM nb_pp.psp_plots WHERE id_plot = %L', id_plot)
+            format('SELECT psp_plots.datasource FROM nb_pp.psp_plots WHERE psp_plots.plot = %L', id_plot)
             INTO datasource;
-
-            IF datasource = 'NBCoopYIMO' THEN res = 'nb_pp_YIMO';
-            ELSIF datasource = 'NBCoopCutAndPlant' THEN res = 'nb_pp_cutandplant';
-            ELSIF datasource = 'NBCoopRegenAndThin' THEN res =  'nb_pp_regenandthin';
-            ELSIF datasource = 'NBCoopPartialCut' THEN res = 'nb_pp_partial_cut';
+        
+            IF datasource = 'NBCoopYIMO' THEN res := 'nb_pp_YIMO';
+            ELSIF datasource = 'NBCoopCutAndPlant' THEN res := 'nb_pp_cutandplant';
+            ELSIF datasource = 'NBCoopRegenAndThin' THEN res :=  'nb_pp_regenandthin';
+            ELSIF datasource = 'NBCoopPartialCut' THEN res := 'nb_pp_partial_cut';
+            ELSE res := NULL;
             END IF;
 
 RETURN res;
