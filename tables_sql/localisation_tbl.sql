@@ -64,7 +64,7 @@ FROM
 				nb_pp.psp_plots.plot AS org_plot_id,
 				nb_pp.psp_plots_yr.year AS yr_measured,
 				nb_pp.psp_plots.coord_geom,
-				'nb_pp' AS org_code_db
+				 temp_quicc.get_source_nb_db(nb_pp.psp_plots.plot) AS org_code_db
 			FROM nb_pp.psp_plots
 			INNER JOIN nb_pp.psp_plots_yr ON nb_pp.psp_plots.plot = nb_pp.psp_plots_yr.plot
 			--LIMIT 100
@@ -156,8 +156,6 @@ GROUP BY
 
 DELETE FROM rdb_quicc.localisation;
 
------ PROB: some coordonnates = 0
-
 INSERT INTO rdb_quicc.localisation (plot_id, latitude, longitude, coord_postgis, srid,plot_location)
 SELECT DISTINCT rdb_quicc.plot_info.plot_id,
 		ST_Y(temp_quicc.mv_localisation.coord_geom) AS latitude,
@@ -166,4 +164,5 @@ SELECT DISTINCT rdb_quicc.plot_info.plot_id,
 		ST_SRID(temp_quicc.mv_localisation.coord_geom)  AS srid,
 		temp_quicc.mv_localisation.org_code_db AS plot_location
 FROM temp_quicc.mv_localisation
-RIGHT OUTER JOIN rdb_quicc.plot_info ON temp_quicc.mv_localisation.org_plot_id = rdb_quicc.plot_info.org_db_id AND temp_quicc.mv_localisation.org_code_db = rdb_quicc.plot_info.org_db_loc;
+RIGHT OUTER JOIN rdb_quicc.plot_info ON temp_quicc.mv_localisation.org_plot_id = rdb_quicc.plot_info.org_db_id AND temp_quicc.mv_localisation.org_code_db = rdb_quicc.plot_info.org_db_loc
+WHERE ST_Y(temp_quicc.mv_localisation.coord_geom) IS NOT NULL AND ST_X(temp_quicc.mv_localisation.coord_geom) IS NOT NULL;
