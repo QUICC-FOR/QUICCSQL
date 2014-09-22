@@ -162,6 +162,7 @@ RIGHT OUTER JOIN rdb_quicc.plot_info ON temp_quicc.mv_tree_info.plot_id = rdb_qu
 AND temp_quicc.mv_tree_info.org_db_loc = rdb_quicc.plot_info.org_db_loc
 WHERE  temp_quicc.mv_tree_info.plot_id IS NOT NULL AND
 temp_quicc.mv_tree_info.tree_id IS NOT NULL;
+REINDEX TABLE rdb_quicc.tree_info;
 
 ---- plot_id integer NOT NULL,
 ---- tree_id integer NOT NULL,

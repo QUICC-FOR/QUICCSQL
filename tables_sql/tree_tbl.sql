@@ -322,7 +322,7 @@ FROM domtar_pp.domtar_data
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 DELETE FROM rdb_quicc.tree;
 INSERT INTO rdb_quicc.tree
-	SELECT DISTINCT
+SELECT DISTINCT
 		rdb_quicc.plot_info.plot_id,
 		rdb_quicc.tree_info.tree_id,
 		temp_quicc.mv_tree.year_measured,
@@ -341,14 +341,12 @@ INSERT INTO rdb_quicc.tree
 		temp_quicc.mv_tree.year_measured,
 		rdb_quicc.tree_info.plot_id,
 		rdb_quicc.tree_info.tree_id,
-		rdb_quicc.ref_tree_height_method.height_id_method,
-		rdb_quicc.ref_species.id_spe
+		temp_quicc.get_height_method_tree(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.height_id_method, temp_quicc.flt_height(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.height)),
+		temp_quicc.get_new_spcode(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.species_code)
 	FROM temp_quicc.mv_tree
 	RIGHT OUTER JOIN rdb_quicc.plot_info ON temp_quicc.mv_tree.plot_id = rdb_quicc.plot_info.org_db_id
 		AND temp_quicc.mv_tree.source_db = rdb_quicc.plot_info.org_db_loc 
 	RIGHT OUTER JOIN rdb_quicc.tree_info ON temp_quicc.mv_tree.tree_id = rdb_quicc.tree_info.tree_id
-		AND temp_quicc.mv_tree.source_db = rdb_quicc.tree_info.org_db_loc
-	RIGHT OUTER JOIN rdb_quicc.ref_tree_height_method ON temp_quicc.mv_tree.height_id_method = rdb_quicc.ref_tree_height_method.height_id_method
-	RIGHT OUTER JOIN rdb_quicc.ref_species ON temp_quicc.mv_tree.species_code = rdb_quicc.ref_species.id_spe
-WHERE rdb_quicc.plot_info.plot_id IS NOT NULL and rdb_quicc.tree_info.tree_id IS NOT NULL AND year_measured IS NOT NULL 
-LIMIT 100;
+		AND temp_quicc.mv_tree.source_db = rdb_quicc.tree_info.org_db_loc AND temp_quicc.mv_tree.plot_id = rdb_quicc.tree_info.org_db_id;
+
+REINDEX TABLE rdb_quicc.tree;
