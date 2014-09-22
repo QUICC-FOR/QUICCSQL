@@ -78,7 +78,7 @@ FROM
 				on_pp.boreal_psp_treedbh_ht.plot_num AS org_plot_id,
 				on_pp.boreal_psp_treedbh_ht.obs_year,
 				on_pp.boreal_psp_plot_info.coord_geom,
-				'on_pp' AS org_code_db
+				'on_pp_boreal' AS org_code_db
 				FROM on_pp.boreal_psp_treedbh_ht
 				INNER JOIN on_pp.boreal_psp_plot_info ON on_pp.boreal_psp_treedbh_ht.plot_num = on_pp.boreal_psp_plot_info.plot_num
 			UNION ALL
@@ -86,7 +86,7 @@ FROM
 				on_pp.glsl_psp_trees_dbh_ht.plotname AS org_plot_id,
 				date_part('year'::text, on_pp.glsl_psp_trees_dbh_ht.msrdate::date) AS yr_measured,
 				on_pp.glsl_psp_plotinfo.coord_geom,
-				'on_pp' AS org_code_db
+				'on_pp_glsl' AS org_code_db
 				FROM on_pp.glsl_psp_trees_dbh_ht
 				INNER JOIN on_pp.glsl_psp_plotinfo ON on_pp.glsl_psp_plotinfo.plotname = on_pp.glsl_psp_trees_dbh_ht.plotname
 			UNION ALL
@@ -94,7 +94,7 @@ FROM
 				on_pp.pgp_treedbh_ht.plot_num AS org_plot_id,
 				on_pp.pgp_treedbh_ht.obs_year AS yr_measured,
 				on_pp.pgp_plot_info.coord_geom,
-				'on_pp' AS org_code_db
+				'on_pp_pgp' AS org_code_db
 				FROM on_pp.pgp_treedbh_ht
 				INNER JOIN on_pp.pgp_plot_info ON on_pp.pgp_treedbh_ht.plot_num = on_pp.pgp_plot_info.plot_num
 			-----------------------------------------------

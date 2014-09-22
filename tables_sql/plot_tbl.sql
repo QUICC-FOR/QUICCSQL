@@ -17,8 +17,8 @@ CREATE OR REPLACE VIEW temp_quicc.mv_plot AS
 
 
 SELECT DISTINCT
-    CAST(qc_pp.pp_infogen.id_pep AS char(20)) AS plot_id,
-    'qc_pp' :: char(10) AS org_code_db,
+    CAST(qc_pp.pp_infogen.id_pep AS char(30)) AS plot_id,
+    'qc_pp' :: char(30) AS org_code_db,
     CAST(date_part('year'::text, qc_pp.pp_infogen.date_sond::date) AS integer) AS year_measured,
     CAST(qc_pp.pp_infogen.dimension AS numeric) AS plot_size,
     CAST(qc_pp.pp_infogen.dimension AS numeric) AS sapling_plot_size,
@@ -39,8 +39,8 @@ UNION ALL
 ---------------------------------------
 
 SELECT DISTINCT
-    CAST(qc_tp.infogen_pet2.id_pet AS char(20)) AS plot_id,
-    'qc_tp2' :: char(10) AS org_code_db,
+    CAST(qc_tp.infogen_pet2.id_pet AS char(30)) AS plot_id,
+    'qc_tp2' :: char(30) AS org_code_db,
     CAST(date_part('year'::text, qc_tp.infogen_pet2.date_sond::date) AS integer) AS year_measured,
     CAST(qc_tp.infogen_pet2.dimension AS numeric) AS plot_size,
     CAST(qc_tp.infogen_pet2.dimension AS numeric) AS sapling_plot_size,
@@ -56,8 +56,8 @@ INNER JOIN qc_tp.localis_pet2 ON qc_tp.infogen_pet2.id_pet_mes = qc_tp.localis_p
 UNION ALL
 
 SELECT DISTINCT
-    CAST(qc_tp.infogen_pet3.id_pet AS char(20)) AS plot_id,
-    'qc_tp3' :: char(10) AS org_code_db,
+    CAST(qc_tp.infogen_pet3.id_pet AS char(30)) AS plot_id,
+    'qc_tp3' :: char(30) AS org_code_db,
     CAST(date_part('year'::text, qc_tp.infogen_pet3.date_sond::date) AS integer) AS year_measured,
     CAST(qc_tp.infogen_pet3.dimension AS numeric) AS plot_size,
     CAST(qc_tp.infogen_pet3.dimension AS numeric) AS sapling_plot_size,
@@ -73,8 +73,8 @@ INNER JOIN qc_tp.localis_pet3 ON qc_tp.infogen_pet3.id_pet_mes = qc_tp.localis_p
 UNION ALL
 
 SELECT DISTINCT
-    CAST(qc_tp.infogen_pet4.id_pet AS char(20)) AS plot_id,
-    'qc_tp4' :: char(10) AS org_code_db,
+    CAST(qc_tp.infogen_pet4.id_pet AS char(30)) AS plot_id,
+    'qc_tp4' :: char(30) AS org_code_db,
     CAST(date_part('year'::text, qc_tp.infogen_pet4.date_sond::date) AS integer) AS year_measured,
     CAST(qc_tp.infogen_pet4.dimension AS numeric) AS plot_size,
     CAST(qc_tp.infogen_pet4.dimension AS numeric) AS sapling_plot_size,
@@ -94,8 +94,8 @@ INNER JOIN qc_tp.localis_pet4 ON qc_tp.infogen_pet4.id_pet_mes = qc_tp.localis_p
 UNION ALL
 
 SELECT DISTINCT
-    CAST(nb_pp.psp_plots.plot AS char(20)) AS plot_id,
-    'nb_pp' :: char(10) AS org_code_db,
+    CAST(nb_pp.psp_plots.plot AS char(30)) AS plot_id,
+    'nb_pp' :: char(30) AS org_code_db,
     CAST(nb_pp.psp_plots_yr.year AS integer) AS year_measured,
     CAST(nb_pp.psp_plots.plotsize AS numeric) AS plot_size,
     CAST(nb_pp.psp_plots.plotsize AS numeric) AS sapling_plot_size,
@@ -118,8 +118,8 @@ LEFT JOIN  nb_pp.psp_plots_yr ON nb_pp.psp_plots.plot = nb_pp.psp_plots_yr.plot
 UNION ALL
 
 SELECT DISTINCT
-    CAST(on_pp.boreal_psp_treedbh_ht.plot_num AS char(20)) AS plot_id,
-    'on_pp_boreal' :: char(10) AS org_code_db,
+    CAST(on_pp.boreal_psp_treedbh_ht.plot_num AS char(30)) AS plot_id,
+    'on_pp_boreal' :: char(30) AS org_code_db,
     on_pp.boreal_psp_treedbh_ht.obs_year :: integer AS year_measured,
     CAST( 0 AS numeric) AS plot_size,
     CAST( 0 AS numeric) AS sapling_plot_size,
@@ -135,8 +135,8 @@ LEFT JOIN on_pp.boreal_psp_plot_sizes ON on_pp.boreal_psp_treedbh_ht.plot_num = 
 UNION ALL
 
 SELECT DISTINCT
-    CAST(on_pp.glsl_psp_trees_dbh_ht.plotname AS char(20)) AS plot_id,
-    'on_pp_glsl' :: char(10) AS org_code_db,
+    CAST(on_pp.glsl_psp_trees_dbh_ht.plotname AS char(30)) AS plot_id,
+    'on_pp_glsl' :: char(30) AS org_code_db,
     CAST(date_part('year'::text, on_pp.glsl_psp_trees_dbh_ht.msrdate::date) AS integer) AS year_measured,
     CAST( 0 AS numeric) AS plot_size,
     CAST( 0 AS numeric) AS sapling_plot_size,
@@ -152,8 +152,8 @@ UNION ALL
 ---- pgp_on --- no info on plot_size -- see the MANUAL
 
 SELECT DISTINCT
-    CAST(on_pp.pgp_treedbh_ht.plot_num AS char(20)) AS plot_id,
-    'on_pp_pgp' :: char(10) AS org_code_db,
+    CAST(on_pp.pgp_treedbh_ht.plot_num AS char(30)) AS plot_id,
+    'on_pp_pgp' :: char(30) AS org_code_db,
     on_pp.pgp_treedbh_ht.obs_year :: integer AS year_measured,
     CAST( 0 AS numeric) AS plot_size,
     CAST( 0 AS numeric) AS sapling_plot_size,
@@ -173,8 +173,8 @@ UNION ALL
 ----------------------------------------------
 
 SELECT DISTINCT
-    CAST(concat_ws('-',statecd,unitcd,countycd,plot)  AS char(20)) AS plot_id,
-    'us_pp' :: char(10) AS org_code_db,
+    CAST(concat_ws('-',statecd,unitcd,countycd,plot)  AS char(30)) AS plot_id,
+    'us_pp' :: char(30) AS org_code_db,
     us_pp.plot.measyear :: integer AS year_measured,
     CAST( 0 AS numeric) AS plot_size,
     CAST( 0 AS numeric) AS sapling_plot_size,
@@ -191,8 +191,8 @@ UNION ALL
 ----------------------------------------------
 
 SELECT DISTINCT
-    CAST(domtar_pp.domtar_data.idpep AS char(20)) AS plot_id,
-    'domtar_pp' :: char(10) AS org_code_db,
+    CAST(domtar_pp.domtar_data.idpep AS char(30)) AS plot_id,
+    'domtar_pp' :: char(30) AS org_code_db,
     CAST(domtar_pp.domtar_data.annee_corrigee AS integer) AS yr_measured,
     CAST( 0 AS numeric) AS plot_size,
     CAST( 0 AS numeric) AS sapling_plot_size,

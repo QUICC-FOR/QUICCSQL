@@ -21,13 +21,14 @@ DROP FUNCTION IF EXISTS temp_quicc.get_tree_state();
 DROP FUNCTION IF EXISTS temp_quicc.get_in_subplot();
 DROP FUNCTION IF EXISTS temp_quicc.get_is_planted();
 DROP FUNCTION IF EXISTS temp_quicc.get_new_spcode();
+DROP FUNCTION IF EXISTS temp_quicc.get_source_nb_db();
 
 CREATE OR REPLACE FUNCTION temp_quicc.flt_dbh(org_db char(15), dbh anyelement)
 RETURNS integer AS $$
 DECLARE res integer;
 BEGIN
 	IF dbh <= 0 THEN res:= NULL;
-
+<
     ELSIF dbh > 10000 THEN res := NULL; -- superior to 10 meters of DBH
 
     ELSE res := dbh;
@@ -149,7 +150,8 @@ BEGIN
         ELSE res := NULL;
         END CASE;
     END IF;
-    IF org_db = 'nb_pp' THEN
+    IF org_db = 'nb_pp_partial_cut' OR org_db = 'nb_pp_YIMO' OR org_db = 'nb_pp_regenandthin' OR org_db = 'nb_pp_cutandplant' 
+        THEN
         res := size;
     END IF;
              IF org_db = 'on_pp_glsl' OR org_db='on_pp_boreal' THEN
@@ -259,7 +261,7 @@ BEGIN
 
 ----------------------------------------------------------------------------
 
-    ELSIF org_db = 'nb_pp_partial_cut' OR org_db = 'nb_pp_cutandplant' OR org_db = 'nb_pp_regenandthin'  
+    ELSIF org_db = 'nb_pp_partial_cut' OR org_db = 'nb_pp_YIMO' OR org_db = 'nb_pp_regenandthin' OR org_db = 'nb_pp_cutandplant' 
 
     THEN
     -- If field is not NULL then tree is dead
@@ -340,7 +342,7 @@ BEGIN
 
     ELSIF org_db = 'qc_pp' OR org_db = 'qc_pet2' OR org_db = 'qc_pet3' OR org_db = 'qc_pet4' THEN res:= 0;
     
-    ELSIF org_db = 'nb_pp_partial_cut' OR org_db = 'nb_pp_cutandplant' OR org_db = 'nb_pp_regenandthin'  THEN res :=0;
+    ELSIF org_db = 'nb_pp_partial_cut' OR org_db = 'nb_pp_YIMO' OR org_db = 'nb_pp_regenandthin' OR org_db = 'nb_pp_cutandplant'  THEN res :=0;
 
     ELSEIF org_db = 'on_pp_boreal' OR org_db = 'on_pp_glsl' OR org_db = 'on_pp_pgp' THEN res :=NULL;
 
@@ -383,7 +385,7 @@ BEGIN
             format('SELECT ref_species.id_spe FROM rdb_quicc.ref_species WHERE qc_code = %L', species_code)
             INTO res;
 
-        ELSIF org_db = 'nb_pp_partial_cut' OR org_db = 'nb_pp_cutandplant' OR org_db = 'nb_pp_regenandthin' THEN 
+        ELSIF org_db = 'nb_pp_partial_cut' OR org_db = 'nb_pp_YIMO' OR org_db = 'nb_pp_regenandthin' OR org_db = 'nb_pp_cutandplant'   THEN 
             EXECUTE 
             format('SELECT ref_species.id_spe FROM rdb_quicc.ref_species WHERE nb_code = %L', species_code)
             INTO res;
@@ -403,5 +405,30 @@ BEGIN
         END IF;
 
     RETURN res;
+END;
+$$ LANGUAGE plpgsql;
+
+
+/*  Function:     temp_quicc.get_source_nb_db(id_plot)
+    Description:  Get the traitment applied on the plot - Specific to New-Brunswick plots
+    Arguments:    id of the nb plot
+    Returns:      char
+*/
+
+CREATE OR REPLACE FUNCTION temp_quicc.get_source_nb_db(id_plot char(30))
+RETURNS char(30) AS $$
+DECLARE datasource char(30); res char(30);
+BEGIN
+            EXECUTE 
+            format('SELECT nb_pp.psp_plots.datasource FROM nb_pp.psp_plots WHERE id_plot = %L', id_plot)
+            INTO datasource;
+
+            IF datasource = 'NBCoopYIMO' THEN res = 'nb_pp_YIMO';
+            ELSIF datasource = 'NBCoopCutAndPlant' THEN res = 'nb_pp_cutandplant';
+            ELSIF datasource = 'NBCoopRegenAndThin' THEN res =  'nb_pp_regenandthin';
+            ELSIF datasource = 'NBCoopPartialCut' THEN res = 'nb_pp_partial_cut';
+            END IF;
+
+RETURN res;
 END;
 $$ LANGUAGE plpgsql;
