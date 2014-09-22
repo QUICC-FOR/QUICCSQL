@@ -273,7 +273,7 @@ BEGIN
     -- If field is not NULL then tree is dead
     -- '-1' code is unreferenced in code tables
 
-        IF code IS NOT NULL AND code != 0 THEN res:= 1; 
+        IF code IS NOT NULL AND code != '0' THEN res:= 1; 
         ELSE res := 0;
         END IF;
     
