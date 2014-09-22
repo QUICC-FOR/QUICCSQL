@@ -323,26 +323,26 @@ FROM domtar_pp.domtar_data
 DELETE FROM rdb_quicc.tree;
 INSERT INTO rdb_quicc.tree
     SELECT DISTINCT
-        rdb_quicc.plot_info.plot_id,
-        rdb_quicc.tree_info.tree_id,
-        temp_quicc.mv_tree.year_measured,
-        temp_quicc.get_new_spcode(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.species_code),
-        temp_quicc.flt_height(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.height),
-        temp_quicc.flt_dbh(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.dbh),
-        CAST(temp_quicc.mv_tree.age AS integer),
-        CAST(NULL AS integer) AS sun_access,
-	NULL AS position_canopy,
-	temp_quicc.get_height_method_tree(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.height_id_method, temp_quicc.flt_height(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.height)),
-        temp_quicc.get_in_subplot(temp_quicc.mv_tree.source_db, temp_quicc.flt_dbh(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.dbh)),
-        CAST(NULL AS boolean) in_macroplot,
-	CAST(NULL AS boolean) AS is_planted,
-        temp_quicc.get_tree_state(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.is_dead),
-        rdb_quicc.plot_info.plot_id,
-        temp_quicc.mv_tree.year_measured,
-        rdb_quicc.tree_info.plot_id,
-        rdb_quicc.tree_info.tree_id,
-        rdb_quicc.ref_tree_height_method.height_id_method,
-        rdb_quicc.ref_species.id_spe
+	    rdb_quicc.plot_info.plot_id,
+	    rdb_quicc.tree_info.tree_id,
+	    temp_quicc.mv_tree.year_measured,
+	    temp_quicc.get_new_spcode(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.species_code),
+	    temp_quicc.flt_height(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.height),
+	    temp_quicc.flt_dbh(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.dbh),
+	    temp_quicc.mv_tree.age AS integer,
+	    NULL AS integer AS sun_access,
+		NULL AS position_canopy,
+		temp_quicc.get_height_method_tree(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.height_id_method, temp_quicc.flt_height(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.height)),
+	    temp_quicc.get_in_subplot(temp_quicc.mv_tree.source_db, temp_quicc.flt_dbh(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.dbh)),
+	    NULL AS boolean in_macroplot,
+		NULL AS boolean AS is_planted,
+	    temp_quicc.get_tree_state(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.is_dead),
+	    rdb_quicc.plot_info.plot_id,
+	    temp_quicc.mv_tree.year_measured,
+	    rdb_quicc.tree_info.plot_id,
+	    rdb_quicc.tree_info.tree_id,
+	    rdb_quicc.ref_tree_height_method.height_id_method,
+	    rdb_quicc.ref_species.id_spe
     FROM temp_quicc.mv_tree
   	RIGHT OUTER JOIN rdb_quicc.plot_info ON temp_quicc.mv_tree.plot_id = rdb_quicc.plot_info.org_db_id
         AND temp_quicc.mv_tree.source_db = rdb_quicc.plot_info.org_db_loc 

@@ -64,7 +64,7 @@ UNION ALL
 
 SELECT DISTINCT
     CAST(nb_pp.psp_plots.plot AS char(20)) AS plot_id,
-    'nb_pp' :: char(20) AS org_code_db
+     temp_quicc.get_source_nb_db(nb_pp.psp_plots.plot) AS org_code_db
 FROM
     nb_pp.psp_plots
 WHERE nb_pp.psp_plots.coord_geom IS NOT NULL
@@ -145,6 +145,6 @@ WHERE domtar_pp.domtar_data.coord_geom IS NOT NULL;
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 
 DELETE FROM rdb_quicc.plot_info;
-INSERT INTO rdb_quicc.plot_info (org_db_loc,org_db_id) SELECT org_code_db, plot_id FROM temp_quicc.mv_plot_info;
+INSERT INTO rdb_quicc.plot_info (org_db_loc,org_db_id) SELECT org_code_db, plot_id FROM temp_quicc.mv_plot_info WHERE org_code_db IS NOT NULL;
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------

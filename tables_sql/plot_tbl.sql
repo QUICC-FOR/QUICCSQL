@@ -24,7 +24,7 @@ SELECT DISTINCT
     CAST(qc_pp.pp_infogen.dimension AS numeric) AS sapling_plot_size,
     CAST(qc_pp.pp_infogen.dimension AS numeric) AS seedling_plot_size,
     0 :: boolean AS is_templot,
-    0 :: boolean AS has_superplot
+    0 :: boolean AS has_macroplot
 FROM
     qc_pp.pp_infogen
 INNER JOIN qc_pp.pp_localis on qc_pp.pp_infogen.id_pep_mes = qc_pp.pp_localis.id_pep_mes
@@ -46,7 +46,7 @@ SELECT DISTINCT
     CAST(qc_tp.infogen_pet2.dimension AS numeric) AS sapling_plot_size,
     CAST(qc_tp.infogen_pet2.dimension AS numeric) AS seedling_plot_size,
     1 :: boolean AS is_templot,
-    0 :: boolean AS has_superplot
+    0 :: boolean AS has_macroplot
 FROM
     qc_tp.infogen_pet2
 INNER JOIN qc_tp.localis_pet2 ON qc_tp.infogen_pet2.id_pet_mes = qc_tp.localis_pet2.id_pet_mes
@@ -63,7 +63,7 @@ SELECT DISTINCT
     CAST(qc_tp.infogen_pet3.dimension AS numeric) AS sapling_plot_size,
     CAST(qc_tp.infogen_pet3.dimension AS numeric) AS seedling_plot_size,
     1 :: boolean AS is_templot,
-    0 :: boolean AS has_superplot
+    0 :: boolean AS has_macroplot
 FROM
     qc_tp.infogen_pet3
 INNER JOIN qc_tp.localis_pet3 ON qc_tp.infogen_pet3.id_pet_mes = qc_tp.localis_pet3.id_pet_mes
@@ -80,7 +80,7 @@ SELECT DISTINCT
     CAST(qc_tp.infogen_pet4.dimension AS numeric) AS sapling_plot_size,
     CAST(qc_tp.infogen_pet4.dimension AS numeric) AS seedling_plot_size,
     1 :: boolean AS is_templot,
-    0 :: boolean AS has_superplot
+    0 :: boolean AS has_macroplot
 FROM
     qc_tp.infogen_pet4
 INNER JOIN qc_tp.localis_pet4 ON qc_tp.infogen_pet4.id_pet_mes = qc_tp.localis_pet4.id_pet_mes
@@ -95,13 +95,13 @@ UNION ALL
 
 SELECT DISTINCT
     CAST(nb_pp.psp_plots.plot AS char(30)) AS plot_id,
-    'nb_pp' :: char(30) AS org_code_db,
+    temp_quicc.get_source_nb_db(nb_pp.psp_plots.plot) AS org_code_db,
     CAST(nb_pp.psp_plots_yr.year AS integer) AS year_measured,
     CAST(nb_pp.psp_plots.plotsize AS numeric) AS plot_size,
     CAST(nb_pp.psp_plots.plotsize AS numeric) AS sapling_plot_size,
     CAST(nb_pp.psp_plots.plotsize AS numeric) AS seedling_plot_size,
     0 :: boolean AS is_templot,
-    0 :: boolean AS has_superplot
+    0 :: boolean AS has_macroplot
 FROM
     nb_pp.psp_plots
 LEFT JOIN  nb_pp.psp_plots_yr ON nb_pp.psp_plots.plot = nb_pp.psp_plots_yr.plot
@@ -125,7 +125,7 @@ SELECT DISTINCT
     CAST( 0 AS numeric) AS sapling_plot_size,
     CAST( 0 AS numeric) AS seedling_plot_size,
     0 :: boolean AS is_templot,
-    0 :: boolean AS has_superplot
+    0 :: boolean AS has_macroplot
 FROM
     on_pp.boreal_psp_treedbh_ht
 LEFT JOIN on_pp.boreal_psp_plot_sizes ON on_pp.boreal_psp_treedbh_ht.plot_num = on_pp.boreal_psp_plot_sizes.plot_num
@@ -142,7 +142,7 @@ SELECT DISTINCT
     CAST( 0 AS numeric) AS sapling_plot_size,
     CAST( 0 AS numeric) AS seedling_plot_size,
     0 :: boolean AS is_templot,
-    0 :: boolean AS has_superplot
+    0 :: boolean AS has_macroplot
 FROM
     on_pp.glsl_psp_trees_dbh_ht
 LEFT JOIN on_pp.glsl_psp_plotsize ON on_pp.glsl_psp_trees_dbh_ht.plotname = on_pp.glsl_psp_plotsize.plotname
@@ -159,7 +159,7 @@ SELECT DISTINCT
     CAST( 0 AS numeric) AS sapling_plot_size,
     CAST( 0 AS numeric) AS seedling_plot_size,
     0 :: boolean AS is_templot,
-    0 :: boolean AS has_superplot
+    0 :: boolean AS has_macroplot
 FROM
     on_pp.pgp_treedbh_ht
 
@@ -180,7 +180,7 @@ SELECT DISTINCT
     CAST( 0 AS numeric) AS sapling_plot_size,
     CAST( 0 AS numeric) AS seedling_plot_size,
     0 :: boolean AS is_templot,
-    0 :: boolean AS has_superplot
+    0 :: boolean AS has_macroplot
 FROM
     us_pp.plot
 
@@ -198,7 +198,7 @@ SELECT DISTINCT
     CAST( 0 AS numeric) AS sapling_plot_size,
     CAST( 0 AS numeric) AS seedling_plot_size,
     0 :: boolean AS is_templot,
-    0 :: boolean AS has_superplot
+    0 :: boolean AS has_macroplot
 FROM
     domtar_pp.domtar_data
 ;
@@ -220,7 +220,7 @@ DELETE FROM rdb_quicc.plot;
         temp_quicc.mv_plot.sapling_plot_size,
         temp_quicc.mv_plot.seedling_plot_size,
         temp_quicc.mv_plot.is_templot,
-        temp_quicc.mv_plot.has_superplot,
+        temp_quicc.mv_plot.has_macroplot,
         rdb_quicc.plot_info.plot_id,
         rdb_quicc.plot_info.plot_id
     FROM temp_quicc.mv_plot
