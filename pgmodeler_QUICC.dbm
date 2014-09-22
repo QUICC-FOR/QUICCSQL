@@ -70,6 +70,16 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<constraint name="tree_class_info_tbl_pk" type="pk-constr" factor="100" table="rdb_quicc.tree_class_info">
 		<columns names="plot_id,tree_class_id" ref-type="src-columns"/>
 	</constraint>
+	<index name="idx_tree_class_info_pk" table="rdb_quicc.tree_class_info"
+		 concurrent="false" unique="false" fast-update="false"
+		 index-type="btree" factor="0">
+		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
+			<column name="plot_id"/>
+		</idxelement>
+		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
+			<column name="tree_class_id"/>
+		</idxelement>
+	</index>
 </table>
 
 <table name="tree">
@@ -167,6 +177,19 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<constraint name="class_tree_tbl_pk" type="pk-constr" factor="100" table="rdb_quicc.class_tree">
 		<columns names="plot_id,tree_class_id,year_measured" ref-type="src-columns"/>
 	</constraint>
+	<index name="idx_class_tree_pk" table="rdb_quicc.class_tree"
+		 concurrent="false" unique="false" fast-update="false"
+		 index-type="btree" factor="0">
+		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
+			<column name="plot_id"/>
+		</idxelement>
+		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
+			<column name="tree_class_id"/>
+		</idxelement>
+		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
+			<column name="year_measured"/>
+		</idxelement>
+	</index>
 </table>
 
 <table name="stand_disturbed">
@@ -194,6 +217,16 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<constraint name="stand_disturbed_tbl_pk" type="pk-constr" factor="100" table="rdb_quicc.stand_disturbed">
 		<columns names="plot_id,year_disturbed" ref-type="src-columns"/>
 	</constraint>
+	<index name="idx_stand_disturbed_pk" table="rdb_quicc.stand_disturbed"
+		 concurrent="false" unique="false" fast-update="false"
+		 index-type="btree" factor="0">
+		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
+			<column name="plot_id"/>
+		</idxelement>
+		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
+			<column name="year_disturbed"/>
+		</idxelement>
+	</index>
 </table>
 
 <table name="ref_stand_disturb_type">
@@ -355,6 +388,16 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<constraint name="stand_tbl_pk" type="pk-constr" factor="100" table="rdb_quicc.stand">
 		<columns names="plot_id,year_measured" ref-type="src-columns"/>
 	</constraint>
+	<index name="idx_stand_pk" table="rdb_quicc.stand"
+		 concurrent="false" unique="false" fast-update="false"
+		 index-type="btree" factor="0">
+		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
+			<column name="plot_id"/>
+		</idxelement>
+		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
+			<column name="year_measured"/>
+		</idxelement>
+	</index>
 </table>
 
 <table name="localisation">
@@ -481,7 +524,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="ref_stand_age_method">
 	<schema name="rdb_quicc"/>
 	<role name="&quot;QUICC&quot;"/>
-	<position x="20" y="860"/>
+	<position x="20" y="885"/>
 	<column name="age_id_method" not-null="true">
 		<type name="character"/>
 	</column>
@@ -491,6 +534,13 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<constraint name="ref_stand_age_method_pk" type="pk-constr" factor="100" table="rdb_quicc.ref_stand_age_method">
 		<columns names="age_id_method" ref-type="src-columns"/>
 	</constraint>
+	<index name="idx_stand_age_method_pk" table="rdb_quicc.ref_stand_age_method"
+		 concurrent="false" unique="false" fast-update="false"
+		 index-type="btree" factor="0">
+		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
+			<column name="age_id_method"/>
+		</idxelement>
+	</index>
 </table>
 
 <table name="ref_stand_height_method">
@@ -506,6 +556,13 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<constraint name="ref_stand_height_method_pk" type="pk-constr" factor="100" table="rdb_quicc.ref_stand_height_method">
 		<columns names="height_id_method" ref-type="src-columns"/>
 	</constraint>
+	<index name="idx_stand_height_method_pk" table="rdb_quicc.ref_stand_height_method"
+		 concurrent="false" unique="false" fast-update="false"
+		 index-type="btree" factor="0">
+		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
+			<column name="height_id_method"/>
+		</idxelement>
+	</index>
 </table>
 
 <relationship name="stand_has_many_tbl_stand_disturbed" type="rel1n"
@@ -570,12 +627,19 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<constraint name="conv_class_dbh_pk" type="pk-constr" factor="10" table="rdb_quicc.conv_class_dbh">
 		<columns names="dbh_class_id" ref-type="src-columns"/>
 	</constraint>
+	<index name="idx_conv_class_dbh_pk" table="rdb_quicc.conv_class_dbh"
+		 concurrent="false" unique="false" fast-update="false"
+		 index-type="btree" factor="0">
+		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
+			<column name="dbh_class_id"/>
+		</idxelement>
+	</index>
 </table>
 
 <table name="conv_class_height">
 	<schema name="rdb_quicc"/>
 	<role name="&quot;QUICC&quot;"/>
-	<position x="20" y="200"/>
+	<position x="18" y="189"/>
 	<column name="height_class_id" not-null="true">
 		<type name="integer"/>
 	</column>
@@ -594,6 +658,13 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<constraint name="conv_class_height_pk" type="pk-constr" factor="10" table="rdb_quicc.conv_class_height">
 		<columns names="height_class_id" ref-type="src-columns"/>
 	</constraint>
+	<index name="idx_conv_class_height_pk" table="rdb_quicc.conv_class_height"
+		 concurrent="false" unique="false" fast-update="false"
+		 index-type="btree" factor="0">
+		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
+			<column name="height_class_id"/>
+		</idxelement>
+	</index>
 </table>
 
 <relationship name="conv_class_dbh_has_many_class_tree" type="rel1n"

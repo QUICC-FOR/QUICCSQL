@@ -76,6 +76,17 @@ CREATE TABLE rdb_quicc.tree_class_info(
 
 );
 -- ddl-end --
+-- object: idx_tree_class_info_pk | type: INDEX --
+-- DROP INDEX rdb_quicc.idx_tree_class_info_pk;
+CREATE INDEX idx_tree_class_info_pk ON rdb_quicc.tree_class_info
+	USING btree
+	(
+	  plot_id ASC NULLS LAST,
+	  tree_class_id ASC NULLS LAST
+	);
+-- ddl-end --
+
+
 ALTER TABLE rdb_quicc.tree_class_info OWNER TO "QUICC";
 -- ddl-end --
 
@@ -143,6 +154,18 @@ CREATE TABLE rdb_quicc.class_tree(
 
 );
 -- ddl-end --
+-- object: idx_class_tree_pk | type: INDEX --
+-- DROP INDEX rdb_quicc.idx_class_tree_pk;
+CREATE INDEX idx_class_tree_pk ON rdb_quicc.class_tree
+	USING btree
+	(
+	  plot_id ASC NULLS LAST,
+	  tree_class_id ASC NULLS LAST,
+	  year_measured ASC NULLS LAST
+	);
+-- ddl-end --
+
+
 ALTER TABLE rdb_quicc.class_tree OWNER TO "QUICC";
 -- ddl-end --
 
@@ -162,6 +185,17 @@ CREATE TABLE rdb_quicc.stand_disturbed(
 
 );
 -- ddl-end --
+-- object: idx_stand_disturbed_pk | type: INDEX --
+-- DROP INDEX rdb_quicc.idx_stand_disturbed_pk;
+CREATE INDEX idx_stand_disturbed_pk ON rdb_quicc.stand_disturbed
+	USING btree
+	(
+	  plot_id ASC NULLS LAST,
+	  year_disturbed ASC NULLS LAST
+	);
+-- ddl-end --
+
+
 ALTER TABLE rdb_quicc.stand_disturbed OWNER TO "QUICC";
 -- ddl-end --
 
@@ -290,6 +324,17 @@ CREATE TABLE rdb_quicc.stand(
 
 );
 -- ddl-end --
+-- object: idx_stand_pk | type: INDEX --
+-- DROP INDEX rdb_quicc.idx_stand_pk;
+CREATE INDEX idx_stand_pk ON rdb_quicc.stand
+	USING btree
+	(
+	  plot_id ASC NULLS LAST,
+	  year_measured ASC NULLS LAST
+	);
+-- ddl-end --
+
+
 ALTER TABLE rdb_quicc.stand OWNER TO "QUICC";
 -- ddl-end --
 
@@ -387,6 +432,16 @@ CREATE TABLE rdb_quicc.ref_stand_age_method(
 
 );
 -- ddl-end --
+-- object: idx_stand_age_method_pk | type: INDEX --
+-- DROP INDEX rdb_quicc.idx_stand_age_method_pk;
+CREATE INDEX idx_stand_age_method_pk ON rdb_quicc.ref_stand_age_method
+	USING btree
+	(
+	  age_id_method ASC NULLS LAST
+	);
+-- ddl-end --
+
+
 ALTER TABLE rdb_quicc.ref_stand_age_method OWNER TO "QUICC";
 -- ddl-end --
 
@@ -399,6 +454,16 @@ CREATE TABLE rdb_quicc.ref_stand_height_method(
 
 );
 -- ddl-end --
+-- object: idx_stand_height_method_pk | type: INDEX --
+-- DROP INDEX rdb_quicc.idx_stand_height_method_pk;
+CREATE INDEX idx_stand_height_method_pk ON rdb_quicc.ref_stand_height_method
+	USING btree
+	(
+	  height_id_method ASC NULLS LAST
+	);
+-- ddl-end --
+
+
 ALTER TABLE rdb_quicc.ref_stand_height_method OWNER TO "QUICC";
 -- ddl-end --
 
@@ -446,6 +511,16 @@ CREATE TABLE rdb_quicc.conv_class_dbh(
 
 );
 -- ddl-end --
+-- object: idx_conv_class_dbh_pk | type: INDEX --
+-- DROP INDEX rdb_quicc.idx_conv_class_dbh_pk;
+CREATE INDEX idx_conv_class_dbh_pk ON rdb_quicc.conv_class_dbh
+	USING btree
+	(
+	  dbh_class_id ASC NULLS LAST
+	);
+-- ddl-end --
+
+
 ALTER TABLE rdb_quicc.conv_class_dbh OWNER TO "QUICC";
 -- ddl-end --
 
@@ -461,6 +536,16 @@ CREATE TABLE rdb_quicc.conv_class_height(
 
 );
 -- ddl-end --
+-- object: idx_conv_class_height_pk | type: INDEX --
+-- DROP INDEX rdb_quicc.idx_conv_class_height_pk;
+CREATE INDEX idx_conv_class_height_pk ON rdb_quicc.conv_class_height
+	USING btree
+	(
+	  height_class_id ASC NULLS LAST
+	);
+-- ddl-end --
+
+
 ALTER TABLE rdb_quicc.conv_class_height OWNER TO "QUICC";
 -- ddl-end --
 
