@@ -10,3 +10,4 @@ INSERT INTO rdb_quicc.ref_tree_height_method(
             ('D','Estimated with clinometer'),
             ('E','Measured with height pole'),
             ('U','Method unreferenced');	
+REINDEX TABLE rdb_quicc.ref_tree_height_method;

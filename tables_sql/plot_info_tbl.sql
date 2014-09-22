@@ -146,5 +146,6 @@ WHERE domtar_pp.domtar_data.coord_geom IS NOT NULL;
 
 DELETE FROM rdb_quicc.plot_info;
 INSERT INTO rdb_quicc.plot_info (org_db_loc,org_db_id) SELECT org_code_db, plot_id FROM temp_quicc.mv_plot_info WHERE org_code_db IS NOT NULL;
+REINDEX TABLE rdb_quicc.plot_info;
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------

@@ -2,6 +2,7 @@ PG_USER = postgres
 PG_DB = "QUICC-FOR-Dev"
 PG_HOST = localhost
 PG_PORT = 5433
+
 SRC = tables_sql
 CLIM = clim_data
 ARCHI = archi_sql
@@ -40,17 +41,18 @@ tree_info_tbl:
 
 clim_tbl:
 	sh ${CLIM}/post_trait_NRCan.sh
+	psql  -U ${PG_USER} -h ${PG_HOST} -p ${PG_PORT} -d ${PG_DB} -c "REINDEX TABLE rdb_quicc.climatic_data;"
+	clean
 
 species:
 	psql -U ${PG_USER} -h ${PG_HOST} -p ${PG_PORT} -d ${PG_DB} -c "\copy rdb_quicc.ref_species FROM '${SP}/final_ref_table_sql.csv' null '' ;"
+	psql  -U ${PG_USER} -h ${PG_HOST} -p ${PG_PORT} -d ${PG_DB} -c "REINDEX TABLE rdb_quicc.ref_species;"
 
 functions:
 	psql  -U ${PG_USER} -h ${PG_HOST} -p ${PG_PORT} -d ${PG_DB} -c "\i ${FUNC}/conv_functions.sql;"
 	psql  -U ${PG_USER} -h ${PG_HOST} -p ${PG_PORT} -d ${PG_DB} -c "\i ${FUNC}/gen_functions.sql;"
 
-all: temp_sch rdb_sch plot_info_tbl localisation_tbl plot_tbl  elev plot_tbl species tree_info_tbl
+all: temp_sch rdb_sch clean functions impl_ref plot_info_tbl localisation_tbl plot_tbl species tree_info_tbl
 
 clean:
 	vacuumdb  -U ${PG_USER} -h ${PG_HOST} -p ${PG_PORT} -d ${PG_DB} --analyze --verbose
-
-dump:

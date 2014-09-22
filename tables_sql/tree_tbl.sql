@@ -52,9 +52,9 @@ SELECT CAST(qc_tp.infogen_pet2.id_pet AS char(10)) AS plot_id,
 	NULL AS height_id_method,
 	NULL AS in_macroplot,
 	NULL AS in_subplot,
-    CAST(NULL AS char(5)) AS is_planted,
-    NULL :: char(5) AS is_dead,
-    'qc_pet2' AS source_db
+	CAST(NULL AS char(5)) AS is_planted,
+	NULL :: char(5) AS is_dead,
+	'qc_pet2' AS source_db
 FROM qc_tp.etudarbr_pet2 LEFT OUTER JOIN qc_tp.infogen_pet2 ON qc_tp.etudarbr_pet2.id_pet_mes = qc_tp.infogen_pet2.id_pet_mes
 -- LIMIT 50
 
@@ -73,9 +73,9 @@ SELECT CAST(qc_tp.infogen_pet3.id_pet AS char(10)) AS plot_id,
 	NULL AS height_id_method,
 	NULL AS in_macroplot,
 	NULL AS in_subplot,
-    CAST(NULL AS char(5)) AS is_planted,
-    NULL :: char(5) AS is_dead,
-    'qc_pet3' AS source_db 
+	CAST(NULL AS char(5)) AS is_planted,
+	NULL :: char(5) AS is_dead,
+	'qc_pet3' AS source_db 
 FROM qc_tp.etudarbr_pet3 LEFT OUTER JOIN qc_tp.infogen_pet3 ON qc_tp.etudarbr_pet3.id_pet_mes = qc_tp.infogen_pet3.id_pet_mes
 -- LIMIT 50
 
@@ -93,9 +93,9 @@ SELECT CAST(qc_tp.infogen_pet4.id_pet AS char(10)) AS plot_id,
 	NULL AS height_id_method,
 	NULL AS in_macroplot,
 	NULL AS in_subplot,
-    CAST(NULL AS char(5)) AS is_planted,
-    NULL :: char(5) AS is_dead,
-    'qc_pet4' AS source_db
+	CAST(NULL AS char(5)) AS is_planted,
+	NULL :: char(5) AS is_dead,
+	'qc_pet4' AS source_db
 FROM qc_tp.etudarbr_pet4 LEFT OUTER JOIN qc_tp.infogen_pet4 ON qc_tp.etudarbr_pet4.id_pet_mes = qc_tp.infogen_pet4.id_pet_mes
 -- LIMIT 50
 
@@ -117,9 +117,9 @@ SELECT CAST(nb_pp.psp_plots_yr.plot AS char(10)) AS plot_id,
 	NULL AS height_id_method,
 	NULL AS in_macroplot,
 	NULL AS in_subplot,
-    CAST(NULL AS char(5)) AS is_planted,
-    nb_pp.psp_tree_partialcut.cause AS is_dead,
-    'nb_pp_partial_cut' AS source_db
+	CAST(NULL AS char(5)) AS is_planted,
+	nb_pp.psp_tree_partialcut.cause AS is_dead,
+	'nb_pp_partial_cut' AS source_db
 FROM nb_pp.psp_plots_yr INNER JOIN nb_pp.psp_tree_partialcut ON nb_pp.psp_plots_yr.remeasid = nb_pp.psp_tree_partialcut.remeasid
 -- LIMIT 50
 
@@ -137,9 +137,9 @@ SELECT CAST(nb_pp.psp_plots_yr.plot AS char(10)) AS plot_id,
 	NULL AS height_id_method,
 	NULL AS in_macroplot,
 	NULL AS in_subplot,
-    CAST(NULL AS char(5)) AS is_planted,
-    nb_pp.psp_tree_yimo.cause AS is_dead,
-    'nb_pp_YIMO' AS source_db
+	CAST(NULL AS char(5)) AS is_planted,
+	nb_pp.psp_tree_yimo.cause AS is_dead,
+	'nb_pp_YIMO' AS source_db
 FROM nb_pp.psp_plots_yr INNER JOIN nb_pp.psp_tree_yimo ON nb_pp.psp_plots_yr.remeasid = nb_pp.psp_tree_yimo.remeasid
 
 -- Uncomment the line below for smallest query (1000 records)
@@ -161,7 +161,7 @@ SELECT CAST(nb_pp.psp_plots_yr.plot AS char(10)) AS plot_id,
 	NULL AS in_subplot,
 	CAST(nb_pp.psp_tree_regenandthin.origin AS char(5)) AS is_planted,
 	nb_pp.psp_tree_regenandthin.cause AS is_dead,
-    	'nb_pp_regenandthin' AS source_db
+		'nb_pp_regenandthin' AS source_db
 FROM nb_pp.psp_plots_yr INNER JOIN nb_pp.psp_tree_regenandthin ON nb_pp.psp_plots_yr.remeasid = nb_pp.psp_tree_regenandthin.remeasid
 -- LIMIT 50
 
@@ -222,12 +222,12 @@ UNION ALL
 -----------------------------------------
 
 SELECT CAST(boreal_psp_treedbh_ht.plot_num AS char(10)) AS plot_id,
-    	CAST(boreal_psp_treedbh_ht.tree_id AS char(5)) AS tree_id,
-    	boreal_psp_treedbh_ht.obs_year AS year_measured,
-    	CAST(boreal_psp_treedbh_ht.tree_spec AS char(10)) AS species_code,
-    	boreal_psp_treedbh_ht.ht_total AS height,
-    	temp_quicc.conv_cm_to_mm(boreal_psp_treedbh_ht.dbh) AS dbh,
-    	NULL AS age,
+		CAST(boreal_psp_treedbh_ht.tree_id AS char(5)) AS tree_id,
+		boreal_psp_treedbh_ht.obs_year AS year_measured,
+		CAST(boreal_psp_treedbh_ht.tree_spec AS char(10)) AS species_code,
+		boreal_psp_treedbh_ht.ht_total AS height,
+		temp_quicc.conv_cm_to_mm(boreal_psp_treedbh_ht.dbh) AS dbh,
+		NULL AS age,
 	-- NULL AS sun_access,
 	-- NULL AS position_canopy,
 	NULL AS height_id_method,
@@ -322,33 +322,33 @@ FROM domtar_pp.domtar_data
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 DELETE FROM rdb_quicc.tree;
 INSERT INTO rdb_quicc.tree
-    SELECT DISTINCT
-	    rdb_quicc.plot_info.plot_id,
-	    rdb_quicc.tree_info.tree_id,
-	    temp_quicc.mv_tree.year_measured,
-	    temp_quicc.get_new_spcode(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.species_code),
-	    temp_quicc.flt_height(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.height),
-	    temp_quicc.flt_dbh(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.dbh),
-	    temp_quicc.mv_tree.age AS integer,
-	    NULL AS integer AS sun_access,
-		NULL AS position_canopy,
+	SELECT DISTINCT
+		rdb_quicc.plot_info.plot_id,
+		rdb_quicc.tree_info.tree_id,
+		temp_quicc.mv_tree.year_measured,
+		temp_quicc.get_new_spcode(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.species_code),
+		temp_quicc.flt_height(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.height),
+		temp_quicc.flt_dbh(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.dbh),
+		temp_quicc.mv_tree.age AS age,
+		0 AS sun_access,
+		0 AS position_canopy,
 		temp_quicc.get_height_method_tree(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.height_id_method, temp_quicc.flt_height(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.height)),
-	    temp_quicc.get_in_subplot(temp_quicc.mv_tree.source_db, temp_quicc.flt_dbh(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.dbh)),
-	    NULL AS boolean in_macroplot,
-		NULL AS boolean AS is_planted,
-	    temp_quicc.get_tree_state(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.is_dead),
-	    rdb_quicc.plot_info.plot_id,
-	    temp_quicc.mv_tree.year_measured,
-	    rdb_quicc.tree_info.plot_id,
-	    rdb_quicc.tree_info.tree_id,
-	    rdb_quicc.ref_tree_height_method.height_id_method,
-	    rdb_quicc.ref_species.id_spe
-    FROM temp_quicc.mv_tree
-  	RIGHT OUTER JOIN rdb_quicc.plot_info ON temp_quicc.mv_tree.plot_id = rdb_quicc.plot_info.org_db_id
-        AND temp_quicc.mv_tree.source_db = rdb_quicc.plot_info.org_db_loc 
-    RIGHT OUTER JOIN rdb_quicc.tree_info ON temp_quicc.mv_tree.tree_id = rdb_quicc.tree_info.tree_id
-        AND temp_quicc.mv_tree.source_db = rdb_quicc.tree_info.org_db_loc
-    RIGHT OUTER JOIN rdb_quicc.ref_tree_height_method ON temp_quicc.mv_tree.height_id_method = rdb_quicc.ref_tree_height_method.height_id_method
-    RIGHT OUTER JOIN rdb_quicc.ref_species ON temp_quicc.mv_tree.species_code = rdb_quicc.ref_species.id_spe
+		temp_quicc.get_in_subplot(temp_quicc.mv_tree.source_db, temp_quicc.flt_dbh(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.dbh)),
+		false AS in_macroplot,
+		false AS is_planted,
+		temp_quicc.get_tree_state(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.is_dead),
+		rdb_quicc.plot_info.plot_id,
+		temp_quicc.mv_tree.year_measured,
+		rdb_quicc.tree_info.plot_id,
+		rdb_quicc.tree_info.tree_id,
+		rdb_quicc.ref_tree_height_method.height_id_method,
+		rdb_quicc.ref_species.id_spe
+	FROM temp_quicc.mv_tree
+	RIGHT OUTER JOIN rdb_quicc.plot_info ON temp_quicc.mv_tree.plot_id = rdb_quicc.plot_info.org_db_id
+		AND temp_quicc.mv_tree.source_db = rdb_quicc.plot_info.org_db_loc 
+	RIGHT OUTER JOIN rdb_quicc.tree_info ON temp_quicc.mv_tree.tree_id = rdb_quicc.tree_info.tree_id
+		AND temp_quicc.mv_tree.source_db = rdb_quicc.tree_info.org_db_loc
+	RIGHT OUTER JOIN rdb_quicc.ref_tree_height_method ON temp_quicc.mv_tree.height_id_method = rdb_quicc.ref_tree_height_method.height_id_method
+	RIGHT OUTER JOIN rdb_quicc.ref_species ON temp_quicc.mv_tree.species_code = rdb_quicc.ref_species.id_spe
 WHERE rdb_quicc.plot_info.plot_id IS NOT NULL and rdb_quicc.tree_info.tree_id IS NOT NULL AND year_measured IS NOT NULL 
 LIMIT 100;

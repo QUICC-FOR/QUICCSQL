@@ -166,3 +166,4 @@ SELECT DISTINCT rdb_quicc.plot_info.plot_id,
 FROM temp_quicc.mv_localisation
 RIGHT OUTER JOIN rdb_quicc.plot_info ON temp_quicc.mv_localisation.org_plot_id = rdb_quicc.plot_info.org_db_id AND temp_quicc.mv_localisation.org_code_db = rdb_quicc.plot_info.org_db_loc
 WHERE ST_Y(temp_quicc.mv_localisation.coord_geom) IS NOT NULL AND ST_X(temp_quicc.mv_localisation.coord_geom) IS NOT NULL;
+REINDEX TABLE rdb_quicc.localisation;

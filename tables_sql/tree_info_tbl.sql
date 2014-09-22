@@ -81,7 +81,7 @@ SELECT DISTINCT CAST(nb_pp.psp_plots_yr.plot AS char(30)) AS plot_id,
     'nb_pp_regenandthin' :: char(30) AS org_db_loc,
     CAST(nb_pp.psp_tree_regenandthin.treenum AS char(10)) AS tree_id
 FROM nb_pp.psp_plots_yr
-LEFT JOIN nb_pp.psp_trenb_pp_regenandthine_regenandthin ON nb_pp.psp_plots_yr.remeasid = nb_pp.psp_tree_regenandthin.remeasid
+LEFT JOIN nb_pp.psp_tree_regenandthin ON nb_pp.psp_plots_yr.remeasid = nb_pp.psp_tree_regenandthin.remeasid
 
 UNION ALL
 
