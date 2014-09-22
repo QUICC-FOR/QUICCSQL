@@ -252,13 +252,13 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<type name="integer"/>
 	</column>
 	<column name="tree_id" not-null="true">
-		<type name="char" length="3"/>
+		<type name="character" length="20"/>
 	</column>
 	<column name="org_db_loc">
-		<type name="character" length="20"/>
+		<type name="character" length="30"/>
 	</column>
 	<column name="org_db_id">
-		<type name="character" length="20"/>
+		<type name="character" length="30"/>
 	</column>
 	<constraint name="tree_info_tbl_pk" type="pk-constr" factor="100" table="rdb_quicc.tree_info">
 		<columns names="plot_id,tree_id" ref-type="src-columns"/>
@@ -326,15 +326,15 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="plot_info">
 	<schema name="rdb_quicc"/>
 	<role name="&quot;QUICC&quot;"/>
-	<position x="114" y="623"/>
+	<position x="113" y="622"/>
 	<column name="plot_id" not-null="true" default-value="nextval('plot_info_plot_id_seq'::regclass)">
 		<type name="integer"/>
 	</column>
 	<column name="org_db_loc">
-		<type name="character" length="20"/>
+		<type name="character" length="30"/>
 	</column>
 	<column name="org_db_id">
-		<type name="character" length="20"/>
+		<type name="character" length="30"/>
 	</column>
 	<constraint name="plot_info_tbl_pk" type="pk-constr" factor="100" table="rdb_quicc.plot_info">
 		<columns names="plot_id" ref-type="src-columns"/>

@@ -110,7 +110,7 @@ CREATE TABLE rdb_quicc.tree(
 	plot_id_plot integer NOT NULL,
 	year_measured_plot integer NOT NULL,
 	plot_id_tree_info integer NOT NULL,
-	tree_id_tree_info char(3) NOT NULL,
+	tree_id_tree_info character(20) NOT NULL,
 	height_id_method_ref_tree_height_method character NOT NULL,
 	id_spe_ref_species character(15) NOT NULL,
 	CONSTRAINT tree_table_pk PRIMARY KEY (plot_id,tree_id,year_measured)
@@ -215,9 +215,9 @@ ALTER TABLE rdb_quicc.ref_stand_disturb_type OWNER TO "QUICC";
 -- DROP TABLE rdb_quicc.tree_info;
 CREATE TABLE rdb_quicc.tree_info(
 	plot_id integer NOT NULL,
-	tree_id char(3) NOT NULL,
-	org_db_loc character(20),
-	org_db_id character(20),
+	tree_id character(20) NOT NULL,
+	org_db_loc character(30),
+	org_db_id character(30),
 	CONSTRAINT tree_info_tbl_pk PRIMARY KEY (plot_id,tree_id)
 
 );
@@ -283,8 +283,8 @@ ALTER SEQUENCE rdb_quicc.plot_info_plot_id_seq OWNER TO vissst01;
 -- DROP TABLE rdb_quicc.plot_info;
 CREATE TABLE rdb_quicc.plot_info(
 	plot_id integer NOT NULL DEFAULT nextval('plot_info_plot_id_seq'::regclass),
-	org_db_loc character(20),
-	org_db_id character(20),
+	org_db_loc character(30),
+	org_db_id character(30),
 	CONSTRAINT plot_info_tbl_pk PRIMARY KEY (plot_id)
 
 );
