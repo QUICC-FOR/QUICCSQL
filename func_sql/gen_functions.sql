@@ -28,7 +28,6 @@ RETURNS integer AS $$
 DECLARE res integer;
 BEGIN
 	IF dbh <= 0 THEN res:= NULL;
-<
     ELSIF dbh > 10000 THEN res := NULL; -- superior to 10 meters of DBH
 
     ELSE res := dbh;
