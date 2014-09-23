@@ -23,7 +23,7 @@ DROP FUNCTION IF EXISTS temp_quicc.get_is_planted();
 DROP FUNCTION IF EXISTS temp_quicc.get_new_spcode();
 DROP FUNCTION IF EXISTS temp_quicc.get_source_nb_db();
 
-CREATE OR REPLACE FUNCTION temp_quicc.flt_dbh(org_db char(15), dbh anyelement)
+CREATE OR REPLACE FUNCTION temp_quicc.flt_dbh(org_db char(15), dbh integer)
 RETURNS integer AS $$
 DECLARE res integer;
 BEGIN
@@ -47,7 +47,7 @@ LANGUAGE plpgsql;
 */
 
 
-CREATE OR REPLACE FUNCTION temp_quicc.flt_height(org_db char(15), height anyelement)
+CREATE OR REPLACE FUNCTION temp_quicc.flt_height(org_db char(15), height double precision)
 RETURNS double precision AS $$
 DECLARE res double precision;
 BEGIN

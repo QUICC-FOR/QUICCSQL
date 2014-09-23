@@ -3,12 +3,12 @@
 ------------------------------------------------------------------------
 -- By Steve Vissault
 
-DROP FUNCTION IF EXISTS conv_cm_to_m();
-DROP FUNCTION IF EXISTS conv_cm_to_mm();
-DROP FUNCTION IF EXISTS conv_dm_to_m();
-DROP FUNCTION IF EXISTS conv_feet_to_m();
-DROP FUNCTION IF EXISTS conv_in_to_mm();
-DROP FUNCTION IF EXISTS get_surf();
+DROP FUNCTION IF EXISTS temp_quicc.conv_cm_to_m();
+DROP FUNCTION IF EXISTS temp_quicc.conv_cm_to_mm();
+DROP FUNCTION IF EXISTS temp_quicc.conv_dm_to_m();
+DROP FUNCTION IF EXISTS temp_quicc.conv_feet_to_m();
+DROP FUNCTION IF EXISTS temp_quicc.conv_in_to_mm();
+DROP FUNCTION IF EXISTS temp_quicc.get_surf();
 
 /*  Function:     temp_quicc.conv_cm_to_m(value)
     Description:  Conversion function - cm to meters
@@ -73,9 +73,9 @@ $$ LANGUAGE plpgsql;--
     Returns:      FLOAT
 */
 
-CREATE OR REPLACE FUNCTION temp_quicc.conv_in_to_mm(x float) RETURNS integer AS $$
+CREATE OR REPLACE FUNCTION temp_quicc.conv_in_to_mm(x float) RETURNS double precision AS $$
         BEGIN
-                RETURN round((x * 25.4));
+                RETURN x * 25.4;
         END;
 $$ LANGUAGE plpgsql;--
 
