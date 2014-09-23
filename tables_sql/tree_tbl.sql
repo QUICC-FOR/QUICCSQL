@@ -14,7 +14,7 @@
 
 CREATE OR REPLACE VIEW temp_quicc.mv_tree AS
 
-SELECT DISTINCT CAST(qc_pp.pp_infogen.id_pep AS char(10))  AS plot_id,
+SELECT DISTINCT CAST(qc_pp.pp_infogen.id_pep AS char(20))  AS plot_id,
 	CAST(qc_pp.pp_tiges.no_arbre AS char(5)) AS tree_id,
 	CAST(date_part('year'::text, qc_pp.pp_infogen.date_sond::date) AS integer) AS year_measured,
 	CAST(qc_pp.pp_tiges.essence AS char(10)) AS species_code,
@@ -40,7 +40,7 @@ UNION ALL
 -- Temporary sample plot from Quebec ---
 ---------------------------------------
 
-SELECT DISTINCT CAST(qc_tp.infogen_pet2.id_pet AS char(10)) AS plot_id,
+SELECT DISTINCT CAST(qc_tp.infogen_pet2.id_pet AS char(20)) AS plot_id,
 	CAST(qc_tp.etudarbr_pet2.no_arbre AS char(5)) AS tree_id,
 	CAST(date_part('year'::text, infogen_pet2.date_sond::date) AS integer) AS year_measured,
 	CAST(qc_tp.etudarbr_pet2.essence AS char(10)) AS species_code,
@@ -61,7 +61,7 @@ FROM qc_tp.etudarbr_pet2 LEFT OUTER JOIN qc_tp.infogen_pet2 ON qc_tp.etudarbr_pe
 
 UNION ALL
 
-SELECT DISTINCT CAST(qc_tp.infogen_pet3.id_pet AS char(10)) AS plot_id,
+SELECT DISTINCT CAST(qc_tp.infogen_pet3.id_pet AS char(20)) AS plot_id,
 	CAST(qc_tp.etudarbr_pet3.no_arbre AS char(5)) AS tree_id,
 	CAST(date_part('year'::text, infogen_pet3.date_sond::date) AS integer) AS year_measured,
 	CAST(qc_tp.etudarbr_pet3.essence AS char(10)) AS species_code,
@@ -81,7 +81,7 @@ FROM qc_tp.etudarbr_pet3 LEFT OUTER JOIN qc_tp.infogen_pet3 ON qc_tp.etudarbr_pe
 
 UNION ALL
 
-SELECT DISTINCT CAST(qc_tp.infogen_pet4.id_pet AS char(10)) AS plot_id,
+SELECT DISTINCT CAST(qc_tp.infogen_pet4.id_pet AS char(20)) AS plot_id,
 	CAST(qc_tp.etudarbr_pet4.no_arbre AS char(5)) AS tree_id,
 	CAST(date_part('year'::text, infogen_pet4.date_sond::date) AS integer) AS year_measured,
 	CAST(qc_tp.etudarbr_pet4.essence AS char(10)) AS species_code,
@@ -105,7 +105,7 @@ FROM qc_tp.etudarbr_pet4 LEFT OUTER JOIN qc_tp.infogen_pet4 ON qc_tp.etudarbr_pe
 
 UNION ALL
 
-SELECT DISTINCT CAST(nb_pp.psp_plots_yr.plot AS char(10)) AS plot_id,
+SELECT DISTINCT CAST(nb_pp.psp_plots_yr.plot AS char(20)) AS plot_id,
 	CAST(nb_pp.psp_tree_partialcut.treenum AS char(5)) AS tree_id,
 	CAST(nb_pp.psp_plots_yr.year  AS integer) AS year_measured,
 	CAST(nb_pp.psp_tree_partialcut.species AS char(10)) AS species_code,
@@ -126,7 +126,7 @@ LEFT OUTER JOIN nb_pp.psp_tree_partialcut ON nb_pp.psp_plots_yr.remeasid = nb_pp
 
 UNION ALL
 
-SELECT DISTINCT CAST(nb_pp.psp_plots_yr.plot AS char(10)) AS plot_id,
+SELECT DISTINCT CAST(nb_pp.psp_plots_yr.plot AS char(20)) AS plot_id,
 	CAST(nb_pp.psp_tree_yimo.treenum AS char(5)) AS tree_id,
 	CAST(nb_pp.psp_plots_yr.year  AS integer) AS year_measured,
 	CAST(nb_pp.psp_tree_yimo.species AS char(10)) AS species_code,
@@ -149,7 +149,7 @@ LEFT OUTER JOIN nb_pp.psp_tree_yimo ON nb_pp.psp_plots_yr.remeasid = nb_pp.psp_t
 
 UNION ALL
 
-SELECT DISTINCT CAST(nb_pp.psp_plots_yr.plot AS char(10)) AS plot_id,
+SELECT DISTINCT CAST(nb_pp.psp_plots_yr.plot AS char(20)) AS plot_id,
 	CAST(nb_pp.psp_tree_regenandthin.treenum AS char(5)) AS tree_id,
 	CAST(nb_pp.psp_plots_yr.year  AS integer) AS year_measured,
 	CAST(nb_pp.psp_tree_regenandthin.species AS char(10)) AS species_code,
@@ -170,7 +170,7 @@ LEFT OUTER JOIN nb_pp.psp_tree_regenandthin ON nb_pp.psp_plots_yr.remeasid = nb_
 
 UNION ALL
 
-SELECT DISTINCT CAST(nb_pp.psp_plots_yr.plot AS char(10)) AS plot_id,
+SELECT DISTINCT CAST(nb_pp.psp_plots_yr.plot AS char(20)) AS plot_id,
 	CAST(nb_pp.psp_tree_cutandplant.treenum AS char(5)) AS tree_id,
 	CAST(nb_pp.psp_plots_yr.year  AS integer) AS year_measured,
 	CAST(nb_pp.psp_tree_cutandplant.species AS char(10)) AS species_code,
@@ -197,7 +197,7 @@ UNION ALL
 -----------------------------------------
 ------------Plots FIA Database-----------
 -----------------------------------------
-SELECT DISTINCT CAST(concat_ws('-',statecd,unitcd,countycd,plot) AS char(20))   AS plot_id ,
+SELECT DISTINCT CAST(concat_ws('-',statecd,unitcd,countycd,plot,subp) AS char(20))   AS plot_id ,
 	CAST(us_pp.tree.tree  AS char(5)) AS tree_id,
 	us_pp.tree.invyr AS year_measured,
 	CAST(us_pp.tree.spcd AS char(10)) AS species_code,
@@ -225,7 +225,7 @@ UNION ALL
 -----------Ontario Boreal Plots----------
 -----------------------------------------
 
-SELECT DISTINCT CAST(boreal_psp_treedbh_ht.plot_num AS char(10)) AS plot_id,
+SELECT DISTINCT CAST(concat_ws('-',boreal_psp_treedbh_ht.plot_num, boreal_psp_treedbh_ht.subplot_id) AS char(20)) AS plot_id,
 		CAST(boreal_psp_treedbh_ht.tree_id AS char(5)) AS tree_id,
 		boreal_psp_treedbh_ht.obs_year AS year_measured,
 		CAST(boreal_psp_treedbh_ht.tree_spec AS char(10)) AS species_code,
@@ -249,7 +249,7 @@ FROM on_pp.boreal_psp_treedbh_ht
 
 UNION ALL
 
-SELECT DISTINCT CAST(glsl_psp_trees_dbh_ht.plotname AS char(10)) AS plot_id,
+SELECT DISTINCT CAST(replace(concat_ws('-',glsl_psp_trees_dbh_ht.plotname,glsl_psp_trees_dbh_ht.gpnum), ' ', '') AS char(20)) AS plot_id,
 	CAST(glsl_psp_trees_dbh_ht.treeid AS char(5)) AS tree_id,
 	CAST(date_part('year'::text, glsl_psp_trees_dbh_ht.msrdate::date) AS integer) AS year_measured,
 	CAST(glsl_psp_trees_dbh_ht.speccode AS char(10)) AS species_code,
@@ -273,7 +273,7 @@ FROM on_pp.glsl_psp_trees_dbh_ht
 
 UNION ALL
 
-SELECT DISTINCT CAST(pgp_treedbh_ht.plot_num AS char(10)) AS plot_id,
+SELECT DISTINCT CAST(concat_ws('-',pgp_treedbh_ht.plot_num,pgp_treedbh_ht.subplot_id) AS char(20)) AS plot_id,
 	CAST(pgp_treedbh_ht.tree_id AS char(5)) AS tree_id,
 	pgp_treedbh_ht.obs_year AS year_measured,
 	CAST(pgp_treedbh_ht.tree_spec AS char(10)) AS species_code,
@@ -299,7 +299,7 @@ UNION ALL
 
 SELECT DISTINCT CAST(domtar_pp.domtar_data.idpep AS char(10))  AS plot_id,
 	CAST(domtar_pp.domtar_data.noarbre AS char(5)) AS tree_id,
-	CAST(domtar_pp.domtar_data.annee_corrigee AS integer) AS year_measured,
+	CAST(domtar_pp.domtar_data.annee_sondage AS integer) AS year_measured,
 	CAST(domtar_pp.domtar_data.essence AS char(10)) AS species_code,
 	CAST(NULL AS double precision) AS height,
 	CAST(domtar_pp.domtar_data.dhpmm AS integer) AS dbh,
