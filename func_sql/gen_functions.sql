@@ -4,14 +4,7 @@
 --------------------------------------------------------------------
 -- By Steve Vissault
 
-/*  Function:     temp_quicc.flt_dbh(org_db, dbh)
-    Description:  Filters on dbh values
-    Affects:      outlier dbh values and dbh values <= 0
-    Arguments:    dbhmm and database source of the dbh (org_db)
-    Returns:      integer
-    Warning:      DBH need to be in mm
-*/
-
+-- DROP functions
 
 DROP FUNCTION IF EXISTS temp_quicc.flt_dbh();
 DROP FUNCTION IF EXISTS temp_quicc.flt_height();
@@ -22,6 +15,14 @@ DROP FUNCTION IF EXISTS temp_quicc.get_in_subplot();
 DROP FUNCTION IF EXISTS temp_quicc.get_is_planted();
 DROP FUNCTION IF EXISTS temp_quicc.get_new_spcode();
 DROP FUNCTION IF EXISTS temp_quicc.get_source_nb_db();
+
+/*  Function:     temp_quicc.flt_dbh(org_db, dbh)
+    Description:  Filters on dbh values
+    Affects:      outlier dbh values and dbh values <= 0
+    Arguments:    dbhmm and database source of the dbh (org_db)
+    Returns:      integer
+    Warning:      DBH need to be in mm
+*/
 
 CREATE OR REPLACE FUNCTION temp_quicc.flt_dbh(org_db char(15), dbh integer)
 RETURNS integer AS $$

@@ -3,6 +3,8 @@
 ------------------------------------------------------------------------
 -- By Steve Vissault
 
+-- DROP functions
+
 DROP FUNCTION IF EXISTS temp_quicc.conv_cm_to_m();
 DROP FUNCTION IF EXISTS temp_quicc.conv_cm_to_mm();
 DROP FUNCTION IF EXISTS temp_quicc.conv_dm_to_m();
@@ -12,7 +14,7 @@ DROP FUNCTION IF EXISTS temp_quicc.get_surf();
 
 /*  Function:     temp_quicc.conv_cm_to_m(value)
     Description:  Conversion function - cm to meters
-    Affects:      
+    Affects:      NA
     Arguments:    Value in cm
     Returns:      FLOAT
 */
@@ -26,7 +28,7 @@ $$ LANGUAGE plpgsql;--
 
 /*  Function:     temp_quicc.conv_cm_to_mm(value)
     Description:  Conversion function - cm to millimeters
-    Affects:      
+    Affects:      NA
     Arguments:    Value in cm
     Returns:      FLOAT
 */
@@ -40,7 +42,7 @@ $$ LANGUAGE plpgsql;--
 
 /*  Function:     temp_quicc.conv_dm_to_m(value)
     Description:  Conversion function - dm to meters
-    Affects:      
+    Affects:      NA
     Arguments:    Value in dm
     Returns:      FLOAT
 */
@@ -54,7 +56,7 @@ $$ LANGUAGE plpgsql;
 
 /*  Function:     temp_quicc.conv_feets_to_m(value)
     Description:  Conversion function - cm to meters
-    Affects:      
+    Affects:      NA
     Arguments:    Value in feet
     Returns:      FLOAT
 */
@@ -68,8 +70,8 @@ $$ LANGUAGE plpgsql;--
 
 /*  Function:     temp_quicc.conv_in_to_mm(value)
     Description:  Conversion function - inch to millimeters
-    Affects:      
-    Arguments:    Value in in
+    Affects:      NA
+    Arguments:    Value in inch
     Returns:      FLOAT
 */
 
@@ -82,7 +84,7 @@ $$ LANGUAGE plpgsql;--
 
 /*  Function:     temp_quicc.get_surf(PARAM)
     Description:  Transform original code (radius size of the plot) to the surface of the sample plot
-    Affects:      
+    Affects:      NA
     Arguments:    Radius of the sample plot
     Returns:      double
 */
