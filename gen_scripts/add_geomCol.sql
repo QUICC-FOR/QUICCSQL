@@ -1,10 +1,10 @@
--- Test SQL to convert datum
+-- QUERY DESCRIPTION:
+------------------------
+-- Insert spatial postgis column, fill the new column based on the coordinates of each plot 
+-- and setup DATUM (SRID=4326) for all databases
 
--- ALTER TABLE QC_PEP.PP_LOCALIS DROP COLUMN coord_geom;
--- SELECT * FROM public.spatial_ref_sys WHERE srid = 914;
--- INSERT into spatial_ref_sys (srid, auth_name, auth_srid, proj4text, srtext) values (914, sr-org, 14, +proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs , GEOGCS[GCS_WGS_1984,DATUM[WGS_1984,SPHEROID[WGS_1984,6378137,298.257223563]],PRIMEM[Greenwich,0],UNIT[Degree,0.0'17453292519943295']]);
+-- By Steve Vissault
 
----------- Add spatial column with postgis : Proj = WSG84
 
 ----------------------------
 ------      QC     -----

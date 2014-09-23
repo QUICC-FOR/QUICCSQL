@@ -1,3 +1,9 @@
+-- QUERY DESCRIPTION:
+------------------------
+-- Visualize and validate the time interval covered by the climatic data 
+
+-- By Steve Vissault
+
 SELECT
   rdb_quicc.climatic_data.plot_id,
   rdb_quicc.plot.year_measured,
