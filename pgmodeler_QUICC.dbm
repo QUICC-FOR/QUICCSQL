@@ -32,7 +32,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="ref_tree_height_method">
 	<schema name="rdb_quicc"/>
 	<role name="&quot;QUICC&quot;"/>
-	<position x="1340" y="580"/>
+	<position x="1347" y="640"/>
 	<column name="height_id_method" not-null="true">
 		<type name="character"/>
 	</column>
@@ -85,7 +85,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="tree">
 	<schema name="rdb_quicc"/>
 	<role name="&quot;QUICC&quot;"/>
-	<position x="825" y="388.75"/>
+	<position x="885" y="403.75"/>
 	<column name="plot_id" not-null="true">
 		<type name="integer"/>
 	</column>
@@ -195,7 +195,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="stand_disturbed">
 	<schema name="rdb_quicc"/>
 	<role name="&quot;QUICC&quot;"/>
-	<position x="880" y="760"/>
+	<position x="919" y="792"/>
 	<column name="plot_id" not-null="true">
 		<type name="integer"/>
 	</column>
@@ -247,7 +247,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="tree_info">
 	<schema name="rdb_quicc"/>
 	<role name="&quot;QUICC&quot;"/>
-	<position x="1340" y="320"/>
+	<position x="1414" y="316"/>
 	<column name="plot_id" not-null="true">
 		<type name="integer"/>
 	</column>
@@ -278,7 +278,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="plot">
 	<schema name="rdb_quicc"/>
 	<role name="&quot;QUICC&quot;"/>
-	<position x="480" y="460"/>
+	<position x="468" y="395"/>
 	<column name="plot_id" not-null="true">
 		<type name="integer"/>
 	</column>
@@ -351,7 +351,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="stand">
 	<schema name="rdb_quicc"/>
 	<role name="&quot;QUICC&quot;"/>
-	<position x="420" y="720"/>
+	<position x="415" y="760"/>
 	<column name="plot_id" not-null="true">
 		<type name="integer"/>
 	</column>
@@ -505,21 +505,6 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 src-required="true" dst-required="false"
 	upd-action="CASCADE"
 	del-action="CASCADE"/>
-
-<relationship name="ref_tree_height_method_has_many_tree" type="rel1n"
-	 src-col-pattern="{sc}_{st}"
-	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_fk"
-	 col-indexes="18" constr-indexes="3"
-	 src-table="rdb_quicc.ref_tree_height_method"
-	 dst-table="rdb_quicc.tree"
-	 src-required="true" dst-required="false"
-	upd-action="CASCADE"
-	del-action="CASCADE">
-	<label ref-type="dst-label">
-		<position x="0" y="0"/>
-	</label>
-</relationship>
 
 <table name="ref_stand_age_method">
 	<schema name="rdb_quicc"/>
@@ -714,7 +699,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="ref_species">
 	<schema name="rdb_quicc"/>
 	<role name="postgres"/>
-	<position x="902" y="96"/>
+	<position x="910" y="80"/>
 	<column name="id_spe" not-null="true">
 		<type name="character" length="15"/>
 	</column>
@@ -803,12 +788,16 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 src-col-pattern="{sc}_{st}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk"
-	 col-indexes="19" constr-indexes="4"
+	 col-indexes="18" constr-indexes="3"
 	 src-table="rdb_quicc.ref_species"
 	 dst-table="rdb_quicc.tree"
 	 src-required="true" dst-required="false"
 	upd-action="CASCADE"
-	del-action="CASCADE"/>
+	del-action="CASCADE">
+	<label ref-type="dst-label">
+		<position x="0" y="0"/>
+	</label>
+</relationship>
 
 <table name="climatic_data">
 	<schema name="rdb_quicc"/>
@@ -1039,7 +1028,22 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 dst-table="rdb_quicc.climatic_data"
 	 src-required="true" dst-required="false"
 	upd-action="CASCADE"
-	del-action="CASCADE"/>
+	del-action="CASCADE">
+	<label ref-type="dst-label">
+		<position x="0" y="0"/>
+	</label>
+</relationship>
+
+<relationship name="ref_tree_height_method_has_many_tree" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 col-indexes="19" constr-indexes="4"
+	 src-table="rdb_quicc.ref_tree_height_method"
+	 dst-table="rdb_quicc.tree"
+	 src-required="true" dst-required="false"
+	upd-action="CASCADE"
+	del-action="RESTRICT"/>
 
 <permission>
 	<object name="rdb_quicc.ref_tree_height_method" type="table"/>
