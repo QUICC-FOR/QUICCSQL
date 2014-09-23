@@ -94,7 +94,7 @@ ALTER TABLE rdb_quicc.tree_class_info OWNER TO "QUICC";
 -- DROP TABLE rdb_quicc.tree;
 CREATE TABLE rdb_quicc.tree(
 	plot_id integer NOT NULL,
-	tree_id char(3) NOT NULL,
+	tree_id character(20) NOT NULL,
 	year_measured integer NOT NULL,
 	id_spe character(15) NOT NULL,
 	height float4,

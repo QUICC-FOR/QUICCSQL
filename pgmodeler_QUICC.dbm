@@ -90,7 +90,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<type name="integer"/>
 	</column>
 	<column name="tree_id" not-null="true">
-		<type name="char" length="3"/>
+		<type name="character" length="20"/>
 	</column>
 	<column name="year_measured" not-null="true">
 		<type name="integer"/>
