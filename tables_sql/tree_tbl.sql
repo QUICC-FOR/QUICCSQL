@@ -237,7 +237,7 @@ SELECT DISTINCT CAST(concat_ws('-',boreal_psp_treedbh_ht.plot_num, boreal_psp_tr
 	NULL AS height_id_method,
 	NULL AS in_macroplot,
 	NULL AS in_subplot,
-	CAST(boreal_psp_treedbh_ht.origin  AS char(5)) AS is_planted,
+	NULL AS is_planted, --CAST(boreal_psp_treedbh_ht.origin  AS char(5)) AS is_planted, -- prob, this field is producing doublons !!
 	CAST(boreal_psp_treedbh_ht.status  AS char(5)) AS is_dead,
 	'on_pp_boreal' AS source_db
 FROM on_pp.boreal_psp_treedbh_ht
@@ -261,7 +261,7 @@ SELECT DISTINCT CAST(replace(concat_ws('-',glsl_psp_trees_dbh_ht.plotname,glsl_p
 	NULL AS height_id_method,
 	NULL AS in_macroplot,
 	NULL AS in_subplot,
-	CAST(glsl_psp_trees_dbh_ht.lcr  AS char(5)) AS is_planted,
+	NULL AS is_planted, -- CAST(glsl_psp_trees_dbh_ht.lcr  AS char(5)) AS is_planted, -- prob, this field is producing doublons !!
 	CAST(glsl_psp_trees_dbh_ht.treestatuscode AS char(5)) AS is_dead,
 	'on_pp_glsl' AS source_db
 FROM on_pp.glsl_psp_trees_dbh_ht
