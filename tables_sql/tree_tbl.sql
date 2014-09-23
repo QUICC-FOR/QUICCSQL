@@ -348,5 +348,5 @@ SELECT DISTINCT
 		AND temp_quicc.mv_tree.source_db = rdb_quicc.plot_info.org_db_loc 
 	RIGHT OUTER JOIN rdb_quicc.tree_info ON temp_quicc.mv_tree.tree_id = rdb_quicc.tree_info.tree_id
 		AND temp_quicc.mv_tree.source_db = rdb_quicc.tree_info.org_db_loc AND temp_quicc.mv_tree.plot_id = rdb_quicc.tree_info.org_db_id;
-	WHERE temp_quicc.get_new_spcode(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.species_code IS NOT NULL
+	WHERE temp_quicc.get_new_spcode(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.species_code) IS NOT NULL;
 REINDEX TABLE rdb_quicc.tree;
