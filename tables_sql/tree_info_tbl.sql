@@ -162,18 +162,13 @@ UNION ALL
 --------------------------------------------------------
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
-
-
 DELETE FROM rdb_quicc.tree_info;
-INSERT INTO rdb_quicc.tree_info
-    SELECT DISTINCT
-        rdb_quicc.plot_info.plot_id,
+INSERT INTO rdb_quicc.tree_info(org_tree_id,org_plot_id,org_db_loc)
+SELECT DISTINCT
         temp_quicc.mv_tree_info.tree_id,
-        temp_quicc.mv_tree_info.org_db_loc,
         temp_quicc.mv_tree_info.plot_id
+        temp_quicc.mv_tree_info.org_db_loc
 FROM temp_quicc.mv_tree_info
-RIGHT OUTER JOIN rdb_quicc.plot_info ON temp_quicc.mv_tree_info.plot_id = rdb_quicc.plot_info.org_db_id
-AND temp_quicc.mv_tree_info.org_db_loc = rdb_quicc.plot_info.org_db_loc
 WHERE  temp_quicc.mv_tree_info.plot_id IS NOT NULL AND
 temp_quicc.mv_tree_info.tree_id IS NOT NULL;
 REINDEX TABLE rdb_quicc.tree_info;
