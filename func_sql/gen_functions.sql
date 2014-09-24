@@ -155,20 +155,20 @@ DECLARE res numeric;
 BEGIN
      IF org_db = 'qc_pp' THEN
         CASE    
-        WHEN code='4' OR  code='10' THEN res := temp_quicc.get_surf(11.28); -- m2
+        WHEN code='04' OR  code='10' THEN res := temp_quicc.get_surf(11.28); -- m2
         ELSE res := NULL;
         END CASE;
     END IF;
     IF org_db = 'qc_tp2' OR org_db = 'qc_tp3' OR org_db = 'qc_tp4' THEN
-        CASE    WHEN code='1' THEN res := NULL; -- Need investigation
-            WHEN code='2' THEN res := temp_quicc.get_surf(5.64);
-            WHEN code='3' THEN res := temp_quicc.get_surf(3.57);
-            WHEN code='4' THEN res := temp_quicc.get_surf(11.28);
-            WHEN code='5' THEN res := 200;
-            WHEN code='6' THEN res := temp_quicc.get_surf(5.64);
-            WHEN code='7' THEN res := temp_quicc.get_surf(3.57);
-            WHEN code='8' THEN res := NULL;  -- Need investigation
-            WHEN code='9' THEN res := temp_quicc.get_surf(11.28);
+        CASE    WHEN code='01' THEN res := NULL; -- Need investigation
+            WHEN code='02' THEN res := temp_quicc.get_surf(5.64);
+            WHEN code='03' THEN res := temp_quicc.get_surf(3.57);
+            WHEN code='04' THEN res := temp_quicc.get_surf(11.28);
+            WHEN code='05' THEN res := 200;
+            WHEN code='06' THEN res := temp_quicc.get_surf(5.64);
+            WHEN code='07' THEN res := temp_quicc.get_surf(3.57);
+            WHEN code='08' THEN res := NULL;  -- Need investigation
+            WHEN code='09' THEN res := temp_quicc.get_surf(11.28);
             WHEN code='11' THEN res := NULL; -- Need investigation
             WHEN code='12' THEN res := temp_quicc.get_surf(5.64); -- Need investigation
         ELSE res := NULL;

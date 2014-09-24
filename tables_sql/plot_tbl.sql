@@ -184,7 +184,7 @@ SELECT DISTINCT
     CAST(temp_quicc.get_surf(temp_quicc.conv_feet_to_m(24.0 :: double precision)) AS double precision) AS plot_size,
     CAST(temp_quicc.get_surf(temp_quicc.conv_feet_to_m(6.8 :: double precision)) AS double precision) AS microplot_size,
     0 :: boolean AS is_templot,
-    1 :: boolean AS has_macroplot
+    0 :: boolean AS has_macroplot
 FROM
     us_pp.plot
 INNER JOIN us_pp.subplot ON concat_ws('-',plot.statecd,plot.unitcd,plot.countycd,plot.plot) = concat_ws('-',subplot.statecd,subplot.unitcd,subplot.countycd,subplot.plot)
