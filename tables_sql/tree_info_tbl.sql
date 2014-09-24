@@ -103,7 +103,7 @@ UNION ALL
 -----------------------------------------
 
 SELECT DISTINCT
-    CAST(concat_ws('-',boreal_psp_plot_info.plot_num, boreal_psp_plot_info.subplot_id) AS char(20)) AS plot_id,
+    CAST(concat_ws('-',boreal_psp_treedbh_ht.plot_num, boreal_psp_treedbh_ht.subplot_id) AS char(20)) AS plot_id,
     'on_pp_boreal' :: char(30) AS org_db_loc,
     CAST(boreal_psp_treedbh_ht.tree_spec AS char(10)) AS species_code,
     CAST(on_pp.boreal_psp_treedbh_ht.tree_id AS char(10)) AS tree_id
@@ -118,7 +118,7 @@ LEFT JOIN on_pp.boreal_psp_treedbh_ht ON on_pp.boreal_psp_plot_info.plot_num = o
 UNION ALL
 
 SELECT DISTINCT
-    CAST(replace(concat_ws('-',glsl_psp_plotinfo.plotname,glsl_psp_plotinfo.gpnum), ' ', '') AS char(20)) AS plot_id,
+    CAST(replace(concat_ws('-',glsl_psp_trees_dbh_ht.plotname,glsl_psp_trees_dbh_ht.gpnum), ' ', '') AS char(20)) AS plot_id,
     'on_pp_glsl' :: char(30) AS org_db_loc,
     CAST(glsl_psp_trees_dbh_ht.speccode AS char(10)) AS species_code,
     CAST(on_pp.glsl_psp_trees_dbh_ht.treeid AS char(10)) AS tree_id
@@ -133,7 +133,7 @@ LEFT JOIN on_pp.glsl_psp_trees_dbh_ht ON on_pp.glsl_psp_plotinfo.plotname = on_p
 UNION ALL
 
 SELECT DISTINCT
-    CAST(concat_ws('-',pgp_plot_info.plot_num,pgp_plot_info.subplot_id) AS char(20)) AS plot_id,
+    CAST(concat_ws('-',pgp_treedbh_ht.plot_num,pgp_treedbh_ht.subplot_id) AS char(20)) AS plot_id,
     'on_pp_pgp' :: char(30) AS org_db_loc,
     CAST(pgp_treedbh_ht.tree_spec AS char(10)) AS species_code,
     CAST(on_pp.pgp_treedbh_ht.tree_id AS char(10)) AS tree_id
@@ -154,7 +154,8 @@ SELECT DISTINCT
     CAST(domtar_pp.domtar_data.noarbre AS char(10)) AS tree_id
 FROM
     domtar_pp.domtar_data
-;
+
+UNION ALL
 
 ----------------------------------------------------------
 -- FIA database ---
@@ -166,9 +167,7 @@ SELECT DISTINCT
     CAST(us_pp.tree.spcd AS char(10)) AS species_code,
     CAST(us_pp.tree.tree  AS char(5)) AS tree_id
 FROM us_pp.tree
-
-UNION ALL
-
+;
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 
 --------------------------------------------------------
@@ -180,7 +179,7 @@ DELETE FROM rdb_quicc.tree_info;
 INSERT INTO rdb_quicc.tree_info(org_tree_id,org_plot_id,org_db_loc)
 SELECT
         temp_quicc.mv_tree_info.tree_id,
-        temp_quicc.mv_tree_info.plot_id
+        temp_quicc.mv_tree_info.plot_id,
         temp_quicc.mv_tree_info.org_db_loc
 FROM temp_quicc.mv_tree_info
 WHERE  temp_quicc.mv_tree_info.plot_id IS NOT NULL AND

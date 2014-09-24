@@ -242,7 +242,7 @@ SELECT DISTINCT
 	NULL AS in_macroplot,
 	NULL AS in_subplot,
 	NULL AS is_planted, --CAST(boreal_psp_treedbh_ht.origin  AS char(5)) AS is_planted, -- prob, this field is producing doublons !!
-	NULL AS is_dead, --CAST(boreal_psp_treedbh_ht.status  AS char(5)) AS is_dead,
+	CAST(boreal_psp_treedbh_ht.status  AS char(5)) AS is_dead,
 	'on_pp_boreal' AS source_db
 FROM on_pp.boreal_psp_treedbh_ht
 -- LIMIT 50
@@ -267,7 +267,7 @@ SELECT DISTINCT
 	NULL AS in_macroplot,
 	NULL AS in_subplot,
 	NULL AS is_planted, -- CAST(glsl_psp_trees_dbh_ht.lcr  AS char(5)) AS is_planted, -- prob, this field is producing doublons !!
-	NULL AS is_dead, --CAST(glsl_psp_trees_dbh_ht.treestatuscode AS char(5)) AS is_dead,
+	CAST(glsl_psp_trees_dbh_ht.treestatuscode AS char(5)) AS is_dead,
 	'on_pp_glsl' AS source_db
 FROM on_pp.glsl_psp_trees_dbh_ht
 -- LIMIT 50
