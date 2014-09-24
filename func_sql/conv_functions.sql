@@ -16,10 +16,10 @@ DROP FUNCTION IF EXISTS temp_quicc.get_surf();
     Description:  Conversion function - cm to meters
     Affects:      NA
     Arguments:    Value in cm
-    Returns:      FLOAT
+    Returns:      double precision
 */
 
-CREATE OR REPLACE FUNCTION temp_quicc.conv_cm_to_m(x float) RETURNS float AS $$
+CREATE OR REPLACE FUNCTION temp_quicc.conv_cm_to_m(x double precision) RETURNS double precision AS $$
         BEGIN
                 RETURN (x * 0.01);
         END;
@@ -30,10 +30,10 @@ $$ LANGUAGE plpgsql;--
     Description:  Conversion function - cm to millimeters
     Affects:      NA
     Arguments:    Value in cm
-    Returns:      FLOAT
+    Returns:      double precision
 */
 
-CREATE OR REPLACE FUNCTION temp_quicc.conv_cm_to_mm(x float) RETURNS float AS $$
+CREATE OR REPLACE FUNCTION temp_quicc.conv_cm_to_mm(x double precision) RETURNS double precision AS $$
         BEGIN
                 RETURN (x * 10);
         END;
@@ -44,10 +44,10 @@ $$ LANGUAGE plpgsql;--
     Description:  Conversion function - dm to meters
     Affects:      NA
     Arguments:    Value in dm
-    Returns:      FLOAT
+    Returns:      double precision
 */
 
-CREATE OR REPLACE FUNCTION temp_quicc.conv_dm_to_m(x float) RETURNS float AS $$
+CREATE OR REPLACE FUNCTION temp_quicc.conv_dm_to_m(x double precision) RETURNS double precision AS $$
         BEGIN
                 RETURN (x * 0.1);
         END;
@@ -58,10 +58,10 @@ $$ LANGUAGE plpgsql;
     Description:  Conversion function - cm to meters
     Affects:      NA
     Arguments:    Value in feet
-    Returns:      FLOAT
+    Returns:      double precision
 */
 
-CREATE OR REPLACE FUNCTION temp_quicc.conv_feet_to_m(x float) RETURNS float AS $$
+CREATE OR REPLACE FUNCTION temp_quicc.conv_feet_to_m(x double precision) RETURNS double precision AS $$
         BEGIN
                 RETURN (x * 0.3048);
         END;
@@ -72,10 +72,10 @@ $$ LANGUAGE plpgsql;--
     Description:  Conversion function - inch to millimeters
     Affects:      NA
     Arguments:    Value in inch
-    Returns:      FLOAT
+    Returns:      double precision
 */
 
-CREATE OR REPLACE FUNCTION temp_quicc.conv_in_to_mm(x float) RETURNS double precision AS $$
+CREATE OR REPLACE FUNCTION temp_quicc.conv_in_to_mm(x double precision) RETURNS double precision AS $$
         BEGIN
                 RETURN x * 25.4;
         END;
@@ -89,7 +89,7 @@ $$ LANGUAGE plpgsql;--
     Returns:      double
 */
 
-CREATE OR REPLACE FUNCTION temp_quicc.get_surf(rad numeric)
+CREATE OR REPLACE FUNCTION temp_quicc.get_surf(rad double precision)
 RETURNS double precision AS $$
 BEGIN
     RETURN (rad)^2*pi();

@@ -8,9 +8,9 @@
 
 DROP FUNCTION IF EXISTS temp_quicc.flt_dbh();
 DROP FUNCTION IF EXISTS temp_quicc.flt_height();
-DROP FUNCTION IF EXISTS temp_quicc.flt_plot_size();
+DROP FUNCTION IF EXISTS temp_quicc.flt_plot_code();
 DROP FUNCTION IF EXISTS temp_quicc.get_height_method_tree();
-DROP FUNCTION IF EXISTS temp_quicc.get_plot_size();
+DROP FUNCTION IF EXISTS temp_quicc.get_plot_code();
 DROP FUNCTION IF EXISTS temp_quicc.get_tree_state();
 DROP FUNCTION IF EXISTS temp_quicc.get_in_subplot();
 DROP FUNCTION IF EXISTS temp_quicc.get_is_planted();
@@ -40,9 +40,9 @@ END;
 $$
 LANGUAGE plpgsql;
 
-/*  Function:     temp_quicc.flt_plotsize(surface)
-    Description:  If size of the plot equal to 0 then set value as NULL
-    Affects:      plot of the size = 0
+/*  Function:     temp_quicc.flt_plotcode(surface)
+    Description:  If code of the plot equal to 0 then set value as NULL
+    Affects:      plot of the code = 0
     Arguments:    Surface of the plot
     Returns:      integer
 */
@@ -141,7 +141,7 @@ END;
 $$
 LANGUAGE plpgsql;
 
-/*  Function:     public.get_plot_size(PARAM)
+/*  Function:     public.get_plot_code(PARAM)
     Description:  Transform original code to the surface of the sample plot
     Affects:      
     Arguments:    Code
@@ -149,36 +149,36 @@ LANGUAGE plpgsql;
 */
 
 
-CREATE OR REPLACE FUNCTION temp_quicc.get_plot_size(org_db char(15), size numeric)
-RETURNS double precision AS $$
-DECLARE res double precision;
+CREATE OR REPLACE FUNCTION temp_quicc.get_plot_size(org_db char(15), code char(10))
+RETURNS numeric AS $$
+DECLARE res numeric;
 BEGIN
      IF org_db = 'qc_pp' THEN
-        CASE    WHEN size='4' OR  size='10' THEN res := temp_quicc.get_surf(11.28); -- m2
+        CASE    WHEN code='4' OR  code='10' THEN res := temp_quicc.get_surf(11.28); -- m2
         ELSE res := NULL;
         END CASE;
     END IF;
     IF org_db = 'qc_tp2' OR org_db = 'qc_tp3' OR org_db = 'qc_tp4' THEN
-        CASE    WHEN size='1' THEN res := 'Unwork'; -- Need investigation
-            WHEN size='2' THEN res := temp_quicc.get_surf(5.64);
-            WHEN size='3' THEN res := temp_quicc.get_surf(3.57);
-            WHEN size='4' THEN res := temp_quicc.get_surf(11.28);
-            WHEN size='5' THEN res := 200;
-            WHEN size='6' THEN res := temp_quicc.get_surf(5.64);
-            WHEN size='7' THEN res := temp_quicc.get_surf(3.57);
-            WHEN size='8' THEN res := 'Unwork';  -- Need investigation
-            WHEN size='9' THEN res := temp_quicc.get_surf(11.28);
-            WHEN size='11' THEN res := 'Unwork'; -- Need investigation
-            WHEN size='12' THEN res := temp_quicc.get_surf(5.64); -- Need investigation
+        CASE    WHEN code='1' THEN res := 'Unwork'; -- Need investigation
+            WHEN code='2' THEN res := temp_quicc.get_surf(5.64);
+            WHEN code='3' THEN res := temp_quicc.get_surf(3.57);
+            WHEN code='4' THEN res := temp_quicc.get_surf(11.28);
+            WHEN code='5' THEN res := 200;
+            WHEN code='6' THEN res := temp_quicc.get_surf(5.64);
+            WHEN code='7' THEN res := temp_quicc.get_surf(3.57);
+            WHEN code='8' THEN res := 'Unwork';  -- Need investigation
+            WHEN code='9' THEN res := temp_quicc.get_surf(11.28);
+            WHEN code='11' THEN res := 'Unwork'; -- Need investigation
+            WHEN code='12' THEN res := temp_quicc.get_surf(5.64); -- Need investigation
         ELSE res := NULL;
         END CASE;
     END IF;
     IF org_db = 'nb_pp_partial_cut' OR org_db = 'nb_pp_YIMO' OR org_db = 'nb_pp_regenandthin' OR org_db = 'nb_pp_cutandplant' 
         THEN
-        res := size;
+        res := code;
     END IF;
     IF org_db = 'on_pp_glsl' OR org_db='on_pp_boreal' THEN
-                  res := size;
+                  res := code;
     END IF;
 RETURN res;
 END;
