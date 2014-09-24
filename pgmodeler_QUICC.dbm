@@ -282,10 +282,10 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="year_measured">
 		<type name="integer"/>
 	</column>
-	<column name="plot_size">
+	<column name="macroplot_size">
 		<type name="double precision"/>
 	</column>
-	<column name="subplot_size">
+	<column name="plot_size">
 		<type name="double precision"/>
 	</column>
 	<column name="microplot_size">

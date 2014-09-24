@@ -239,8 +239,8 @@ ALTER TABLE rdb_quicc.tree_info OWNER TO "QUICC";
 CREATE TABLE rdb_quicc.plot(
 	plot_id integer NOT NULL,
 	year_measured integer,
+	macroplot_size double precision,
 	plot_size double precision,
-	subplot_size double precision,
 	microplot_size double precision,
 	has_macroplot boolean,
 	is_temp boolean,
