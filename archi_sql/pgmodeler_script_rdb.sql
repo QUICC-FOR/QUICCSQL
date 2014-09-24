@@ -47,7 +47,7 @@ SET search_path TO pg_catalog,public,rdb_quicc;
 -- DROP TABLE rdb_quicc.ref_tree_height_method;
 CREATE TABLE rdb_quicc.ref_tree_height_method(
 	height_id_method character NOT NULL,
-	height_desc character varying,
+	height_method_desc character varying,
 	CONSTRAINT tree_height_method_pk PRIMARY KEY (height_id_method)
 
 );
@@ -409,7 +409,7 @@ ON DELETE CASCADE ON UPDATE CASCADE;
 -- DROP TABLE rdb_quicc.ref_stand_age_method;
 CREATE TABLE rdb_quicc.ref_stand_age_method(
 	age_id_method character NOT NULL,
-	age_desc character varying,
+	age_method_desc character varying,
 	CONSTRAINT ref_stand_age_method_pk PRIMARY KEY (age_id_method)
 
 );
@@ -431,7 +431,7 @@ ALTER TABLE rdb_quicc.ref_stand_age_method OWNER TO "QUICC";
 -- DROP TABLE rdb_quicc.ref_stand_height_method;
 CREATE TABLE rdb_quicc.ref_stand_height_method(
 	height_id_method character NOT NULL,
-	height_desc character varying,
+	height_method_desc character varying,
 	CONSTRAINT ref_stand_height_method_pk PRIMARY KEY (height_id_method)
 
 );

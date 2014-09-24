@@ -36,7 +36,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="height_id_method" not-null="true">
 		<type name="character"/>
 	</column>
-	<column name="height_desc">
+	<column name="height_method_desc">
 		<type name="character varying"/>
 	</column>
 	<constraint name="tree_height_method_pk" type="pk-constr" factor="10" table="rdb_quicc.ref_tree_height_method">
@@ -495,11 +495,11 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="ref_stand_age_method">
 	<schema name="rdb_quicc"/>
 	<role name="&quot;QUICC&quot;"/>
-	<position x="20" y="885"/>
+	<position x="20" y="883.571"/>
 	<column name="age_id_method" not-null="true">
 		<type name="character"/>
 	</column>
-	<column name="age_desc">
+	<column name="age_method_desc">
 		<type name="character varying"/>
 	</column>
 	<constraint name="ref_stand_age_method_pk" type="pk-constr" factor="100" table="rdb_quicc.ref_stand_age_method">
@@ -521,7 +521,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="height_id_method" not-null="true">
 		<type name="character"/>
 	</column>
-	<column name="height_desc">
+	<column name="height_method_desc">
 		<type name="character varying"/>
 	</column>
 	<constraint name="ref_stand_height_method_pk" type="pk-constr" factor="100" table="rdb_quicc.ref_stand_height_method">
