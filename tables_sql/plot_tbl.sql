@@ -13,9 +13,6 @@
 
 CREATE OR REPLACE VIEW temp_quicc.mv_plot AS
 
--- aller chercher ID d'origine
-
-
 SELECT DISTINCT
     CAST(qc_pp.pp_infogen.id_pep AS char(30)) AS plot_id,
     'qc_pp' :: char(30) AS org_code_db,
@@ -127,7 +124,7 @@ SELECT DISTINCT
     CAST( 0 AS numeric) AS sapling_plot_size,
     CAST( 0 AS numeric) AS seedling_plot_size,
     0 :: boolean AS is_templot,
-    0 :: boolean AS has_macroplot
+    1 :: boolean AS has_macroplot
 FROM
     on_pp.boreal_psp_treedbh_ht
 LEFT JOIN on_pp.boreal_psp_plot_sizes ON on_pp.boreal_psp_treedbh_ht.plot_num = on_pp.boreal_psp_plot_sizes.plot_num
@@ -146,7 +143,7 @@ SELECT DISTINCT
     CAST( 0 AS numeric) AS sapling_plot_size,
     CAST( 0 AS numeric) AS seedling_plot_size,
     0 :: boolean AS is_templot,
-    0 :: boolean AS has_macroplot
+    1 :: boolean AS has_macroplot
 FROM
     on_pp.glsl_psp_trees_dbh_ht
 LEFT JOIN on_pp.glsl_psp_plotsize ON on_pp.glsl_psp_trees_dbh_ht.plotname = on_pp.glsl_psp_plotsize.plotname
@@ -165,7 +162,7 @@ SELECT DISTINCT
     CAST( 0 AS numeric) AS sapling_plot_size,
     CAST( 0 AS numeric) AS seedling_plot_size,
     0 :: boolean AS is_templot,
-    0 :: boolean AS has_macroplot
+    1 :: boolean AS has_macroplot
 FROM
     on_pp.pgp_treedbh_ht
 
@@ -186,7 +183,7 @@ SELECT DISTINCT
     CAST( 0 AS numeric) AS sapling_plot_size,
     CAST( 0 AS numeric) AS seedling_plot_size,
     0 :: boolean AS is_templot,
-    0 :: boolean AS has_macroplot
+    1 :: boolean AS has_macroplot
 FROM
     us_pp.plot
 INNER JOIN us_pp.subplot ON concat_ws('-',plot.statecd,plot.unitcd,plot.countycd,plot.plot) = concat_ws('-',subplot.statecd,subplot.unitcd,subplot.countycd,subplot.plot)
