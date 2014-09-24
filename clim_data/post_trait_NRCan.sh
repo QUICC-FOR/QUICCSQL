@@ -53,7 +53,7 @@ echo "------- SQL: CREATE VIEW range_years...."
 psql -U $USER -h $HOST -p $PORT -d $DB -c "
 CREATE OR REPLACE VIEW temp_quicc.range_yrs_clim AS
  SELECT DISTINCT plot_info.plot_id,
-    plot_info.org_db_id,
+    plot_info.org_plot_id,
     localisation.latitude,
     localisation.longitude,
     plot.year_measured AS year_max,
@@ -144,7 +144,7 @@ SELECT DISTINCT
   CAST(plot_id AS integer),
   year_data
   FROM(SELECT DISTINCT
-  climatic_data.id_plot AS org_db_id,
+  climatic_data.id_plot AS org_plot_id,
   climatic_data.x_longitude,
   climatic_data.y_latitude,
   climatic_data.year_data,
@@ -217,7 +217,7 @@ SELECT DISTINCT
 FROM
   temp_quicc.climatic_data
 LEFT JOIN temp_quicc.range_yrs_clim ON
-climatic_data.id_plot = temp_quicc.range_yrs_clim.org_db_id AND
+climatic_data.id_plot = temp_quicc.range_yrs_clim.org_plot_id AND
 climatic_data.x_longitude = temp_quicc.range_yrs_clim.longitude AND
 climatic_data.y_latitude = temp_quicc.range_yrs_clim.latitude
 WHERE

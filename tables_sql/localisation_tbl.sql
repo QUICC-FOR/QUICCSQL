@@ -183,7 +183,7 @@ SELECT DISTINCT rdb_quicc.plot_info.plot_id,
 		ST_SRID(temp_quicc.mv_localisation.coord_geom)  AS srid,
 		temp_quicc.mv_localisation.org_code_db AS plot_location
 FROM temp_quicc.mv_localisation
-RIGHT OUTER JOIN rdb_quicc.plot_info ON temp_quicc.mv_localisation.org_plot_id = rdb_quicc.plot_info.org_db_id AND temp_quicc.mv_localisation.org_code_db = rdb_quicc.plot_info.org_db_loc
+RIGHT OUTER JOIN rdb_quicc.plot_info ON temp_quicc.mv_localisation.org_plot_id = rdb_quicc.plot_info.org_plot_id AND temp_quicc.mv_localisation.org_code_db = rdb_quicc.plot_info.org_db_loc
 WHERE ST_Y(temp_quicc.mv_localisation.coord_geom) IS NOT NULL AND ST_Y(temp_quicc.mv_localisation.coord_geom) = 0 
 AND ST_X(temp_quicc.mv_localisation.coord_geom) IS NOT NULL AND ST_X(temp_quicc.mv_localisation.coord_geom) = 0;
 REINDEX TABLE rdb_quicc.localisation;
