@@ -8,6 +8,7 @@
 
 DROP FUNCTION IF EXISTS temp_quicc.flt_dbh();
 DROP FUNCTION IF EXISTS temp_quicc.flt_height();
+DROP FUNCTION IF EXISTS temp_quicc.flt_plot_size();
 DROP FUNCTION IF EXISTS temp_quicc.get_height_method_tree();
 DROP FUNCTION IF EXISTS temp_quicc.get_plot_size();
 DROP FUNCTION IF EXISTS temp_quicc.get_tree_state();
@@ -38,6 +39,27 @@ RETURN res;
 END;
 $$
 LANGUAGE plpgsql;
+
+/*  Function:     temp_quicc.flt_plotsize(surface)
+    Description:  If size of the plot equal to 0 then set value as NULL
+    Affects:      plot of the size = 0
+    Arguments:    Surface of the plot
+    Returns:      integer
+*/
+
+CREATE OR REPLACE FUNCTION temp_quicc.flt_plot_size(surface numeric)
+RETURNS numeric AS $$
+DECLARE res numeric;
+BEGIN
+    IF surface <= 0 THEN res:= NULL;
+    ELSE res := surface;
+
+    END IF;
+RETURN res;
+END;
+$$
+LANGUAGE plpgsql;
+
 
 
 /*  Function:     temp_quicc.flt_height(height)
@@ -155,9 +177,9 @@ BEGIN
         THEN
         res := size;
     END IF;
-             IF org_db = 'on_pp_glsl' OR org_db='on_pp_boreal' THEN
-                          res := size;
-            END IF;
+    IF org_db = 'on_pp_glsl' OR org_db='on_pp_boreal' THEN
+                  res := size;
+    END IF;
 RETURN res;
 END;
 $$
