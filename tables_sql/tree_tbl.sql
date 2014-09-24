@@ -354,9 +354,9 @@ SELECT DISTINCT
 		temp_quicc.get_new_spcode_height_method_tree(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.height_id_method, temp_quicc.flt_height(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.height)),
 		temp_quicc.get_new_spcode(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.species_code)
 	FROM temp_quicc.mv_tree
-	RIGHT OUTER JOIN rdb_quicc.plot_info ON temp_quicc.mv_tree.plot_id = rdb_quicc.plot_info.org_db_id
+	RIGHT OUTER JOIN rdb_quicc.plot_info ON temp_quicc.mv_tree.plot_id = rdb_quicc.plot_info.org_plot_id
 		AND temp_quicc.mv_tree.source_db = rdb_quicc.plot_info.org_db_loc 
 	RIGHT OUTER JOIN rdb_quicc.tree_info ON temp_quicc.mv_tree.tree_id = rdb_quicc.tree_info.tree_id
-		AND temp_quicc.mv_tree.source_db = rdb_quicc.tree_info.org_db_loc AND temp_quicc.mv_tree.plot_id = rdb_quicc.tree_info.org_db_id;
+		AND temp_quicc.mv_tree.source_db = rdb_quicc.tree_info.org_db_loc AND temp_quicc.mv_tree.plot_id = rdb_quicc.tree_info.org_plot_id;
 	WHERE temp_quicc.get_new_spcode(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.species_code) IS NOT NULL;
 REINDEX TABLE rdb_quicc.tree;
