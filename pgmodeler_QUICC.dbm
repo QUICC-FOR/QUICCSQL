@@ -61,11 +61,11 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="tree_class_id" not-null="true">
 		<type name="integer"/>
 	</column>
-	<column name="org_db_location">
-		<type name="integer"/>
+	<column name="org_plot_id">
+		<type name="character" length="30"/>
 	</column>
-	<column name="org_db_id">
-		<type name="integer"/>
+	<column name="org_db_loc">
+		<type name="character" length="30"/>
 	</column>
 	<constraint name="tree_class_info_tbl_pk" type="pk-constr" factor="100" table="rdb_quicc.tree_class_info">
 		<columns names="plot_id,tree_class_id" ref-type="src-columns"/>
@@ -85,12 +85,12 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="tree">
 	<schema name="rdb_quicc"/>
 	<role name="&quot;QUICC&quot;"/>
-	<position x="885" y="403.75"/>
+	<position x="878.333" y="395.417"/>
 	<column name="plot_id" not-null="true">
 		<type name="integer"/>
 	</column>
 	<column name="tree_id" not-null="true">
-		<type name="character" length="20"/>
+		<type name="integer" length="20"/>
 	</column>
 	<column name="year_measured" not-null="true">
 		<type name="integer"/>
@@ -247,28 +247,25 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="tree_info">
 	<schema name="rdb_quicc"/>
 	<role name="&quot;QUICC&quot;"/>
-	<position x="1414" y="316"/>
-	<column name="plot_id" not-null="true">
+	<position x="1412.33" y="316"/>
+	<column name="tree_id" not-null="true" default-value="nextval('tree_info_tree_id_seq'::regclass)">
 		<type name="integer"/>
 	</column>
-	<column name="tree_id" not-null="true">
+	<column name="org_tree_id" not-null="true">
 		<type name="character" length="20"/>
 	</column>
-	<column name="org_db_loc">
+	<column name="org_plot_id" not-null="true">
 		<type name="character" length="30"/>
 	</column>
-	<column name="org_db_id">
+	<column name="org_db_loc" not-null="true">
 		<type name="character" length="30"/>
 	</column>
 	<constraint name="tree_info_tbl_pk" type="pk-constr" factor="100" table="rdb_quicc.tree_info">
-		<columns names="plot_id,tree_id" ref-type="src-columns"/>
+		<columns names="tree_id" ref-type="src-columns"/>
 	</constraint>
 	<index name="idx_tree_info_pk" table="rdb_quicc.tree_info"
 		 concurrent="false" unique="false" fast-update="false"
 		 index-type="btree" factor="0">
-		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
-			<column name="plot_id"/>
-		</idxelement>
 		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
 			<column name="tree_id"/>
 		</idxelement>
@@ -326,14 +323,14 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="plot_info">
 	<schema name="rdb_quicc"/>
 	<role name="&quot;QUICC&quot;"/>
-	<position x="113" y="622"/>
+	<position x="113" y="623.667"/>
 	<column name="plot_id" not-null="true" default-value="nextval('plot_info_plot_id_seq'::regclass)">
 		<type name="integer"/>
 	</column>
-	<column name="org_db_loc">
+	<column name="org_plot_id">
 		<type name="character" length="30"/>
 	</column>
-	<column name="org_db_id">
+	<column name="org_db_loc">
 		<type name="character" length="30"/>
 	</column>
 	<constraint name="plot_info_tbl_pk" type="pk-constr" factor="100" table="rdb_quicc.plot_info">
@@ -495,17 +492,6 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	upd-action="CASCADE"
 	del-action="CASCADE"/>
 
-<relationship name="tree_info_has_many_tree" type="rel1n"
-	 src-col-pattern="{sc}_{st}"
-	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_fk"
-	 col-indexes="16,17" constr-indexes="2"
-	 src-table="rdb_quicc.tree_info"
-	 dst-table="rdb_quicc.tree"
-	 src-required="true" dst-required="false"
-	upd-action="CASCADE"
-	del-action="CASCADE"/>
-
 <table name="ref_stand_age_method">
 	<schema name="rdb_quicc"/>
 	<role name="&quot;QUICC&quot;"/>
@@ -603,11 +589,11 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="dbh_max">
 		<type name="integer"/>
 	</column>
-	<column name="org_db_loc">
-		<type name="char" length="20"/>
+	<column name="org_plot_id">
+		<type name="char" length="30"/>
 	</column>
-	<column name="org_db_id">
-		<type name="char" length="10"/>
+	<column name="org_db_loc">
+		<type name="char" length="30"/>
 	</column>
 	<constraint name="conv_class_dbh_pk" type="pk-constr" factor="10" table="rdb_quicc.conv_class_dbh">
 		<columns names="dbh_class_id" ref-type="src-columns"/>
@@ -634,11 +620,11 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="height_max">
 		<type name="integer"/>
 	</column>
-	<column name="org_db_loc">
-		<type name="char" length="20"/>
+	<column name="org_plot_id">
+		<type name="char" length="30"/>
 	</column>
-	<column name="org_db_id">
-		<type name="char" length="10"/>
+	<column name="org_db_loc">
+		<type name="char" length="30"/>
 	</column>
 	<constraint name="conv_class_height_pk" type="pk-constr" factor="10" table="rdb_quicc.conv_class_height">
 		<columns names="height_class_id" ref-type="src-columns"/>
@@ -788,7 +774,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 src-col-pattern="{sc}_{st}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk"
-	 col-indexes="18" constr-indexes="3"
+	 col-indexes="16" constr-indexes="2"
 	 src-table="rdb_quicc.ref_species"
 	 dst-table="rdb_quicc.tree"
 	 src-required="true" dst-required="false"
@@ -1038,12 +1024,29 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 src-col-pattern="{sc}_{st}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk"
-	 col-indexes="19" constr-indexes="4"
+	 col-indexes="17" constr-indexes="3"
 	 src-table="rdb_quicc.ref_tree_height_method"
 	 dst-table="rdb_quicc.tree"
 	 src-required="true" dst-required="false"
 	upd-action="CASCADE"
 	del-action="RESTRICT"/>
+
+<sequence name="tree_info_tree_id_seq"
+	 start="1" increment="1"
+	 min-value="0" max-value="2147483647"
+	 cache="1" cycle="false">
+	<schema name="rdb_quicc"/>
+	<role name="&quot;QUICC&quot;"/>
+</sequence>
+
+<relationship name="tree_info_has_many_tree" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 col-indexes="18" constr-indexes="4"
+	 src-table="rdb_quicc.tree_info"
+	 dst-table="rdb_quicc.tree"
+	 src-required="true" dst-required="false"/>
 
 <permission>
 	<object name="rdb_quicc.ref_tree_height_method" type="table"/>
