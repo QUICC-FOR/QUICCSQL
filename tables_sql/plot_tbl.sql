@@ -113,12 +113,14 @@ LEFT JOIN  nb_pp.psp_plots_yr ON nb_pp.psp_plots.plot = nb_pp.psp_plots_yr.plot
 -- Permanent sample plot from Ontario --
 ----------------------------------------------
 
----- boreal_psp_plot_info
+-----------------------------------------
+-----------Ontario Boreal Plots----------
+-----------------------------------------
 
 UNION ALL
 
 SELECT DISTINCT
-    CAST(on_pp.boreal_psp_treedbh_ht.plot_num AS char(30)) AS plot_id,
+    CAST(concat_ws('-',boreal_psp_treedbh_ht.plot_num, boreal_psp_treedbh_ht.subplot_id) AS char(20)) AS plot_id,
     'on_pp_boreal' :: char(30) AS org_code_db,
     on_pp.boreal_psp_treedbh_ht.obs_year :: integer AS year_measured,
     CAST( 0 AS numeric) AS plot_size,
@@ -130,12 +132,14 @@ FROM
     on_pp.boreal_psp_treedbh_ht
 LEFT JOIN on_pp.boreal_psp_plot_sizes ON on_pp.boreal_psp_treedbh_ht.plot_num = on_pp.boreal_psp_plot_sizes.plot_num
 
----- glsl_on
+-----------------------------------------
+------------Ontario GLSL Plots-----------
+-----------------------------------------
 
 UNION ALL
 
 SELECT DISTINCT
-    CAST(on_pp.glsl_psp_trees_dbh_ht.plotname AS char(30)) AS plot_id,
+    CAST(replace(concat_ws('-',glsl_psp_trees_dbh_ht.plotname,glsl_psp_trees_dbh_ht.gpnum), ' ', '') AS char(20)) AS plot_id,
     'on_pp_glsl' :: char(30) AS org_code_db,
     CAST(date_part('year'::text, on_pp.glsl_psp_trees_dbh_ht.msrdate::date) AS integer) AS year_measured,
     CAST( 0 AS numeric) AS plot_size,
@@ -149,10 +153,12 @@ LEFT JOIN on_pp.glsl_psp_plotsize ON on_pp.glsl_psp_trees_dbh_ht.plotname = on_p
 
 UNION ALL
 
----- pgp_on --- no info on plot_size -- see the MANUAL
+-----------------------------------------
+-----------Ontario PGP Plots-------------
+-----------------------------------------
 
 SELECT DISTINCT
-    CAST(on_pp.pgp_treedbh_ht.plot_num AS char(30)) AS plot_id,
+    CAST(concat_ws('-',pgp_treedbh_ht.plot_num,pgp_treedbh_ht.subplot_id) AS char(20)) AS plot_id,
     'on_pp_pgp' :: char(30) AS org_code_db,
     on_pp.pgp_treedbh_ht.obs_year :: integer AS year_measured,
     CAST( 0 AS numeric) AS plot_size,
@@ -173,7 +179,7 @@ UNION ALL
 ----------------------------------------------
 
 SELECT DISTINCT
-    CAST(concat_ws('-',statecd,unitcd,countycd,plot)  AS char(30)) AS plot_id,
+    CAST(concat_ws('-',statecd,unitcd,countycd,plot,subp) AS char(20)) AS plot_id,
     'us_pp' :: char(30) AS org_code_db,
     us_pp.plot.measyear :: integer AS year_measured,
     CAST( 0 AS numeric) AS plot_size,

@@ -59,14 +59,6 @@ SELECT DISTINCT CAST(nb_pp.psp_plots_yr.plot AS char(30)) AS plot_id,
 FROM nb_pp.psp_plots_yr
 LEFT JOIN nb_pp.psp_tree_partialcut ON nb_pp.psp_plots_yr.remeasid = nb_pp.psp_tree_partialcut.remeasid
 
--- UNION ALL
-
--- SELECT DISTINCT CAST(nb_pp.psp_plots_yr.plot AS char(30)) AS plot_id,
---     'nb_pp' :: char(10) AS org_db_loc,
---     CAST(nb_pp.psp_tree_10thyrplant.treenum AS char(10)) AS tree_id
--- FROM nb_pp.psp_plots_yr
--- LEFT JOIN nb_pp.psp_tree_10thyrplant ON nb_pp.psp_plots_yr.remeasid = nb_pp.psp_tree_10thyrplant.remeasid
-
 UNION ALL
 
 SELECT DISTINCT CAST(nb_pp.psp_plots_yr.plot AS char(30)) AS plot_id,
@@ -91,36 +83,46 @@ SELECT DISTINCT CAST(nb_pp.psp_plots_yr.plot AS char(30)) AS plot_id,
 FROM nb_pp.psp_plots_yr
 LEFT JOIN nb_pp.psp_tree_yimo ON nb_pp.psp_plots_yr.remeasid = nb_pp.psp_tree_yimo.remeasid
 
+UNION ALL
+
 ----------------------------------------------------------
 -- Permament sample plot from on_pp ---
 ----------------------------------------------------------
-UNION ALL
+
+-----------------------------------------
+-----------Ontario Boreal Plots----------
+-----------------------------------------
 
 SELECT DISTINCT
-    CAST(on_pp.boreal_psp_plot_info.plot_num AS char(30)) AS plot_id,
+    CAST(concat_ws('-',boreal_psp_plot_info.plot_num, boreal_psp_plot_info.subplot_id) AS char(20)) AS plot_id,
     'on_pp_boreal' :: char(30) AS org_code_db,
     CAST(on_pp.boreal_psp_treedbh_ht.tree_id AS char(10)) AS tree_id
 FROM
     on_pp.boreal_psp_plot_info
 LEFT JOIN on_pp.boreal_psp_treedbh_ht ON on_pp.boreal_psp_plot_info.plot_num = on_pp.boreal_psp_treedbh_ht.plot_num
 
-
----- glsl_on
+-----------------------------------------
+------------Ontario GLSL Plots-----------
+-----------------------------------------
 
 UNION ALL
 
 SELECT DISTINCT
-    CAST(on_pp.glsl_psp_plotinfo.plotname AS char(30)) AS plot_id,
+    CAST(replace(concat_ws('-',glsl_psp_plotinfo.plotname,glsl_psp_plotinfo.gpnum), ' ', '') AS char(20)) AS plot_id,
     'on_pp_glsl' :: char(30) AS org_code_db,
     CAST(on_pp.glsl_psp_trees_dbh_ht.treeid AS char(10)) AS tree_id
 FROM
     on_pp.glsl_psp_plotinfo
 LEFT JOIN on_pp.glsl_psp_trees_dbh_ht ON on_pp.glsl_psp_plotinfo.plotname = on_pp.glsl_psp_trees_dbh_ht.plotname
 
+-----------------------------------------
+-----------Ontario PGP Plots-------------
+-----------------------------------------
+
 UNION ALL
 
 SELECT DISTINCT
-    CAST(on_pp.pgp_plot_info.plot_num AS char(30)) AS plot_id,
+    CAST(concat_ws('-',pgp_plot_info.plot_num,pgp_plot_info.subplot_id) AS char(20)) AS plot_id,
     'on_pp_pgp' :: char(30) AS org_code_db,
     CAST(on_pp.pgp_treedbh_ht.tree_id AS char(10)) AS tree_id
 FROM
@@ -140,6 +142,18 @@ SELECT DISTINCT
 FROM
     domtar_pp.domtar_data
 ;
+
+----------------------------------------------------------
+-- FIA database ---
+----------------------------------------------------------
+
+SELECT DISTINCT 
+    CAST(concat_ws('-',statecd,unitcd,countycd,plot,subp) AS char(20)) AS plot_id,
+    'us_pp' :: char(30) AS org_code_db,
+    CAST(us_pp.tree.tree  AS char(5)) AS tree_id
+FROM us_pp.tree
+
+UNION ALL
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -163,11 +177,5 @@ AND temp_quicc.mv_tree_info.org_db_loc = rdb_quicc.plot_info.org_db_loc
 WHERE  temp_quicc.mv_tree_info.plot_id IS NOT NULL AND
 temp_quicc.mv_tree_info.tree_id IS NOT NULL;
 REINDEX TABLE rdb_quicc.tree_info;
-
----- plot_id integer NOT NULL,
----- tree_id integer NOT NULL,
----- org_db_location character(20),
----- org_db_id integer,
----- CONSTRAINT tree_info_tbl_pk PRIMARY KEY (plot_id, tree_id)
 
 -----------------------------------------------------------------------------------------------------------------------------------------------------------

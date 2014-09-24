@@ -9,7 +9,7 @@
 
 
 ---------------------------------------
--- Permanent sample plot from Quebec ---
+-- Permanent sample plots from Quebec ---
 ---------------------------------------
 
 CREATE OR REPLACE VIEW temp_quicc.mv_tree AS
@@ -37,7 +37,7 @@ LEFT OUTER JOIN qc_pp.pp_etudarbr ON qc_pp.pp_etudarbr.id_pep_mes = qc_pp.pp_tig
 UNION ALL
 
 ---------------------------------------
--- Temporary sample plot from Quebec ---
+-- Temporary sample plots from Quebec ---
 ---------------------------------------
 
 SELECT DISTINCT CAST(qc_tp.infogen_pet2.id_pet AS char(20)) AS plot_id,
@@ -100,7 +100,7 @@ FROM qc_tp.etudarbr_pet4 LEFT OUTER JOIN qc_tp.infogen_pet4 ON qc_tp.etudarbr_pe
 -- LIMIT 50
 
 -----------------------------------------------
--- Permanent sample plot from New-Brunswick ---
+-- Permanent sample plots from New-Brunswick ---
 -----------------------------------------------
 
 UNION ALL
@@ -192,12 +192,15 @@ LEFT OUTER JOIN nb_pp.psp_tree_cutandplant ON nb_pp.psp_plots_yr.remeasid = nb_p
 UNION ALL
 
 -----------------------------------------------
--- Permenent sample plot from FIA ---
+-- Permanent sample plot from FIA ---
 -----------------------------------------------
+
 -----------------------------------------
 ------------Plots FIA Database-----------
 -----------------------------------------
-SELECT DISTINCT CAST(concat_ws('-',statecd,unitcd,countycd,plot,subp) AS char(20))   AS plot_id ,
+
+SELECT DISTINCT 
+	CAST(concat_ws('-',statecd,unitcd,countycd,plot,subp) AS char(20)) AS plot_id,
 	CAST(us_pp.tree.tree  AS char(5)) AS tree_id,
 	us_pp.tree.invyr AS year_measured,
 	CAST(us_pp.tree.spcd AS char(10)) AS species_code,
@@ -218,27 +221,28 @@ FROM us_pp.tree
 UNION ALL
 
 -----------------------------------------------
--- Permenent sample plot from Ontario---
+-- Permanent sample plots from Ontario---
 -----------------------------------------------
 
 -----------------------------------------
 -----------Ontario Boreal Plots----------
 -----------------------------------------
 
-SELECT DISTINCT CAST(concat_ws('-',boreal_psp_treedbh_ht.plot_num, boreal_psp_treedbh_ht.subplot_id) AS char(20)) AS plot_id,
-		CAST(boreal_psp_treedbh_ht.tree_id AS char(5)) AS tree_id,
-		boreal_psp_treedbh_ht.obs_year AS year_measured,
-		CAST(boreal_psp_treedbh_ht.tree_spec AS char(10)) AS species_code,
-		boreal_psp_treedbh_ht.ht_total AS height,
-		temp_quicc.conv_cm_to_mm(boreal_psp_treedbh_ht.dbh) AS dbh,
-		CAST(NULL AS integer) age,
+SELECT DISTINCT 
+	CAST(concat_ws('-',boreal_psp_treedbh_ht.plot_num, boreal_psp_treedbh_ht.subplot_id) AS char(20)) AS plot_id,
+	CAST(boreal_psp_treedbh_ht.tree_id AS char(5)) AS tree_id,
+	boreal_psp_treedbh_ht.obs_year AS year_measured,
+	CAST(boreal_psp_treedbh_ht.tree_spec AS char(10)) AS species_code,
+	boreal_psp_treedbh_ht.ht_total AS height,
+	temp_quicc.conv_cm_to_mm(boreal_psp_treedbh_ht.dbh) AS dbh,
+	CAST(NULL AS integer) age,
 	-- NULL AS sun_access,
 	-- NULL AS position_canopy,
 	NULL AS height_id_method,
 	NULL AS in_macroplot,
 	NULL AS in_subplot,
 	NULL AS is_planted, --CAST(boreal_psp_treedbh_ht.origin  AS char(5)) AS is_planted, -- prob, this field is producing doublons !!
-	CAST(boreal_psp_treedbh_ht.status  AS char(5)) AS is_dead,
+	NULL AS is_dead, --CAST(boreal_psp_treedbh_ht.status  AS char(5)) AS is_dead,
 	'on_pp_boreal' AS source_db
 FROM on_pp.boreal_psp_treedbh_ht
 -- LIMIT 50
@@ -249,7 +253,8 @@ FROM on_pp.boreal_psp_treedbh_ht
 
 UNION ALL
 
-SELECT DISTINCT CAST(replace(concat_ws('-',glsl_psp_trees_dbh_ht.plotname,glsl_psp_trees_dbh_ht.gpnum), ' ', '') AS char(20)) AS plot_id,
+SELECT DISTINCT 
+	CAST(replace(concat_ws('-',glsl_psp_trees_dbh_ht.plotname,glsl_psp_trees_dbh_ht.gpnum), ' ', '') AS char(20)) AS plot_id,
 	CAST(glsl_psp_trees_dbh_ht.treeid AS char(5)) AS tree_id,
 	CAST(date_part('year'::text, glsl_psp_trees_dbh_ht.msrdate::date) AS integer) AS year_measured,
 	CAST(glsl_psp_trees_dbh_ht.speccode AS char(10)) AS species_code,
@@ -262,7 +267,7 @@ SELECT DISTINCT CAST(replace(concat_ws('-',glsl_psp_trees_dbh_ht.plotname,glsl_p
 	NULL AS in_macroplot,
 	NULL AS in_subplot,
 	NULL AS is_planted, -- CAST(glsl_psp_trees_dbh_ht.lcr  AS char(5)) AS is_planted, -- prob, this field is producing doublons !!
-	CAST(glsl_psp_trees_dbh_ht.treestatuscode AS char(5)) AS is_dead,
+	NULL AS is_dead, --CAST(glsl_psp_trees_dbh_ht.treestatuscode AS char(5)) AS is_dead,
 	'on_pp_glsl' AS source_db
 FROM on_pp.glsl_psp_trees_dbh_ht
 -- LIMIT 50
@@ -273,7 +278,8 @@ FROM on_pp.glsl_psp_trees_dbh_ht
 
 UNION ALL
 
-SELECT DISTINCT CAST(concat_ws('-',pgp_treedbh_ht.plot_num,pgp_treedbh_ht.subplot_id) AS char(20)) AS plot_id,
+SELECT DISTINCT 
+	CAST(concat_ws('-',pgp_treedbh_ht.plot_num,pgp_treedbh_ht.subplot_id) AS char(20)) AS plot_id,
 	CAST(pgp_treedbh_ht.tree_id AS char(5)) AS tree_id,
 	pgp_treedbh_ht.obs_year AS year_measured,
 	CAST(pgp_treedbh_ht.tree_spec AS char(10)) AS species_code,
@@ -294,7 +300,7 @@ FROM on_pp.pgp_treedbh_ht
 UNION ALL
 
 -----------------------------------------------
--- Permenent sample plot from DOMTAR---
+-- Permanent sample plots from DOMTAR---
 -----------------------------------------------
 
 SELECT DISTINCT CAST(domtar_pp.domtar_data.idpep AS char(10))  AS plot_id,

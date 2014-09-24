@@ -75,29 +75,38 @@ WHERE nb_pp.psp_plots.coord_geom IS NOT NULL
 
 UNION ALL
 
+-----------------------------------------
+-----------Ontario Boreal Plots----------
+-----------------------------------------
+
 SELECT DISTINCT
-    CAST(on_pp.boreal_psp_plot_info.plot_num AS char(20)) AS plot_id,
+    CAST(concat_ws('-',boreal_psp_plot_info.plot_num, boreal_psp_plot_info.subplot_id) AS char(20)) AS plot_id,
     'on_pp_boreal' :: char(20) AS org_code_db
 FROM
     on_pp.boreal_psp_plot_info
- WHERE  on_pp.boreal_psp_plot_info.coord_geom IS NOT NULL
+WHERE  on_pp.boreal_psp_plot_info.coord_geom IS NOT NULL
 
----- glsl_on
+-----------------------------------------
+------------Ontario GLSL Plots-----------
+-----------------------------------------
 
 UNION ALL
 
 SELECT DISTINCT
-    CAST(on_pp.glsl_psp_plotinfo.plotname AS char(20)) AS plot_id,
+    CAST(replace(concat_ws('-',glsl_psp_plotinfo.plotname,glsl_psp_plotinfo.gpnum), ' ', '') AS char(20)) AS plot_id,
     'on_pp_glsl' :: char(20) AS org_code_db
 FROM
     on_pp.glsl_psp_plotinfo
 WHERE on_pp.glsl_psp_plotinfo.coord_geom IS NOT NULL
 
+-----------------------------------------
+-----------Ontario PGP Plots-------------
+-----------------------------------------
 
 UNION ALL
 
 SELECT DISTINCT
-    CAST(on_pp.pgp_plot_info.plot_num AS char(20)) AS plot_id,
+    CAST(concat_ws('-',pgp_plot_info.plot_num,pgp_plot_info.subplot_id) AS char(20)) AS plot_id,
     'on_pp_pgp' :: char(20) AS org_code_db
 FROM
     on_pp.pgp_plot_info
@@ -110,7 +119,7 @@ UNION ALL
 ---------------------------------------
 
 SELECT DISTINCT
-    CAST(concat_ws('-',statecd,unitcd,countycd,plot) AS char(20))   AS plot_id ,
+    CAST(concat_ws('-',statecd,unitcd,countycd,plot,subp) AS char(20)) AS plot_id,
     'us_pp' :: char(20) AS org_code_db
   FROM
     us_pp.plot
