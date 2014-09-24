@@ -179,7 +179,7 @@ UNION ALL
 ----------------------------------------------
 
 SELECT DISTINCT
-    CAST(concat_ws('-',statecd,unitcd,countycd,plot,subp) AS char(20)) AS plot_id,
+    CAST(concat_ws('-',us_pp.subplot.statecd,us_pp.subplot.unitcd,us_pp.subplot.countycd,us_pp.subplot.plot,us_pp.subplot.subp) AS char(20)) AS plot_id,
     'us_pp' :: char(30) AS org_code_db,
     us_pp.plot.measyear :: integer AS year_measured,
     CAST( 0 AS numeric) AS plot_size,
@@ -189,6 +189,7 @@ SELECT DISTINCT
     0 :: boolean AS has_macroplot
 FROM
     us_pp.plot
+INNER JOIN us_pp.subplot ON concat_ws('-',plot.statecd,plot.unitcd,plot.countycd,plot.plot) = concat_ws('-',subplot.statecd,subplot.unitcd,subplot.countycd,subplot.plot)
 
 UNION ALL
 
@@ -227,11 +228,12 @@ DELETE FROM rdb_quicc.plot;
         temp_quicc.mv_plot.seedling_plot_size,
         temp_quicc.mv_plot.is_templot,
         temp_quicc.mv_plot.has_macroplot,
-        rdb_quicc.plot_info.plot_id,
+        rdb_quicc.localisation.plot_id,
         rdb_quicc.plot_info.plot_id
     FROM temp_quicc.mv_plot
     RIGHT OUTER JOIN rdb_quicc.plot_info ON temp_quicc.mv_plot.plot_id = rdb_quicc.plot_info.org_plot_id
         AND temp_quicc.mv_plot.org_code_db = rdb_quicc.plot_info.org_db_loc
+    LEFT JOIN rdb_quicc.localisation ON rdb_quicc.plot_info.plot_id = rdb_quicc.localisation.plot_id
     WHERE temp_quicc.mv_plot.year_measured IS NOT NULL;
 REINDEX TABLE rdb_quicc.plot;
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
