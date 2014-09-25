@@ -275,7 +275,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 <table name="plot">
 	<schema name="rdb_quicc"/>
 	<role name="&quot;QUICC&quot;"/>
-	<position x="468" y="395"/>
+	<position x="517" y="395"/>
 	<column name="plot_id" not-null="true">
 		<type name="integer"/>
 	</column>
@@ -1019,17 +1019,6 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<position x="0" y="0"/>
 	</label>
 </relationship>
-
-<relationship name="ref_tree_height_method_has_many_tree" type="rel1n"
-	 src-col-pattern="{sc}_{st}"
-	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_fk"
-	 col-indexes="17" constr-indexes="3"
-	 src-table="rdb_quicc.ref_tree_height_method"
-	 dst-table="rdb_quicc.tree"
-	 src-required="true" dst-required="false"
-	upd-action="CASCADE"
-	del-action="RESTRICT"/>
 
 <sequence name="tree_info_tree_id_seq"
 	 start="1" increment="1"

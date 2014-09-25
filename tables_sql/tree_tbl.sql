@@ -318,7 +318,7 @@ SELECT DISTINCT CAST(domtar_pp.domtar_data.idpep AS char(10))  AS plot_id,
 	CAST(NULL AS char(5)) AS is_planted,
 	CAST(domtar_pp.domtar_data.etat AS char(5)) AS is_dead,
 	'domtar_pp' AS source_db
-FROM domtar_pp.domtar_data
+FROM domtar_pp.domtar_data;
 -- LIMIT 50;
 -----------------------------------------
 
@@ -349,14 +349,13 @@ SELECT DISTINCT
 		temp_quicc.get_tree_state(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.is_dead),
 		rdb_quicc.plot_info.plot_id,
 		temp_quicc.mv_tree.year_measured,
-		rdb_quicc.tree_info.plot_id,
-		rdb_quicc.tree_info.tree_id,
-		temp_quicc.get_new_spcode_height_method_tree(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.height_id_method, temp_quicc.flt_height(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.height)),
-		temp_quicc.get_new_spcode(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.species_code)
+		temp_quicc.get_new_spcode(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.species_code),
+		temp_quicc.get_height_method_tree(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.height_id_method, temp_quicc.flt_height(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.height)),
+		rdb_quicc.tree_info.tree_id
 	FROM temp_quicc.mv_tree
 	RIGHT OUTER JOIN rdb_quicc.plot_info ON temp_quicc.mv_tree.plot_id = rdb_quicc.plot_info.org_plot_id
 		AND temp_quicc.mv_tree.source_db = rdb_quicc.plot_info.org_db_loc 
-	RIGHT OUTER JOIN rdb_quicc.tree_info ON temp_quicc.mv_tree.tree_id = rdb_quicc.tree_info.tree_id
-		AND temp_quicc.mv_tree.source_db = rdb_quicc.tree_info.org_db_loc AND temp_quicc.mv_tree.plot_id = rdb_quicc.tree_info.org_plot_id;
+	RIGHT OUTER JOIN rdb_quicc.tree_info ON temp_quicc.mv_tree.tree_id = rdb_quicc.tree_info.org_tree_id
+		AND temp_quicc.mv_tree.source_db = rdb_quicc.tree_info.org_db_loc AND temp_quicc.mv_tree.plot_id = rdb_quicc.tree_info.org_plot_id
 	WHERE temp_quicc.get_new_spcode(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.species_code) IS NOT NULL;
 REINDEX TABLE rdb_quicc.tree;
