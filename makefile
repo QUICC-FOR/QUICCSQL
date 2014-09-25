@@ -10,6 +10,10 @@ SP = ref_species_R
 FUNC = func_sql
 REF = ref_tbl_sql
 
+##################################################
+## Prepare schema, reference tables and functions
+##################################################
+
 temp_sch:
 	psql -U ${PG_USER} -h ${PG_HOST} -p ${PG_PORT} -d ${PG_DB} -c "DROP SCHEMA temp_quicc CASCADE;"
 	psql -U ${PG_USER} -h ${PG_HOST} -p ${PG_PORT} -d ${PG_DB} -c "CREATE SCHEMA temp_quicc;"
@@ -20,6 +24,20 @@ rdb_sch:
 
 impl_ref:
 	psql  -U ${PG_USER} -h ${PG_HOST} -p ${PG_PORT} -d ${PG_DB} -c "\i ${REF}/ref_height_method.sql;"
+
+species:
+	psql -U ${PG_USER} -h ${PG_HOST} -p ${PG_PORT} -d ${PG_DB} -c "\copy rdb_quicc.ref_species FROM '${SP}/final_ref_table_sql.csv' null '' ;"
+	psql  -U ${PG_USER} -h ${PG_HOST} -p ${PG_PORT} -d ${PG_DB} -c "REINDEX TABLE rdb_quicc.ref_species;"
+
+functions:
+	psql  -U ${PG_USER} -h ${PG_HOST} -p ${PG_PORT} -d ${PG_DB} -c "\i ${FUNC}/conv_functions.sql;"
+	psql  -U ${PG_USER} -h ${PG_HOST} -p ${PG_PORT} -d ${PG_DB} -c "\i ${FUNC}/gen_functions.sql;"
+
+
+###########################################################################
+### Create temporary tables (view) and populate relational database tables
+###########################################################################
+
 
 plot_info_tbl:
 	psql  -U ${PG_USER} -h ${PG_HOST} -p ${PG_PORT} -d ${PG_DB} -c "\i ${SRC}/plot_info_tbl.sql;"
@@ -39,20 +57,26 @@ plot_tbl:
 tree_info_tbl:
 	psql  -U ${PG_USER} -h ${PG_HOST} -p ${PG_PORT} -d ${PG_DB} -c "\i ${SRC}/tree_info_tbl.sql;"
 
+tree_tbl:
+	psql  -U ${PG_USER} -h ${PG_HOST} -p ${PG_PORT} -d ${PG_DB} -c "\i ${SRC}/tree_tbl.sql;"
+
+
+
+#######################
+### Add climatic data
+#######################
+
 clim_tbl:
 	sh ${CLIM}/post_trait_NRCan.sh
 	psql  -U ${PG_USER} -h ${PG_HOST} -p ${PG_PORT} -d ${PG_DB} -c "REINDEX TABLE rdb_quicc.climatic_data;"
 	clean
 
-species:
-	psql -U ${PG_USER} -h ${PG_HOST} -p ${PG_PORT} -d ${PG_DB} -c "\copy rdb_quicc.ref_species FROM '${SP}/final_ref_table_sql.csv' null '' ;"
-	psql  -U ${PG_USER} -h ${PG_HOST} -p ${PG_PORT} -d ${PG_DB} -c "REINDEX TABLE rdb_quicc.ref_species;"
 
-functions:
-	psql  -U ${PG_USER} -h ${PG_HOST} -p ${PG_PORT} -d ${PG_DB} -c "\i ${FUNC}/conv_functions.sql;"
-	psql  -U ${PG_USER} -h ${PG_HOST} -p ${PG_PORT} -d ${PG_DB} -c "\i ${FUNC}/gen_functions.sql;"
+####################
+### General command
+####################
 
-all: temp_sch rdb_sch clean functions impl_ref plot_info_tbl localisation_tbl plot_tbl species tree_info_tbl
+all: temp_sch rdb_sch functions impl_ref species plot_info_tbl localisation_tbl tree_info_tbl plot_tbl 
 
 clean:
 	vacuumdb  -U ${PG_USER} -h ${PG_HOST} -p ${PG_PORT} -d ${PG_DB} --analyze --verbose
