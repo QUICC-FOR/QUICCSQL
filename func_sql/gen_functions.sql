@@ -13,7 +13,6 @@ DROP FUNCTION IF EXISTS temp_quicc.get_height_method_tree(org_db char(15), heigh
 DROP FUNCTION IF EXISTS temp_quicc.get_plot_size(org_db char(15), code char(10));
 DROP FUNCTION IF EXISTS temp_quicc.get_tree_state(org_db char(15), code char(5));
 DROP FUNCTION IF EXISTS temp_quicc.get_in_subplot(org_db char(15), dbh integer);
-DROP FUNCTION IF EXISTS temp_quicc.get_is_planted();
 DROP FUNCTION IF EXISTS temp_quicc.get_new_spcode(org_db char(15), species_code char(10));
 DROP FUNCTION IF EXISTS temp_quicc.get_source_nb_db(id_plot varchar(255));
 

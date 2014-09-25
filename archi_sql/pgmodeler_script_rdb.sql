@@ -43,35 +43,6 @@ ALTER SCHEMA rdb_quicc OWNER TO "QUICC";
 SET search_path TO pg_catalog,public,rdb_quicc;
 -- ddl-end --
 
-
--- object: rdb_quicc.tree_info_tree_id_seq | type: SEQUENCE --
--- DROP SEQUENCE rdb_quicc.tree_info_tree_id_seq;
-CREATE SEQUENCE rdb_quicc.tree_info_tree_id_seq
-	INCREMENT BY 1
-	MINVALUE 0
-	MAXVALUE 2147483647
-	START WITH 1
-	CACHE 1
-	NO CYCLE
-	OWNED BY NONE;
-ALTER SEQUENCE rdb_quicc.tree_info_tree_id_seq OWNER TO "QUICC";
--- ddl-end --
-
-
--- object: rdb_quicc.plot_info_plot_id_seq | type: SEQUENCE --
--- DROP SEQUENCE rdb_quicc.plot_info_plot_id_seq;
-CREATE SEQUENCE rdb_quicc.plot_info_plot_id_seq
-	INCREMENT BY 1
-	MINVALUE 1
-	MAXVALUE 9223372036854775807
-	START WITH 1
-	CACHE 1
-	NO CYCLE
-	OWNED BY NONE;
-ALTER SEQUENCE rdb_quicc.plot_info_plot_id_seq OWNER TO vissst01;
--- ddl-end --
-
-
 -- object: rdb_quicc.ref_tree_height_method | type: TABLE --
 -- DROP TABLE rdb_quicc.ref_tree_height_method;
 CREATE TABLE rdb_quicc.ref_tree_height_method(
@@ -239,28 +210,17 @@ CREATE TABLE rdb_quicc.ref_stand_disturb_type(
 ALTER TABLE rdb_quicc.ref_stand_disturb_type OWNER TO "QUICC";
 -- ddl-end --
 
--- object: rdb_quicc.tree_info | type: TABLE --
--- DROP TABLE rdb_quicc.tree_info;
-CREATE TABLE rdb_quicc.tree_info(
-	tree_id integer NOT NULL DEFAULT nextval('tree_info_tree_id_seq'::regclass),
-	org_tree_id character(20) NOT NULL,
-	org_plot_id character(30) NOT NULL,
-	org_db_loc character(30) NOT NULL,
-	CONSTRAINT tree_info_tbl_pk PRIMARY KEY (tree_id)
-
-);
--- ddl-end --
--- object: idx_tree_info_pk | type: INDEX --
--- DROP INDEX rdb_quicc.idx_tree_info_pk;
-CREATE INDEX idx_tree_info_pk ON rdb_quicc.tree_info
-	USING btree
-	(
-	  tree_id ASC NULLS LAST
-	);
--- ddl-end --
-
-
-ALTER TABLE rdb_quicc.tree_info OWNER TO "QUICC";
+-- object: rdb_quicc.tree_info_tree_id_seq | type: SEQUENCE --
+-- DROP SEQUENCE rdb_quicc.tree_info_tree_id_seq;
+CREATE SEQUENCE rdb_quicc.tree_info_tree_id_seq
+	INCREMENT BY 1
+	MINVALUE 0
+	MAXVALUE 2147483647
+	START WITH 1
+	CACHE 1
+	NO CYCLE
+	OWNED BY NONE;
+ALTER SEQUENCE rdb_quicc.tree_info_tree_id_seq OWNER TO "QUICC";
 -- ddl-end --
 
 -- object: rdb_quicc.plot | type: TABLE --
@@ -293,6 +253,18 @@ CREATE INDEX idx_plot ON rdb_quicc.plot
 ALTER TABLE rdb_quicc.plot OWNER TO "QUICC";
 -- ddl-end --
 
+-- object: rdb_quicc.plot_info_plot_id_seq | type: SEQUENCE --
+-- DROP SEQUENCE rdb_quicc.plot_info_plot_id_seq;
+CREATE SEQUENCE rdb_quicc.plot_info_plot_id_seq
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START WITH 1
+	CACHE 1
+	NO CYCLE
+	OWNED BY NONE;
+ALTER SEQUENCE rdb_quicc.plot_info_plot_id_seq OWNER TO vissst01;
+-- ddl-end --
 
 -- object: rdb_quicc.plot_info | type: TABLE --
 -- DROP TABLE rdb_quicc.plot_info;
@@ -768,6 +740,31 @@ REFERENCES rdb_quicc.ref_tree_height_method (height_id_method) MATCH FULL
 ON DELETE RESTRICT ON UPDATE CASCADE;
 -- ddl-end --
 
+
+-- object: rdb_quicc.tree_info | type: TABLE --
+-- DROP TABLE rdb_quicc.tree_info;
+CREATE TABLE rdb_quicc.tree_info(
+	tree_id integer NOT NULL DEFAULT nextval('tree_info_tree_id_seq'::regclass),
+	org_tree_id character(20) NOT NULL,
+	org_plot_id character(30) NOT NULL,
+	org_db_loc character(30) NOT NULL,
+	CONSTRAINT tree_info_tbl_pk PRIMARY KEY (tree_id)
+
+);
+-- ddl-end --
+-- object: idx_tree_info_pk | type: INDEX --
+-- DROP INDEX rdb_quicc.idx_tree_info_pk;
+CREATE INDEX idx_tree_info_pk ON rdb_quicc.tree_info
+	USING btree
+	(
+	  tree_id ASC NULLS LAST
+	);
+-- ddl-end --
+
+
+ALTER TABLE rdb_quicc.tree_info OWNER TO "QUICC";
+-- ddl-end --
+
 -- object: tree_info_fk | type: CONSTRAINT --
 -- ALTER TABLE rdb_quicc.tree DROP CONSTRAINT tree_info_fk;
 ALTER TABLE rdb_quicc.tree ADD CONSTRAINT tree_info_fk FOREIGN KEY (tree_id_tree_info)
@@ -776,61 +773,61 @@ ON DELETE RESTRICT ON UPDATE CASCADE;
 -- ddl-end --
 
 
--- object: grant_4775a35908 | type: PERMISSION --
+-- object: grant_dccd4415a2 | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.ref_tree_height_method
    TO vissst01;
 -- ddl-end --
 
--- object: grant_0c32bd933c | type: PERMISSION --
+-- object: grant_6b9dacfde2 | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.tree_class_info
    TO vissst01;
 -- ddl-end --
 
--- object: grant_b8449e4f65 | type: PERMISSION --
+-- object: grant_2ddf0555cb | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.tree
    TO vissst01;
 -- ddl-end --
 
--- object: grant_473ba98528 | type: PERMISSION --
+-- object: grant_eae55d7cac | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.class_tree
    TO vissst01;
 -- ddl-end --
 
--- object: grant_3c42106f2b | type: PERMISSION --
+-- object: grant_b68c3d365e | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.stand_disturbed
    TO vissst01;
 -- ddl-end --
 
--- object: grant_285d3d7d2c | type: PERMISSION --
+-- object: grant_543b6824ed | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.ref_stand_disturb_type
    TO vissst01;
 -- ddl-end --
 
--- object: grant_b273052bdf | type: PERMISSION --
+-- object: grant_d05b9e7b71 | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.tree_info
    TO vissst01;
 -- ddl-end --
 
--- object: grant_ace463d15a | type: PERMISSION --
+-- object: grant_8a7e452d35 | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.plot
    TO vissst01;
 -- ddl-end --
 
--- object: grant_37ae066861 | type: PERMISSION --
+-- object: grant_7f89a07193 | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.plot_info
    TO vissst01;
 -- ddl-end --
 
--- object: grant_ab09a574c9 | type: PERMISSION --
+-- object: grant_d85a6bfb00 | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.stand
    TO vissst01;
