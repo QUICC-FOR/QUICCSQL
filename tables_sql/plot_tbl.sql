@@ -129,6 +129,7 @@ FROM
     on_pp.boreal_psp_treedbh_ht
 LEFT JOIN on_pp.boreal_psp_plot_sizes ON concat_ws('-',boreal_psp_treedbh_ht.plot_num, boreal_psp_treedbh_ht.subplot_id) = concat_ws('-',boreal_psp_plot_sizes.plot_num, boreal_psp_plot_sizes.subplot_id)
 AND boreal_psp_treedbh_ht.msr_num = on_pp.boreal_psp_plot_sizes.msr_num
+WHERE boreal_psp_plot_sizes.radius IS NOT NULL -- Add filter because some rows are duplicated with no size of the plot
 
 -----------------------------------------)
 ------------Ontario GLSL Plots-----------
