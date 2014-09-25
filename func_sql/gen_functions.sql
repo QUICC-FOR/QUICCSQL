@@ -372,6 +372,7 @@ BEGIN
     	CASE 
     		WHEN dbh < 127 THEN res := 1;
     		WHEN dbh >= 127 THEN res := 0;
+            ELSE res := NULL;
         END CASE;
 
     ELSIF org_db = 'qc_pp' OR org_db = 'qc_pet2' OR org_db = 'qc_pet3' OR org_db = 'qc_pet4' OR org_db ='domtar_pp' THEN res:= 0;
