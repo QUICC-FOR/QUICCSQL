@@ -6,16 +6,16 @@
 
 -- DROP functions
 
-DROP FUNCTION IF EXISTS temp_quicc.flt_dbh();
-DROP FUNCTION IF EXISTS temp_quicc.flt_height();
-DROP FUNCTION IF EXISTS temp_quicc.flt_plot_code();
-DROP FUNCTION IF EXISTS temp_quicc.get_height_method_tree();
-DROP FUNCTION IF EXISTS temp_quicc.get_plot_code();
-DROP FUNCTION IF EXISTS temp_quicc.get_tree_state();
-DROP FUNCTION IF EXISTS temp_quicc.get_in_subplot();
+DROP FUNCTION IF EXISTS temp_quicc.flt_dbh(org_db char(15), dbh integer);
+DROP FUNCTION IF EXISTS temp_quicc.flt_height(org_db char(15), height double precision);
+DROP FUNCTION IF EXISTS temp_quicc.flt_plot_size(surface double precision);
+DROP FUNCTION IF EXISTS temp_quicc.get_height_method_tree(org_db char(15), height_id_method char, height double precision);
+DROP FUNCTION IF EXISTS temp_quicc.get_plot_size(org_db char(15), code char(10));
+DROP FUNCTION IF EXISTS temp_quicc.get_tree_state(org_db char(15), code char(5));
+DROP FUNCTION IF EXISTS temp_quicc.get_in_subplot(org_db char(15), dbh integer);
 DROP FUNCTION IF EXISTS temp_quicc.get_is_planted();
-DROP FUNCTION IF EXISTS temp_quicc.get_new_spcode();
-DROP FUNCTION IF EXISTS temp_quicc.get_source_nb_db();
+DROP FUNCTION IF EXISTS temp_quicc.get_new_spcode(org_db char(15), species_code char(10));
+DROP FUNCTION IF EXISTS temp_quicc.get_source_nb_db(id_plot varchar(255));
 
 /*  Function:     temp_quicc.flt_dbh(org_db, dbh)
     Description:  Filters on dbh values
