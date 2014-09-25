@@ -5,12 +5,12 @@
 
 -- DROP functions
 
-DROP FUNCTION IF EXISTS temp_quicc.conv_cm_to_m(x double precision);
-DROP FUNCTION IF EXISTS temp_quicc.conv_cm_to_mm(x double precision);
-DROP FUNCTION IF EXISTS temp_quicc.conv_dm_to_m(x double precision);
-DROP FUNCTION IF EXISTS temp_quicc.conv_feet_to_m(x double precision);
-DROP FUNCTION IF EXISTS temp_quicc.conv_in_to_mm(x double precision);
-DROP FUNCTION IF EXISTS temp_quicc.get_surf(rad double precision);
+DROP FUNCTION IF EXISTS temp_quicc.conv_cm_to_m(x double precision) CASCADE;
+DROP FUNCTION IF EXISTS temp_quicc.conv_cm_to_mm(x double precision) CASCADE;
+DROP FUNCTION IF EXISTS temp_quicc.conv_dm_to_m(x double precision) CASCADE;
+DROP FUNCTION IF EXISTS temp_quicc.conv_feet_to_m(x double precision) CASCADE;
+DROP FUNCTION IF EXISTS temp_quicc.conv_in_to_mm(x double precision) CASCADE;
+DROP FUNCTION IF EXISTS temp_quicc.get_surf(rad double precision) CASCADE;
 
 /*  Function:     temp_quicc.conv_cm_to_m(value)
     Description:  Conversion function - cm to meters
