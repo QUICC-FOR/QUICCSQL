@@ -52,16 +52,13 @@ echo "------- SQL: CREATE VIEW range_years...."
 
 psql -U $USER -h $HOST -p $PORT -d $DB -c "
 CREATE OR REPLACE VIEW temp_quicc.range_yrs_clim AS
- SELECT DISTINCT plot_info.plot_id,
-    plot_info.org_plot_id,
+ SELECT DISTINCT plot.plot_id,
     localisation.latitude,
     localisation.longitude,
     plot.year_measured AS year_max,
     plot.year_measured - 16 AS year_min
    FROM rdb_quicc.localisation
-   JOIN rdb_quicc.plot_info ON localisation.plot_id = plot_info.plot_id
-   JOIN rdb_quicc.plot ON localisation.plot_id = plot.plot_id
-  ORDER BY plot_info.plot_id;"
+  RIGHT OUTER JOIN rdb_quicc.plot ON localisation.plot_id = plot.plot_id;"
 
 echo "------- SQL:  Import csv file into the temp climatic table..."
 
@@ -216,12 +213,10 @@ SELECT DISTINCT
   december_mean_monthly_pp
 FROM
   temp_quicc.climatic_data
-LEFT JOIN temp_quicc.range_yrs_clim ON
-climatic_data.id_plot = temp_quicc.range_yrs_clim.org_plot_id AND
+LEFT OUTER JOIN temp_quicc.range_yrs_clim ON
 climatic_data.x_longitude = temp_quicc.range_yrs_clim.longitude AND
 climatic_data.y_latitude = temp_quicc.range_yrs_clim.latitude
 WHERE
-temp_quicc.range_yrs_clim.plot_id IS NOT NULL AND
 temp_quicc.climatic_data.year_data > temp_quicc.range_yrs_clim.year_min AND
 temp_quicc.climatic_data.year_data <= temp_quicc.range_yrs_clim.year_max) AS filter;"
 

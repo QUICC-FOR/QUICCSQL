@@ -75,6 +75,7 @@ DECLARE res double precision;
 BEGIN
 
 	IF height <= 0 THEN res:= NULL;
+    ELSE res := height;
     END IF;
 
 RETURN res;
