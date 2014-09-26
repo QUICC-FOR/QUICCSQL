@@ -130,6 +130,7 @@ BEGIN
 		      	WHEN height_id_method='2' THEN res := 'B';
 		      	WHEN height_id_method='3' THEN res := 'B';
 		      	WHEN height_id_method='4' THEN res := 'C';
+                ELSE res := NULL;
 		      END CASE;
     	END IF;
 
