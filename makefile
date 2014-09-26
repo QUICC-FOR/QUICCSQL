@@ -76,7 +76,7 @@ clim_tbl:
 ### General command
 ####################
 
-all: temp_sch rdb_sch functions impl_ref species plot_info_tbl localisation_tbl tree_info_tbl plot_tbl 
+all: temp_sch rdb_sch functions impl_ref species plot_info_tbl localisation_tbl tree_info_tbl plot_tbl tree_tbl clim_tbl clean
 
 clean:
 	vacuumdb  -U ${PG_USER} -h ${PG_HOST} -p ${PG_PORT} -d ${PG_DB} --analyze --verbose
