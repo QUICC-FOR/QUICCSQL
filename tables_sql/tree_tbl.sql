@@ -228,13 +228,12 @@ UNION ALL
 -----------Ontario Boreal Plots----------
 -----------------------------------------
 
--------- WARNING: Setup avg on doublons species, need to see with the ministery
 
 SELECT DISTINCT 
 	CAST(concat_ws('-',boreal_psp_treedbh_ht.plot_num, boreal_psp_treedbh_ht.subplot_id) AS char(20)) AS plot_id,
 	CAST(boreal_psp_treedbh_ht.tree_id AS char(5)) AS tree_id,
 	boreal_psp_treedbh_ht.obs_year AS year_measured,
-	CAST(boreal_psp_treedbh_ht.tree_spec AS char(10)) AS species_code,
+	CAST(max(boreal_psp_treedbh_ht.tree_spec) AS char(10)) AS species_code,
 	avg(boreal_psp_treedbh_ht.ht_total) AS height,
 	avg(temp_quicc.conv_cm_to_mm(boreal_psp_treedbh_ht.dbh)) AS dbh,
 	CAST(NULL AS integer) age,
@@ -244,11 +243,15 @@ SELECT DISTINCT
 	NULL AS in_macroplot,
 	NULL AS in_subplot,
 	NULL AS is_planted, --CAST(boreal_psp_treedbh_ht.origin  AS char(5)) AS is_planted, -- prob, this field is producing doublons !!
-	CAST(boreal_psp_treedbh_ht.status  AS char(5)) AS is_dead,
+	NULL AS is_dead, -- CAST(boreal_psp_treedbh_ht.status  AS char(5)) AS is_dead,
 	'on_pp_boreal' AS source_db
 FROM on_pp.boreal_psp_treedbh_ht
 GROUP BY 
-plot_id, tree_id, year_measured, species_code, age, height_id_method, in_macroplot, in_subplot, is_planted, is_dead
+plot_id, tree_id, year_measured, age, height_id_method, in_macroplot, in_subplot, is_planted, is_dead
+
+-------- WARNING: Setup avg on doublons species, need to see with the ministery (perhaps multistem tree)
+-- Doublons on DBH, HEIGHT, SPE_CODE
+
 
 -----------------------------------------
 ------------Ontario GLSL Plots-----------
