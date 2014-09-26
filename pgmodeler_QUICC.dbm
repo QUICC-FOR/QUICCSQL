@@ -34,7 +34,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<role name="&quot;QUICC&quot;"/>
 	<position x="1347" y="640"/>
 	<column name="height_id_method" not-null="true">
-		<type name="character"/>
+		<type name="character varying"/>
 	</column>
 	<column name="height_method_desc">
 		<type name="character varying"/>
@@ -62,10 +62,10 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<type name="integer"/>
 	</column>
 	<column name="org_plot_id">
-		<type name="character" length="30"/>
+		<type name="character varying" length="30"/>
 	</column>
 	<column name="org_db_loc">
-		<type name="character" length="30"/>
+		<type name="character varying" length="30"/>
 	</column>
 	<constraint name="tree_class_info_tbl_pk" type="pk-constr" factor="100" table="rdb_quicc.tree_class_info">
 		<columns names="plot_id,tree_class_id" ref-type="src-columns"/>
@@ -96,7 +96,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<type name="integer"/>
 	</column>
 	<column name="id_spe" not-null="true">
-		<type name="character" length="15"/>
+		<type name="character varying" length="15"/>
 	</column>
 	<column name="height">
 		<type name="float4"/>
@@ -111,10 +111,10 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<type name="integer"/>
 	</column>
 	<column name="position_canopy">
-		<type name="character"/>
+		<type name="character varying"/>
 	</column>
 	<column name="height_id_method">
-		<type name="character"/>
+		<type name="character varying"/>
 	</column>
 	<column name="in_subplot">
 		<type name="boolean"/>
@@ -160,7 +160,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<type name="integer"/>
 	</column>
 	<column name="id_spe" not-null="true">
-		<type name="character" length="15"/>
+		<type name="character varying" length="15"/>
 	</column>
 	<column name="dbh_class_id">
 		<type name="integer"/>
@@ -203,13 +203,13 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<type name="integer"/>
 	</column>
 	<column name="disturb_type">
-		<type name="character"/>
+		<type name="character varying"/>
 	</column>
 	<column name="disturb_severity">
-		<type name="character"/>
+		<type name="character varying"/>
 	</column>
 	<column name="logging_type">
-		<type name="character" length="2"/>
+		<type name="character varying" length="2"/>
 	</column>
 	<column name="is_planted">
 		<type name="boolean"/>
@@ -234,7 +234,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<role name="&quot;QUICC&quot;"/>
 	<position x="1340" y="800"/>
 	<column name="disturb_type" not-null="true">
-		<type name="character"/>
+		<type name="character varying"/>
 	</column>
 	<column name="disturb_desc">
 		<type name="character varying" length="255"/>
@@ -252,13 +252,13 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<type name="integer"/>
 	</column>
 	<column name="org_tree_id" not-null="true">
-		<type name="character" length="20"/>
+		<type name="character varying" length="20"/>
 	</column>
 	<column name="org_plot_id" not-null="true">
-		<type name="character" length="30"/>
+		<type name="character varying" length="30"/>
 	</column>
 	<column name="org_db_loc" not-null="true">
-		<type name="character" length="30"/>
+		<type name="character varying" length="30"/>
 	</column>
 	<constraint name="tree_info_tbl_pk" type="pk-constr" factor="100" table="rdb_quicc.tree_info">
 		<columns names="tree_id" ref-type="src-columns"/>
@@ -328,10 +328,10 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<type name="integer"/>
 	</column>
 	<column name="org_plot_id">
-		<type name="character" length="30"/>
+		<type name="character varying" length="30"/>
 	</column>
 	<column name="org_db_loc">
-		<type name="character" length="30"/>
+		<type name="character varying" length="30"/>
 	</column>
 	<constraint name="plot_info_tbl_pk" type="pk-constr" factor="100" table="rdb_quicc.plot_info">
 		<columns names="plot_id" ref-type="src-columns"/>
@@ -359,22 +359,22 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<type name="integer"/>
 	</column>
 	<column name="age_id_method">
-		<type name="character"/>
+		<type name="character varying"/>
 	</column>
 	<column name="height">
 		<type name="float4"/>
 	</column>
 	<column name="height_id_method">
-		<type name="character"/>
+		<type name="character varying"/>
 	</column>
 	<column name="surface_deposit">
-		<type name="character" length="3"/>
+		<type name="character varying" length="3"/>
 	</column>
 	<column name="drainage">
-		<type name="character"/>
+		<type name="character varying"/>
 	</column>
 	<column name="slope">
-		<type name="character"/>
+		<type name="character varying"/>
 	</column>
 	<column name="is_disturbed">
 		<type name="boolean"/>
@@ -420,7 +420,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		<type name="integer"/>
 	</column>
 	<column name="plot_location">
-		<type name="character" length="20"/>
+		<type name="character varying" length="20"/>
 	</column>
 	<constraint name="localis_tbl_pk" type="pk-constr" factor="10" table="rdb_quicc.localisation">
 		<columns names="plot_id" ref-type="src-columns"/>
@@ -497,7 +497,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<role name="&quot;QUICC&quot;"/>
 	<position x="20" y="883.571"/>
 	<column name="age_id_method" not-null="true">
-		<type name="character"/>
+		<type name="character varying"/>
 	</column>
 	<column name="age_method_desc">
 		<type name="character varying"/>
@@ -519,7 +519,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<role name="&quot;QUICC&quot;"/>
 	<position x="0" y="780"/>
 	<column name="height_id_method" not-null="true">
-		<type name="character"/>
+		<type name="character varying"/>
 	</column>
 	<column name="height_method_desc">
 		<type name="character varying"/>
@@ -687,31 +687,31 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<role name="postgres"/>
 	<position x="910" y="80"/>
 	<column name="id_spe" not-null="true">
-		<type name="character" length="15"/>
+		<type name="character varying" length="15"/>
 	</column>
 	<column name="tsn">
 		<type name="integer"/>
 	</column>
 	<column name="genus">
-		<type name="character" length="60"/>
+		<type name="character varying" length="60"/>
 	</column>
 	<column name="species">
-		<type name="character" length="60"/>
+		<type name="character varying" length="60"/>
 	</column>
 	<column name="en_common_name">
-		<type name="character" length="100"/>
+		<type name="character varying" length="100"/>
 	</column>
 	<column name="fr_common_name">
-		<type name="character" length="100"/>
+		<type name="character varying" length="100"/>
 	</column>
 	<column name="qc_code">
-		<type name="character" length="3"/>
+		<type name="character varying" length="3"/>
 	</column>
 	<column name="on_tree_code">
 		<type name="integer"/>
 	</column>
 	<column name="on_alpha_code">
-		<type name="character" length="3"/>
+		<type name="character varying" length="3"/>
 	</column>
 	<column name="us_code">
 		<type name="integer"/>

@@ -2,7 +2,7 @@
 
 CREATE TABLE IF NOT EXISTS temp_quicc.climatic_data
 (
-  id_plot character varying NOT NULL,
+  id_plot character NOT NULL,
   x_longitude double precision,
   y_latitude double precision,
   z_elevation real,
