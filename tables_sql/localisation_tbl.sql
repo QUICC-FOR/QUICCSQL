@@ -85,7 +85,7 @@ FROM
 			-----------------------------------------------
 			
 			SELECT DISTINCT
-				CAST(concat_ws('-',boreal_psp_treedbh_ht.plot_num, boreal_psp_treedbh_ht.subplot_id) AS char(20)) AS org_plot_id,
+				CAST(concat_ws('-',boreal_psp_treedbh_ht.plot_num, boreal_psp_treedbh_ht.subplot_id) AS character varying(20)) AS org_plot_id,
 				on_pp.boreal_psp_treedbh_ht.obs_year,
 				on_pp.boreal_psp_plot_info.coord_geom,
 				'on_pp_boreal' AS org_db_loc
@@ -95,7 +95,7 @@ FROM
 			UNION ALL
 
 			SELECT DISTINCT
-				CAST(replace(concat_ws('-',glsl_psp_trees_dbh_ht.plotname,glsl_psp_trees_dbh_ht.gpnum), ' ', '') AS char(20)) AS org_plot_id,
+				CAST(replace(concat_ws('-',glsl_psp_trees_dbh_ht.plotname,glsl_psp_trees_dbh_ht.gpnum), ' ', '') AS character varying(20)) AS org_plot_id,
 				date_part('year'::text, on_pp.glsl_psp_trees_dbh_ht.msrdate::date) AS yr_measured,
 				on_pp.glsl_psp_plotinfo.coord_geom,
 				'on_pp_glsl' AS org_db_loc
@@ -105,7 +105,7 @@ FROM
 			UNION ALL
 
 			SELECT DISTINCT
-				CAST(concat_ws('-',pgp_treedbh_ht.plot_num,pgp_treedbh_ht.subplot_id) AS char(20)) AS org_plot_id,
+				CAST(concat_ws('-',pgp_treedbh_ht.plot_num,pgp_treedbh_ht.subplot_id) AS character varying(20)) AS org_plot_id,
 				on_pp.pgp_treedbh_ht.obs_year AS yr_measured,
 				on_pp.pgp_plot_info.coord_geom,
 				'on_pp_pgp' AS org_db_loc
@@ -119,7 +119,7 @@ FROM
 			UNION ALL
 
 			SELECT DISTINCT
-				CAST(concat_ws('-',subplot.statecd,subplot.unitcd,subplot.countycd,subplot.plot,subplot.subp) AS char(30)) AS org_plot_id,
+				CAST(concat_ws('-',subplot.statecd,subplot.unitcd,subplot.countycd,subplot.plot,subplot.subp) AS character varying(30)) AS org_plot_id,
 				us_pp.plot.measyear AS yr_measured,
 				us_pp.plot.coord_geom,
 				'us_pp' AS org_db_loc

@@ -6,14 +6,14 @@
 
 -- DROP functions
 
-DROP FUNCTION IF EXISTS temp_quicc.flt_dbh(org_db char(15), dbh integer) CASCADE;
-DROP FUNCTION IF EXISTS temp_quicc.flt_height(org_db char(15), height double precision) CASCADE;
+DROP FUNCTION IF EXISTS temp_quicc.flt_dbh(org_db character varying(15), dbh integer) CASCADE;
+DROP FUNCTION IF EXISTS temp_quicc.flt_height(org_db character varying(15), height double precision) CASCADE;
 DROP FUNCTION IF EXISTS temp_quicc.flt_plot_size(surface double precision) CASCADE;
-DROP FUNCTION IF EXISTS temp_quicc.get_height_method_tree(org_db char(15), height_id_method char, height double precision) CASCADE;
-DROP FUNCTION IF EXISTS temp_quicc.get_plot_size(org_db char(15), code char(10)) CASCADE;
-DROP FUNCTION IF EXISTS temp_quicc.get_tree_state(org_db char(15), code char(5)) CASCADE;
-DROP FUNCTION IF EXISTS temp_quicc.get_in_subplot(org_db char(15), dbh integer) CASCADE;
-DROP FUNCTION IF EXISTS temp_quicc.get_new_spcode(org_db char(15), species_code char(10)) CASCADE;
+DROP FUNCTION IF EXISTS temp_quicc.get_height_method_tree(org_db character varying(15), height_id_method character varying, height double precision) CASCADE;
+DROP FUNCTION IF EXISTS temp_quicc.get_plot_size(org_db character varying(15), code character varying(10)) CASCADE;
+DROP FUNCTION IF EXISTS temp_quicc.get_tree_state(org_db character varying(15), code character varying(5)) CASCADE;
+DROP FUNCTION IF EXISTS temp_quicc.get_in_subplot(org_db character varying(15), dbh integer) CASCADE;
+DROP FUNCTION IF EXISTS temp_quicc.get_new_spcode(org_db character varying(15), species_code character varying(10)) CASCADE;
 DROP FUNCTION IF EXISTS temp_quicc.get_source_nb_db(id_plot varchar(255)) CASCADE;
 
 /*  Function:     temp_quicc.flt_dbh(org_db, dbh)
@@ -24,7 +24,7 @@ DROP FUNCTION IF EXISTS temp_quicc.get_source_nb_db(id_plot varchar(255)) CASCAD
     Warning:      DBH need to be in mm
 */
 
-CREATE OR REPLACE FUNCTION temp_quicc.flt_dbh(org_db char(15), dbh integer)
+CREATE OR REPLACE FUNCTION temp_quicc.flt_dbh(org_db character varying(15), dbh integer)
 RETURNS integer AS $$
 DECLARE res integer;
 BEGIN
@@ -69,7 +69,7 @@ LANGUAGE plpgsql;
 */
 
 
-CREATE OR REPLACE FUNCTION temp_quicc.flt_height(org_db char(15), height double precision)
+CREATE OR REPLACE FUNCTION temp_quicc.flt_height(org_db character varying(15), height double precision)
 RETURNS double precision AS $$
 DECLARE res double precision;
 BEGIN
@@ -88,13 +88,13 @@ LANGUAGE plpgsql;
     Description:  Return method used to evaluate height of trees
     Affects:      height_id_method field
     Arguments:    database source, ID of the method used (code specific to the database), height of the tree
-    Returns:      char
+    Returns:      character varying
 */
 
 
-CREATE OR REPLACE FUNCTION temp_quicc.get_height_method_tree(org_db char(15), height_id_method char, height double precision)
-RETURNS char AS $$
-DECLARE res char;
+CREATE OR REPLACE FUNCTION temp_quicc.get_height_method_tree(org_db character varying(15), height_id_method character varying, height double precision)
+RETURNS character varying AS $$
+DECLARE res character varying;
 BEGIN
 
 	IF height IS NOT NULL THEN
@@ -150,7 +150,7 @@ LANGUAGE plpgsql;
 */
 
 
-CREATE OR REPLACE FUNCTION temp_quicc.get_plot_size(org_db char(15), code char(10))
+CREATE OR REPLACE FUNCTION temp_quicc.get_plot_size(org_db character varying(15), code character varying(10))
 RETURNS numeric AS $$
 DECLARE res numeric;
 BEGIN
@@ -195,7 +195,7 @@ LANGUAGE plpgsql;
 */
 
 
-CREATE OR REPLACE FUNCTION temp_quicc.get_tree_state(org_db char(15), code char(5))
+CREATE OR REPLACE FUNCTION temp_quicc.get_tree_state(org_db character varying(15), code character varying(5))
 RETURNS boolean AS $$
 DECLARE res boolean;
 BEGIN
@@ -365,7 +365,7 @@ LANGUAGE plpgsql;
 */
 
 
-CREATE OR REPLACE FUNCTION temp_quicc.get_in_subplot(org_db char(15), dbh integer)
+CREATE OR REPLACE FUNCTION temp_quicc.get_in_subplot(org_db character varying(15), dbh integer)
 RETURNS boolean AS $$
 DECLARE res boolean;
 BEGIN
@@ -404,12 +404,12 @@ LANGUAGE plpgsql;
 /*  Function:     temp_quicc.get_new_spcode(org_db, species_code)
     Description:  Return the species code specific to the QUICC-FOR database. 
     Arguments:    database source, original code of the species
-    Returns:      char
+    Returns:      character varying
 */
 
-CREATE OR REPLACE FUNCTION temp_quicc.get_new_spcode(org_db char(15), species_code char(10))
-RETURNS char(15) AS $$
-DECLARE res char(15);
+CREATE OR REPLACE FUNCTION temp_quicc.get_new_spcode(org_db character varying(15), species_code character varying(10))
+RETURNS character varying(15) AS $$
+DECLARE res character varying(15);
 BEGIN
 
         IF org_db = 'us_pp' THEN
@@ -449,12 +449,12 @@ $$ LANGUAGE plpgsql;
 /*  Function:     temp_quicc.get_source_nb_db(id_plot)
     Description:  Get the traitment applied on the plot - Specific to New-Brunswick plots
     Arguments:    id of the nb plot
-    Returns:      char
+    Returns:      character varying
 */
 
 CREATE OR REPLACE FUNCTION temp_quicc.get_source_nb_db(id_plot varchar(255))
-RETURNS char(30) AS $$
-DECLARE datasource char(30); res char(30);
+RETURNS character varying(30) AS $$
+DECLARE datasource character varying(30); res character varying(30);
 BEGIN
             EXECUTE 
             format('SELECT psp_plots.datasource FROM nb_pp.psp_plots WHERE psp_plots.plot = %L', id_plot)

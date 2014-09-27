@@ -15,8 +15,8 @@ CREATE OR REPLACE VIEW temp_quicc.mv_plot_info AS
 ---------------------------------------
 
 SELECT DISTINCT
-    CAST(qc_pp.pp_infogen.id_pep AS char(30)) AS plot_id,
-    'qc_pp' :: char(30) AS org_db_loc
+    CAST(qc_pp.pp_infogen.id_pep AS character varying(30)) AS plot_id,
+    'qc_pp' :: character varying(30) AS org_db_loc
 FROM
     qc_pp.pp_infogen
 INNER JOIN qc_pp.pp_localis on qc_pp.pp_localis.id_pep_mes = qc_pp.pp_infogen.id_pep_mes
@@ -28,8 +28,8 @@ INNER JOIN qc_pp.pp_localis on qc_pp.pp_localis.id_pep_mes = qc_pp.pp_infogen.id
 UNION ALL
 
 SELECT DISTINCT
-    CAST(qc_tp.infogen_pet2.id_pet AS char(30)) AS plot_id,
-    'qc_tp2' :: char(30) AS org_db_loc
+    CAST(qc_tp.infogen_pet2.id_pet AS character varying(30)) AS plot_id,
+    'qc_tp2' :: character varying(30) AS org_db_loc
 FROM
     qc_tp.infogen_pet2
 INNER JOIN qc_tp.localis_pet2 on qc_tp.localis_pet2.id_pet_mes = qc_tp.infogen_pet2.id_pet_mes
@@ -37,8 +37,8 @@ INNER JOIN qc_tp.localis_pet2 on qc_tp.localis_pet2.id_pet_mes = qc_tp.infogen_p
 UNION ALL
 
 SELECT DISTINCT
-    CAST(qc_tp.infogen_pet3.id_pet AS char(30)) AS plot_id,
-    'qc_tp3' :: char(30) AS org_db_loc
+    CAST(qc_tp.infogen_pet3.id_pet AS character varying(30)) AS plot_id,
+    'qc_tp3' :: character varying(30) AS org_db_loc
 FROM
     qc_tp.infogen_pet3
 INNER JOIN qc_tp.localis_pet3 on qc_tp.localis_pet3.id_pet_mes = qc_tp.infogen_pet3.id_pet_mes
@@ -46,8 +46,8 @@ INNER JOIN qc_tp.localis_pet3 on qc_tp.localis_pet3.id_pet_mes = qc_tp.infogen_p
 UNION ALL
 
 SELECT DISTINCT
-    CAST(qc_tp.infogen_pet4.id_pet AS char(30)) AS plot_id,
-    'qc_tp4' :: char(30) AS org_db_loc
+    CAST(qc_tp.infogen_pet4.id_pet AS character varying(30)) AS plot_id,
+    'qc_tp4' :: character varying(30) AS org_db_loc
 FROM
     qc_tp.infogen_pet4
 INNER JOIN qc_tp.localis_pet4 on qc_tp.localis_pet4.id_pet_mes = qc_tp.infogen_pet4.id_pet_mes
@@ -59,7 +59,7 @@ INNER JOIN qc_tp.localis_pet4 on qc_tp.localis_pet4.id_pet_mes = qc_tp.infogen_p
 UNION ALL
 
 SELECT DISTINCT
-    CAST(nb_pp.psp_plots.plot AS char(30)) AS plot_id,
+    CAST(nb_pp.psp_plots.plot AS character varying(30)) AS plot_id,
      temp_quicc.get_source_nb_db(nb_pp.psp_plots.plot) AS org_db_loc
 FROM
     nb_pp.psp_plots
@@ -75,8 +75,8 @@ UNION ALL
 -----------------------------------------
 
 SELECT DISTINCT
-    CAST(concat_ws('-',boreal_psp_treedbh_ht.plot_num, boreal_psp_treedbh_ht.subplot_id) AS char(30)) AS plot_id,
-    'on_pp_boreal' :: char(30) AS org_db_loc
+    CAST(concat_ws('-',boreal_psp_treedbh_ht.plot_num, boreal_psp_treedbh_ht.subplot_id) AS character varying(30)) AS plot_id,
+    'on_pp_boreal' :: character varying(30) AS org_db_loc
 FROM
     on_pp.boreal_psp_treedbh_ht
 
@@ -87,8 +87,8 @@ FROM
 UNION ALL
 
 SELECT DISTINCT
-    CAST(replace(concat_ws('-',glsl_psp_trees_dbh_ht.plotname,glsl_psp_trees_dbh_ht.gpnum), ' ', '') AS char(30)) AS plot_id,
-    'on_pp_glsl' :: char(30) AS org_db_loc
+    CAST(replace(concat_ws('-',glsl_psp_trees_dbh_ht.plotname,glsl_psp_trees_dbh_ht.gpnum), ' ', '') AS character varying(30)) AS plot_id,
+    'on_pp_glsl' :: character varying(30) AS org_db_loc
 FROM
     on_pp.glsl_psp_trees_dbh_ht
 
@@ -99,8 +99,8 @@ FROM
 UNION ALL
 
 SELECT DISTINCT
-    CAST(concat_ws('-',pgp_treedbh_ht.plot_num,pgp_treedbh_ht.subplot_id) AS char(30)) AS plot_id,
-    'on_pp_pgp' :: char(30) AS org_db_loc
+    CAST(concat_ws('-',pgp_treedbh_ht.plot_num,pgp_treedbh_ht.subplot_id) AS character varying(30)) AS plot_id,
+    'on_pp_pgp' :: character varying(30) AS org_db_loc
 FROM
     on_pp.pgp_treedbh_ht
 
@@ -111,8 +111,8 @@ UNION ALL
 ---------------------------------------
 
 SELECT DISTINCT
-    CAST(concat_ws('-',subplot.statecd,subplot.unitcd,subplot.countycd,subplot.plot,subplot.subp) AS char(30)) AS plot_id,
-    'us_pp' :: char(30) AS org_db_loc
+    CAST(concat_ws('-',subplot.statecd,subplot.unitcd,subplot.countycd,subplot.plot,subplot.subp) AS character varying(30)) AS plot_id,
+    'us_pp' :: character varying(30) AS org_db_loc
   FROM
     us_pp.plot
 INNER JOIN us_pp.subplot ON concat_ws('-',plot.statecd,plot.unitcd,plot.countycd,plot.plot) = concat_ws('-',subplot.statecd,subplot.unitcd,subplot.countycd,subplot.plot)
@@ -134,8 +134,8 @@ UNION ALL
 ---------------------------------------
 
 SELECT DISTINCT
-    CAST(domtar_pp.domtar_data.idpep AS char (30)) AS plot_id,
-    'domtar_pp' :: char(30) AS org_db_loc
+    CAST(domtar_pp.domtar_data.idpep AS character varying (30)) AS plot_id,
+    'domtar_pp' :: character varying(30) AS org_db_loc
 FROM
     domtar_pp.domtar_data;
 
