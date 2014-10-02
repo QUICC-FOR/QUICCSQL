@@ -94,52 +94,17 @@ LEFT JOIN nb_pp.psp_tree_yimo ON nb_pp.psp_plots_yr.remeasid = nb_pp.psp_tree_yi
 
 UNION ALL
 
-----------------------------------------------------------
--- Permament sample plot from on_pp ---
-----------------------------------------------------------
-
 -----------------------------------------
------------Ontario Boreal Plots----------
+-----------ALL Ontario DBs----------
 -----------------------------------------
 
 SELECT DISTINCT
-    CAST(concat_ws('-',boreal_psp_treedbh_ht.plot_num, boreal_psp_treedbh_ht.subplot_id) AS character varying(20)) AS plot_id,
-    'on_pp_boreal' :: character varying(30) AS org_db_loc,
-    CAST(boreal_psp_treedbh_ht.tree_spec AS character varying(10)) AS species_code,
-    CAST(on_pp.boreal_psp_treedbh_ht.tree_id AS character varying(10)) AS tree_id
+    mv_on_tree_doublons.plot_id,
+    mv_on_tree_doublons.source_db AS org_db_loc,
+    mv_on_tree_doublons.species_code,
+    CAST(concat_ws('-',mv_on_tree_doublons.rid,mv_on_tree_doublons.tree_id) AS character varying(10)) AS tree_id
 FROM
-    on_pp.boreal_psp_plot_info
-LEFT JOIN on_pp.boreal_psp_treedbh_ht ON on_pp.boreal_psp_plot_info.plot_num = on_pp.boreal_psp_treedbh_ht.plot_num
-
------------------------------------------
-------------Ontario GLSL Plots-----------
------------------------------------------
-
-UNION ALL
-
-SELECT DISTINCT
-    CAST(replace(concat_ws('-',glsl_psp_trees_dbh_ht.plotname,glsl_psp_trees_dbh_ht.gpnum), ' ', '') AS character varying(20)) AS plot_id,
-    'on_pp_glsl' :: character varying(30) AS org_db_loc,
-    CAST(glsl_psp_trees_dbh_ht.speccode AS character varying(10)) AS species_code,
-    CAST(on_pp.glsl_psp_trees_dbh_ht.treeid AS character varying(10)) AS tree_id
-FROM
-    on_pp.glsl_psp_plotinfo
-LEFT JOIN on_pp.glsl_psp_trees_dbh_ht ON on_pp.glsl_psp_plotinfo.plotname = on_pp.glsl_psp_trees_dbh_ht.plotname
-
------------------------------------------
------------Ontario PGP Plots-------------
------------------------------------------
-
-UNION ALL
-
-SELECT DISTINCT
-    CAST(concat_ws('-',pgp_treedbh_ht.plot_num,pgp_treedbh_ht.subplot_id) AS character varying(20)) AS plot_id,
-    'on_pp_pgp' :: character varying(30) AS org_db_loc,
-    CAST(pgp_treedbh_ht.tree_spec AS character varying(10)) AS species_code,
-    CAST(on_pp.pgp_treedbh_ht.tree_id AS character varying(10)) AS tree_id
-FROM
-    on_pp.pgp_plot_info
-LEFT JOIN on_pp.pgp_treedbh_ht ON on_pp.pgp_plot_info.plot_num =on_pp.pgp_treedbh_ht.plot_num
+    temp_quicc.mv_on_tree_doublons
 
 UNION ALL
 

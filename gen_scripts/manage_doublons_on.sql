@@ -16,7 +16,8 @@ DROP MATERIALIZED VIEW IF EXISTS temp_quicc.mv_on_tree_doublons;
 
 CREATE MATERIALIZED VIEW temp_quicc.mv_on_tree_doublons AS
 SELECT row_number() OVER (PARTITION BY plot_id, tree_id, year_measured) AS rid, * FROM(
-SELECT DISTINCT 
+SELECT DISTINCT
+	boreal_psp_treedbh_ht.plot_num,
 	CAST(concat_ws('-',boreal_psp_treedbh_ht.plot_num, boreal_psp_treedbh_ht.subplot_id) AS character varying(20)) AS plot_id,
 	CAST(boreal_psp_treedbh_ht.tree_id AS character varying(5)) AS tree_id,
 	boreal_psp_treedbh_ht.obs_year AS year_measured,
@@ -41,6 +42,7 @@ FROM on_pp.boreal_psp_treedbh_ht
 UNION ALL
 
 SELECT DISTINCT 
+	glsl_psp_trees_dbh_ht.plotname,
 	CAST(replace(concat_ws('-',glsl_psp_trees_dbh_ht.plotname,glsl_psp_trees_dbh_ht.gpnum), ' ', '') AS character varying(20)) AS plot_id,
 	CAST(glsl_psp_trees_dbh_ht.treeid AS character varying(5)) AS tree_id,
 	CAST(date_part('year'::text, glsl_psp_trees_dbh_ht.msrdate::date) AS integer) AS year_measured,
@@ -67,6 +69,7 @@ FROM on_pp.glsl_psp_trees_dbh_ht
 UNION ALL
 
 SELECT DISTINCT 
+	pgp_treedbh_ht.plot_num,
 	CAST(concat_ws('-',pgp_treedbh_ht.plot_num,pgp_treedbh_ht.subplot_id) AS character varying(20)) AS plot_id,
 	CAST(pgp_treedbh_ht.tree_id AS character varying(5)) AS tree_id,
 	pgp_treedbh_ht.obs_year AS year_measured,
