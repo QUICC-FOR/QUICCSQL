@@ -223,84 +223,23 @@ UNION ALL
 -- Permanent sample plots from Ontario---
 -----------------------------------------------
 
------------------------------------------
------------Ontario Boreal Plots----------
------------------------------------------
-
-
-SELECT DISTINCT 
-	CAST(concat_ws('-',boreal_psp_treedbh_ht.plot_num, boreal_psp_treedbh_ht.subplot_id) AS character varying(20)) AS plot_id,
-	CAST(boreal_psp_treedbh_ht.tree_id AS character varying(5)) AS tree_id,
-	boreal_psp_treedbh_ht.obs_year AS year_measured,
-	CAST(max(boreal_psp_treedbh_ht.tree_spec) AS character varying(10)) AS species_code,
-	avg(boreal_psp_treedbh_ht.ht_total) AS height,
-	avg(temp_quicc.conv_cm_to_mm(boreal_psp_treedbh_ht.dbh)) AS dbh,
-	CAST(NULL AS integer) age,
-	-- NULL AS sun_access,
-	-- NULL AS position_canopy,
-	NULL AS height_id_method,
-	NULL AS in_macroplot,
-	NULL AS in_subplot,
-	NULL AS is_planted, --CAST(boreal_psp_treedbh_ht.origin  AS character varying(5)) AS is_planted, -- prob, this field is producing doublons !!
-	NULL AS is_dead, -- CAST(boreal_psp_treedbh_ht.status  AS character varying(5)) AS is_dead,
-	'on_pp_boreal' AS source_db
-FROM on_pp.boreal_psp_treedbh_ht
-GROUP BY 
-plot_id, tree_id, year_measured, age, height_id_method, in_macroplot, in_subplot, is_planted, is_dead
-
-
-
------------------------------------------
-------------Ontario GLSL Plots-----------
------------------------------------------
-
-UNION ALL
-
-SELECT DISTINCT 
-	CAST(replace(concat_ws('-',glsl_psp_trees_dbh_ht.plotname,glsl_psp_trees_dbh_ht.gpnum), ' ', '') AS character varying(20)) AS plot_id,
-	CAST(glsl_psp_trees_dbh_ht.treeid AS character varying(5)) AS tree_id,
-	CAST(date_part('year'::text, glsl_psp_trees_dbh_ht.msrdate::date) AS integer) AS year_measured,
-	CAST(glsl_psp_trees_dbh_ht.speccode AS character varying(10)) AS species_code,
-	avg(glsl_psp_trees_dbh_ht.httot) AS height,
-	avg(temp_quicc.conv_cm_to_mm(glsl_psp_trees_dbh_ht.dbh)) AS dbh,
-	CAST(NULL AS integer) AS age,
-	-- NULL AS sun_access,
-	-- NULL AS position_canopy,
-	NULL AS height_id_method,
-	NULL AS in_macroplot,
-	NULL AS in_subplot,
-	CAST(glsl_psp_trees_dbh_ht.lcr  AS character varying(5)) AS is_planted, -- prob, this field is producing doublons !!
-	CAST(glsl_psp_trees_dbh_ht.treestatuscode AS character varying(5)) AS is_dead,
-	'on_pp_glsl' AS source_db
-FROM on_pp.glsl_psp_trees_dbh_ht
-GROUP BY 
-plot_id, tree_id, year_measured, species_code, age, height_id_method, in_macroplot, in_subplot, is_planted, is_dead
--- LIMIT 50
-
------------------------------------------
------------Ontario PGP Plots-------------
------------------------------------------
-
-UNION ALL
-
-SELECT DISTINCT 
-	CAST(concat_ws('-',pgp_treedbh_ht.plot_num,pgp_treedbh_ht.subplot_id) AS character varying(20)) AS plot_id,
-	CAST(pgp_treedbh_ht.tree_id AS character varying(5)) AS tree_id,
-	pgp_treedbh_ht.obs_year AS year_measured,
-	CAST(pgp_treedbh_ht.tree_spec AS character varying(10)) AS species_code,
-	pgp_treedbh_ht.ht_total AS height,
-	temp_quicc.conv_cm_to_mm(pgp_treedbh_ht.dbh) AS dbh,
-	CAST(NULL AS integer) AS age,
-	-- NULL AS sun_access,
-	-- NULL AS position_canopy,
-	NULL AS height_id_method,
-	NULL AS in_macroplot,
-	NULL AS in_subplot,
-	CAST(pgp_treedbh_ht.origin  AS character varying(5)) AS is_planted,
-	CAST(pgp_treedbh_ht.status AS character varying(5)) AS is_dead,
-	'on_pp_pgp' AS source_db
-FROM on_pp.pgp_treedbh_ht
--- LIMIT 50
+SELECT DISTINCT
+	plot_id,
+	CAST(concat_ws('-',mv_on_tree_doublons.rid,mv_on_tree_doublons.tree_id :: char(1)) AS character varying(10)) AS tree_id,
+	year_measured,
+	species_code,
+	height,
+	dbh,
+	age,
+	sun_access,
+	position_canopy,
+	height_id_method,
+	in_macroplot,
+	in_subplot,
+	is_planted, -- prob, this field is producing doublons !!
+	is_dead,
+	source_db
+FROM temp_quicc.mv_on_tree_doublons
 
 UNION ALL
 

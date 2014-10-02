@@ -4,7 +4,7 @@
 
 
 -------- WARNING: Setup avg on doublons species, need to see with the ministery (perhaps multistem tree)
--- Setup update statement in order to get different ID_TREE 
+-- Tree_id from doublons will finished with 2;
 -- Doublons on DBH, HEIGHT, SPE_CODE
 
 
