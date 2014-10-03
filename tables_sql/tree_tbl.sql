@@ -292,8 +292,8 @@ SELECT DISTINCT
 		rdb_quicc.plot_info.plot_id,
 		temp_quicc.mv_tree.year_measured,
 		temp_quicc.get_new_spcode(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.species_code),
-		temp_quicc.get_height_method_tree(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.height_id_method, temp_quicc.flt_height(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.height)),
-		rdb_quicc.tree_info.tree_id
+		rdb_quicc.tree_info.tree_id,
+		temp_quicc.get_height_method_tree(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.height_id_method, temp_quicc.flt_height(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.height))
 	FROM temp_quicc.mv_tree
 	RIGHT OUTER JOIN rdb_quicc.plot_info ON temp_quicc.mv_tree.plot_id = rdb_quicc.plot_info.org_plot_id
 		AND temp_quicc.mv_tree.source_db = rdb_quicc.plot_info.org_db_loc 

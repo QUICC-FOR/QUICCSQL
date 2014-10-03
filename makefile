@@ -9,6 +9,7 @@ ARCHI = archi_sql
 SP = ref_species_R
 FUNC = func_sql
 REF = ref_tbl_sql
+GEN = gen_scripts
 
 ##################################################
 ## Prepare schema, reference tables and functions
@@ -54,6 +55,9 @@ elev:
 plot_tbl:
 	psql  -U ${PG_USER} -h ${PG_HOST} -p ${PG_PORT} -d ${PG_DB} -c "\i ${SRC}/plot_tbl.sql;"
 
+tree_doublons:
+	psql  -U ${PG_USER} -h ${PG_HOST} -p ${PG_PORT} -d ${PG_DB} -c "\i ${GEN}/manage_doublons_on.sql;"
+
 tree_info_tbl:
 	psql  -U ${PG_USER} -h ${PG_HOST} -p ${PG_PORT} -d ${PG_DB} -c "\i ${SRC}/tree_info_tbl.sql;"
 
@@ -76,7 +80,7 @@ clim_tbl:
 ### General command
 ####################
 
-all: temp_sch rdb_sch functions impl_ref species plot_info_tbl localisation_tbl tree_info_tbl plot_tbl tree_tbl clim_tbl clean
+all: tree_doublons tree_info_tbl plot_tbl clean
 
 clean:
 	vacuumdb  -U ${PG_USER} -h ${PG_HOST} -p ${PG_PORT} -d ${PG_DB} --analyze --verbose
