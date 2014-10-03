@@ -12,10 +12,10 @@
 -----------Ontario Boreal Plots----------
 -----------------------------------------
 
-DROP MATERIALIZED VIEW IF EXISTS temp_quicc.mv_on_tree_doublons;
+DROP MATERIALIZED VIEW IF EXISTS temp_quicc.mv_on_tree_doublons CASCADE;
 
 CREATE MATERIALIZED VIEW temp_quicc.mv_on_tree_doublons AS
-SELECT row_number() OVER (PARTITION BY plot_id, tree_id, year_measured) AS rid, * FROM(
+SELECT row_number() OVER (PARTITION BY plot_id, tree_id, year_measured,species_code) AS rid, * FROM(
 SELECT DISTINCT
 	boreal_psp_treedbh_ht.plot_num,
 	CAST(concat_ws('-',boreal_psp_treedbh_ht.plot_num, boreal_psp_treedbh_ht.subplot_id) AS character varying(20)) AS plot_id,

@@ -7,11 +7,34 @@
 ---------------------------------------
 ---------------------------------------
 
+CREATE OR REPLACE VIEW temp_quicc.mv_tree AS
+
+
+-----------------------------------------------
+-- Permanent sample plots from Ontario---
+-----------------------------------------------
+
+SELECT DISTINCT
+	plot_id,
+	CAST(concat_ws('-',mv_on_tree_doublons.rid,mv_on_tree_doublons.tree_id) AS character varying(10)) AS tree_id,
+	year_measured,
+	species_code,
+	height,
+	dbh,
+	age,
+	height_id_method,
+	in_macroplot,
+	in_subplot,
+	is_planted,
+	is_dead,
+	source_db
+FROM temp_quicc.mv_on_tree_doublons
+
+UNION ALL
+
 ---------------------------------------
 -- Permanent sample plots from Quebec ---
 ---------------------------------------
-
-CREATE OR REPLACE VIEW temp_quicc.mv_tree AS
 
 SELECT DISTINCT CAST(qc_pp.pp_infogen.id_pep AS character varying(20))  AS plot_id,
 	CAST(qc_pp.pp_tiges.no_arbre AS character varying(5)) AS tree_id,
@@ -217,27 +240,6 @@ SELECT DISTINCT
 FROM us_pp.tree
 -- LIMIT 50
 
-UNION ALL
-
------------------------------------------------
--- Permanent sample plots from Ontario---
------------------------------------------------
-
-SELECT DISTINCT
-	plot_id,
-	CAST(concat_ws('-',mv_on_tree_doublons.rid,mv_on_tree_doublons.tree_id :: char(1)) AS character varying(10)) AS tree_id,
-	year_measured,
-	species_code,
-	height,
-	dbh,
-	age,
-	height_id_method,
-	in_macroplot,
-	in_subplot,
-	is_planted, -- prob, this field is producing doublons !!
-	is_dead,
-	source_db
-FROM temp_quicc.mv_on_tree_doublons
 
 UNION ALL
 

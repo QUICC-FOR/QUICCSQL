@@ -101,8 +101,8 @@ UNION ALL
 SELECT DISTINCT
     CAST(mv_on_tree_doublons.plot_id AS character varying(30)) AS plot_id,
     CAST(mv_on_tree_doublons.source_db AS character varying(30)) AS org_db_loc,
-    CAST(mv_on_tree_doublons.species_code AS character varying(10)) AS tree_id,
-    CAST(concat_ws('-',mv_on_tree_doublons.rid,mv_on_tree_doublons.tree_id :: char(1)) AS character varying(10)) AS tree_id
+    CAST(mv_on_tree_doublons.species_code AS character varying(10)) AS species_code,
+    CAST(concat_ws('-',mv_on_tree_doublons.rid,mv_on_tree_doublons.tree_id) AS character varying(10)) AS tree_id
 FROM
     temp_quicc.mv_on_tree_doublons
 
