@@ -231,8 +231,6 @@ SELECT DISTINCT
 	height,
 	dbh,
 	age,
-	sun_access,
-	position_canopy,
 	height_id_method,
 	in_macroplot,
 	in_subplot,

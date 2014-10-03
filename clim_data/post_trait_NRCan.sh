@@ -55,10 +55,11 @@ CREATE OR REPLACE VIEW temp_quicc.range_yrs_clim AS
  SELECT DISTINCT plot.plot_id,
     localisation.latitude,
     localisation.longitude,
-    plot.year_measured AS year_max,
-    plot.year_measured - 16 AS year_min
+    max(plot.year_measured) AS year_max,
+    min(plot.year_measured - 16) AS year_min
    FROM rdb_quicc.localisation
-  RIGHT OUTER JOIN rdb_quicc.plot ON localisation.plot_id = plot.plot_id;"
+  RIGHT OUTER JOIN rdb_quicc.plot ON localisation.plot_id = plot.plot_id
+  GROUP BY plot_id, latitude,longitude;"
 
 echo "------- SQL:  Import csv file into the temp climatic table..."
 
