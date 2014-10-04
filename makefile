@@ -80,7 +80,7 @@ clim_tbl:
 ### General command
 ####################
 
-all: tree_doublons tree_info_tbl plot_tbl clean
+all: tree_tbl plot_tbl clean
 
 clean:
 	vacuumdb  -U ${PG_USER} -h ${PG_HOST} -p ${PG_PORT} -d ${PG_DB} --analyze --verbose

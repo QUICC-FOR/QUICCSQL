@@ -29,6 +29,7 @@ SELECT DISTINCT
 	is_dead,
 	source_db
 FROM temp_quicc.mv_on_tree_doublons
+WHERE mv_on_tree_doublons.rid = 1
 
 UNION ALL
 
