@@ -138,9 +138,7 @@ SELECT DISTINCT
   september_mean_monthly_pp,
   october_mean_monthly_pp,
   november_mean_monthly_pp,
-  december_mean_monthly_pp,
-  CAST(plot_id AS integer),
-  year_data
+  december_mean_monthly_pp
   FROM(SELECT DISTINCT
   climatic_data.id_plot AS org_plot_id,
   climatic_data.x_longitude,
@@ -211,7 +209,8 @@ SELECT DISTINCT
   september_mean_monthly_pp,
   october_mean_monthly_pp,
   november_mean_monthly_pp,
-  december_mean_monthly_pp
+  december_mean_monthly_pp,
+  CAST(plot_id AS integer)
 FROM
   temp_quicc.climatic_data
 LEFT OUTER JOIN temp_quicc.range_yrs_clim ON

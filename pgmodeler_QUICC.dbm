@@ -244,33 +244,13 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</constraint>
 </table>
 
-<table name="tree_info">
+<sequence name="tree_info_tree_id_seq"
+	 start="1" increment="1"
+	 min-value="0" max-value="2147483647"
+	 cache="1" cycle="false">
 	<schema name="rdb_quicc"/>
 	<role name="&quot;QUICC&quot;"/>
-	<position x="1412.33" y="316"/>
-	<column name="tree_id" not-null="true" default-value="nextval('tree_info_tree_id_seq'::regclass)">
-		<type name="integer"/>
-	</column>
-	<column name="org_tree_id" not-null="true">
-		<type name="character varying" length="20"/>
-	</column>
-	<column name="org_plot_id" not-null="true">
-		<type name="character varying" length="30"/>
-	</column>
-	<column name="org_db_loc" not-null="true">
-		<type name="character varying" length="30"/>
-	</column>
-	<constraint name="tree_info_tbl_pk" type="pk-constr" factor="100" table="rdb_quicc.tree_info">
-		<columns names="tree_id" ref-type="src-columns"/>
-	</constraint>
-	<index name="idx_tree_info_pk" table="rdb_quicc.tree_info"
-		 concurrent="false" unique="false" fast-update="false"
-		 index-type="btree" factor="0">
-		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
-			<column name="tree_id"/>
-		</idxelement>
-	</index>
-</table>
+</sequence>
 
 <table name="plot">
 	<schema name="rdb_quicc"/>
@@ -312,14 +292,6 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</index>
 </table>
 
-<sequence name="plot_info_plot_id_seq"
-	 start="1" increment="1"
-	 min-value="1" max-value="9223372036854775807"
-	 cache="1" cycle="false">
-	<schema name="rdb_quicc"/>
-	<role name="vissst01"/>
-</sequence>
-
 <table name="plot_info">
 	<schema name="rdb_quicc"/>
 	<role name="&quot;QUICC&quot;"/>
@@ -344,6 +316,14 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		</idxelement>
 	</index>
 </table>
+
+<sequence name="plot_info_plot_id_seq"
+	 start="1" increment="1"
+	 min-value="1" max-value="9223372036854775807"
+	 cache="1" cycle="false">
+	<schema name="rdb_quicc"/>
+	<role name="vissst01"/>
+</sequence>
 
 <table name="stand">
 	<schema name="rdb_quicc"/>
@@ -1005,28 +985,33 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</index>
 </table>
 
-<relationship name="plot_has_many_climatic_data" type="rel1n"
-	 src-col-pattern="{sc}_{st}"
-	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
-	 src-fk-pattern="{st}_fk"
-	 col-indexes="67,68" constr-indexes="1"
-	 src-table="rdb_quicc.plot"
-	 dst-table="rdb_quicc.climatic_data"
-	 src-required="true" dst-required="false"
-	upd-action="CASCADE"
-	del-action="CASCADE">
-	<label ref-type="dst-label">
-		<position x="0" y="0"/>
-	</label>
-</relationship>
-
-<sequence name="tree_info_tree_id_seq"
-	 start="1" increment="1"
-	 min-value="0" max-value="2147483647"
-	 cache="1" cycle="false">
+<table name="tree_info">
 	<schema name="rdb_quicc"/>
 	<role name="&quot;QUICC&quot;"/>
-</sequence>
+	<position x="1310.33" y="150"/>
+	<column name="tree_id" not-null="true" default-value="nextval('tree_info_tree_id_seq'::regclass)">
+		<type name="integer"/>
+	</column>
+	<column name="org_tree_id" not-null="true">
+		<type name="character varying" length="20"/>
+	</column>
+	<column name="org_plot_id" not-null="true">
+		<type name="character varying" length="30"/>
+	</column>
+	<column name="org_db_loc" not-null="true">
+		<type name="character varying" length="30"/>
+	</column>
+	<constraint name="tree_info_tbl_pk" type="pk-constr" factor="100" table="rdb_quicc.tree_info">
+		<columns names="tree_id" ref-type="src-columns"/>
+	</constraint>
+	<index name="idx_tree_info_pk" table="rdb_quicc.tree_info"
+		 concurrent="false" unique="false" fast-update="false"
+		 index-type="btree" factor="0">
+		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
+			<column name="tree_id"/>
+		</idxelement>
+	</index>
+</table>
 
 <relationship name="tree_info_has_many_tree" type="rel1n"
 	 src-col-pattern="{sc}_{st}"
@@ -1047,6 +1032,15 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 src-required="false" dst-required="false"
 	upd-action="CASCADE"
 	del-action="CASCADE"/>
+
+<relationship name="plot_info_has_many_climatic_data" type="rel1n"
+	 src-col-pattern="{sc}_{st}"
+	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
+	 src-fk-pattern="{st}_fk"
+	 col-indexes="67" constr-indexes="1"
+	 src-table="rdb_quicc.plot_info"
+	 dst-table="rdb_quicc.climatic_data"
+	 src-required="true" dst-required="false"/>
 
 <permission>
 	<object name="rdb_quicc.ref_tree_height_method" type="table"/>
