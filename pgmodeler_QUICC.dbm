@@ -144,6 +144,13 @@ CAUTION: Do not modify this file unless you know what you are doing.
 			<column name="year_measured"/>
 		</idxelement>
 	</index>
+	<index name="idx_tree_sp" table="rdb_quicc.tree"
+		 concurrent="false" unique="false" fast-update="false"
+		 index-type="btree" factor="0">
+		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
+			<column name="id_spe"/>
+		</idxelement>
+	</index>
 </table>
 
 <table name="class_tree">

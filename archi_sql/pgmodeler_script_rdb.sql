@@ -43,32 +43,6 @@ ALTER SCHEMA rdb_quicc OWNER TO "QUICC";
 SET search_path TO pg_catalog,public,rdb_quicc;
 -- ddl-end --
 
--- object: rdb_quicc.tree_info_tree_id_seq | type: SEQUENCE --
--- DROP SEQUENCE rdb_quicc.tree_info_tree_id_seq;
-CREATE SEQUENCE rdb_quicc.tree_info_tree_id_seq
-	INCREMENT BY 1
-	MINVALUE 0
-	MAXVALUE 2147483647
-	START WITH 1
-	CACHE 1
-	NO CYCLE
-	OWNED BY NONE;
-ALTER SEQUENCE rdb_quicc.tree_info_tree_id_seq OWNER TO "QUICC";
--- ddl-end --
-
--- object: rdb_quicc.plot_info_plot_id_seq | type: SEQUENCE --
--- DROP SEQUENCE rdb_quicc.plot_info_plot_id_seq;
-CREATE SEQUENCE rdb_quicc.plot_info_plot_id_seq
-	INCREMENT BY 1
-	MINVALUE 1
-	MAXVALUE 9223372036854775807
-	START WITH 1
-	CACHE 1
-	NO CYCLE
-	OWNED BY NONE;
-ALTER SEQUENCE rdb_quicc.plot_info_plot_id_seq OWNER TO vissst01;
--- ddl-end --
-
 -- object: rdb_quicc.ref_tree_height_method | type: TABLE --
 -- DROP TABLE rdb_quicc.ref_tree_height_method;
 CREATE TABLE rdb_quicc.ref_tree_height_method(
@@ -150,6 +124,15 @@ CREATE INDEX idx_tree_pk ON rdb_quicc.tree
 	  plot_id ASC NULLS LAST,
 	  tree_id ASC NULLS LAST,
 	  year_measured ASC NULLS LAST
+	);
+-- ddl-end --
+
+-- object: idx_tree_sp | type: INDEX --
+-- DROP INDEX rdb_quicc.idx_tree_sp;
+CREATE INDEX idx_tree_sp ON rdb_quicc.tree
+	USING btree
+	(
+	  id_spe ASC NULLS LAST
 	);
 -- ddl-end --
 
@@ -236,6 +219,19 @@ CREATE TABLE rdb_quicc.ref_stand_disturb_type(
 ALTER TABLE rdb_quicc.ref_stand_disturb_type OWNER TO "QUICC";
 -- ddl-end --
 
+-- object: rdb_quicc.tree_info_tree_id_seq | type: SEQUENCE --
+-- DROP SEQUENCE rdb_quicc.tree_info_tree_id_seq;
+CREATE SEQUENCE rdb_quicc.tree_info_tree_id_seq
+	INCREMENT BY 1
+	MINVALUE 0
+	MAXVALUE 2147483647
+	START WITH 1
+	CACHE 1
+	NO CYCLE
+	OWNED BY NONE;
+ALTER SEQUENCE rdb_quicc.tree_info_tree_id_seq OWNER TO "QUICC";
+-- ddl-end --
+
 -- object: rdb_quicc.plot | type: TABLE --
 -- DROP TABLE rdb_quicc.plot;
 CREATE TABLE rdb_quicc.plot(
@@ -287,6 +283,19 @@ CREATE INDEX idx_plot_info_pk ON rdb_quicc.plot_info
 
 
 ALTER TABLE rdb_quicc.plot_info OWNER TO "QUICC";
+-- ddl-end --
+
+-- object: rdb_quicc.plot_info_plot_id_seq | type: SEQUENCE --
+-- DROP SEQUENCE rdb_quicc.plot_info_plot_id_seq;
+CREATE SEQUENCE rdb_quicc.plot_info_plot_id_seq
+	INCREMENT BY 1
+	MINVALUE 1
+	MAXVALUE 9223372036854775807
+	START WITH 1
+	CACHE 1
+	NO CYCLE
+	OWNED BY NONE;
+ALTER SEQUENCE rdb_quicc.plot_info_plot_id_seq OWNER TO vissst01;
 -- ddl-end --
 
 -- object: rdb_quicc.stand | type: TABLE --
@@ -772,61 +781,61 @@ ON DELETE RESTRICT ON UPDATE CASCADE;
 -- ddl-end --
 
 
--- object: grant_0ae82db779 | type: PERMISSION --
+-- object: grant_11159b9d6e | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.ref_tree_height_method
    TO vissst01;
 -- ddl-end --
 
--- object: grant_5df4d252b4 | type: PERMISSION --
+-- object: grant_fef6298b9b | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.tree_class_info
    TO vissst01;
 -- ddl-end --
 
--- object: grant_93d777a688 | type: PERMISSION --
+-- object: grant_55fad6dd3a | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.tree
    TO vissst01;
 -- ddl-end --
 
--- object: grant_d91c54cbac | type: PERMISSION --
+-- object: grant_ef6d3b2ac4 | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.class_tree
    TO vissst01;
 -- ddl-end --
 
--- object: grant_177ccad7b5 | type: PERMISSION --
+-- object: grant_9ce5ace43e | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.stand_disturbed
    TO vissst01;
 -- ddl-end --
 
--- object: grant_128881c5cd | type: PERMISSION --
+-- object: grant_7790f1c747 | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.ref_stand_disturb_type
    TO vissst01;
 -- ddl-end --
 
--- object: grant_7b0ad37f19 | type: PERMISSION --
+-- object: grant_b2b54531d7 | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.tree_info
    TO vissst01;
 -- ddl-end --
 
--- object: grant_92e43439e1 | type: PERMISSION --
+-- object: grant_418e2a5055 | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.plot
    TO vissst01;
 -- ddl-end --
 
--- object: grant_7ef9060337 | type: PERMISSION --
+-- object: grant_04f22b5b9c | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.plot_info
    TO vissst01;
 -- ddl-end --
 
--- object: grant_c5760071d8 | type: PERMISSION --
+-- object: grant_e8775308e2 | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.stand
    TO vissst01;
