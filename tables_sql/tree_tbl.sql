@@ -277,30 +277,54 @@ FROM domtar_pp.domtar_data;
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 DELETE FROM rdb_quicc.tree;
 INSERT INTO rdb_quicc.tree
-SELECT DISTINCT
+SELECT 
+subquery.plot_id,
+subquery.tree_id,
+subquery.year_measured,
+subquery.species,
+subquery.height,
+subquery.dbh,
+subquery.age,
+subquery.sun_access,
+subquery.position_canopy,
+subquery.height_id_method,
+subquery.in_subplot,
+subquery.in_macroplot,
+subquery.is_planted,
+subquery.is_dead,
+rdb_quicc.plot.plot_id,
+rdb_quicc.plot.year_measured,
+subquery.species_fk,
+subquery.tree_id_fk,
+subquery.height_id_method_fk
+FROM (SELECT DISTINCT
 		rdb_quicc.plot_info.plot_id,
 		rdb_quicc.tree_info.tree_id,
 		temp_quicc.mv_tree.year_measured,
-		temp_quicc.get_new_spcode(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.species_code),
-		temp_quicc.flt_height(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.height),
-		temp_quicc.flt_dbh(temp_quicc.mv_tree.source_db, CAST(round(temp_quicc.mv_tree.dbh) AS integer)),
+		temp_quicc.get_new_spcode(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.species_code)AS species,
+		temp_quicc.flt_height(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.height) AS height,
+		temp_quicc.flt_dbh(temp_quicc.mv_tree.source_db, CAST(round(temp_quicc.mv_tree.dbh) AS integer)) AS dbh,
 		temp_quicc.mv_tree.age AS age,
 		0 AS sun_access,
 		0 AS position_canopy,
-		temp_quicc.get_height_method_tree(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.height_id_method, temp_quicc.flt_height(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.height)),
-		temp_quicc.get_in_subplot(temp_quicc.mv_tree.source_db, temp_quicc.flt_dbh(temp_quicc.mv_tree.source_db, CAST(round(temp_quicc.mv_tree.dbh) AS integer))),
+		temp_quicc.get_height_method_tree(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.height_id_method, temp_quicc.flt_height(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.height)) AS height_id_method,
+		temp_quicc.get_in_subplot(temp_quicc.mv_tree.source_db, temp_quicc.flt_dbh(temp_quicc.mv_tree.source_db, CAST(round(temp_quicc.mv_tree.dbh) AS integer))) AS in_subplot,
 		false AS in_macroplot,
 		false AS is_planted,
-		temp_quicc.get_tree_state(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.is_dead),
-		rdb_quicc.plot_info.plot_id,
-		temp_quicc.mv_tree.year_measured,
-		temp_quicc.get_new_spcode(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.species_code),
-		rdb_quicc.tree_info.tree_id,
-		temp_quicc.get_height_method_tree(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.height_id_method, temp_quicc.flt_height(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.height))
+		temp_quicc.get_tree_state(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.is_dead) AS is_dead,
+		temp_quicc.get_new_spcode(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.species_code) AS species_fk,
+		rdb_quicc.tree_info.tree_id AS tree_id_fk,
+		temp_quicc.get_height_method_tree(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.height_id_method, temp_quicc.flt_height(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.height)) AS height_id_method_fk
 	FROM temp_quicc.mv_tree
 	RIGHT OUTER JOIN rdb_quicc.plot_info ON temp_quicc.mv_tree.plot_id = rdb_quicc.plot_info.org_plot_id
 		AND temp_quicc.mv_tree.source_db = rdb_quicc.plot_info.org_db_loc 
 	RIGHT OUTER JOIN rdb_quicc.tree_info ON temp_quicc.mv_tree.tree_id = rdb_quicc.tree_info.org_tree_id
 		AND temp_quicc.mv_tree.source_db = rdb_quicc.tree_info.org_db_loc AND temp_quicc.mv_tree.plot_id = rdb_quicc.tree_info.org_plot_id
-	WHERE temp_quicc.get_new_spcode(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.species_code) IS NOT NULL;
+	WHERE temp_quicc.get_new_spcode(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.species_code) IS NOT NULL) AS subquery
+	RIGHT OUTER JOIN rdb_quicc.plot ON subquery.plot_id = rdb_quicc.plot.plot_id
+		AND subquery.year_measured = rdb_quicc.plot.year_measured
+	WHERE 
+	subquery.plot_id IS NOT NULL AND
+	subquery.tree_id IS NOT NULL AND
+	subquery.year_measured IS NOT NULL;
 REINDEX TABLE rdb_quicc.tree;
