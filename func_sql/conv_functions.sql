@@ -89,10 +89,15 @@ $$ LANGUAGE plpgsql;--
     Returns:      double
 */
 
-CREATE OR REPLACE FUNCTION temp_quicc.get_surf(rad double precision)
+CREATE OR REPLACE FUNCTION temp_quicc.get_surf(metric double precision, type_metric character)
 RETURNS double precision AS $$
 BEGIN
-    RETURN (rad)^2*pi();
+CASE 
+WHEN type_metric = 'radius' THEN
+    RETURN (metric)^2*pi();
+WHEN type_metric = 'diameter' THEN 
+    RETURN (metric/2)^2*pi();
+END CASE;
 END;
 $$
 LANGUAGE plpgsql;
