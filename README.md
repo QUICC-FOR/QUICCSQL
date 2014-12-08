@@ -22,13 +22,13 @@ Work-in-progress...
 
 - [ ] Some code from NB are missing (**Need to be checked**)
 
-#### Filters:
+## Filters:
 
-**New-Brunswick:**
+### New-Brunswick
 
 * Remove all plots with no year of measurement (`NB`)
 
-**Location table:**
+### All DBs
 
  * Coordinates taken on the last measurement
  * Field `coord_geom` is not empty
