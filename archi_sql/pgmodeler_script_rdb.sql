@@ -644,95 +644,6 @@ ON DELETE CASCADE ON UPDATE CASCADE;
 -- ddl-end --
 
 
--- object: rdb_quicc.climatic_data | type: TABLE --
--- DROP TABLE rdb_quicc.climatic_data;
-CREATE TABLE rdb_quicc.climatic_data(
-	plot_id integer NOT NULL,
-	year_clim integer NOT NULL,
-	mean_diurnal_range real,
-	isothermality real,
-	temp_seasonality real,
-	max_temp_warmest_period real,
-	min_temp_coldest_period real,
-	temp_annual_range real,
-	mean_temperatre_wettest_quarter real,
-	mean_temp_driest_quarter real,
-	mean_temp_warmest_quarter real,
-	mean_temp_coldest_quarter real,
-	annual_pp real,
-	pp_wettest_period real,
-	pp_driest_period real,
-	pp_seasonality real,
-	pp_wettest_quarter real,
-	pp_driest_quarter real,
-	pp_warmest_quarter real,
-	pp_coldest_quarter real,
-	julian_day_number_start_growing_season real,
-	julian_day_number_at_end_growing_season real,
-	number_days_growing_season real,
-	total_pp_for_period_1 real,
-	total_pp_for_period_3 real,
-	gdd_above_base_temp_for_period_3 real,
-	annual_mean_temp real,
-	annual_min_temp real,
-	annual_max_temp real,
-	mean_temp_for_period_3 real,
-	temp_range_for_period_3 real,
-	january_mean_monthly_min_temp real,
-	february_mean_monthly_min_temp real,
-	march_mean_monthly_min_temp real,
-	april_mean_monthly_min_temp real,
-	may_mean_monthly_min_temp real,
-	june_mean_monthly_min_temp real,
-	july_mean_monthly_min_temp real,
-	august_mean_monthly_min_temp real,
-	september_mean_monthly_min_temp real,
-	october_mean_monthly_min_temp real,
-	november_mean_monthly_min_temp real,
-	december_mean_monthly_min_temp real,
-	january_mean_monthly_max_temp real,
-	february_mean_monthly_max_temp real,
-	march_mean_monthly_max_temp real,
-	april_mean_monthly_max_temp real,
-	may_mean_monthly_max_temp real,
-	june_mean_monthly_max_temp real,
-	july_mean_monthly_max_temp real,
-	august_mean_monthly_max_temp real,
-	september_mean_monthly_max_temp real,
-	october_mean_monthly_max_temp real,
-	november_mean_monthly_max_temp real,
-	december_mean_monthly_max_temp real,
-	january_mean_monthly_pp real,
-	february_mean_monthly_pp real,
-	march_mean_monthly_pp real,
-	april_mean_monthly_pp real,
-	may_mean_monthly_pp real,
-	june_mean_monthly_pp real,
-	july_mean_monthly_pp real,
-	august_mean_monthly_pp real,
-	september_mean_monthly_pp real,
-	october_mean_monthly_pp real,
-	november_mean_monthly_pp real,
-	december_mean_monthly_pp real,
-	plot_id_plot_info integer NOT NULL,
-	CONSTRAINT clim_tbl_pk PRIMARY KEY (plot_id,year_clim)
-
-);
--- ddl-end --
--- object: idx_clim_data_pk | type: INDEX --
--- DROP INDEX rdb_quicc.idx_clim_data_pk;
-CREATE INDEX idx_clim_data_pk ON rdb_quicc.climatic_data
-	USING btree
-	(
-	  plot_id ASC NULLS LAST,
-	  year_clim ASC NULLS LAST
-	);
--- ddl-end --
-
-
-ALTER TABLE rdb_quicc.climatic_data OWNER TO "QUICC";
--- ddl-end --
-
 -- object: rdb_quicc.tree_info | type: TABLE --
 -- DROP TABLE rdb_quicc.tree_info;
 CREATE TABLE rdb_quicc.tree_info(
@@ -773,69 +684,61 @@ ON DELETE CASCADE ON UPDATE CASCADE;
 -- ddl-end --
 
 
--- object: plot_info_fk | type: CONSTRAINT --
--- ALTER TABLE rdb_quicc.climatic_data DROP CONSTRAINT plot_info_fk;
-ALTER TABLE rdb_quicc.climatic_data ADD CONSTRAINT plot_info_fk FOREIGN KEY (plot_id_plot_info)
-REFERENCES rdb_quicc.plot_info (plot_id) MATCH FULL
-ON DELETE RESTRICT ON UPDATE CASCADE;
--- ddl-end --
-
-
--- object: grant_11159b9d6e | type: PERMISSION --
+-- object: grant_07fdcac708 | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.ref_tree_height_method
    TO vissst01;
 -- ddl-end --
 
--- object: grant_fef6298b9b | type: PERMISSION --
+-- object: grant_552c6da362 | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.tree_class_info
    TO vissst01;
 -- ddl-end --
 
--- object: grant_55fad6dd3a | type: PERMISSION --
+-- object: grant_91da650a28 | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.tree
    TO vissst01;
 -- ddl-end --
 
--- object: grant_ef6d3b2ac4 | type: PERMISSION --
+-- object: grant_0143e038de | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.class_tree
    TO vissst01;
 -- ddl-end --
 
--- object: grant_9ce5ace43e | type: PERMISSION --
+-- object: grant_f9d926b4dd | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.stand_disturbed
    TO vissst01;
 -- ddl-end --
 
--- object: grant_7790f1c747 | type: PERMISSION --
+-- object: grant_82c71eda19 | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.ref_stand_disturb_type
    TO vissst01;
 -- ddl-end --
 
--- object: grant_b2b54531d7 | type: PERMISSION --
+-- object: grant_f6ad30e7c7 | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.tree_info
    TO vissst01;
 -- ddl-end --
 
--- object: grant_418e2a5055 | type: PERMISSION --
+-- object: grant_b18cd0b763 | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.plot
    TO vissst01;
 -- ddl-end --
 
--- object: grant_04f22b5b9c | type: PERMISSION --
+-- object: grant_ce2054f894 | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.plot_info
    TO vissst01;
 -- ddl-end --
 
--- object: grant_e8775308e2 | type: PERMISSION --
+-- object: grant_5c6015146c | type: PERMISSION --
 GRANT SELECT,INSERT,UPDATE,DELETE,TRUNCATE,REFERENCES,TRIGGER
    ON TABLE rdb_quicc.stand
    TO vissst01;

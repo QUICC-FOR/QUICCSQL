@@ -15,6 +15,7 @@ DROP FUNCTION IF EXISTS temp_quicc.get_tree_state(org_db character varying(15), 
 DROP FUNCTION IF EXISTS temp_quicc.get_in_subplot(org_db character varying(15), dbh integer) CASCADE;
 DROP FUNCTION IF EXISTS temp_quicc.get_new_spcode(org_db character varying(15), species_code character varying(10)) CASCADE;
 DROP FUNCTION IF EXISTS temp_quicc.get_source_nb_db(id_plot varchar(255)) CASCADE;
+DROP FUNCTION IF EXISTS temp_quicc.get_drainage(drainage_code varchar(10)) CASCADE;
 
 /*  Function:     temp_quicc.flt_dbh(org_db, dbh)
     Description:  Filters on dbh values
