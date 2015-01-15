@@ -1,5 +1,5 @@
 DROP TABLE IF EXISTS rdb_quicc.clim;
-CREATE TABLE rdb_quicc.stm_plots_clim AS (
+CREATE TABLE rdb_quicc.clim AS (
 
 SELECT plot_id, biovar, year_measured, year_clim, ST_Value(rast,coord_postgis,false) AS val
 
@@ -17,9 +17,9 @@ FROM
 
 WHERE year_clim <= year_measured AND year_clim > year_measured-15
 AND ST_Intersects(rast,coord_postgis)
+);
 
-)
-PRIMARY KEY (plot_id,biovar,year_measured);
+ALTER TABLE rdb_quicc.clim ADD CONSTRAINT clim_tbl_pk PRIMARY KEY(plot_id,biovar,year_measured);
 
 CREATE INDEX idx_clim_pk ON rdb_quicc.clim
 USING btree
