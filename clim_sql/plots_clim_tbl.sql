@@ -13,14 +13,13 @@ FROM
 ) As plot_points,
 (
     SELECT * FROM clim_rs.clim_allbiovars
-)
 ) AS clim_rasters
 
 WHERE year_clim <= year_measured AND year_clim > year_measured-15
 AND ST_Intersects(rast,coord_postgis)
 
 )
-CONSTRAINT clim_tbl_pk PRIMARY KEY (plot_id,biovar,year_measured);
+PRIMARY KEY (plot_id,biovar,year_measured);
 
 CREATE INDEX idx_clim_pk ON rdb_quicc.clim
 USING btree
