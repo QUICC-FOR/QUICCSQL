@@ -19,4 +19,14 @@ FROM
 WHERE year_clim <= year_measured AND year_clim > year_measured-15
 AND ST_Intersects(rast,coord_postgis)
 
+)
+CONSTRAINT clim_tbl_pk PRIMARY KEY (plot_id,biovar,year_measured);
+
+CREATE INDEX idx_clim_pk ON rdb_quicc.clim
+USING btree
+(
+  plot_id ASC NULLS LAST,
+  biovar ASC NULLS LAST,
+  year_measured ASC NULLS LAST,
+  year_clim ASC NULLS LAST
 );
