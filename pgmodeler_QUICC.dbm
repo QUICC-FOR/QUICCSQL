@@ -95,6 +95,9 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="year_measured" not-null="true">
 		<type name="integer"/>
 	</column>
+	<column name="subplot_id">
+		<type name="smallint"/>
+	</column>
 	<column name="id_spe" not-null="true">
 		<type name="character varying" length="15"/>
 	</column>
@@ -251,54 +254,6 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	</constraint>
 </table>
 
-<sequence name="tree_info_tree_id_seq"
-	 start="1" increment="1"
-	 min-value="0" max-value="2147483647"
-	 cache="1" cycle="false">
-	<schema name="rdb_quicc"/>
-	<role name="&quot;QUICC&quot;"/>
-</sequence>
-
-<table name="plot">
-	<schema name="rdb_quicc"/>
-	<role name="&quot;QUICC&quot;"/>
-	<position x="517" y="395"/>
-	<column name="plot_id" not-null="true">
-		<type name="integer"/>
-	</column>
-	<column name="year_measured">
-		<type name="integer"/>
-	</column>
-	<column name="macroplot_size">
-		<type name="double precision"/>
-	</column>
-	<column name="plot_size">
-		<type name="double precision"/>
-	</column>
-	<column name="microplot_size">
-		<type name="double precision"/>
-	</column>
-	<column name="has_macroplot">
-		<type name="boolean"/>
-	</column>
-	<column name="is_temp">
-		<type name="boolean"/>
-	</column>
-	<constraint name="plot_tbl_pk" type="pk-constr" factor="100" table="rdb_quicc.plot">
-		<columns names="plot_id,year_measured" ref-type="src-columns"/>
-	</constraint>
-	<index name="idx_plot" table="rdb_quicc.plot"
-		 concurrent="false" unique="false" fast-update="false"
-		 index-type="btree" factor="0">
-		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
-			<column name="plot_id"/>
-		</idxelement>
-		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
-			<column name="year_measured"/>
-		</idxelement>
-	</index>
-</table>
-
 <table name="plot_info">
 	<schema name="rdb_quicc"/>
 	<role name="&quot;QUICC&quot;"/>
@@ -323,6 +278,57 @@ CAUTION: Do not modify this file unless you know what you are doing.
 		</idxelement>
 	</index>
 </table>
+
+<table name="plot">
+	<schema name="rdb_quicc"/>
+	<role name="&quot;QUICC&quot;"/>
+	<position x="505" y="405"/>
+	<column name="plot_id" not-null="true">
+		<type name="integer"/>
+	</column>
+	<column name="subplot_id">
+		<type name="smallint"/>
+	</column>
+	<column name="year_measured">
+		<type name="integer"/>
+	</column>
+	<column name="plot_size">
+		<type name="double precision"/>
+	</column>
+	<column name="saplingplot_size">
+		<type name="double precision"/>
+	</column>
+	<column name="seedlingplot_size">
+		<type name="double precision"/>
+	</column>
+	<column name="is_temp">
+		<type name="boolean"/>
+	</column>
+	<constraint name="plot_tbl_pk" type="pk-constr" factor="100" table="rdb_quicc.plot">
+		<columns names="plot_id,subplot_id,year_measured" ref-type="src-columns"/>
+	</constraint>
+	<index name="idx_plot_pk" table="rdb_quicc.plot"
+		 concurrent="false" unique="false" fast-update="false"
+		 index-type="btree" factor="0">
+		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
+			<column name="plot_id"/>
+		</idxelement>
+		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
+			<column name="subplot_id"/>
+		</idxelement>
+		<idxelement use-sorting="true" nulls-first="false" asc-order="true">
+			<column name="year_measured"/>
+		</idxelement>
+	</index>
+</table>
+
+<sequence name="tree_info_tree_id_seq"
+	 start="1" increment="1"
+	 min-value="0" max-value="2147483647"
+	 cache="1" cycle="false">
+	<schema name="rdb_quicc"/>
+	<role name="&quot;QUICC&quot;"/>
+</sequence>
 
 <sequence name="plot_info_plot_id_seq"
 	 start="1" increment="1"
@@ -435,7 +441,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 src-col-pattern="{sc}_{st}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk"
-	 col-indexes="11,12" constr-indexes="1"
+	 col-indexes="11,12,15" constr-indexes="1"
 	 src-table="rdb_quicc.plot"
 	 dst-table="rdb_quicc.stand"
 	 src-required="true" dst-required="false"
@@ -461,7 +467,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 src-col-pattern="{sc}_{st}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk"
-	 col-indexes="10,11" constr-indexes="2"
+	 col-indexes="10,11,15" constr-indexes="2"
 	 src-table="rdb_quicc.plot"
 	 dst-table="rdb_quicc.class_tree"
 	 src-required="true" dst-required="false"
@@ -472,7 +478,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 src-col-pattern="{sc}_{st}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk"
-	 col-indexes="14,15" constr-indexes="1"
+	 col-indexes="15,16,20" constr-indexes="1"
 	 src-table="rdb_quicc.plot"
 	 dst-table="rdb_quicc.tree"
 	 src-required="true" dst-required="false"
@@ -761,7 +767,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 src-col-pattern="{sc}_{st}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk"
-	 col-indexes="16" constr-indexes="2"
+	 col-indexes="17" constr-indexes="2"
 	 src-table="rdb_quicc.ref_species"
 	 dst-table="rdb_quicc.tree"
 	 src-required="true" dst-required="false"
@@ -785,6 +791,9 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	<column name="org_plot_id" not-null="true">
 		<type name="character varying" length="30"/>
 	</column>
+	<column name="org_subplot_id">
+		<type name="smallint"/>
+	</column>
 	<column name="org_db_loc" not-null="true">
 		<type name="character varying" length="30"/>
 	</column>
@@ -804,7 +813,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 src-col-pattern="{sc}_{st}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk"
-	 col-indexes="17" constr-indexes="3"
+	 col-indexes="18" constr-indexes="3"
 	 src-table="rdb_quicc.tree_info"
 	 dst-table="rdb_quicc.tree"
 	 src-required="true" dst-required="false"/>
@@ -813,7 +822,7 @@ CAUTION: Do not modify this file unless you know what you are doing.
 	 src-col-pattern="{sc}_{st}"
 	 pk-pattern="{dt}_pk" uq-pattern="{dt}_uq"
 	 src-fk-pattern="{st}_fk"
-	 col-indexes="18" constr-indexes="4"
+	 col-indexes="19" constr-indexes="4"
 	 src-table="rdb_quicc.ref_tree_height_method"
 	 dst-table="rdb_quicc.tree"
 	 src-required="false" dst-required="false"

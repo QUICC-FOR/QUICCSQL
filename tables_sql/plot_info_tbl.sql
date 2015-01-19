@@ -75,7 +75,7 @@ UNION ALL
 -----------------------------------------
 
 SELECT DISTINCT
-    CAST(concat_ws('-',boreal_psp_treedbh_ht.plot_num, boreal_psp_treedbh_ht.subplot_id) AS character varying(30)) AS plot_id,
+    CAST(boreal_psp_treedbh_ht.plot_num AS character varying(30)) AS plot_id,
     'on_pp_boreal' :: character varying(30) AS org_db_loc
 FROM
     on_pp.boreal_psp_treedbh_ht
@@ -87,7 +87,7 @@ FROM
 UNION ALL
 
 SELECT DISTINCT
-    CAST(replace(concat_ws('-',glsl_psp_trees_dbh_ht.plotname,glsl_psp_trees_dbh_ht.gpnum), ' ', '') AS character varying(30)) AS plot_id,
+    CAST(replace(glsl_psp_trees_dbh_ht.plotname, ' ', '') AS character varying(30)) AS plot_id,
     'on_pp_glsl' :: character varying(30) AS org_db_loc
 FROM
     on_pp.glsl_psp_trees_dbh_ht
@@ -99,7 +99,7 @@ FROM
 UNION ALL
 
 SELECT DISTINCT
-    CAST(concat_ws('-',pgp_treedbh_ht.plot_num,pgp_treedbh_ht.subplot_id) AS character varying(30)) AS plot_id,
+    CAST(pgp_treedbh_ht.plot_num AS character varying(30)) AS plot_id,
     'on_pp_pgp' :: character varying(30) AS org_db_loc
 FROM
     on_pp.pgp_treedbh_ht
@@ -111,18 +111,17 @@ UNION ALL
 ---------------------------------------
 
 SELECT DISTINCT
-    CAST(concat_ws('-',subplot.statecd,subplot.unitcd,subplot.countycd,subplot.plot,subplot.subp) AS character varying(30)) AS plot_id,
+    CAST(concat_ws('-',statecd,unitcd,countycd,plot) AS character varying(30)) AS plot_id,
     'us_pp' :: character varying(30) AS org_db_loc
   FROM
     us_pp.plot
-INNER JOIN us_pp.subplot ON concat_ws('-',plot.statecd,plot.unitcd,plot.countycd,plot.plot) = concat_ws('-',subplot.statecd,subplot.unitcd,subplot.countycd,subplot.plot)
-WHERE (us_pp.plot.designcd = 1 OR 
-    us_pp.plot.designcd = 314 OR us_pp.plot.designcd = 312 OR 
+WHERE (us_pp.plot.designcd = 1 OR
+    us_pp.plot.designcd = 314 OR us_pp.plot.designcd = 312 OR
     us_pp.plot.designcd = 220 OR us_pp.plot.designcd = 240 OR
     us_pp.plot.designcd = 311 OR us_pp.plot.designcd = 313 OR
     us_pp.plot.designcd = 328 OR us_pp.plot.designcd = 502 OR
     us_pp.plot.designcd = 503 OR us_pp.plot.designcd = 504 OR
-    us_pp.plot.designcd = 505) AND (us_pp.plot.kindcd > 0 AND us_pp.plot.kindcd < 4) AND 
+    us_pp.plot.designcd = 505) AND (us_pp.plot.kindcd > 0 AND us_pp.plot.kindcd < 4) AND
     us_pp.plot.manual >= 1
 
 
