@@ -100,15 +100,15 @@ BEGIN
 
 	IF height IS NOT NULL THEN
 		IF height <= 0 THEN res:= NULL;
-	    	ELSIF (org_db = 'pp_on_boreal' 
+	    	ELSIF (org_db = 'pp_on_boreal'
 		    	OR org_db = 'pp_on_glsl'
-		    	OR org_db = 'pp_on_pgp') 
+		    	OR org_db = 'pp_on_pgp')
 		    	AND height < 12
 	    	THEN res := 'E';
 
-		    ELSIF (org_db = 'pp_on_boreal' 
+		    ELSIF (org_db = 'pp_on_boreal'
 		    	OR org_db = 'pp_on_glsl'
-		    	OR org_db = 'pp_on_pgp') 
+		    	OR org_db = 'pp_on_pgp')
 		    	AND height >= 12
 		    THEN res := 'D';
 
@@ -119,14 +119,14 @@ BEGIN
                 OR org_db = 'domtar_pp'
 		    THEN res := 'D';
 
-		    ELSIF org_db = 'pp_nb_partial_cut' 
+		    ELSIF org_db = 'pp_nb_partial_cut'
 		    	OR org_db = 'pp_nb_YIMO'
 		    	OR org_db = 'pp_nb_regenandthin'
 		    	OR org_db = 'pp_nb_cutandplant'
 		    THEN res := 'U';
-		    
+
 		    ELSIF org_db = 'us_pp' THEN
-		      CASE    
+		      CASE
 		      	WHEN height_id_method='1' THEN res := 'A';
 		      	WHEN height_id_method='2' THEN res := 'B';
 		      	WHEN height_id_method='3' THEN res := 'B';
@@ -145,7 +145,7 @@ LANGUAGE plpgsql;
 
 /*  Function:     public.get_plot_code(PARAM)
     Description:  Transform original code to the surface of the sample plot
-    Affects:      
+    Affects:
     Arguments:    Code
     Returns:      double
 */
@@ -156,27 +156,27 @@ RETURNS numeric AS $$
 DECLARE res numeric;
 BEGIN
      IF org_db = 'qc_pp' THEN
-        CASE    
-        WHEN code='04' OR  code='10' THEN res := temp_quicc.get_surf(11.28); -- m2
+        CASE
+        WHEN code='04' OR  code='10' THEN res := temp_quicc.get_surf(11.28,'radius'); -- m2
         ELSE res := NULL;
         END CASE;
     END IF;
     IF org_db = 'qc_tp2' OR org_db = 'qc_tp3' OR org_db = 'qc_tp4' THEN
         CASE    WHEN code='01' THEN res := NULL; -- Need investigation
-            WHEN code='02' THEN res := temp_quicc.get_surf(5.64);
-            WHEN code='03' THEN res := temp_quicc.get_surf(3.57);
-            WHEN code='04' THEN res := temp_quicc.get_surf(11.28);
+            WHEN code='02' THEN res := temp_quicc.get_surf(5.64,'radius');
+            WHEN code='03' THEN res := temp_quicc.get_surf(3.57,'radius');
+            WHEN code='04' THEN res := temp_quicc.get_surf(11.28,'radius');
             WHEN code='05' THEN res := 200;
-            WHEN code='06' THEN res := temp_quicc.get_surf(5.64);
-            WHEN code='07' THEN res := temp_quicc.get_surf(3.57);
+            WHEN code='06' THEN res := temp_quicc.get_surf(5.64,'radius');
+            WHEN code='07' THEN res := temp_quicc.get_surf(3.57,'radius');
             WHEN code='08' THEN res := NULL;  -- Need investigation
-            WHEN code='09' THEN res := temp_quicc.get_surf(11.28);
+            WHEN code='09' THEN res := temp_quicc.get_surf(11.28,'radius');
             WHEN code='11' THEN res := NULL; -- Need investigation
-            WHEN code='12' THEN res := temp_quicc.get_surf(5.64); -- Need investigation
+            WHEN code='12' THEN res := temp_quicc.get_surf(5.64,'radius'); -- Need investigation
         ELSE res := NULL;
         END CASE;
     END IF;
-    IF org_db = 'nb_pp_partial_cut' OR org_db = 'nb_pp_YIMO' OR org_db = 'nb_pp_regenandthin' OR org_db = 'nb_pp_cutandplant' 
+    IF org_db = 'nb_pp_partial_cut' OR org_db = 'nb_pp_YIMO' OR org_db = 'nb_pp_regenandthin' OR org_db = 'nb_pp_cutandplant'
         THEN
         res := code;
     END IF;
@@ -190,7 +190,7 @@ LANGUAGE plpgsql;
 
 /*  Function:     temp_quicc.get_tree_state(PARAM)
     Description:   Get if the tree is alive or dead
-    Affects:      
+    Affects:
     Arguments:    Code
     Returns:      double
 */
@@ -202,8 +202,8 @@ DECLARE res boolean;
 BEGIN
 -- ALIVE
      IF org_db = 'qc_pp' OR org_db = 'qc_pet2' OR org_db = 'qc_pet3' OR org_db = 'qc_pet4' THEN
-        CASE  
-         WHEN code='10' 
+        CASE
+         WHEN code='10'
             OR  code='12'
             OR  code='30'
             OR  code='32'
@@ -214,7 +214,7 @@ BEGIN
             OR  code='GV'
         THEN res := 0;
 -- DEAD
-        WHEN code='14' 
+        WHEN code='14'
             OR  code='16'
             OR  code='17'
             OR  code='24'
@@ -234,7 +234,7 @@ BEGIN
             OR  code='GM'
         THEN res := 1;
 -- UNKNOW
-        WHEN code='18' 
+        WHEN code='18'
             OR  code='23'
             OR  code='29'
             OR  code='24'
@@ -245,10 +245,10 @@ BEGIN
 
         END CASE;
 ----------------------------------------------------------------------------
-       
+
     ELSIF org_db = 'domtar_pp' THEN
-        CASE  
-        WHEN code='5' 
+        CASE
+        WHEN code='5'
             OR  code='7'
             OR  code='10'
             OR  code='11'
@@ -259,7 +259,7 @@ BEGIN
             OR  code='43'
         THEN res := 0;
 -- DEAD
-        WHEN code='13' 
+        WHEN code='13'
             OR  code='14'
             OR  code='16'
             OR  code='24'
@@ -268,7 +268,7 @@ BEGIN
             OR  code='34'
         THEN res := 1;
 -- UNKNOW
-        WHEN code='19' 
+        WHEN code='19'
             OR  code='25'
             OR  code='26'
             OR  code='29'
@@ -293,28 +293,28 @@ BEGIN
 
 ----------------------------------------------------------------------------
 
-    ELSIF org_db = 'nb_pp_partial_cut' OR org_db = 'nb_pp_YIMO' OR org_db = 'nb_pp_regenandthin' OR org_db = 'nb_pp_cutandplant' 
+    ELSIF org_db = 'nb_pp_partial_cut' OR org_db = 'nb_pp_YIMO' OR org_db = 'nb_pp_regenandthin' OR org_db = 'nb_pp_cutandplant'
 
     THEN
     -- If field is not NULL then tree is dead
     -- '-1' code is unreferenced in code tables
 
-        IF code IS NOT NULL AND code != '0' THEN res:= 1; 
+        IF code IS NOT NULL AND code != '0' THEN res:= 1;
         ELSE res := 0;
         END IF;
-    
+
 ----------------------------------------------------------------------------
 
     ELSIF org_db = 'us_pp' THEN
-        CASE  
-        WHEN code='1' 
+        CASE
+        WHEN code='1'
         THEN res := 0;
 -- DEAD
-        WHEN code='2'  
+        WHEN code='2'
             OR  code='3'
         THEN res := 1;
 -- UNKNOW
-        WHEN code='0' 
+        WHEN code='0'
             OR  code='9'
             OR  code=NULL
         THEN res := NULL;
@@ -326,10 +326,10 @@ BEGIN
 ----------------------------------------------------------------------------
 
     ELSEIF org_db = 'on_pp_boreal' OR org_db = 'on_pp_glsl' OR org_db = 'on_pp_pgp' THEN
-        CASE  
+        CASE
         WHEN code='L'
         OR code='V'
-        OR code='M' 
+        OR code='M'
         OR code='l'
         THEN res := 0;
 -- DEAD
@@ -341,12 +341,12 @@ BEGIN
         OR  code='C'
         THEN res := 1;
 -- UNKNOW
-        WHEN code='E' 
+        WHEN code='E'
         OR  code=NULL
         THEN res := NULL;
 
         ELSE res := NULL;
-        
+
         END CASE;
 
     END IF;
@@ -372,14 +372,14 @@ DECLARE res boolean;
 BEGIN
 
 	IF org_db = 'us_pp' THEN
-    	CASE 
+    	CASE
     		WHEN dbh < 127 THEN res := 1;
     		WHEN dbh >= 127 THEN res := 0;
             ELSE res := NULL;
         END CASE;
 
     ELSIF org_db = 'qc_pp' OR org_db = 'qc_pet2' OR org_db = 'qc_pet3' OR org_db = 'qc_pet4' OR org_db ='domtar_pp' THEN res:= 0;
-    
+
     ELSIF org_db = 'nb_pp_partial_cut' OR org_db = 'nb_pp_YIMO' OR org_db = 'nb_pp_regenandthin' OR org_db = 'nb_pp_cutandplant'  THEN res :=0;
 
     ELSEIF org_db = 'on_pp_boreal' OR org_db = 'on_pp_glsl' OR org_db = 'on_pp_pgp' THEN res :=NULL;
@@ -403,7 +403,7 @@ LANGUAGE plpgsql;
 
 
 /*  Function:     temp_quicc.get_new_spcode(org_db, species_code)
-    Description:  Return the species code specific to the QUICC-FOR database. 
+    Description:  Return the species code specific to the QUICC-FOR database.
     Arguments:    database source, original code of the species
     Returns:      character varying
 */
@@ -414,27 +414,27 @@ DECLARE res character varying(15);
 BEGIN
 
         IF org_db = 'us_pp' THEN
-            EXECUTE 
+            EXECUTE
             format('SELECT ref_species.id_spe FROM rdb_quicc.ref_species WHERE us_code = %L', species_code)
             INTO res;
 
-        ELSIF org_db = 'qc_pp' OR org_db = 'qc_pet2' OR org_db = 'qc_pet3' OR org_db = 'qc_pet4' THEN 
-            EXECUTE 
+        ELSIF org_db = 'qc_pp' OR org_db = 'qc_pet2' OR org_db = 'qc_pet3' OR org_db = 'qc_pet4' THEN
+            EXECUTE
             format('SELECT ref_species.id_spe FROM rdb_quicc.ref_species WHERE qc_code = %L', species_code)
             INTO res;
 
-        ELSIF org_db = 'nb_pp_partial_cut' OR org_db = 'nb_pp_YIMO' OR org_db = 'nb_pp_regenandthin' OR org_db = 'nb_pp_cutandplant'   THEN 
-            EXECUTE 
+        ELSIF org_db = 'nb_pp_partial_cut' OR org_db = 'nb_pp_YIMO' OR org_db = 'nb_pp_regenandthin' OR org_db = 'nb_pp_cutandplant'   THEN
+            EXECUTE
             format('SELECT ref_species.id_spe FROM rdb_quicc.ref_species WHERE nb_code = %L', species_code)
             INTO res;
 
-        ELSIF org_db = 'on_pp_boreal' OR org_db = 'on_pp_glsl' OR org_db = 'on_pp_pgp' THEN 
-            EXECUTE 
+        ELSIF org_db = 'on_pp_boreal' OR org_db = 'on_pp_glsl' OR org_db = 'on_pp_pgp' THEN
+            EXECUTE
             format('SELECT ref_species.id_spe FROM rdb_quicc.ref_species WHERE on_tree_code = %L', species_code)
             INTO res;
 
-        ELSIF org_db = 'domtar_pp' THEN 
-            EXECUTE 
+        ELSIF org_db = 'domtar_pp' THEN
+            EXECUTE
             format('SELECT ref_species.id_spe FROM rdb_quicc.ref_species WHERE qc_code = %L', species_code)
             INTO res;
 
@@ -457,10 +457,10 @@ CREATE OR REPLACE FUNCTION temp_quicc.get_source_nb_db(id_plot varchar(255))
 RETURNS character varying(30) AS $$
 DECLARE datasource character varying(30); res character varying(30);
 BEGIN
-            EXECUTE 
+            EXECUTE
             format('SELECT psp_plots.datasource FROM nb_pp.psp_plots WHERE psp_plots.plot = %L', id_plot)
             INTO datasource;
-        
+
             IF datasource = 'NBCoopYIMO' THEN res := 'nb_pp_YIMO';
             ELSIF datasource = 'NBCoopCutAndPlant' THEN res := 'nb_pp_cutandplant';
             ELSIF datasource = 'NBCoopRegenAndThin' THEN res :=  'nb_pp_regenandthin';

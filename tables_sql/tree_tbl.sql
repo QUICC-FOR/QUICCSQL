@@ -18,6 +18,7 @@ SELECT DISTINCT
 	plot_id,
 	CAST(concat_ws('-',mv_on_tree_doublons.rid,mv_on_tree_doublons.tree_id) AS character varying(10)) AS tree_id,
 	year_measured,
+	subplot_id,
 	species_code,
 	height,
 	dbh,
@@ -40,8 +41,9 @@ UNION ALL
 SELECT DISTINCT CAST(qc_pp.pp_infogen.id_pep AS character varying(20))  AS plot_id,
 	CAST(qc_pp.pp_tiges.no_arbre AS character varying(5)) AS tree_id,
 	CAST(date_part('year'::text, qc_pp.pp_infogen.date_sond::date) AS integer) AS year_measured,
+	CAST(0 AS smallint) AS subplot_id,
 	CAST(qc_pp.pp_tiges.essence AS character varying(10)) AS species_code,
-	temp_quicc.conv_dm_to_m(CAST(qc_pp.pp_etudarbr.hauteur AS integer)) AS height, 
+	temp_quicc.conv_dm_to_m(CAST(qc_pp.pp_etudarbr.hauteur AS integer)) AS height,
 	CAST(qc_pp.pp_tiges.dhpmm AS integer) AS dbh,
 	CAST(qc_pp.pp_etudarbr.age AS integer)  AS age,
 	-- CAST(qc_pp.pp_etudarbr.ensoleil AS character varying(5)) AS sun_access,
@@ -66,6 +68,7 @@ UNION ALL
 SELECT DISTINCT CAST(qc_tp.infogen_pet2.id_pet AS character varying(20)) AS plot_id,
 	CAST(qc_tp.etudarbr_pet2.no_arbre AS character varying(5)) AS tree_id,
 	CAST(date_part('year'::text, infogen_pet2.date_sond::date) AS integer) AS year_measured,
+	CAST(0 AS smallint) AS subplot_id,
 	CAST(qc_tp.etudarbr_pet2.essence AS character varying(10)) AS species_code,
 	temp_quicc.conv_dm_to_m(CAST(qc_tp.etudarbr_pet2.hauteur AS integer)) AS height,
 	CAST(qc_tp.etudarbr_pet2.dhpmm AS integer) AS dbh,
@@ -87,6 +90,7 @@ UNION ALL
 SELECT DISTINCT CAST(qc_tp.infogen_pet3.id_pet AS character varying(20)) AS plot_id,
 	CAST(qc_tp.etudarbr_pet3.no_arbre AS character varying(5)) AS tree_id,
 	CAST(date_part('year'::text, infogen_pet3.date_sond::date) AS integer) AS year_measured,
+	CAST(0 AS smallint) AS subplot_id,
 	CAST(qc_tp.etudarbr_pet3.essence AS character varying(10)) AS species_code,
 	temp_quicc.conv_dm_to_m(CAST(qc_tp.etudarbr_pet3.hauteur AS integer)) AS height,
 	CAST(qc_tp.etudarbr_pet3.dhpmm AS integer) AS dbh,
@@ -98,7 +102,7 @@ SELECT DISTINCT CAST(qc_tp.infogen_pet3.id_pet AS character varying(20)) AS plot
 	NULL AS in_subplot,
 	CAST(NULL AS character varying(5)) AS is_planted,
 	NULL :: character varying(5) AS is_dead,
-	'qc_pet3' AS source_db 
+	'qc_pet3' AS source_db
 FROM qc_tp.etudarbr_pet3 LEFT OUTER JOIN qc_tp.infogen_pet3 ON qc_tp.etudarbr_pet3.id_pet_mes = qc_tp.infogen_pet3.id_pet_mes
 -- LIMIT 50
 
@@ -107,6 +111,7 @@ UNION ALL
 SELECT DISTINCT CAST(qc_tp.infogen_pet4.id_pet AS character varying(20)) AS plot_id,
 	CAST(qc_tp.etudarbr_pet4.no_arbre AS character varying(5)) AS tree_id,
 	CAST(date_part('year'::text, infogen_pet4.date_sond::date) AS integer) AS year_measured,
+	CAST(0 AS smallint) AS subplot_id,
 	CAST(qc_tp.etudarbr_pet4.essence AS character varying(10)) AS species_code,
 	temp_quicc.conv_dm_to_m(CAST(qc_tp.etudarbr_pet4.hauteur AS integer)) AS height,
 	CAST(qc_tp.etudarbr_pet4.dhpmm AS integer) AS dbh,
@@ -131,6 +136,7 @@ UNION ALL
 SELECT DISTINCT CAST(nb_pp.psp_plots_yr.plot AS character varying(20)) AS plot_id,
 	CAST(nb_pp.psp_tree_partialcut.treenum AS character varying(5)) AS tree_id,
 	CAST(nb_pp.psp_plots_yr.year  AS integer) AS year_measured,
+	CAST(0 AS smallint) AS subplot_id,
 	CAST(nb_pp.psp_tree_partialcut.species AS character varying(10)) AS species_code,
 	temp_quicc.conv_cm_to_m(nb_pp.psp_tree_partialcut.totalHt) AS height,
 	nb_pp.psp_tree_partialcut.dbh AS dbh, -- cm
@@ -143,7 +149,7 @@ SELECT DISTINCT CAST(nb_pp.psp_plots_yr.plot AS character varying(20)) AS plot_i
 	CAST(NULL AS character varying(5)) AS is_planted,
 	nb_pp.psp_tree_partialcut.cause AS is_dead,
 	'nb_pp_partial_cut' AS source_db
-FROM nb_pp.psp_plots_yr 
+FROM nb_pp.psp_plots_yr
 LEFT OUTER JOIN nb_pp.psp_tree_partialcut ON nb_pp.psp_plots_yr.remeasid = nb_pp.psp_tree_partialcut.remeasid
 -- LIMIT 50
 
@@ -152,6 +158,7 @@ UNION ALL
 SELECT DISTINCT CAST(nb_pp.psp_plots_yr.plot AS character varying(20)) AS plot_id,
 	CAST(nb_pp.psp_tree_yimo.treenum AS character varying(5)) AS tree_id,
 	CAST(nb_pp.psp_plots_yr.year  AS integer) AS year_measured,
+	CAST(0 AS smallint) AS subplot_id,
 	CAST(nb_pp.psp_tree_yimo.species AS character varying(10)) AS species_code,
 	CAST(NULL AS double precision) AS height,
 	nb_pp.psp_tree_yimo.dbh AS dbh,
@@ -164,7 +171,7 @@ SELECT DISTINCT CAST(nb_pp.psp_plots_yr.plot AS character varying(20)) AS plot_i
 	CAST(NULL AS character varying(5)) AS is_planted,
 	nb_pp.psp_tree_yimo.cause AS is_dead,
 	'nb_pp_YIMO' AS source_db
-FROM nb_pp.psp_plots_yr 
+FROM nb_pp.psp_plots_yr
 LEFT OUTER JOIN nb_pp.psp_tree_yimo ON nb_pp.psp_plots_yr.remeasid = nb_pp.psp_tree_yimo.remeasid
 
 -- Uncomment the line below for smallest query (1000 records)
@@ -175,6 +182,7 @@ UNION ALL
 SELECT DISTINCT CAST(nb_pp.psp_plots_yr.plot AS character varying(20)) AS plot_id,
 	CAST(nb_pp.psp_tree_regenandthin.treenum AS character varying(5)) AS tree_id,
 	CAST(nb_pp.psp_plots_yr.year  AS integer) AS year_measured,
+	CAST(0 AS smallint) AS subplot_id,
 	CAST(nb_pp.psp_tree_regenandthin.species AS character varying(10)) AS species_code,
 	temp_quicc.conv_cm_to_m(nb_pp.psp_tree_regenandthin.hgt) AS height,
 	nb_pp.psp_tree_regenandthin.dbh AS dbh,
@@ -187,7 +195,7 @@ SELECT DISTINCT CAST(nb_pp.psp_plots_yr.plot AS character varying(20)) AS plot_i
 	CAST(nb_pp.psp_tree_regenandthin.origin AS character varying(5)) AS is_planted,
 	nb_pp.psp_tree_regenandthin.cause AS is_dead,
 		'nb_pp_regenandthin' AS source_db
-FROM nb_pp.psp_plots_yr 
+FROM nb_pp.psp_plots_yr
 LEFT OUTER JOIN nb_pp.psp_tree_regenandthin ON nb_pp.psp_plots_yr.remeasid = nb_pp.psp_tree_regenandthin.remeasid
 -- LIMIT 50
 
@@ -196,6 +204,7 @@ UNION ALL
 SELECT DISTINCT CAST(nb_pp.psp_plots_yr.plot AS character varying(20)) AS plot_id,
 	CAST(nb_pp.psp_tree_cutandplant.treenum AS character varying(5)) AS tree_id,
 	CAST(nb_pp.psp_plots_yr.year  AS integer) AS year_measured,
+	CAST(0 AS smallint) AS subplot_id,
 	CAST(nb_pp.psp_tree_cutandplant.species AS character varying(10)) AS species_code,
 	temp_quicc.conv_cm_to_m(nb_pp.psp_tree_cutandplant.hgt) AS height,
 	nb_pp.psp_tree_cutandplant.dbh AS dbh,
@@ -208,7 +217,7 @@ SELECT DISTINCT CAST(nb_pp.psp_plots_yr.plot AS character varying(20)) AS plot_i
 	CAST(nb_pp.psp_tree_cutandplant.origin AS character varying(5)) AS is_planted,
 	nb_pp.psp_tree_cutandplant.cause AS is_dead,
 	'nb_pp_cutandplant' AS source_db
-FROM nb_pp.psp_plots_yr 
+FROM nb_pp.psp_plots_yr
 LEFT OUTER JOIN nb_pp.psp_tree_cutandplant ON nb_pp.psp_plots_yr.remeasid = nb_pp.psp_tree_cutandplant.remeasid
 -- LIMIT 50
 
@@ -222,14 +231,15 @@ UNION ALL
 ------------Plots FIA Database-----------
 -----------------------------------------
 
-SELECT DISTINCT 
-	CAST(concat_ws('-',statecd,unitcd,countycd,plot,subp) AS character varying(20)) AS plot_id,
+SELECT DISTINCT
+	CAST(concat_ws('-',statecd,unitcd,countycd,plot) AS character varying(20)) AS plot_id,
 	CAST(us_pp.tree.tree  AS character varying(5)) AS tree_id,
 	us_pp.tree.invyr AS year_measured,
+	CAST(subp AS smallint) AS subplot_id,
 	CAST(us_pp.tree.spcd AS character varying(10)) AS species_code,
 	temp_quicc.conv_feet_to_m(us_pp.tree.ht) AS height, ---- WARNING FEETS !!!!!!!!!!!!!!!!
 	temp_quicc.conv_in_to_mm(us_pp.tree.dia) AS dbh, --- WARNING: INCHES !!!!!!!!!!!!!!!!
-	CAST(us_pp.tree.totage AS integer) AS age, 
+	CAST(us_pp.tree.totage AS integer) AS age,
 	-- CAST(us_pp.tree.clightcd AS character varying(5)) AS sun_access,
 	-- CAST(us_pp.tree.cposcd AS character varying(5)) AS position_canopy, -- Core sample (p.123)
 	CAST(us_pp.tree.htcd AS character varying(5)) AS height_id_method, -- Details (p.111)
@@ -251,6 +261,7 @@ UNION ALL
 SELECT DISTINCT CAST(domtar_pp.domtar_data.idpep AS character varying(10))  AS plot_id,
 	CAST(domtar_pp.domtar_data.noarbre AS character varying(5)) AS tree_id,
 	CAST(domtar_pp.domtar_data.annee_sondage AS integer) AS year_measured,
+	CAST(0 AS smallint) AS subplot_id,
 	CAST(domtar_pp.domtar_data.essence AS character varying(10)) AS species_code,
 	CAST(NULL AS double precision) AS height,
 	CAST(domtar_pp.domtar_data.dhpmm AS integer) AS dbh,
@@ -277,10 +288,11 @@ FROM domtar_pp.domtar_data;
 -----------------------------------------------------------------------------------------------------------------------------------------------------------
 DELETE FROM rdb_quicc.tree;
 INSERT INTO rdb_quicc.tree
-SELECT 
+SELECT
 subquery.plot_id,
 subquery.tree_id,
 subquery.year_measured,
+subquery.org_subplot_id,
 subquery.species,
 subquery.height,
 subquery.dbh,
@@ -293,14 +305,16 @@ subquery.in_macroplot,
 subquery.is_planted,
 subquery.is_dead,
 rdb_quicc.plot.plot_id,
-rdb_quicc.plot.year_measured,
+rdb_quicc.plot.subplot_id,
 subquery.species_fk,
 subquery.tree_id_fk,
-subquery.height_id_method_fk
+subquery.height_id_method_fk,
+rdb_quicc.plot.year_measured
 FROM (SELECT DISTINCT
 		rdb_quicc.plot_info.plot_id,
 		rdb_quicc.tree_info.tree_id,
 		temp_quicc.mv_tree.year_measured,
+		rdb_quicc.tree_info.org_subplot_id,
 		temp_quicc.get_new_spcode(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.species_code)AS species,
 		temp_quicc.flt_height(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.height) AS height,
 		temp_quicc.flt_dbh(temp_quicc.mv_tree.source_db, CAST(round(temp_quicc.mv_tree.dbh) AS integer)) AS dbh,
@@ -308,7 +322,7 @@ FROM (SELECT DISTINCT
 		0 AS sun_access,
 		0 AS position_canopy,
 		temp_quicc.get_height_method_tree(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.height_id_method, temp_quicc.flt_height(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.height)) AS height_id_method,
-		temp_quicc.get_in_subplot(temp_quicc.mv_tree.source_db, temp_quicc.flt_dbh(temp_quicc.mv_tree.source_db, CAST(round(temp_quicc.mv_tree.dbh) AS integer))) AS in_subplot,
+		false AS in_subplot,
 		false AS in_macroplot,
 		false AS is_planted,
 		temp_quicc.get_tree_state(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.is_dead) AS is_dead,
@@ -317,13 +331,13 @@ FROM (SELECT DISTINCT
 		temp_quicc.get_height_method_tree(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.height_id_method, temp_quicc.flt_height(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.height)) AS height_id_method_fk
 	FROM temp_quicc.mv_tree
 	RIGHT OUTER JOIN rdb_quicc.plot_info ON temp_quicc.mv_tree.plot_id = rdb_quicc.plot_info.org_plot_id
-		AND temp_quicc.mv_tree.source_db = rdb_quicc.plot_info.org_db_loc 
+		AND temp_quicc.mv_tree.source_db = rdb_quicc.plot_info.org_db_loc
 	RIGHT OUTER JOIN rdb_quicc.tree_info ON temp_quicc.mv_tree.tree_id = rdb_quicc.tree_info.org_tree_id
-		AND temp_quicc.mv_tree.source_db = rdb_quicc.tree_info.org_db_loc AND temp_quicc.mv_tree.plot_id = rdb_quicc.tree_info.org_plot_id
+		AND temp_quicc.mv_tree.source_db = rdb_quicc.tree_info.org_db_loc AND temp_quicc.mv_tree.plot_id = rdb_quicc.tree_info.org_plot_id AND temp_quicc.mv_tree.subplot_id = rdb_quicc.tree_info.org_subplot_id
 	WHERE temp_quicc.get_new_spcode(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.species_code) IS NOT NULL) AS subquery
 	RIGHT OUTER JOIN rdb_quicc.plot ON subquery.plot_id = rdb_quicc.plot.plot_id
 		AND subquery.year_measured = rdb_quicc.plot.year_measured
-	WHERE 
+	WHERE
 	subquery.plot_id IS NOT NULL AND
 	subquery.tree_id IS NOT NULL AND
 	subquery.year_measured IS NOT NULL;

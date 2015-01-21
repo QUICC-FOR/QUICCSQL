@@ -8,7 +8,7 @@ FROM
 
     SELECT DISTINCT plot_id, year_measured, ST_Transform(coord_postgis,4269) as coord_postgis
     FROM rdb_quicc.plot
-    RIGHT JOIN rdb_quicc.localisation USING (plot_id)
+    RIGHT OUTER JOIN rdb_quicc.localisation USING (plot_id)
 
 ) As plot_points,
 (

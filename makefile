@@ -63,7 +63,7 @@ tree_tbl:
 ### General command
 ####################
 
-all: rdb_sch clean temp_sch impl_ref species functions plot_info_tbl localisation_tbl elev plot_tbl tree_doublons tree_info_tbl plot_tbl tree_tbl clean
+all: plot_tbl tree_doublons tree_info_tbl tree_tbl clean
 
 clean:
 	vacuumdb  -U ${PG_USER} -h ${PG_HOST} -p ${PG_PORT} -d ${PG_DB} --analyze --verbose

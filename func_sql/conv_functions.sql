@@ -10,7 +10,7 @@ DROP FUNCTION IF EXISTS temp_quicc.conv_cm_to_mm(x double precision) CASCADE;
 DROP FUNCTION IF EXISTS temp_quicc.conv_dm_to_m(x double precision) CASCADE;
 DROP FUNCTION IF EXISTS temp_quicc.conv_feet_to_m(x double precision) CASCADE;
 DROP FUNCTION IF EXISTS temp_quicc.conv_in_to_mm(x double precision) CASCADE;
-DROP FUNCTION IF EXISTS temp_quicc.get_surf(rad double precision) CASCADE;
+DROP FUNCTION IF EXISTS temp_quicc.get_surf(metric double precision, type_metric character) CASCADE;
 
 /*  Function:     temp_quicc.conv_cm_to_m(value)
     Description:  Conversion function - cm to meters
@@ -92,10 +92,10 @@ $$ LANGUAGE plpgsql;--
 CREATE OR REPLACE FUNCTION temp_quicc.get_surf(metric double precision, type_metric character)
 RETURNS double precision AS $$
 BEGIN
-CASE 
+CASE
 WHEN type_metric = 'radius' THEN
     RETURN (metric)^2*pi();
-WHEN type_metric = 'diameter' THEN 
+WHEN type_metric = 'diameter' THEN
     RETURN (metric/2)^2*pi();
 END CASE;
 END;
