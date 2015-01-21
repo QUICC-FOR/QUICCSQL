@@ -177,7 +177,7 @@ UNION ALL
 -- -- FIA   --
 -- ----------------------------------------------
 
-SELECT DISTINCT
+ SELECT DISTINCT
     CAST(concat_ws('-',us_pp.plot.statecd,us_pp.plot.unitcd,us_pp.plot.countycd,us_pp.plot.plot) AS character varying(20)) AS plot_id,
     CAST(us_pp.subplot.subp AS smallint) AS subplot_id,
     'us_pp' :: character varying(30) AS org_code_db,

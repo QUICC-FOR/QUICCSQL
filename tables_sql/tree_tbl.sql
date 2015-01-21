@@ -9,6 +9,36 @@
 
 CREATE OR REPLACE VIEW temp_quicc.mv_tree AS
 
+-----------------------------------------------
+-- Permanent sample plot from FIA ---
+-----------------------------------------------
+
+-----------------------------------------
+------------Plots FIA Database-----------
+-----------------------------------------
+
+SELECT DISTINCT
+	CAST(concat_ws('-',statecd,unitcd,countycd,plot) AS character varying(20)) AS plot_id,
+	CAST(us_pp.tree.tree  AS character varying(5)) AS tree_id,
+	us_pp.tree.invyr AS year_measured,
+	CAST(subp AS smallint) AS subplot_id,
+	CAST(us_pp.tree.spcd AS character varying(10)) AS species_code,
+	temp_quicc.conv_feet_to_m(us_pp.tree.ht) AS height, ---- WARNING FEETS !!!!!!!!!!!!!!!!
+	temp_quicc.conv_in_to_mm(us_pp.tree.dia) AS dbh, --- WARNING: INCHES !!!!!!!!!!!!!!!!
+	CAST(us_pp.tree.totage AS integer) AS age,
+	-- CAST(us_pp.tree.clightcd AS character varying(5)) AS sun_access,
+	-- CAST(us_pp.tree.cposcd AS character varying(5)) AS position_canopy, -- Core sample (p.123)
+	CAST(us_pp.tree.htcd AS character varying(5)) AS height_id_method, -- Details (p.111)
+	NULL AS in_macroplot,
+	NULL AS in_subplot,
+	NULL AS is_planted,
+	CAST(us_pp.tree.statuscd AS character varying(5)) AS is_dead,
+	'us_pp' AS source_db
+FROM us_pp.tree
+-- LIMIT 50
+
+
+UNION ALL
 
 -----------------------------------------------
 -- Permanent sample plots from Ontario---
@@ -223,36 +253,6 @@ LEFT OUTER JOIN nb_pp.psp_tree_cutandplant ON nb_pp.psp_plots_yr.remeasid = nb_p
 
 UNION ALL
 
------------------------------------------------
--- Permanent sample plot from FIA ---
------------------------------------------------
-
------------------------------------------
-------------Plots FIA Database-----------
------------------------------------------
-
-SELECT DISTINCT
-	CAST(concat_ws('-',statecd,unitcd,countycd,plot) AS character varying(20)) AS plot_id,
-	CAST(us_pp.tree.tree  AS character varying(5)) AS tree_id,
-	us_pp.tree.invyr AS year_measured,
-	CAST(subp AS smallint) AS subplot_id,
-	CAST(us_pp.tree.spcd AS character varying(10)) AS species_code,
-	temp_quicc.conv_feet_to_m(us_pp.tree.ht) AS height, ---- WARNING FEETS !!!!!!!!!!!!!!!!
-	temp_quicc.conv_in_to_mm(us_pp.tree.dia) AS dbh, --- WARNING: INCHES !!!!!!!!!!!!!!!!
-	CAST(us_pp.tree.totage AS integer) AS age,
-	-- CAST(us_pp.tree.clightcd AS character varying(5)) AS sun_access,
-	-- CAST(us_pp.tree.cposcd AS character varying(5)) AS position_canopy, -- Core sample (p.123)
-	CAST(us_pp.tree.htcd AS character varying(5)) AS height_id_method, -- Details (p.111)
-	NULL AS in_macroplot,
-	NULL AS in_subplot,
-	NULL AS is_planted,
-	CAST(us_pp.tree.statuscd AS character varying(5)) AS is_dead,
-	'us_pp' AS source_db
-FROM us_pp.tree
--- LIMIT 50
-
-
-UNION ALL
 
 -----------------------------------------------
 -- Permanent sample plots from DOMTAR---
@@ -333,10 +333,13 @@ FROM (SELECT DISTINCT
 	RIGHT OUTER JOIN rdb_quicc.plot_info ON temp_quicc.mv_tree.plot_id = rdb_quicc.plot_info.org_plot_id
 		AND temp_quicc.mv_tree.source_db = rdb_quicc.plot_info.org_db_loc
 	RIGHT OUTER JOIN rdb_quicc.tree_info ON temp_quicc.mv_tree.tree_id = rdb_quicc.tree_info.org_tree_id
-		AND temp_quicc.mv_tree.source_db = rdb_quicc.tree_info.org_db_loc AND temp_quicc.mv_tree.plot_id = rdb_quicc.tree_info.org_plot_id AND temp_quicc.mv_tree.subplot_id = rdb_quicc.tree_info.org_subplot_id
+		AND temp_quicc.mv_tree.source_db = rdb_quicc.tree_info.org_db_loc
+		AND temp_quicc.mv_tree.plot_id = rdb_quicc.tree_info.org_plot_id
+		AND temp_quicc.mv_tree.subplot_id = rdb_quicc.tree_info.org_subplot_id
 	WHERE temp_quicc.get_new_spcode(temp_quicc.mv_tree.source_db, temp_quicc.mv_tree.species_code) IS NOT NULL) AS subquery
 	RIGHT OUTER JOIN rdb_quicc.plot ON subquery.plot_id = rdb_quicc.plot.plot_id
 		AND subquery.year_measured = rdb_quicc.plot.year_measured
+		AND subquery.org_subplot_id = rdb_quicc.plot.subplot_id
 	WHERE
 	subquery.plot_id IS NOT NULL AND
 	subquery.tree_id IS NOT NULL AND
